@@ -9,7 +9,7 @@ import {
   isValidCreatePassword,
   isValidConfirmPassword,
   isFormComplete,
-} from './path-to-your-validation-utils';
+} from './validationUtils';
 import ButtonFacebook from './ButtonFacebook';
 import ButtonGoogle from './ButtonGoogle';
 import ButtonLinkedIn from './ButtonLinkedIn';
@@ -73,7 +73,7 @@ const YourTargetComponent = () => {
     confirmPassword: '',
   });
 
-  const handleInputChange = (fieldName, value) => {
+  const handleChange = (fieldName, value) => {
     setFormData({
       ...formData,
       [fieldName]: value,
@@ -84,6 +84,14 @@ const YourTargetComponent = () => {
       ...validationErrors,
       [fieldName]: '',
     });
+  };
+  
+  const handleFirstNameBlur = () => {
+    const isValid = isValidFirstName(formData.firstName);
+    setValidationErrors((prevErrors) => ({
+      ...prevErrors,
+      firstName: isValid ? '' : 'Invalid first name.',
+    }));
   };
 
   const handleLastNameBlur = () => {
