@@ -75,77 +75,80 @@ const HomeScreen = () => {
       </Card>
 
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        {/* First Column */}
-        <div>
-          <ButtonTheChallenge />
-          <TextTheChallengeHeader />
-          <TextTheChallengeBody />
-        </div>
+  {/* First Column */}
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <ButtonTheChallenge />
+    <TextTheChallengeHeader />
+    <TextTheChallengeBody />
+  </div>
 
-        {/* Second Column */}
-        <div>
-          <ButtonTheOpportunity />
-          <TextTheOpportunityHeader />
-          <TextTheOpportunityBody />
-        </div>
+  {/* Second Column */}
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <ButtonTheOpportunity />
+    <TextTheOpportunityHeader />
+    <TextTheOpportunityBody />
+  </div>
 
-        {/* Third Column */}
-        <div>
-          <ButtonTheSolution />
-          <TextTheSolutionHeader />
-          <TextTheSolutionBody />
-        </div>
-      </div>
+  {/* Third Column */}
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <ButtonTheSolution />
+    <TextTheSolutionHeader />
+    <TextTheSolutionBody />
+  </div>
+</div>
 
     <div>
       <CardBackground>
-        <CardBackgroundHeader />
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+    <CardBackgroundHeader />
+  </div>
 
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          {/* First Column */}
-          <div>
-            <Circle1>
-              <IconCircle1 />
-            </Circle1>
-            <TextCircle1Header />
-            <TextCircle1Body />
-          </div>
+  {/* First Column */}
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <Circle1>
+      <IconCircle1 />
+    </Circle1>
+    <TextCircle1Header />
+    <TextCircle1Body />
+  </div>
 
-          {/* Second Column */}
-          <div>
-            <Circle2>
-              <IconCircle2 />
-            </Circle2>
-            <TextCircle2Header />
-            <TextCircle2Body />
-          </div>
+  {/* Second Column */}
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <Circle2>
+      <IconCircle2 />
+    </Circle2>
+    <TextCircle2Header />
+    <TextCircle2Body />
+  </div>
 
-          {/* Third Column */}
-          <div>
-            <Circle3>
-              <IconCircle3 />
-            </Circle3>
-            <TextCircle3Header />
-            <TextCircle3Body />
-          </div>
-        </div>
+  {/* Third Column */}
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <Circle3>
+      <IconCircle3 />
+    </Circle3>
+    <TextCircle3Header />
+    <TextCircle3Body />
+  </div>
+</div>
       </CardBackground>
     </div>
 
     <CardFooter>
-      <ImageLogoFooter />
+  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+    <ImageLogoFooter />
+    <div style={{ display: 'flex', alignItems: 'center' }}>
+      <TextFooterContactUs />
+      <IconFooterContactus />
+    </div>
+  </div>
 
-      <div style={{ display: 'flex', alignItems: 'center' }}>
-        <TextFooterContactUs />
-        <IconFooterContactus />
-      </div>
-
-      <div style={{ display: 'flex', alignItems: 'center' }}>
-        <TextFooterTermsOfUse />
-        <VerticalDividerFooter />
-        <TextFooterPrivacyPolicy />
-      </div>
-    </CardFooter>
+  <div style={{ display: 'flex', alignItems: 'center' }}>
+    <TextFooterTermsOfUse />
+    <VerticalDividerFooter />
+    <TextFooterPrivacyPolicy />
+  </div>
+</CardFooter>
   </div>
   );
 };

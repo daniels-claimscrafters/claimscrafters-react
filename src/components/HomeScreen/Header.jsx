@@ -7,7 +7,6 @@ const styles = {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: '0 20px',  // Adjust the padding as needed
     width: '100%',  // Use 100% width to span the entire screen
     height: '139px',
     backgroundColor: '#030303',

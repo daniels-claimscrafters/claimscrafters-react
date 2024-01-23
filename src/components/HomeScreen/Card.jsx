@@ -6,7 +6,7 @@ const styles = {
   cardContainer: {
     top: '785px',
     left: '51px',
-    width: '100%',
+    width: '95%',
     height: '100px',
     backgroundColor: '#023f81',
     borderRadius: '26px',
@@ -14,7 +14,7 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    margin: '10px', // Add margin as needed
+    margin: '10px auto', // Center horizontally with left and right margins
   },
 };
 
