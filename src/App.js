@@ -5,7 +5,7 @@ import HomeScreenPage from './components/HomeScreen/HomeScreenPage';
 import LoginPage from './components/LogIn/LoginPage';
 import SignupPage from './components/SignUp/SignupPage';
 import PMHSPage from './components/ProjectManagementHomeScreen/PMHSPage';
-import ContactUsPage from './components/ContactUs/ContactusPage';
+import ContactusPage from './components/ContactUs/ContactusPage';
 import CUDBPage from './components/ContactUsDialogueBox/CUDBPage';
 import EVDBPage from './components/EmailVerificationDialogueBox/EVDBPage';
 import ForgotPasswordPage from './components/ForgotPassword/ForgotPasswordPage';
@@ -23,7 +23,7 @@ const App = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/pmhs" element={<PMHSPage />} />
-        <Route path="/contactus" element={<ContactUsPage />} />
+        <Route path="/contactus" element={<ContactusPage />} />
         <Route path="/cudb" element={<CUDBPage />} />
         <Route path="/evdb" element={<EVDBPage />} />
         <Route path="/forgotpassword" element={<ForgotPasswordPage />} />
