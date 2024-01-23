@@ -6,6 +6,8 @@ const styles = {
     fontSize: '20px',
     fontFamily: 'Poppins',
     lineHeight: '26px',
+    marginBottom: '10px',
+    maxWidth: '50%',
   },
 };
 

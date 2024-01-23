@@ -8,6 +8,8 @@ const styles = {
     height: '30px',
     backgroundColor: '#c2c2c2',
     borderRadius: '2px',
+    marginRight: '10px',
+    marginLeft: '10px',
   },
 };
 

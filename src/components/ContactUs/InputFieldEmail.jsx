@@ -17,6 +17,7 @@ const styles = {
     fontWeight: 600,
     lineHeight: '21px',
     outline: 'none',
+    marginBottom: '10px'
   },
 };
 

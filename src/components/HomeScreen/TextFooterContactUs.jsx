@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const styles = {
   Text: {
@@ -6,6 +7,7 @@ const styles = {
     fontSize: '18px',
     fontFamily: 'Poppins',
     lineHeight: '23px',
+    cursor: 'pointer', // Add this to indicate it's clickable
   },
 };
 
@@ -14,8 +16,18 @@ const defaultProps = {
 };
 
 const Text = (props) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    // Redirect to /signup
+    navigate('/contactus');
+  };
+
   return (
-    <div style={styles.Text}>
+    <div
+      style={{ ...styles.Text, ...props.style }}
+      onClick={handleClick}
+    >
       {props.text ?? defaultProps.text}
     </div>
   );

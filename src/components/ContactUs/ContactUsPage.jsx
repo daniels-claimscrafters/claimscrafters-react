@@ -26,26 +26,56 @@ import VerticalDividerFooter from './VerticalDividerFooter';
 const ContactUsPage = () => {
   return (
     <div>
-      <ButtonSendMessage />
-      <ButtonSignUp />
-      <CardFooterBackground />
-      <Header />
-      <ImageCaptcha />
-      <ImageFooterLogo />
-      <ImageLogo />
-      <TextMainHeader />
-      <ImageJumbotron />
-      <TextMainBody />
-      <InputFieldName />
-      <TextNameField />
-      <InputFieldEmail />
-      <TextEmailField />
-      <InputFieldMessage />
-      <TextMessageField />
-      <TextSignIn />
-      <TextPrivacyPolicy />
+      <Header>
+        {/* Header content */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <ImageLogo />
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <TextSignIn style={{ marginRight: '10px' }} />
+            <ButtonSignUp />
+          </div>
+        </div>
+      </Header>
+
+      {/* Two columns under Header */}
+      <div style={{ display: 'flex' }}>
+        {/* Left column with ImageJumbotron */}
+        <div style={{ flex: 1 }}>
+          <ImageJumbotron />
+        </div>
+
+        {/* Right column with other elements */}
+<div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+  <TextMainHeader />
+  <TextMainBody />
+
+  <TextNameField />
+  <InputFieldName />
+  
+  <TextEmailField />
+  <InputFieldEmail />
+
+  <TextMessageField />
+  <InputFieldMessage />
+
+  <ImageCaptcha />
+  <ButtonSendMessage />
+</div>
+      </div>
+
+      {/* Elements under two columns and nested inside CardFooterBackground */}
+      <CardFooterBackground>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <ImageFooterLogo />
+      <div style={{ display: 'flex', alignItems: 'center' }}>
       <TextTermsOfUse />
       <VerticalDividerFooter />
+      <TextPrivacyPolicy />
+    </div>
+  </div>
+</CardFooterBackground>
     </div>
   );
 };

@@ -25,8 +25,16 @@ const defaultProps = {
 };
 
 const InputField = (props) => {
+  const { value, onChange, type, text } = props;
+
   return (
-    <input style={styles.Input} placeholder={props.text ?? defaultProps.text} />
+    <input
+      style={styles.Input}
+      type={type || 'text'}  // Default to 'text', but can be overridden for password fields
+      placeholder={text ?? defaultProps.text}
+      value={value}
+      onChange={onChange}
+    />
   );
 };
 

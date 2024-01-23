@@ -4,7 +4,7 @@ const styles = {
   Card: {
     top: '977px',
     left: '0px',
-    width: '1440px',
+    width: '100%',
     height: '118px',
     backgroundColor: '#040000',
   },

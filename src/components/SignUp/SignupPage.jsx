@@ -85,9 +85,10 @@ const YourTargetComponent = () => {
       [fieldName]: '',
     });
   };
-  
+
   const handleFirstNameBlur = () => {
     const isValid = isValidFirstName(formData.firstName);
+    console.log('First Name Validation Result:', isValid);
     setValidationErrors((prevErrors) => ({
       ...prevErrors,
       firstName: isValid ? '' : 'Invalid first name.',
@@ -183,6 +184,9 @@ const YourTargetComponent = () => {
         : 'Confirm password does not match.',
     });
 
+    // Log validation errors
+    console.log('Validation Errors:', validationErrors);
+
     // Check if the form is complete and valid
     const isFormValid =
       isFormComplete(formData) &&
@@ -194,6 +198,9 @@ const YourTargetComponent = () => {
       emailValid &&
       createPasswordValid &&
       confirmPasswordValid;
+
+      // Log isFormValid
+      console.log('Is Form Valid:', isFormValid);
 
       if (isFormValid) {
         try {
@@ -215,7 +222,7 @@ const YourTargetComponent = () => {
     const sendFormDataToBackend = async (formData) => {
       // Implement your logic to send the form data to the backend
       // You can use fetch, axios, or any other method suitable for your backend API
-      const response = await fetch('your_backend_api_endpoint', {
+      const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -228,6 +235,7 @@ const YourTargetComponent = () => {
     };
 
     return (
+      <form onSubmit={handleSubmit}>
       <div>
         <div>
         {/* Header */}
@@ -258,6 +266,8 @@ const YourTargetComponent = () => {
         value={formData.firstName}
         onChange={(e) => handleChange('firstName', e.target.value)}
         onBlur={handleFirstNameBlur}
+        type="text"
+        text="First Name"
       />
       {validationErrors.firstName && (
         <div style={{ color: 'red' }}>{validationErrors.firstName}</div>
@@ -340,6 +350,7 @@ const YourTargetComponent = () => {
       {/* Create a Password */}
       <TextCreateAPassword />
       <InputFieldCAP
+        type="password"
         value={formData.createPassword}
         onChange={(e) => handleChange('createPassword', e.target.value)}
         onBlur={handleCreatePasswordBlur}
@@ -352,6 +363,7 @@ const YourTargetComponent = () => {
       {/* Confirm Password */}
       <TextConfirmPassword />
       <InputFieldCP
+        type="password"
         value={formData.confirmPassword}
         onChange={(e) => handleChange('confirmPassword', e.target.value)}
         onBlur={handleConfirmPasswordBlur}
@@ -383,6 +395,7 @@ const YourTargetComponent = () => {
  </div>
       {/* Rest of your component code */}
     </div>
+    </form>
     );
   };
   
