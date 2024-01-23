@@ -5,7 +5,7 @@ import HomeScreenPage from './components/HomeScreen/HomeScreenPage';
 import LoginPage from './components/LogIn/LoginPage';
 import SignupPage from './components/SignUp/SignupPage';
 import PMHSPage from './components/ProjectManagementHomeScreen/PMHSPage';
-import ContactusPage from './components/ContactUs/ContactusPage';
+import ContactusPage from './components/ContactUs/ContactUsPage';
 import CUDBPage from './components/ContactUsDialogueBox/CUDBPage';
 import EVDBPage from './components/EmailVerificationDialogueBox/EVDBPage';
 import ForgotPasswordPage from './components/ForgotPassword/ForgotPasswordPage';
