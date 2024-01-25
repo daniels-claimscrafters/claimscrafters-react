@@ -25,9 +25,21 @@ const defaultProps = {
   text: 'Full Name',
 };
 
-const InputField = (props) => {
+const InputField = ({ text, value, onChange }) => {
+  const handleChange = (e) => {
+    console.log('InputField value:', e.target.value);
+    if (onChange) {
+      onChange(e.target.value);
+    }
+  };
+
   return (
-    <input style={styles.Input} placeholder={props.text ?? defaultProps.text} />
+    <input
+      style={styles.Input}
+      placeholder={text ?? defaultProps.text}
+      value={value}
+      onChange={handleChange}
+    />
   );
 };
 

@@ -15,7 +15,7 @@ const styles = {
 };
 
 const defaultProps = {
-  image: 'https://assets.api.uizard.io/api/cdn/stream/ea09abfb-efa8-4606-91a7-94e626e90d41.png',
+  image: 'https://assets.api.uizard.io/api/cdn/stream/1183c21e-490a-4068-bb0b-d2fbec3a453b.png',
 }
 
 const Image = (props) => {
