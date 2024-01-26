@@ -18,6 +18,8 @@ const styles = {
     fontWeight: 700,
     lineHeight: '22px',
     outline: 'none',
+    marginTop: '10px',
+    marginBottom: '10px',
   },
 };
 

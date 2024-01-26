@@ -17,6 +17,7 @@ const styles = {
     fontWeight: 500,
     lineHeight: '18px',
     outline: 'none',
+    marginBottom: '10px'
   },
 };
 
@@ -25,15 +26,16 @@ const defaultProps = {
 };
 
 const InputField = (props) => {
-  const { value, onChange, type, text } = props;
+  const { value, onChange, onBlur, text, type } = props;
 
   return (
     <input
       style={styles.Input}
-      type={type || 'text'}  // Default to 'text', but can be overridden for password fields
       placeholder={text ?? defaultProps.text}
       value={value}
       onChange={onChange}
+      onBlur={onBlur}
+      type={type ?? defaultProps.type}
     />
   );
 };

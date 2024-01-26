@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const styles = {
   Button: {
@@ -27,9 +28,17 @@ const defaultProps = {
 };
 
 const Button = (props) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    // Use the navigate function to redirect to the /login route
+    navigate('/signup');
+  };
+
   return (
-    <button style={styles.Button}>
+    <button style={styles.Button} onClick={handleClick}>
       {props.label ?? defaultProps.label}
+      
     </button>
   );
 };

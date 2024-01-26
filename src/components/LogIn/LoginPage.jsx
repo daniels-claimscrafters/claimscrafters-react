@@ -62,12 +62,12 @@ const LogInPage = () => {
 </div>
           <ButtonLogIn />
           <TextOr />
-          <div>
-            <IconGoogle />
-            <IconWindows />
-            <IconLinkedin />
-            <IconFacebook />
-          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-around', gap: '10px' }}>
+  <IconGoogle />
+  <IconWindows />
+  <IconLinkedin />
+  <IconFacebook />
+</div>
         </div>
         <div style={{ marginLeft: '20px', display: 'flex' }}>
           <TextIDHAA />

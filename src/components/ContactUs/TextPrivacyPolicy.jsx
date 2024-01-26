@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const styles = {
   Text: {
@@ -7,6 +8,7 @@ const styles = {
     fontFamily: 'Poppins',
     lineHeight: '23px',
     marginRight: '10px',
+    cursor: 'pointer',
   },
 };
 
@@ -15,8 +17,14 @@ const defaultProps = {
 };
 
 const Text = (props) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    // Use the navigate function to redirect to the /login route
+    navigate('/privacypolicy');
+  };
   return (
-    <div style={styles.Text}>
+    <div style={styles.Text} onClick={handleClick}>
       {props.text ?? defaultProps.text}
     </div>
   );

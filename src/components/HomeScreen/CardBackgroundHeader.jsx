@@ -7,6 +7,7 @@ const styles = {
     fontFamily: 'Work Sans',
     fontWeight: '500',
     lineHeight: '42px',
+    marginTop: '20px',
     marginBottom: '10px',
   },
 };

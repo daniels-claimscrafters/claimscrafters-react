@@ -15,6 +15,7 @@ const styles = {
     borderRadius: '5px',
     boxShadow: '2px 2px 4px rgba(3, 3, 3, 0.1)',
     border: 0,
+    marginRight: '10px',
   },
   Check: {
     display: 'none',

@@ -17,6 +17,7 @@ const styles = {
     fontWeight: 500,
     lineHeight: '18px',
     outline: 'none',
+    marginBottom: '10px',
   },
 };
 
@@ -25,8 +26,16 @@ const defaultProps = {
 };
 
 const InputField = (props) => {
+  const { value, onChange, onBlur, text } = props;
+
   return (
-    <input style={styles.Input} placeholder={props.text ?? defaultProps.text} />
+    <input
+      style={styles.Input}
+      placeholder={text ?? defaultProps.text}
+      value={value}
+      onChange={onChange}
+      onBlur={onBlur}
+    />
   );
 };
 

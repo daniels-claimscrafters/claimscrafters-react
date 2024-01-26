@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const styles = {
   ImageContainer: {
@@ -11,6 +12,7 @@ const styles = {
     backgroundPosition: 'center center',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
+    cursor: 'pointer',
   },
 };
 
@@ -19,11 +21,18 @@ const defaultProps = {
 }
 
 const Image = (props) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    // Use the navigate function to redirect to the /login route
+    navigate('/login');
+  };
   return (
     <div style={{
-      ...styles.ImageContainer,
+      ...styles.ImageContainer, 
       backgroundImage: `url(${props.image ?? defaultProps.image})`,
-    }} />
+    }} onClick={handleClick}/>
+    
   );
 };
 

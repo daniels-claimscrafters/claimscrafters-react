@@ -73,6 +73,8 @@ const YourTargetComponent = () => {
     confirmPassword: '',
   });
 
+  const [isAgreeChecked, setIsAgreeChecked] = useState(false);
+
   const handleChange = (fieldName, value) => {
     setFormData({
       ...formData,
@@ -139,7 +141,14 @@ const YourTargetComponent = () => {
     const isValid = isValidCreatePassword(formData.createPassword);
     setValidationErrors((prevErrors) => ({
       ...prevErrors,
-      createPassword: isValid ? '' : 'Invalid create password.',
+      createPassword: isValid
+        ? ''
+        : (
+          <>
+            Password must be at least 8 characters long and contain at least one<br />
+            uppercase letter, one lowercase letter, one number, and one special character
+          </>
+        ),
     }));
   };
   
@@ -150,7 +159,7 @@ const YourTargetComponent = () => {
     );
     setValidationErrors((prevErrors) => ({
       ...prevErrors,
-      confirmPassword: isValid ? '' : 'Confirm password does not match.',
+      confirmPassword: isValid ? '' : 'Password does not match.',
     }));
   };
 
@@ -197,7 +206,8 @@ const YourTargetComponent = () => {
       phoneValid &&
       emailValid &&
       createPasswordValid &&
-      confirmPasswordValid;
+      confirmPasswordValid &&
+      isAgreeChecked; // Check the checkbox state
 
       // Log isFormValid
       console.log('Is Form Valid:', isFormValid);
@@ -209,6 +219,17 @@ const YourTargetComponent = () => {
     
           // Handle the backend response
           console.log('Backend Response:', response);
+          setFormData({
+            firstName: '',
+            lastName: '',
+            title: '',
+            company: '',
+            phone: '',
+            email: '',
+            createPassword: '',
+            confirmPassword: '',
+          });
+          
         } catch (error) {
           // Handle errors during backend submission
           console.error('Error submitting form to backend:', error);
@@ -242,7 +263,7 @@ const YourTargetComponent = () => {
         <TextHeader />
       </div>
 
-      <div style={{ display: 'flex', justifyContent: 'center', gap: '10px' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', gap: '30px', marginBottom: '20px' }}>
         {/* Social Media Buttons in a line with reduced gap */}
         <ButtonGoogle />
         <ButtonWindows />
@@ -260,7 +281,6 @@ const YourTargetComponent = () => {
   <div>
     <div>
       {/* Full Name */}
-      <IconFirstName />
       <TextFullName />
       <InputFieldFirstName
         value={formData.firstName}
@@ -275,7 +295,6 @@ const YourTargetComponent = () => {
     </div>
     <div>
       {/* Title */}
-      <IconTitle />
       <TextTitle />
       <InputFieldTitle
         value={formData.title}
@@ -288,7 +307,6 @@ const YourTargetComponent = () => {
     </div>
     <div>
       {/* Phone */}
-      <IconPhone />
       <TextPhone />
       <InputFieldPhone
         value={formData.phone}
@@ -309,7 +327,6 @@ const YourTargetComponent = () => {
   <div>
     <div>
       {/* Last Name */}
-      <IconLastName />
       <TextLastName />
       <InputFieldLastName
         value={formData.lastName}
@@ -322,7 +339,6 @@ const YourTargetComponent = () => {
     </div>
     <div>
       {/* Company */}
-      <IconCompany />
       <TextCompany />
       <InputFieldCompany
         value={formData.company}
@@ -335,7 +351,6 @@ const YourTargetComponent = () => {
     </div>
     <div>
       {/* Email */}
-      <IconEmail />
       <TextEmail />
       <InputFieldEmail
         value={formData.email}
@@ -386,7 +401,7 @@ const YourTargetComponent = () => {
             {/* Button Signup */}
             <ButtonSignup />
           </div>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             {/* Text Already Have */}
             <TextAlreadyHave />
             <TextLogIn />

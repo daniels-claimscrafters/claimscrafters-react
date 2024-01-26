@@ -11,6 +11,7 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     margin: '0 auto', // Add this line to center the component horizontally
+    marginBottom: '10px',
   },
   Image: {
     width: '100%',

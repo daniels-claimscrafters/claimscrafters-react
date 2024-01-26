@@ -7,11 +7,12 @@ const styles = {
     fontFamily: 'Poppins',
     lineHeight: '18px',
     textAlign: 'center',
+    marginBottom: '20px',
   },
 };
 
 const defaultProps = {
-  text: 'Enter your details to start valuing your contens',
+  text: 'Enter your details to start valuing your contents',
 };
 
 const Text = (props) => {
