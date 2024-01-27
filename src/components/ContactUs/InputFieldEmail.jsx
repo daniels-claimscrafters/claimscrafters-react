@@ -25,9 +25,27 @@ const defaultProps = {
   text: 'Email address',
 };
 
-const InputField = (props) => {
+const InputField = ({ text, value, onChange, onBlur }) => {
+  const handleChange = (e) => {
+    if (onChange) {
+      onChange(e); // Pass the entire event object
+    }
+  };
+
+  const handleBlur = (e) => {
+    if (onBlur) {
+      onBlur(e); // Pass the entire event object
+    }
+  };
+
   return (
-    <input style={styles.Input} placeholder={props.text ?? defaultProps.text} />
+    <input
+      style={styles.Input}
+      placeholder={text ?? defaultProps.text}
+      value={value ?? ''}
+      onChange={handleChange}
+      onBlur={handleBlur}  // Add onBlur handling
+    />
   );
 };
 

@@ -23,7 +23,7 @@ const Text = (props) => {
 
   const handleClick = () => {
     // Use the navigate function to redirect to the /login route
-    navigate('/privacypolicy');
+    navigate('/TOS');
   };
   return (
     <div style={styles.Text} onClick={handleClick}>

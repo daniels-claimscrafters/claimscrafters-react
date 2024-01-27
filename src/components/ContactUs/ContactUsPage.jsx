@@ -21,10 +21,9 @@ import TextPrivacyPolicy from './TextPrivacyPolicy';
 import TextSignIn from './TextSignIn';
 import TextTermsOfUse from './TextTermsOfUse';
 import VerticalDividerFooter from './VerticalDividerFooter';
+import { isValidFirstName, isValidEmail } from '../../validationUtils';
 
 // Import other components as needed
-
-
 
 const ContactUsPage = () => {
   const [name, setName] = useState('');
@@ -32,21 +31,85 @@ const ContactUsPage = () => {
   const [message, setMessage] = useState('');
   const [formSubmitted, setFormSubmitted] = useState(false);
 
+  const [validationErrors, setValidationErrors] = useState({
+    name: '',
+    email: '',
+    message: '',
+  });
+
   const handleNameChange = (e) => {
     setName(e.target.value);
-    alert('Name Updated: ' + e.target.value);
+    setValidationErrors({ ...validationErrors, name: '' });
   };
-  const handleEmailChange = (e) => setEmail(e.target.value);
-  const handleMessageChange = (e) => setMessage(e.target.value);
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+    setValidationErrors({ ...validationErrors, email: '' });
+  };
+
+  const handleMessageChange = (e) => {
+    setMessage(e.target.value);
+    setValidationErrors({ ...validationErrors, message: '' });
+  };
+
+  const handleNameBlur = () => {
+    const isValid = isValidFirstName(name);
+    setValidationErrors((prevErrors) => ({
+      ...prevErrors,
+      name: isValid ? '' : 'Invalid name.',
+    }));
+  };
+
+  const handleEmailBlur = () => {
+    const isValid = isValidEmail(email);
+    setValidationErrors((prevErrors) => ({
+      ...prevErrors,
+      email: isValid ? '' : 'Invalid email.',
+    }));
+  };
+
+  const handleMessageBlur = () => {
+    const isValid = isValidFirstName(message); // Change this if needed
+    setValidationErrors((prevErrors) => ({
+      ...prevErrors,
+      message: isValid ? '' : 'Invalid message.',
+    }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log('Name:', name);
-    console.log('Email:', email);
-    console.log('Message:', message);
-
     try {
+      // Add your validation checks here before making the API call
+      if (!isValidFirstName(name)) {
+        setValidationErrors((prevErrors) => ({
+          ...prevErrors,
+          name: 'Invalid name.',
+        }));
+        console.error('Invalid name');
+        return;
+      }
+
+      if (!isValidEmail(email)) {
+        setValidationErrors((prevErrors) => ({
+          ...prevErrors,
+          email: 'Invalid email.',
+        }));
+        console.error('Invalid email');
+        return;
+      }
+
+      if (!isValidFirstName(message)) {
+        setValidationErrors((prevErrors) => ({
+          ...prevErrors,
+          message: 'Invalid message.',
+        }));
+        console.error('Invalid message');
+        return;
+      }
+
+      // Add other validation checks as needed
+
       // Make an HTTP POST request to a hypothetical endpoint
       const response = await axios.post('https://jsonplaceholder.typicode.com/posts', {
         name,
@@ -96,18 +159,21 @@ const ContactUsPage = () => {
   
           <form onSubmit={handleSubmit}>
             {/* Name Field */}
-            <TextNameField />
-            <InputFieldName value={name} onChange={handleNameChange} />
+            {/* Name Field */}
+        <TextNameField />
+        <InputFieldName value={name} onChange={handleNameChange} onBlur={handleNameBlur} />
+        {validationErrors.name && <div style={{ color: 'red' }}>{validationErrors.name}</div>}
   
-            {/* Email Field */}
-            <TextEmailField />
-            <InputFieldEmail value={email} onChange={handleEmailChange} />
+        {/* Email Field */}
+        <TextEmailField />
+        <InputFieldEmail value={email} onChange={handleEmailChange} onBlur={handleEmailBlur} />
+        {validationErrors.email && <div style={{ color: 'red' }}>{validationErrors.email}</div>}
   
-            {/* Message Field */}
-            <TextMessageField />
-            <InputFieldMessage value={message} onChange={handleMessageChange} />
+        {/* Message Field */}
+        <TextMessageField />
+        <InputFieldMessage value={message} onChange={handleMessageChange} onBlur={handleMessageBlur} />
+        {validationErrors.message && <div style={{ color: 'red' }}>{validationErrors.message}</div>}
   
-            <ImageCaptcha />
             {/* Use ButtonSendMessage as the submit button */}
             <ButtonSendMessage type="submit">Send Message</ButtonSendMessage>
           </form>

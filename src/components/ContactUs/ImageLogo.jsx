@@ -25,7 +25,7 @@ const Image = (props) => {
 
   const handleClick = () => {
     // Use the navigate function to redirect to the /login route
-    navigate('/login');
+    navigate('/');
   };
   return (
     <div style={{

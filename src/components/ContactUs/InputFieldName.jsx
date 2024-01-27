@@ -1,3 +1,5 @@
+// InputFieldName.jsx
+
 import React from 'react';
 
 const styles = {
@@ -22,14 +24,19 @@ const styles = {
 };
 
 const defaultProps = {
-  text: 'Full Name',
+  text: 'First Name',
 };
 
-const InputField = ({ text, value, onChange }) => {
+const InputField = ({ text, value, onChange, onBlur }) => {
   const handleChange = (e) => {
-    console.log('InputField value:', e.target.value);
     if (onChange) {
-      onChange(e.target.value);
+      onChange(e); // Pass the entire event object
+    }
+  };
+
+  const handleBlur = (e) => {
+    if (onBlur) {
+      onBlur(e); // Pass the entire event object
     }
   };
 
@@ -37,8 +44,9 @@ const InputField = ({ text, value, onChange }) => {
     <input
       style={styles.Input}
       placeholder={text ?? defaultProps.text}
-      value={value}
+      value={value ?? ''}
       onChange={handleChange}
+      onBlur={handleBlur}  // Add onBlur handling
     />
   );
 };

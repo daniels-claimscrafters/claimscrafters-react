@@ -1,3 +1,4 @@
+// Checkbox.jsx
 import React from 'react';
 
 const styles = {
@@ -32,11 +33,12 @@ const styles = {
   },
 };
 
-const Checkbox = () => {
+const Checkbox = ({ onChange }) => {
   const [isChecked, setIsChecked] = React.useState(false);
 
   const onClick = () => {
     setIsChecked(!isChecked);
+    onChange(!isChecked);  // Notify parent component about the change
   }
 
   return (

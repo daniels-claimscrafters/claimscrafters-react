@@ -11,7 +11,7 @@ const styles = {
 };
 
 const defaultProps = {
-  text: 'Full Name',
+  text: 'First Name',
 };
 
 const Text = (props) => {

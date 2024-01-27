@@ -9,7 +9,7 @@ import {
   isValidCreatePassword,
   isValidConfirmPassword,
   isFormComplete,
-} from './validationUtils';
+} from '../../validationUtils';
 import ButtonFacebook from './ButtonFacebook';
 import ButtonGoogle from './ButtonGoogle';
 import ButtonLinkedIn from './ButtonLinkedIn';
@@ -40,7 +40,7 @@ import TextCompany from './TextCompany';
 import TextConfirmPassword from './TextConfirmPassword';
 import TextCreateAPassword from './TextCreateAPassword';
 import TextEmail from './TextEmail';
-import TextFullName from './TextFullName';
+import TextFirstName from './TextFirstName';
 import TextHeader from './TextHeader';
 import TextLastName from './TextLastName';
 import TextLogIn from './TextLogIn';
@@ -81,6 +81,8 @@ const YourTargetComponent = () => {
       [fieldName]: value,
     });
 
+    console.log('Current Form Data:', formData);
+
     // Clear validation error for the current field when user starts typing
     setValidationErrors({
       ...validationErrors,
@@ -94,7 +96,9 @@ const YourTargetComponent = () => {
     setValidationErrors((prevErrors) => ({
       ...prevErrors,
       firstName: isValid ? '' : 'Invalid first name.',
-    }));
+    }), () => {
+      console.log('Validation Errors After Update:', validationErrors);
+    });
   };
 
   const handleLastNameBlur = () => {
@@ -163,6 +167,12 @@ const YourTargetComponent = () => {
     }));
   };
 
+  const handleCheckboxChange = (isChecked) => {
+    setIsAgreeChecked(isChecked);
+    console.log('Checkbox State (parent):', isChecked);
+  };
+  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -188,9 +198,8 @@ const YourTargetComponent = () => {
       phone: phoneValid ? '' : 'Invalid phone number.',
       email: emailValid ? '' : 'Invalid email address.',
       createPassword: createPasswordValid ? '' : 'Invalid create password.',
-      confirmPassword: confirmPasswordValid
-        ? ''
-        : 'Confirm password does not match.',
+      confirmPassword: confirmPasswordValid ? '': 'Confirm password does not match.',
+      isAgreeChecked: isAgreeChecked ? '' : 'Please agree to terms.',
     });
 
     // Log validation errors
@@ -207,10 +216,14 @@ const YourTargetComponent = () => {
       emailValid &&
       createPasswordValid &&
       confirmPasswordValid &&
-      isAgreeChecked; // Check the checkbox state
+      isAgreeChecked;
+
+      // Check the checkbox state separately
+      const isCheckboxChecked = isAgreeChecked;
 
       // Log isFormValid
       console.log('Is Form Valid:', isFormValid);
+      console.log('Is Checkbox Checked:', isCheckboxChecked);
 
       if (isFormValid) {
         try {
@@ -229,7 +242,7 @@ const YourTargetComponent = () => {
             createPassword: '',
             confirmPassword: '',
           });
-          
+
         } catch (error) {
           // Handle errors during backend submission
           console.error('Error submitting form to backend:', error);
@@ -281,7 +294,7 @@ const YourTargetComponent = () => {
   <div>
     <div>
       {/* Full Name */}
-      <TextFullName />
+      <TextFirstName />
       <InputFieldFirstName
         value={formData.firstName}
         onChange={(e) => handleChange('firstName', e.target.value)}
@@ -390,7 +403,7 @@ const YourTargetComponent = () => {
           <div>
           {/* Checkbox, Text By Signing, Text TOS, Text And, Text Privacy */}
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <Checkbox />
+            <Checkbox onChange={handleCheckboxChange} />
             <TextBySigning />
             <TextTOU />
             <TextAnd />
