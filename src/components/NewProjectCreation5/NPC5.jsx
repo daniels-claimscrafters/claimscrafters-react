@@ -1,3 +1,4 @@
+// NPC5.jsx
 import CardCircle from './CardCircle';
 import HorizontalDivider from './HorizontalDivider';
 import IconHome from './IconHome';
@@ -25,8 +26,16 @@ import ImageFooterLogo from './ImageFooterLogo';
 import CardFooterBackground from './CardFooterBackground';
 import ButtonBack from './ButtonBack';
 import ButtonContinue from './ButtonContinue';
+import PreviewData from './PreviewData';
 
-const NPC5 = () => {
+const NPC5 = ({ npcData, onInputChange, onNext, onPrevious, onColumnsSelected }) => {
+    console.log('NPC5 - Excel Data:', npcData.spreadsheetUpload);
+    const handleColumnsSelected = (selectedColumns) => {
+      // Handle the selected columns data in NPC5 or pass it to NPCParentComponent
+      console.log('Selected Columns:', selectedColumns);
+      onColumnsSelected(selectedColumns);
+    };
+
     return (
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px', minHeight: '100vh' }}>
         {/* Row 1 */}
@@ -127,7 +136,11 @@ const NPC5 = () => {
       </div>
 
       
-      <ImageMain />
+      <PreviewData
+        excelData={npcData.spreadsheetUpload}
+        onColumnsSelected={handleColumnsSelected}
+      />
+
       <TextMain />
       <CardButton style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '100%' }}>

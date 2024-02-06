@@ -28,7 +28,15 @@ import CardUpload from './CardUpload';
 import CardSubupload from './CardSubupload';
 
 
-const NPC4 = () => {
+const NPC4 = (props) => {
+  const { npcData, onInputChange, onNext, onPrevious } = props;
+  const handleFileUpload = (file, fileContent) => {
+    // Handle the file upload logic here
+    console.log('File uploaded in NPC4:', file);
+  
+    // Pass both the file name and content to the parent component
+    props.onFileUpload(file, fileContent);
+  };
     return (
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}>
         {/* Row 1 */}
@@ -129,7 +137,7 @@ const NPC4 = () => {
         <TextSubheader />
       </div>
 
-      <CardUpload style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+      <CardUpload onFileUpload={handleFileUpload} onClick={() => console.log('CardUpload clicked in NPC4')} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
   <CardSubupload />
 
   {/* Flex container for centering with adjusted vertical position */}
@@ -146,7 +154,7 @@ const NPC4 = () => {
           <ButtonBack />
         </div>
         <div style={{ marginLeft: '5px' }}>
-          <ButtonContinue />
+          <ButtonContinue label="Continue" onClick={onNext} />
         </div>
       </div>
 

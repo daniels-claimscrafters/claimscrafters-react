@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { isNotEmpty } from '../../validationUtils';
 
 const styles = {
   Input: {
@@ -17,16 +18,59 @@ const styles = {
     lineHeight: '26px',
     outline: 'none',
   },
+  ErrorMessage: {
+    color: 'red',
+    marginTop: '5px',
+    fontSize: '14px',
+  },
 };
 
 const defaultProps = {
   text: 'Loss Postal Code',
 };
 
-const InputField = (props) => {
+const InputFieldLossPostalCode = (props) => {
+  const { value, onChange } = props;
+  const [validationError, setValidationError] = useState('');
+
+  const handleChange = (e) => {
+    const newValue = e.target.value;
+    console.log(`InputFieldLossPostalCode - New value: ${newValue}`);
+    onChange('lossPostalCode', newValue);
+
+    // Clear validation error when user starts typing
+    setValidationError('');
+  };
+
+  const handleBlur = () => {
+    // Check if value is defined before validation
+    if (value !== undefined) {
+      const error = isNotEmpty(value);
+      if (error) {
+        console.log(`InputFieldLossPostalCode - Validation error: ${error}`);
+        // Set the validation error
+        setValidationError(error);
+      } else {
+        // Clear the validation error if there is no error
+        setValidationError('');
+      }
+    }
+  };
+
   return (
-    <input style={styles.Input} placeholder={props.text ?? defaultProps.text} />
+    <div>
+      <input
+        style={styles.Input}
+        placeholder={props.text ?? defaultProps.text}
+        value={value || ''}
+        onChange={handleChange}
+        onBlur={handleBlur}
+      />
+      {validationError && (
+        <div style={styles.ErrorMessage}>{validationError}</div>
+      )}
+    </div>
   );
 };
 
-export default InputField;
+export default InputFieldLossPostalCode;

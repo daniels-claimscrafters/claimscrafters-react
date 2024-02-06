@@ -10,7 +10,7 @@ const styles = {
 };
 
 const defaultProps = {
-  text: 'Excel File formats allowed:  .csv, .xls, .xlsx',
+  text: 'Excel File formats allowed: .xls, .xlsx',
 };
 
 const Text = (props) => {

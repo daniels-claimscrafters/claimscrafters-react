@@ -1,4 +1,5 @@
-import React from 'react';
+// DropdownLossType.jsx
+import React, { useState } from 'react';
 
 const styles = {
   Dropdown: {
@@ -18,6 +19,11 @@ const styles = {
     lineHeight: '26px',
     outline: 'none',
   },
+  ErrorMessage: {
+    color: 'red',
+    marginTop: '5px',
+    fontSize: '14px',
+  },
 };
 
 const defaultProps = {
@@ -33,13 +39,45 @@ const defaultProps = {
 };
 
 const Dropdown = (props) => {
+  const { value, onChange } = props;
+  const [validationError, setValidationError] = useState('');
+
+  const handleChange = (e) => {
+    const newValue = e.target.value;
+    console.log(`Dropdown - New value: ${newValue}`);
+    onChange('lossState', newValue);
+
+    // Clear validation error when user selects an option
+    setValidationError('');
+  };
+
+  const handleBlur = () => {
+    // Check if value is defined before validation
+    if (value !== undefined && value.trim() === '') {
+      console.log(`Dropdown - Validation error: Please select a state`);
+      // Set the validation error
+      setValidationError('Please select a type');
+    }
+  };
+
   return (
-    <select style={styles.Dropdown} defaultValue="">
-      <option value="" disabled hidden>{props.label ?? defaultProps.label}</option>
-      {(props.values ?? defaultProps.values).map((value) => (
-        <option value={value} key={value}>{value}</option>
-      ))}
-    </select>
+    <div>
+      <select
+        style={styles.Dropdown}
+        defaultValue=""
+        value={value || ''}
+        onChange={handleChange}
+        onBlur={handleBlur}
+      >
+        <option value="" disabled hidden>{props.label ?? defaultProps.label}</option>
+        {(props.values ?? defaultProps.values).map((value) => (
+          <option value={value} key={value}>{value}</option>
+        ))}
+      </select>
+      {validationError && (
+        <div style={styles.ErrorMessage}>{validationError}</div>
+      )}
+    </div>
   );
 };
 

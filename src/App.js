@@ -20,6 +20,7 @@ import NPC3 from './components/NewProjectCreation3/NPC3';
 import NPC4 from './components/NewProjectCreation4/NPC4';
 import NPC5 from './components/NewProjectCreation5/NPC5';
 import NPC6 from './components/NewProjectCreation6/NPC6';
+import NPCParentComponent from './components/NPCParentComponent';
 
 const App = () => {
   return (
@@ -44,6 +45,7 @@ const App = () => {
         <Route path="/npc4" element={<NPC4 />} />
         <Route path="/npc5" element={<NPC5 />} />
         <Route path="/npc6" element={<NPC6 />} />
+        <Route path="/npcpc" element={<NPCParentComponent />} />
       </Routes>
     </Router>
   );

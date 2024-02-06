@@ -32,7 +32,8 @@ import TextCardBodySalesTax from './TextCardBodySalesTax';
 import TextCardHeaderDepreciation from './TextCardHeaderDepreciation';
 import TextCardBodyDepreciation from './TextCardBodyDepreciation';
 
-const NPC3 = () => {
+const NPC3 = (props) => {
+  const { npcData, onInputChange, onNext, onPrevious } = props;
     return (
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}>
         {/* Row 1 */}
@@ -139,7 +140,10 @@ const NPC3 = () => {
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginRight: '10px' }}>
           <TextSalesTax />
           <div style={{ marginBottom: '20px' }}>
-            <InputFieldSalesTax />
+            <InputFieldSalesTax 
+            value={npcData.salesTax}
+            onChange={onInputChange}
+            />
           </div>
           <CardSalesTax>
             <TextCardHeaderSalesTax />
@@ -163,10 +167,10 @@ const NPC3 = () => {
       {/* Third Row: Buttons with 10px spacing */}
       <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '80%', marginTop: '20px' }}>
         <div style={{ marginRight: '5px' }}>
-          <ButtonBack />
+          <ButtonBack label="Back" onClick={onPrevious}/>
         </div>
         <div style={{ marginLeft: '5px' }}>
-          <ButtonContinue />
+          <ButtonContinue label="Continue" onClick={onNext} />
         </div>
       </div>
 

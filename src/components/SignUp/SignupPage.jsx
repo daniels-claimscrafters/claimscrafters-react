@@ -256,7 +256,7 @@ const YourTargetComponent = () => {
     const sendFormDataToBackend = async (formData) => {
       // Implement your logic to send the form data to the backend
       // You can use fetch, axios, or any other method suitable for your backend API
-      const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
+      const response = await fetch('https://6881-2600-1010-b06f-3038-e877-f840-f311-aef6.ngrok-free.app/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

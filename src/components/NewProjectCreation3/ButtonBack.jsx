@@ -23,14 +23,17 @@ const styles = {
 
 const defaultProps = {
   label: 'Back',
+  onClick: () => {}, // Default empty function for onClick
 };
 
-const Button = (props) => {
+const ButtonBack = (props) => {
+  const { label, onClick } = props;
+
   return (
-    <button style={styles.Button}>
-      {props.label ?? defaultProps.label}
+    <button style={styles.Button} onClick={onClick}>
+      {label ?? defaultProps.label}
     </button>
   );
 };
 
-export default Button;
+export default ButtonBack;

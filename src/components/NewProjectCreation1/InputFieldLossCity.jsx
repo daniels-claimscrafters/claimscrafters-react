@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { isValidFirstName } from '../../validationUtils';
 
 const styles = {
   Input: {
@@ -17,16 +18,60 @@ const styles = {
     lineHeight: '26px',
     outline: 'none',
   },
+  ErrorMessage: {
+    color: 'red',
+    marginTop: '5px',
+    fontSize: '14px',
+  },
 };
 
 const defaultProps = {
   text: 'Loss City',
 };
 
-const InputField = (props) => {
+const InputFieldLossCity = (props) => {
+  const { value, onChange } = props;
+  const [validationError, setValidationError] = useState('');
+
+  const handleChange = (e) => {
+    const newValue = e.target.value;
+    console.log(`InputFieldLossCity - New value: ${newValue}`);
+    onChange('lossCity', newValue);
+
+    // Clear validation error when the user starts typing
+    setValidationError('');
+  };
+
+  const handleBlur = () => {
+    // Check if the value is defined before validation
+    if (value !== undefined) {
+      const isValid = isValidFirstName(value);
+      if (!isValid) {
+        console.log(`InputFieldLossCity - Validation error: Invalid loss city`);
+        // Set the validation error
+        setValidationError('Invalid loss city');
+      } else {
+        // Clear the validation error if there is no error
+        console.log('InputFieldLossCity - Validation passed');
+        setValidationError('');
+      }
+    }
+  };
+
   return (
-    <input style={styles.Input} placeholder={props.text ?? defaultProps.text} />
+    <div>
+      <input
+        style={styles.Input}
+        placeholder={props.text ?? defaultProps.text}
+        value={value || ''}
+        onChange={handleChange}
+        onBlur={handleBlur}
+      />
+      {validationError && (
+        <div style={styles.ErrorMessage}>{validationError}</div>
+      )}
+    </div>
   );
 };
 
-export default InputField;
+export default InputFieldLossCity;

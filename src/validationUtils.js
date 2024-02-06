@@ -56,6 +56,37 @@ export const isValidEmail = (email) => {
   return emailRegex.test(email);
 };
 
+export const isValidPhoneNPC = (phone) => {
+  const phoneRegex = /^[\d\s().+-]+$/;
+  
+  const cleanedPhone = phone.trim().replace(/[\s().+-]/g, '');
+  console.log('Cleaned Phone:', cleanedPhone);
+
+  const isValid =
+    cleanedPhone !== '' &&
+    phoneRegex.test(phone.trim()) &&
+    cleanedPhone.length >= 10;
+
+  console.log('Is Valid Phone:', isValid);
+  
+  return isValid
+    ? null // Validation passed
+    : 'Invalid phone number'; // Validation failed
+};
+
+export const isValidEmailNPC = (email) => {
+  const emailRegex =
+    /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+
+  console.log('Email:', email);
+  const isValid = emailRegex.test(email);
+  console.log('Is Valid Email:', isValid);
+  
+  return isValid
+    ? null // Validation passed
+    : 'Invalid email address'; // Validation failed
+};
+
 export const isValidCreatePassword = (createPassword) => {
   // Password must be at least 8 characters long and contain at least one uppercase letter,
   // one lowercase letter, one number, and one special character
@@ -84,4 +115,19 @@ export const isFormComplete = (formData) => {
     formData.confirmPassword.trim() !== ''
     // Add other required fields as needed
   );
+};
+
+export const isNotEmpty = (value) => {
+  // Check if the value is empty or consists only of whitespaces
+  if (value.trim() === '') {
+    return 'Field cannot be empty.';
+  }
+  return ''; // No error
+};
+
+export const isValidDateFormat = (date) => {
+  // Date format validation logic
+  const dateFormatRegex = /^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])\/\d{4}$/;
+
+  return date.trim() !== '' && dateFormatRegex.test(date.trim());
 };

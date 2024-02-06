@@ -22,6 +22,7 @@ import TextSignIn from './TextSignIn';
 import TextTermsOfUse from './TextTermsOfUse';
 import VerticalDividerFooter from './VerticalDividerFooter';
 import { isValidFirstName, isValidEmail } from '../../validationUtils';
+import ReCAPTCHA from "react-google-recaptcha";
 
 // Import other components as needed
 
@@ -158,25 +159,36 @@ const ContactUsPage = () => {
           <TextMainBody />
   
           <form onSubmit={handleSubmit}>
-            {/* Name Field */}
-            {/* Name Field */}
-        <TextNameField />
-        <InputFieldName value={name} onChange={handleNameChange} onBlur={handleNameBlur} />
-        {validationErrors.name && <div style={{ color: 'red' }}>{validationErrors.name}</div>}
-  
-        {/* Email Field */}
-        <TextEmailField />
-        <InputFieldEmail value={email} onChange={handleEmailChange} onBlur={handleEmailBlur} />
-        {validationErrors.email && <div style={{ color: 'red' }}>{validationErrors.email}</div>}
-  
-        {/* Message Field */}
-        <TextMessageField />
-        <InputFieldMessage value={message} onChange={handleMessageChange} onBlur={handleMessageBlur} />
-        {validationErrors.message && <div style={{ color: 'red' }}>{validationErrors.message}</div>}
-  
-            {/* Use ButtonSendMessage as the submit button */}
-            <ButtonSendMessage type="submit">Send Message</ButtonSendMessage>
-          </form>
+  {/* Name Field */}
+  <div>
+    <TextNameField />
+    <InputFieldName value={name} onChange={handleNameChange} onBlur={handleNameBlur} />
+    {validationErrors.name && <div style={{ color: 'red' }}>{validationErrors.name}</div>}
+  </div>
+
+  {/* Email Field */}
+  <div>
+    <TextEmailField />
+    <InputFieldEmail value={email} onChange={handleEmailChange} onBlur={handleEmailBlur} />
+    {validationErrors.email && <div style={{ color: 'red' }}>{validationErrors.email}</div>}
+  </div>
+
+  {/* Message Field */}
+  <div>
+    <TextMessageField />
+    <InputFieldMessage value={message} onChange={handleMessageChange} onBlur={handleMessageBlur} />
+    {validationErrors.message && <div style={{ color: 'red' }}>{validationErrors.message}</div>}
+  </div>
+
+  {/* reCAPTCHA v3 */}
+  <ReCAPTCHA
+  sitekey="6LclTGgpAAAAAH2ZRurlnCHuD5AmM4dEKYWnIEOe" // Use your actual reCAPTCHA v3 site key here
+  onChange={(value) => console.log("reCAPTCHA value:", value)}
+/>
+
+  {/* Use ButtonSendMessage as the submit button */}
+  <ButtonSendMessage type="submit">Send Message</ButtonSendMessage>
+</form>
         </div>
       </div>
   

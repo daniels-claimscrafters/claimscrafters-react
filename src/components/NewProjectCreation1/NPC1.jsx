@@ -38,9 +38,8 @@ import TextSubheader from './TextSubheader';
 import ImageFooterLogo from './ImageFooterLogo';
 import CardFooterBackground from './CardFooterBackground';
 
-
-
-const NPC1 = () => {
+const NPC1 = (props) => {
+  const { npcData, onInputChange, onNext } = props;
     return (
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}>
         {/* Row 1 */}
@@ -146,11 +145,17 @@ const NPC1 = () => {
       <div style={{ display: 'flex', flexDirection: 'row', marginTop: '20px' }}>
         <div style={{ marginRight: '20px' }}>
           <TextClaimNumber />
-          <InputFieldClaimNumber />
+          <InputFieldClaimNumber
+            value={npcData.claimNumber}
+            onChange={onInputChange}
+          />
         </div>
         <div>
           <TextDateOfLoss />
-          <InputFieldDateofLoss />
+          <InputFieldDateofLoss
+          value={npcData.dateOfLoss}
+          onChange={onInputChange}
+          />
         </div>
       </div>
 
@@ -158,11 +163,16 @@ const NPC1 = () => {
       <div style={{ display: 'flex', flexDirection: 'row', marginTop: '20px' }}>
         <div style={{ marginRight: '20px' }}>
           <TextInsuredFirstName />
-          <InputFieldFirstName />
+          <InputFieldFirstName 
+          value={npcData.insuredFirstName}
+          onChange={onInputChange}
+          />
         </div>
         <div>
           <TextInsuredLastName />
-          <InputFieldLastName />
+          <InputFieldLastName 
+          value={npcData.insuredLastName}
+          onChange={onInputChange}/>
         </div>
       </div>
 
@@ -170,28 +180,39 @@ const NPC1 = () => {
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         <div style={{ marginBottom: '20px' }}>
           <TextLossAddress />
-          <InputFieldLossAddress />
+          <InputFieldLossAddress 
+          value={npcData.lossAddress}
+          onChange={onInputChange}
+          />
         </div>
         <div style={{ display: 'flex', flexDirection: 'row' }}>
           <div style={{ marginRight: '20px' }}>
             <TextLossCity />
-            <InputFieldLossCity />
+            <InputFieldLossCity 
+            value={npcData.lossCity}
+            onChange={onInputChange}
+            />
           </div>
           <div>
             <TextLossState />
-            <DropdownLossState />
+            <DropdownLossState 
+            value={npcData.lossState}
+            onChange={onInputChange}
+            />
           </div>
         </div>
         <div style={{ marginTop: '20px' }}>
           <TextLossPostalCode />
-          <InputFieldLossPostalCode />
+          <InputFieldLossPostalCode 
+          value={npcData.lossPostalCode}
+          onChange={onInputChange}
+          />
         </div>
       </div>
 
-
       {/* Additional Information Section */}
       <div>
-        <ButtonContinue />
+        <ButtonContinue label="Continue" onClick={onNext} />
       </div>
       {/* Footer Section */}
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginTop: '20px', width: '100%' }}>

@@ -1,3 +1,4 @@
+// NPC2.jsx
 import React from 'react';
 import CardCircle from './CardCircle';
 import HorizontalDivider from './HorizontalDivider';
@@ -35,7 +36,8 @@ import ButtonContinue from './ButtonContinue';
 import TextAdjusterFirstName from './TextAdjusterFirstName';
 import TextAdjusterLastName from './TextAdjusterLastName';
 
-const NPC2 = () => {
+const NPC2 = (props) => {
+  const { npcData, onInputChange, onNext, onPrevious } = props;
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}>
       {/* Row 1 */}
@@ -142,11 +144,17 @@ const NPC2 = () => {
         <div style={{ flex: '48%', padding: '10px', display: 'flex', justifyContent: 'center', flexDirection: 'row', alignItems: 'center' }}>
           <div style={{ marginRight: '10px' }}>
             <TextLossType />
-            <DropdownLossType />
+            <DropdownLossType 
+            value={npcData.lossType}
+            onChange={onInputChange}
+            />
           </div>
           <div>
             <TextCarrier />
-            <InputFieldCarrier />
+            <InputFieldCarrier 
+            value={npcData.carrier}
+            onChange={onInputChange}
+            />
           </div>
         </div>
 
@@ -154,11 +162,17 @@ const NPC2 = () => {
         <div style={{ flex: '100%', padding: '10px', display: 'flex', justifyContent: 'center', flexDirection: 'row', alignItems: 'center' }}>
           <div style={{ marginRight: '10px' }}>
             <TextAdjusterFirstName />
-            <InputFieldAdjusterFirstName />
+            <InputFieldAdjusterFirstName 
+            value={npcData.adjusterFirstName}
+            onChange={onInputChange}
+            />
           </div>
           <div>
             <TextAdjusterLastName />
-            <InputFieldAdjusterLastName />
+            <InputFieldAdjusterLastName 
+            value={npcData.adjusterLastName}
+            onChange={onInputChange}
+            />
           </div>
         </div>
 
@@ -166,19 +180,25 @@ const NPC2 = () => {
         <div style={{ flex: '100%', padding: '10px', display: 'flex', justifyContent: 'center', flexDirection: 'row', alignItems: 'center' }}>
           <div style={{ marginRight: '10px' }}>
             <TextAdjusterPhone />
-            <InputFieldAdjusterPhone />
+            <InputFieldAdjusterPhone 
+            value={npcData.adjusterPhone}
+            onChange={onInputChange}
+            />
           </div>
           <div>
             <TextAdjusterEmail />
-            <InputFieldAdjusterEmail />
+            <InputFieldAdjusterEmail 
+            value={npcData.adjusterEmail}
+            onChange={onInputChange}
+            />
           </div>
         </div>
 
         {/* Buttons for navigation with spacing */}
         <div style={{ flex: '100%', padding: '10px', display: 'flex', justifyContent: 'center' }}>
-          <ButtonBack />
+          <ButtonBack label="Back" onClick={onPrevious}/>
           <div style={{ marginRight: '10px' }} />
-          <ButtonContinue />
+          <ButtonContinue label="Continue" onClick={onNext} />
         </div>
       </form>
 

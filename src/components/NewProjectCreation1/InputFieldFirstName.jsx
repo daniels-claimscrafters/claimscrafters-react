@@ -1,4 +1,6 @@
-import React from 'react';
+// InputFieldFirstName.jsx
+import React, { useState } from 'react';
+import { isValidFirstName } from '../../validationUtils';
 
 const styles = {
   Input: {
@@ -17,16 +19,60 @@ const styles = {
     lineHeight: '26px',
     outline: 'none',
   },
+  ErrorMessage: {
+    color: 'red',
+    marginTop: '5px',
+    fontSize: '14px',
+  },
 };
 
 const defaultProps = {
   text: 'Insured First Name',
 };
 
-const InputField = (props) => {
+const InputFieldFirstName = (props) => {
+  const { value, onChange } = props;
+  const [validationError, setValidationError] = useState('');
+
+  const handleChange = (e) => {
+    const newValue = e.target.value;
+    console.log(`InputFieldFirstName - New value: ${newValue}`);
+    onChange('insuredFirstName', newValue);
+
+    // Clear validation error when user starts typing
+    setValidationError('');
+  };
+
+  const handleBlur = () => {
+    // Check if value is defined before validation
+    if (value !== undefined) {
+      const isValid = isValidFirstName(value);
+      if (!isValid) {
+        console.log(`InputFieldFirstName - Validation error: Invalid first name`);
+        // Set the validation error
+        setValidationError('Invalid first name');
+      } else {
+        // Clear the validation error if there is no error
+        console.log('InputFieldFirstName - Validation passed');
+        setValidationError('');
+      }
+    }
+  };
+
   return (
-    <input style={styles.Input} placeholder={props.text ?? defaultProps.text} />
+    <div>
+      <input
+        style={styles.Input}
+        placeholder={props.text ?? defaultProps.text}
+        value={value || ''}
+        onChange={handleChange}
+        onBlur={handleBlur}
+      />
+      {validationError && (
+        <div style={styles.ErrorMessage}>{validationError}</div>
+      )}
+    </div>
   );
 };
 
-export default InputField;
+export default InputFieldFirstName;

@@ -26,8 +26,16 @@ const defaultProps = {
 };
 
 const InputField = (props) => {
+  const { value, onChange, placeholder } = props;
+
   return (
-    <input style={styles.Input} placeholder={props.text ?? defaultProps.text} />
+    <input
+      type="password"
+      style={styles.Input}
+      value={value}
+      onChange={onChange}
+      placeholder={placeholder ?? defaultProps.text}
+    />
   );
 };
 

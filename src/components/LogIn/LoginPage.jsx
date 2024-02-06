@@ -1,6 +1,7 @@
 // LoginPage.jsx
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import ButtonLogIn from './ButtonLogIn';
 import Checkbox from './Checkbox';
 import IconEmail from './IconEmail';
@@ -30,6 +31,8 @@ const LogInPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const navigate = useNavigate();
+
   // Function to handle form submission
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -37,16 +40,15 @@ const LogInPage = () => {
     // Validate email and password if needed
 
     try {
-      // Make API call to your authentication endpoint
-      const response = await axios.post('https://jsonplaceholder.typicode.com/posts', {
+      const response = await axios.post('https://ef90-2600-1010-b022-c395-ccde-8ce7-1ab6-6289.ngrok-free.app/auth/login', {
         email,
         password,
       });
 
       // Check the response and handle accordingly
       if (response.status === 200) {
-        // Successful login, you can redirect or perform other actions
-        console.log('Login successful');
+        // Successful login, redirect to 'phmspage'
+        navigate('/pmhs');
       } else {
         // Handle login failure
         console.error('Login failed');
