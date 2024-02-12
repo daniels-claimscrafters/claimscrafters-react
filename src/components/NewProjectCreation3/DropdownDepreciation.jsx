@@ -31,9 +31,16 @@ const defaultProps = {
   ],
 };
 
-const Dropdown = (props) => {
+const DropdownDepreciation = (props) => {
+  const { value, onChange } = props; // Destructure value and onChange from props
+
+  const handleChange = (e) => {
+    const selectedValue = e.target.value;
+    onChange('deprecationRange', selectedValue); // Call the onChange handler with the selected value
+  };
+
   return (
-    <select style={styles.Dropdown} defaultValue="">
+    <select style={styles.Dropdown} value={value} onChange={handleChange}>
       <option value="" disabled hidden>{props.label ?? defaultProps.label}</option>
       {(props.values ?? defaultProps.values).map((value) => (
         <option value={value} key={value}>{value}</option>
@@ -42,4 +49,4 @@ const Dropdown = (props) => {
   );
 };
 
-export default Dropdown;
+export default DropdownDepreciation;

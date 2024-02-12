@@ -1,3 +1,5 @@
+// npc6.jsx
+import React, { useState } from 'react';
 import CardCircle from './CardCircle';
 import HorizontalDivider from './HorizontalDivider';
 import IconHome from './IconHome';
@@ -15,67 +17,93 @@ import TextInsuredInformation from './TextInsuredInformation';
 import TextLossDetails from './TextLossDetails';
 import TextPayment from './TextPayment';
 import TextProvidePersonal from './TextProvidePersonal';
+import ButtonContinue from './ButtonContinue';
+import ButtonBack from './ButtonBack';
+import Checkbox from './Checkbox';
+import InputFieldFullName from './InputFieldFullName';
+import TextBody from './TextBody';
+import TextCheckbox from './TextCheckbox';
+import TextHeader2 from './TextHeader2';
+import TextSubtitle from './TextSubtitle';
 
-const NPC6 = () => {
-    return (
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}>
-        {/* Row 1 */}
-        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            {/* Assuming ImageLogo, TextHeader, and other components */}
-            <ImageLogo />
-            <div style={{ marginLeft: '10px' }}>
-              <TextHeader />
-              {/* Other components go here */}
-            </div>
-          </div>
-          <div style={{ alignSelf: 'flex-start', marginTop: '10px' }}>
-            <IconHome />
+
+const NPC6 = ({ npcData, onInputChange, onNext, onPrevious }) => {
+  const [didAcceptLegal, setDidAcceptLegal] = useState(false);
+  const [acceptLegalFullName, setAcceptLegalFullName] = useState('');
+  const [isInputFieldPopulated, setIsInputFieldPopulated] = useState(false);
+  const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
+
+
+  const handleCheckboxChange = (isChecked, event) => {
+    setDidAcceptLegal(isChecked);
+    setIsCheckboxChecked(isChecked);
+    // Update npcData directly in NPC6
+    onInputChange('didAcceptLegal', isChecked);
+  };
+  
+  
+  const handleFullNameChange = (newValue) => {
+    setAcceptLegalFullName(newValue);
+    setIsInputFieldPopulated(!!newValue); // Check if newValue is not empty
+    onInputChange('acceptLegalFullName', newValue);
+  };
+
+  const isContinueDisabled = !(isInputFieldPopulated && isCheckboxChecked);
+
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}>
+      {/* Row 1 */}
+      <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <ImageLogo />
+          <div style={{ marginLeft: '10px' }}>
+            <TextHeader />
           </div>
         </div>
-  
-        {/* Row 2 Centered */}
+        <div style={{ alignSelf: 'flex-start', marginTop: '10px' }}>
+          <IconHome />
+        </div>
+      </div>
+
+      {/* Row 2 Centered */}
       <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '100%', marginTop: '20px' }}>
-        <HorizontalDivider />
-        <CardCircle>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
-            <Text1 style={{ margin: 0 }}>1</Text1>
-          </div>
-        </CardCircle>
-        <HorizontalDivider />
-        <CardCircle>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
-            <Text2 style={{ margin: 0 }}>2</Text2>
-          </div>
-        </CardCircle>
-        <HorizontalDivider />
-        <CardCircle>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
-            <Text3 style={{ margin: 0 }}>3</Text3>
-          </div>
-        </CardCircle>
-        <HorizontalDivider />
-        <CardCircle>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
-            <Text4 style={{ margin: 0 }}>4</Text4>
-          </div>
-        </CardCircle>
-        <HorizontalDivider />
-        <CardCircle>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
-            <Text5 style={{ margin: 0 }}>5</Text5>
-          </div>
-        </CardCircle>
-        <HorizontalDivider />
-        <CardCircle>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
-            <Text6 style={{ margin: 0 }}>6</Text6>
-          </div>
-        </CardCircle>
-        <HorizontalDivider />
+        {/* Assuming CardCircle, HorizontalDivider, Text1, Text2, ..., Text6 components */}
+      </div>
+
+      {/* Row 3 Centered */}
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', marginTop: '20px' }}>
+        {/* TextHeader2 */}
+        <TextHeader2 />
+        {/* TextSubtitle */}
+        <TextSubtitle />
+        {/* TextBody */}
+        <TextBody />
+      </div>
+
+      {/* Row 4 Centered */}
+      <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '100%', marginTop: '20px' }}>
+        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginRight: '20px' }}>
+        <Checkbox checked={didAcceptLegal} onChange={handleCheckboxChange} />
+          <TextCheckbox />
+        </div>
+        <InputFieldFullName 
+  value={acceptLegalFullName} 
+  onChange={handleFullNameChange} // Pass the onChange handler
+/>
+      </div>
+
+      {/* Row 5 Centered */}
+      <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '100%', marginTop: '20px' }}>
+        <div style={{ marginRight: '10px' }}>
+          <ButtonBack onClick={onPrevious} />
+        </div>
+        <div style={{ marginLeft: '10px' }}>
+        <ButtonContinue disabled={isContinueDisabled} label="Continue" onClick={onNext} />
+        </div>
       </div>
     </div>
   );
 };
-  
+
 export default NPC6;

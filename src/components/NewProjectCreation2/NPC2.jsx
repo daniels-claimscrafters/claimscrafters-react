@@ -38,6 +38,18 @@ import TextAdjusterLastName from './TextAdjusterLastName';
 
 const NPC2 = (props) => {
   const { npcData, onInputChange, onNext, onPrevious } = props;
+  const areAllFieldsFilled = () => {
+    // Check if all the necessary fields in npcData are filled
+    return (
+      npcData.lossType.trim() !== '' &&
+      npcData.carrier.trim() !== '' &&
+      npcData.adjusterFirstName.trim() !== '' &&
+      npcData.adjusterLastName.trim() !== '' &&
+      npcData.adjusterPhone.trim() !== '' &&
+      npcData.adjusterEmail.trim() !== ''
+      // Add other required fields as needed
+    );
+  };
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}>
       {/* Row 1 */}
@@ -198,7 +210,7 @@ const NPC2 = (props) => {
         <div style={{ flex: '100%', padding: '10px', display: 'flex', justifyContent: 'center' }}>
           <ButtonBack label="Back" onClick={onPrevious}/>
           <div style={{ marginRight: '10px' }} />
-          <ButtonContinue label="Continue" onClick={onNext} />
+          <ButtonContinue label="Continue" onClick={onNext} disabled={!areAllFieldsFilled()} />
         </div>
       </form>
 

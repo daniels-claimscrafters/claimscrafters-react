@@ -38,14 +38,14 @@ const defaultProps = {
   ],
 };
 
-const Dropdown = (props) => {
+const DropdownLossType = (props) => {
   const { value, onChange } = props;
   const [validationError, setValidationError] = useState('');
 
   const handleChange = (e) => {
     const newValue = e.target.value;
     console.log(`Dropdown - New value: ${newValue}`);
-    onChange('lossState', newValue);
+    onChange('lossType', newValue); // Change 'lossState' to 'lossType'
 
     // Clear validation error when user selects an option
     setValidationError('');
@@ -54,7 +54,7 @@ const Dropdown = (props) => {
   const handleBlur = () => {
     // Check if value is defined before validation
     if (value !== undefined && value.trim() === '') {
-      console.log(`Dropdown - Validation error: Please select a state`);
+      console.log(`Dropdown - Validation error: Please select a type`);
       // Set the validation error
       setValidationError('Please select a type');
     }
@@ -81,4 +81,4 @@ const Dropdown = (props) => {
   );
 };
 
-export default Dropdown;
+export default DropdownLossType;

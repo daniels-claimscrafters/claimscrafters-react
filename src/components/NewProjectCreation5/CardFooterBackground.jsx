@@ -7,6 +7,7 @@ const styles = {
     width: '100%',
     height: '118px',
     backgroundColor: '#040000',
+    marginTop: '20px',
   },
 };
 

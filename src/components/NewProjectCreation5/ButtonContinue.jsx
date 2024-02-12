@@ -19,18 +19,27 @@ const styles = {
     lineHeight: '26px',
     outline: 'none',
   },
+  DisabledButton: {
+    backgroundColor: '#999999',
+    cursor: 'not-allowed',
+  }
 };
 
 const defaultProps = {
   label: 'Continue',
+  onClick: () => {}, // Default empty function for onClick
 };
 
-const Button = (props) => {
+const ButtonContinue = (props) => {
+  const { label, onClick, disabled } = props;
+
+  const buttonStyle = disabled ? { ...styles.Button, ...styles.DisabledButton } : styles.Button;
+
   return (
-    <button style={styles.Button}>
-      {props.label ?? defaultProps.label}
+    <button style={buttonStyle} onClick={onClick} disabled={disabled}>
+      {label ?? defaultProps.label}
     </button>
   );
 };
 
-export default Button;
+export default ButtonContinue;

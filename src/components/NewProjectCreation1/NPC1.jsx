@@ -40,6 +40,23 @@ import CardFooterBackground from './CardFooterBackground';
 
 const NPC1 = (props) => {
   const { npcData, onInputChange, onNext } = props;
+  const areAllFieldsFilled = () => {
+    // Check if all the necessary fields in npcData are filled
+    const allFieldsFilled =
+      npcData.claimNumber.trim() !== '' &&
+      npcData.dateOfLoss.trim() !== '' &&
+      npcData.insuredFirstName.trim() !== '' &&
+      npcData.insuredLastName.trim() !== '' &&
+      npcData.lossAddress.trim() !== '' &&
+      npcData.lossCity.trim() !== '' &&
+      npcData.lossState.trim() !== '' &&
+      npcData.lossPostalCode.trim() !== '';
+  
+    console.log('All fields filled:', allFieldsFilled);
+    console.log('NPC Data:', npcData);
+  
+    return allFieldsFilled;
+  };
     return (
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}>
         {/* Row 1 */}
@@ -212,7 +229,7 @@ const NPC1 = (props) => {
 
       {/* Additional Information Section */}
       <div>
-        <ButtonContinue label="Continue" onClick={onNext} />
+      <ButtonContinue label="Continue" onClick={onNext} disabled={!areAllFieldsFilled()} />
       </div>
       {/* Footer Section */}
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginTop: '20px', width: '100%' }}>

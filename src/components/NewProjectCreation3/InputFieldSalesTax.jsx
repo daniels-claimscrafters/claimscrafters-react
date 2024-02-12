@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { isValidPhoneNPC } from '../../validationUtils'
+import { isValidSalesTax } from '../../validationUtils';
 
 const styles = {
   Input: {
@@ -27,7 +27,7 @@ const styles = {
 };
 
 const defaultProps = {
-  text: 'Sales Tax (%)',
+  text: 'Sales Tax',
 };
 
 const InputFieldSalesTax = (props) => {
@@ -42,15 +42,15 @@ const InputFieldSalesTax = (props) => {
   };
 
   const handleBlur = () => {
-    const validationError = isValidPhoneNPC(value);
-    if (validationError) {
-      console.log(`InputFieldPhone - Validation error: ${validationError}`);
-      setErrorMessage(validationError);
+    const isValid = isValidSalesTax(value);
+    if (!isValid) {
+      console.log(`InputFieldSalesTax - Validation error: Invalid sales tax format`);
+      setErrorMessage(`Invalid sales tax format. Only enter a number. No % sign`);
+    } else {
+      console.log('InputFieldSalesTax - Validation successful');
+      setErrorMessage('');
     }
-    else {
-      console.log('ok');
-    }
-  };
+  };  
 
   return (
     <div>

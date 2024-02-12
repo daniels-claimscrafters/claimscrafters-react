@@ -35,6 +35,7 @@ const NPC5 = ({ npcData, onInputChange, onNext, onPrevious, onColumnsSelected })
       console.log('Selected Columns:', selectedColumns);
       onColumnsSelected(selectedColumns);
     };
+    const isContinueDisabled = !npcData.selectedColumnsData === 0;
 
     return (
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px', minHeight: '100vh' }}>
@@ -144,7 +145,7 @@ const NPC5 = ({ npcData, onInputChange, onNext, onPrevious, onColumnsSelected })
       <TextMain />
       <CardButton style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
-      <TextCardButton />
+      <TextCardButton text={npcData.numberOfLines.toString()} />
     </div>
   </CardButton>
 
@@ -153,7 +154,7 @@ const NPC5 = ({ npcData, onInputChange, onNext, onPrevious, onColumnsSelected })
           <ButtonBack />
         </div>
         <div style={{ marginLeft: '5px' }}>
-          <ButtonContinue />
+        <ButtonContinue disabled={isContinueDisabled} label="Continue" onClick={onNext} />
         </div>
       </div>
 

@@ -34,6 +34,7 @@ import TextCardBodyDepreciation from './TextCardBodyDepreciation';
 
 const NPC3 = (props) => {
   const { npcData, onInputChange, onNext, onPrevious } = props;
+  const isContinueDisabled = !npcData.salesTax || !npcData.deprecationRange;
     return (
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}>
         {/* Row 1 */}
@@ -155,7 +156,10 @@ const NPC3 = (props) => {
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginLeft: '10px' }}>
           <TextDepreciation />
           <div style={{ marginBottom: '20px' }}>
-            <DropdownDepreciation />
+            <DropdownDepreciation 
+            value={npcData.deprecationRange}
+            onChange={onInputChange}
+            />
           </div>
           <CardDepreciation>
             <TextCardHeaderDepreciation />
@@ -170,7 +174,7 @@ const NPC3 = (props) => {
           <ButtonBack label="Back" onClick={onPrevious}/>
         </div>
         <div style={{ marginLeft: '5px' }}>
-          <ButtonContinue label="Continue" onClick={onNext} />
+        <ButtonContinue label="Continue" onClick={onNext} disabled={isContinueDisabled} />
         </div>
       </div>
 

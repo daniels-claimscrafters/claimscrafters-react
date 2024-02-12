@@ -100,7 +100,7 @@ const PreviewData = ({ excelData, onColumnsSelected }) => {
   };
 
   return (
-    <div>
+    <div style={{ marginBottom: '20px' }}>
       {/* Dropdowns to select columns */}
       <div>
         <label>Select Description Column: </label>

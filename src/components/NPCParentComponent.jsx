@@ -6,6 +6,7 @@ import NPC3 from './NewProjectCreation3/NPC3';
 import NPC4 from './NewProjectCreation4/NPC4';
 import NPC5 from './NewProjectCreation5/NPC5';
 import NPC6 from './NewProjectCreation6/NPC6';
+import NPC7 from './NewProjectCreation7/NPC7'; // Import NPC7
 
 const NPCParentComponent = () => {
   const [step, setStep] = useState(1);
@@ -30,7 +31,14 @@ const NPCParentComponent = () => {
     spreadsheetUpload: '',
     numberOfLines: '',
     didAcceptLegal: '',
+    acceptLegalFullName: '',
     selectedColumnsData: [],
+    // New fields for credit card information
+    cardholderName: '',
+    cardNumber: '',
+    expiration: '',
+    cvv: '',
+    price: '',
   });
 
   const handleInputChange = (name, value) => {
@@ -70,7 +78,11 @@ const NPCParentComponent = () => {
 
   const handleColumnsSelected = (selectedColumns) => {
     setNPCData((prevData) => {
-      const newData = { ...prevData, selectedColumnsData: selectedColumns };
+      const newData = {
+        ...prevData,
+        selectedColumnsData: selectedColumns,
+        numberOfLines: selectedColumns.length, // Counting the number of lines
+      };
       console.log('NPCParentComponent - Updated NPC data: ', newData);
       return newData;
     });
@@ -80,11 +92,32 @@ const NPCParentComponent = () => {
     console.log('NPC data after updating:', npcData);
   }, [npcData]); // This useEffect will be triggered after npcData changes
 
-  const handleSubmit = () => {
-    // Perform submit logic with npcData
-    console.log('NPC data submitted:', npcData);
-    // You might want to send this data to a server or perform other actions
-  };
+  const handleSubmit = async () => {
+    try {
+      // Perform submit logic with npcData
+      console.log('NPC data submitted:', npcData);
+  
+      // Send NPC data to the server
+      const response = await fetch('https://ef90-2600-1010-b022-c395-ccde-8ce7-1ab6-6289.ngrok-free.app/npc', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(npcData),
+      });
+  
+      // Check if the request was successful
+      if (response.ok) {
+        console.log('NPC data sent successfully!');
+        // Handle success response
+      } else {
+        // Handle error response
+        console.error('Error sending NPC data:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error sending NPC data:', error.message);
+    }
+  };  
 
   return (
     <div>
@@ -133,6 +166,15 @@ const NPCParentComponent = () => {
         <NPC6
           npcData={npcData}
           onInputChange={handleInputChange}
+          onPrevious={handlePrevious}
+          onNext={handleNext}
+        />
+      )}
+      {step === 7 && (
+        <NPC7
+          npcData={npcData}
+          onInputChange={handleInputChange}
+          numberOfLines={npcData.numberOfLines}
           onPrevious={handlePrevious}
           onSubmit={handleSubmit}
         />

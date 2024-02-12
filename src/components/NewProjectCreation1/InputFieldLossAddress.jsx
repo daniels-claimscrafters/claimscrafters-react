@@ -1,5 +1,6 @@
+// InputFieldLossAddress.jsx
 import React, { useState } from 'react';
-import { isValidFirstName } from '../../validationUtils';
+import { isNotEmpty2 } from '../../validationUtils';
 
 const styles = {
   Input: {
@@ -45,7 +46,8 @@ const InputFieldLossAddress = (props) => {
   const handleBlur = () => {
     // Check if the value is defined before validation
     if (value !== undefined) {
-      const isValid = isValidFirstName(value);
+      const isValid = isNotEmpty2(value);
+      console.log('Validation Error:', !isValid);
       if (!isValid) {
         console.log(`InputFieldLossAddress - Validation error: Invalid loss address`);
         // Set the validation error
@@ -57,6 +59,8 @@ const InputFieldLossAddress = (props) => {
       }
     }
   };
+
+  console.log('ValidationError:', validationError);
 
   return (
     <div>

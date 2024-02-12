@@ -13,6 +13,7 @@ const styles = {
     backgroundPosition: 'center center',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
+    marginTop: '10px',
   },
 };
 

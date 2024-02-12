@@ -30,6 +30,7 @@ import CardSubupload from './CardSubupload';
 
 const NPC4 = (props) => {
   const { npcData, onInputChange, onNext, onPrevious } = props;
+  const isContinueDisabled = !npcData.spreadsheetUpload;
   const handleFileUpload = (file, fileContent) => {
     // Handle the file upload logic here
     console.log('File uploaded in NPC4:', file);
@@ -151,10 +152,10 @@ const NPC4 = (props) => {
 {/* Third Row: Buttons with 10px spacing */}
 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '80%', marginTop: '20px' }}>
         <div style={{ marginRight: '5px' }}>
-          <ButtonBack />
+          <ButtonBack label="Back" onClick={onPrevious}/>
         </div>
         <div style={{ marginLeft: '5px' }}>
-          <ButtonContinue label="Continue" onClick={onNext} />
+        <ButtonContinue label="Continue" onClick={onNext} disabled={isContinueDisabled} />
         </div>
       </div>
 

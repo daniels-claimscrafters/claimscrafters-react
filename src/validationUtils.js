@@ -118,11 +118,24 @@ export const isFormComplete = (formData) => {
 };
 
 export const isNotEmpty = (value) => {
-  // Check if the value is empty or consists only of whitespaces
-  if (value.trim() === '') {
+  console.log('XInput value:', value); // Add this line for debugging
+  if (!value || value.trim() === '') {
     return 'Field cannot be empty.';
   }
   return ''; // No error
+};
+
+export const isNotEmpty2 = (value) => {
+  console.log('Input value:', value);
+  return value && value.trim() !== '';
+};
+
+export const isValidSalesTax = (value) => {
+  // Regular expression to match float integers
+  const floatIntegerPattern = /^[0-9]+(\.[0-9]+)?$/;
+
+  // Return true if the value matches the pattern, otherwise false
+  return floatIntegerPattern.test(value);
 };
 
 export const isValidDateFormat = (date) => {
@@ -130,4 +143,43 @@ export const isValidDateFormat = (date) => {
   const dateFormatRegex = /^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])\/\d{4}$/;
 
   return date.trim() !== '' && dateFormatRegex.test(date.trim());
+};
+
+export const isValidCardholderName = (name) => {
+  // Cardholder name validation logic
+  // Allow letters, spaces, and certain special characters like hyphens and apostrophes
+  const nameRegex = /^[a-zA-Z\s'-]+$/;
+  return name.trim() !== '' && nameRegex.test(name.trim());
+};
+
+export const isValidCardNumber = (number) => {
+  // Card number validation logic
+  // Assume a valid card number should contain exactly 16 digits
+  const numberRegex = /^\d{16}$/;
+  return number.trim() !== '' && numberRegex.test(number.trim());
+};
+
+export const isValidExpirationDate = (expiration) => {
+  // Expiration date validation logic
+  // Assume a valid expiration date should be in MM/YY format and should not be expired
+  const expirationRegex = /^(0[1-9]|1[0-2])\/([2-9][2-9])$/; // MM/YY format
+  if (!expirationRegex.test(expiration.trim())) {
+    return false;
+  }
+
+  const [month, year] = expiration.split('/');
+  const currentYear = new Date().getFullYear() % 100; // Get last two digits of the year
+  const currentMonth = new Date().getMonth() + 1; // Months are 0-based, so add 1
+
+  return (
+    parseInt(year, 10) >= currentYear ||
+    (parseInt(year, 10) === currentYear && parseInt(month, 10) >= currentMonth)
+  );
+};
+
+export const isValidCVV = (cvv) => {
+  // CVV validation logic
+  // Assume a valid CVV should contain exactly 3 digits
+  const cvvRegex = /^\d{3}$/;
+  return cvv.trim() !== '' && cvvRegex.test(cvv.trim());
 };

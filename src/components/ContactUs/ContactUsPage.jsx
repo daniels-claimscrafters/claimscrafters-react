@@ -31,6 +31,14 @@ const ContactUsPage = () => {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [recaptchaValue, setRecaptchaValue] = useState('');
+  const [submitEnabled, setSubmitEnabled] = useState(false);
+
+  const handleRecaptchaChange = (value) => {
+    setRecaptchaValue(value);
+    setSubmitEnabled(!!value); // Enable the submit button if the reCAPTCHA value is truthy
+    console.log("reCAPTCHA value:", value);
+  };
 
   const [validationErrors, setValidationErrors] = useState({
     name: '',
@@ -79,6 +87,8 @@ const ContactUsPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    console.log("Form submitted with reCAPTCHA value:", recaptchaValue);
 
     try {
       // Add your validation checks here before making the API call
@@ -181,10 +191,13 @@ const ContactUsPage = () => {
   </div>
 
   {/* reCAPTCHA v3 */}
-  <ReCAPTCHA
-  sitekey="6LclTGgpAAAAAH2ZRurlnCHuD5AmM4dEKYWnIEOe" // Use your actual reCAPTCHA v3 site key here
-  onChange={(value) => console.log("reCAPTCHA value:", value)}
-/>
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <ReCAPTCHA
+        sitekey="6LclTGgpAAAAAH2ZRurlnCHuD5AmM4dEKYWnIEOe" // Use your actual reCAPTCHA v3 site key here
+        onChange={handleRecaptchaChange}
+      />
+    </div>
+
 
   {/* Use ButtonSendMessage as the submit button */}
   <ButtonSendMessage type="submit">Send Message</ButtonSendMessage>

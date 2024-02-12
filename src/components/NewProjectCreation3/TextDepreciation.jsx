@@ -7,6 +7,7 @@ const styles = {
     fontFamily: 'Poppins',
     fontWeight: 700,
     lineHeight: '31px',
+    marginBottom: '10px',
   },
 };
 
