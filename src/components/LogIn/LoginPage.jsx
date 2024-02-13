@@ -27,34 +27,33 @@ import TextTitle from './TextTitle';
 // Import other components as needed
 
 const LogInPage = () => {
-  // State to store email and password
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
   const navigate = useNavigate();
 
-  // Function to handle form submission
   const handleLogin = async (e) => {
     e.preventDefault();
-
-    // Validate email and password if needed
-
     try {
       const response = await axios.post('https://ef90-2600-1010-b022-c395-ccde-8ce7-1ab6-6289.ngrok-free.app/auth/login', {
         email,
         password,
       });
-
-      // Check the response and handle accordingly
+      console.log('Login response:', response); // Log the entire response object
       if (response.status === 200) {
-        // Successful login, redirect to 'phmspage'
+        // Extract token from login response
+        const { token } = response.data;
+
+        // Store token as HTTP cookie
+        document.cookie = `token=${token}; path=/;`;
+
+        console.log('Token stored:', token); // Log the stored token
+        // Redirect to PMHS page upon successful login
         navigate('/pmhs');
+        console.log('Redirecting to PMHS page...'); // Log the redirection attempt
       } else {
-        // Handle login failure
         console.error('Login failed');
       }
     } catch (error) {
-      // Handle error
       console.error('Error during login', error);
     }
   };

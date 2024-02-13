@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import TextUsername from './TextUsername';
 import TextTotalInt from './TextTotalInt';
 import TextTotal from './TextTotal';
@@ -35,18 +36,31 @@ import IconLogout from './IconLogout';
 import CardMyTasks from './CardMyTasks';
 
 const PMHSPage = () => {
+  const navigate = useNavigate();
   const [userData, setUserData] = useState(null);
 
+  useEffect(() => {
+    // Check if the user is authenticated
+    const token = getTokenFromCookie();
+    if (!token) {
+      // User is not authenticated, redirect to login page
+      navigate('/login');
+    } else {
+      // Fetch user data if user is authenticated
+      fetchUserData(token);
+    }
+  }, [navigate]);
+
   // Function to fetch user data
-  const fetchUserData = async () => {
+  const fetchUserData = async (token) => {
     try {
-      const response = await fetch('https://ef90-2600-1010-b022-c395-ccde-8ce7-1ab6-6289.ngrok-free.app/user/:id', {
-        method: 'GET', // Change the method to GET
+      const response = await fetch('https://ef90-2600-1010-b022-c395-ccde-8ce7-1ab6-6289.ngrok-free.app/user', {
+        method: 'GET',
         headers: {
-          'ngrok-skip-browser-warning': '69420', // Add this header
-        },
+          'ngrok-skip-browser-warning': '69420',
+          Authorization: `Bearer ${token}`
+        }
       });
-  
       if (response.ok) {
         const data = await response.json();
         setUserData(data.user);
@@ -54,15 +68,24 @@ const PMHSPage = () => {
         console.error('Failed to fetch user data');
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Error fetching user data:', error);
     }
   };
-  
 
-  // Call the fetchUserData function when component mounts
-  useEffect(() => {
-    fetchUserData();
-  }, []);
+  // Function to retrieve token from cookie
+  const getTokenFromCookie = () => {
+    const cookies = document.cookie.split(';');
+    for (let cookie of cookies) {
+      const [name, value] = cookie.trim().split('=');
+      if (name === 'token') {
+        return value;
+      }
+    }
+    return null;
+  };
+
+  // Log the userData variable
+  console.log('User data:', userData);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100%' }}>
@@ -93,7 +116,7 @@ const PMHSPage = () => {
               {/* ImageProfile in the top-right corner */}
               <ImageProfile />
               {/* TextUsername directly under ImageProfile */}
-              <TextUsername />
+              <TextUsername userData={userData} />
             </div>
             {/* IconLogout */}
             <IconLogout />
@@ -155,4 +178,3 @@ const PMHSPage = () => {
 };
 
 export default PMHSPage;
-

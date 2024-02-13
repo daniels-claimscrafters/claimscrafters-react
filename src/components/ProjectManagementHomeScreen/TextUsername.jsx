@@ -1,5 +1,13 @@
 import React from 'react';
 
+const TextUsername = ({ userData }) => {
+  return (
+    <div style={styles.Text}>
+      Hello, {userData && userData.firstName ? userData.firstName : '<User First Name>'}
+    </div>
+  );
+};
+
 const styles = {
   Text: {
     color: '#000000',
@@ -9,16 +17,4 @@ const styles = {
   },
 };
 
-const defaultProps = {
-  text: '<User First Name>',
-};
-
-const Text = (props) => {
-  return (
-    <div style={styles.Text}>
-      {props.text ?? defaultProps.text}
-    </div>
-  );
-};
-
-export default Text;
+export default TextUsername;
