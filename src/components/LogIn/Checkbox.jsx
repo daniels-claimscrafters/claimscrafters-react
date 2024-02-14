@@ -31,24 +31,23 @@ const styles = {
   },
 };
 
-const Checkbox = () => {
-  const [isChecked, setIsChecked] = React.useState(false);
-
-  const onClick = () => {
-    setIsChecked(!isChecked);
-  }
+const Checkbox = ({ checked, onChange }) => {
+  const handleClick = () => {
+    onChange(!checked);
+  };
 
   return (
-    <div style={styles.Container} onClick={onClick}>
-      <div style={{
-        ...styles.Check,
-        display: isChecked ? 'block' : 'none',
-      }}>
-        ✓
-      </div>
-      <input type="checkbox" style={styles.Input} />
+    <div style={styles.Container} onClick={handleClick}>
+      <input
+        type="checkbox"
+        checked={checked}
+        onChange={() => {}}
+      />
+      {checked && <div style={styles.Check}>✓</div>}
     </div>
   );
 };
+
+
 
 export default Checkbox;

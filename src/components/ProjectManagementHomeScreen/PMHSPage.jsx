@@ -110,17 +110,17 @@ const PMHSPage = () => {
             {/* Include the search icon within InputFieldSearch component */}
           </div>
           {/* Right Section: ImageProfile, TextUsername, and IconLogout */}
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
-            {/* ImageProfile and TextUsername in a row */}
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              {/* ImageProfile in the top-right corner */}
-              <ImageProfile />
-              {/* TextUsername directly under ImageProfile */}
-              <TextUsername userData={userData} />
-            </div>
-            {/* IconLogout */}
-            <IconLogout />
-          </div>
+<div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end' }}>
+  {/* ImageProfile */}
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginRight: '10px' }}>
+    {/* ImageProfile */}
+    <ImageProfile />
+    {/* TextUsername */}
+    <TextUsername userData={userData} />
+  </div>
+  {/* IconLogout */}
+  <IconLogout />
+</div>
         </div>
         {/* Cards and Project Buttons Section */}
         <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px', width: '100%' }}>

@@ -1,5 +1,6 @@
 // HomeScreen.jsx
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ButtonSignIn from './ButtonSignIn';
 import ButtonTheChallenge from './ButtonTheChallenge';
 import ButtonTheOpportunity from './ButtonTheOpportunity';
@@ -40,11 +41,74 @@ import TextTheOpportunityHeader from './TextTheOpportunityHeader';
 import TextTheSolutionBody from './TextTheSolutionBody';
 import TextTheSolutionHeader from './TextTheSolutionHeader';
 import VerticalDividerFooter from './VerticalDividerFooter';
+import ButtonDashboard from './ButtonDashboard';
+import ImageProfile from './ImageProfile';
+import TextUsername from './TextUsername';
 
 // Import other components as needed
 
+
 const HomeScreen = () => {
-  
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    // Check if the user is authenticated
+    const token = getTokenFromCookie();
+    if (token) {
+      // User is authenticated, set authentication status to true
+      setIsAuthenticated(true);
+      // Fetch user data
+      fetchUserData(token);
+    }
+  }, []);
+
+  // Function to retrieve token from cookie
+  const getTokenFromCookie = () => {
+    const cookies = document.cookie.split(';');
+    for (let cookie of cookies) {
+      const [name, value] = cookie.trim().split('=');
+      if (name === 'token') {
+        console.log("Token received:", value);
+        return value;
+      }
+    }
+    return null;
+  };
+
+  // Function to fetch user data
+const fetchUserData = async (token) => {
+  try {
+    const response = await fetch('https://ef90-2600-1010-b022-c395-ccde-8ce7-1ab6-6289.ngrok-free.app/user', {
+      method: 'GET',
+      headers: {
+        'ngrok-skip-browser-warning': '69420',
+        Authorization: `Bearer ${token}`
+      }
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      setUserData(data.user);
+    } else if (response.status === 401) {
+      // If the request is unauthorized, log the user out
+      console.log('Unauthorized. Logging user out.');
+      setIsAuthenticated(false);
+      setUserData(null);
+      // Optionally, you can clear the token from cookies or local storage
+      clearToken();
+    } else {
+      console.error('Failed to fetch user data');
+    }
+  } catch (error) {
+    console.error('Error fetching user data:', error);
+  }
+};
+
+const clearToken = () => {
+  document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+};
+
   return (
     <div className="home-screen-page">
       <Header>
@@ -54,9 +118,29 @@ const HomeScreen = () => {
         {/* Header text in the middle */}
         <HeaderText />
 
-        {/* Sign In text and Login button on the right */}
-        <TextGetStarted />
-        <ButtonSignIn />
+        {/* Conditional rendering for authentication */}
+        {isAuthenticated ? (
+  // Render image profile and dashboard button if authenticated
+  <>
+    <ButtonDashboard />
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginLeft: '10px' }}>
+            {/* ImageProfile */}
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <ImageProfile />
+            </div>
+            {/* TextUsername */}
+            <div style={{ textAlign: 'center', marginRight: '25px', marginTop: '10px' }}> {/* Ensure TextUsername is centered */}
+              <TextUsername userData={userData} />
+            </div>
+          </div>
+  </>
+        ) : (
+          // Render sign-in button if not authenticated
+          <>
+            <TextGetStarted />
+            <ButtonSignIn />
+          </>
+        )}
       </Header>
 
       <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>

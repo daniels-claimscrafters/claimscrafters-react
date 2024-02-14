@@ -1,5 +1,4 @@
-// LoginPage.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import ButtonLogIn from './ButtonLogIn';
@@ -24,12 +23,34 @@ import TextSignup from './TextSignup';
 import TextSubtitle from './TextSubtitle';
 import TextTitle from './TextTitle';
 
-// Import other components as needed
-
 const LogInPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [rememberMe, setRememberMe] = useState(false);
+  const [error, setError] = useState(''); // State for error message
+  const [authenticated, setAuthenticated] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Check if the user is authenticated (e.g., by checking the presence of a JWT token in the cookie)
+    const isAuthenticated = document.cookie.includes('token='); // Adjust this logic as per your cookie setup
+    setAuthenticated(isAuthenticated);
+  }, []);
+
+  useEffect(() => {
+    // Redirect authenticated users away from the login page
+    if (authenticated) {
+      navigate('/pmhs'); // Redirect to the home page or another route
+    }
+  }, [authenticated, navigate]);
+
+  useEffect(() => {
+    const storedEmail = localStorage.getItem('rememberedEmail');
+    if (storedEmail) {
+      setEmail(storedEmail);
+      setRememberMe(true);
+    }
+  }, []);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -51,12 +72,30 @@ const LogInPage = () => {
         navigate('/pmhs');
         console.log('Redirecting to PMHS page...'); // Log the redirection attempt
       } else {
-        console.error('Login failed');
+        setError('Login failed. Please check your credentials and try again.'); // Set error message
       }
     } catch (error) {
       console.error('Error during login', error);
+      if (error.response && error.response.status === 401) {
+        setError('Invalid credentials. Please check your email and password and try again.'); // Set error message for 401 response
+      } else {
+        setError('An error occurred during login. Please try again later.'); // Set generic error message
+      }
     }
   };
+
+  const handleRememberMeChange = (e) => {
+    console.log('Checkbox state:', e.target.checked);
+    console.log('Email:', email);
+    
+    setRememberMe(e.target.checked);
+    if (e.target.checked) {
+      localStorage.setItem('rememberedEmail', email);
+    } else {
+      localStorage.removeItem('rememberedEmail');
+    }
+  };
+  
 
   return (
     <div style={{ display: 'flex' }}>
@@ -71,6 +110,9 @@ const LogInPage = () => {
           <ImageHeader />
           <TextTitle />
           <TextSubtitle />
+
+          {/* Error message */}
+          {error && <div style={{ color: 'red', marginBottom: '10px' }}>{error}</div>}
 
           {/* Form */}
           <form onSubmit={handleLogin}>
@@ -98,7 +140,7 @@ const LogInPage = () => {
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
               <div style={{ display: 'flex', alignItems: 'center' }}>
                 <TextRememberMe />
-                <Checkbox />
+                <Checkbox checked={rememberMe} onChange={handleRememberMeChange} />
               </div>
               <div style={{ display: 'flex', alignItems: 'center' }}>
                 <TextForgotPassword style={{ marginLeft: 'auto' }} />
