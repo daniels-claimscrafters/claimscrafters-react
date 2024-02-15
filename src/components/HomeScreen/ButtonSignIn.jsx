@@ -18,6 +18,8 @@ const styles = {
     fontFamily: 'Poppins',
     lineHeight: '16px',
     outline: 'none',
+    marginRight: '40px',
+    marginLeft: '20px',
   },
 };
 

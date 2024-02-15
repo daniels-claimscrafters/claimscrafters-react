@@ -1,3 +1,5 @@
+// InputFieldEmail.jsx
+
 import React from 'react';
 
 const styles = {
@@ -24,10 +26,18 @@ const defaultProps = {
   text: 'Email',
 };
 
-const InputField = (props) => {
+const InputFieldEmail = (props) => {
+  const { text, value, onChange } = props;
+
   return (
-    <input style={styles.Input} placeholder={props.text ?? defaultProps.text} />
+    <input
+      style={styles.Input}
+      type="email"
+      placeholder={text ?? defaultProps.text}
+      value={value}
+      onChange={onChange}
+    />
   );
 };
 
-export default InputField;
+export default InputFieldEmail;

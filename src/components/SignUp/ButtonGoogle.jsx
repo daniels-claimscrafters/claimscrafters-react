@@ -1,4 +1,7 @@
-import React from 'react';
+// ButtonGoogle.jsx
+
+
+import React, { useEffect } from 'react';
 
 const styles = {
   Button: {

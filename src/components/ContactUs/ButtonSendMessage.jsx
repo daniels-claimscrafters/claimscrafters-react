@@ -18,8 +18,12 @@ const styles = {
     fontWeight: 600,
     lineHeight: '21px',
     outline: 'none',
-    marginTop: '10px'
+    marginTop: '20px'
   },
+  DisabledButton: {
+    backgroundColor: '#999999',
+    cursor: 'not-allowed',
+  }
 };
 
 const defaultProps = {
@@ -27,9 +31,13 @@ const defaultProps = {
 };
 
 const Button = (props) => {
+  const { label, onClick, disabled } = props;
+
+  const buttonStyle = disabled ? { ...styles.Button, ...styles.DisabledButton } : styles.Button;
+
   return (
-    <button style={styles.Button}>
-      {props.label ?? defaultProps.label}
+    <button style={buttonStyle} onClick={onClick} disabled={disabled}>
+      {label ?? defaultProps.label}
     </button>
   );
 };

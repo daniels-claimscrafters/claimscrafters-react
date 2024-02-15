@@ -1,3 +1,4 @@
+// ButtonSubmit.jsx
 import React from 'react';
 
 const styles = {
@@ -25,9 +26,11 @@ const defaultProps = {
 };
 
 const Button = (props) => {
+  const { label, onClick } = props;
+
   return (
-    <button style={styles.Button}>
-      {props.label ?? defaultProps.label}
+    <button style={styles.Button} onClick={onClick}>
+      {label ?? defaultProps.label}
     </button>
   );
 };

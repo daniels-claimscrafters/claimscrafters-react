@@ -79,7 +79,7 @@ const HomeScreen = () => {
   // Function to fetch user data
 const fetchUserData = async (token) => {
   try {
-    const response = await fetch('https://ef90-2600-1010-b022-c395-ccde-8ce7-1ab6-6289.ngrok-free.app/user', {
+    const response = await fetch('https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/user', {
       method: 'GET',
       headers: {
         'ngrok-skip-browser-warning': '69420',

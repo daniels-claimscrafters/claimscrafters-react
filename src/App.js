@@ -9,7 +9,6 @@ import ContactusPage from './components/ContactUs/ContactUsPage';
 import CUDBPage from './components/ContactUsDialogueBox/CUDBPage';
 import EVDBPage from './components/EmailVerificationDialogueBox/EVDBPage';
 import ForgotPasswordPage from './components/ForgotPassword/ForgotPasswordPage';
-import PRCPage from './components/PasswordResetConfirmation/PRCPage';
 import PasswordResetPage from './components/PasswordReset/PasswordResetPage';
 import PasswordChangedPage from './components/PasswordChanged/PasswordChangedPage';
 import TermsOfServicePage from './components/TermsOfService/TermsOfServicePage';
@@ -35,7 +34,6 @@ const App = () => {
         <Route path="/cudb" element={<CUDBPage />} />
         <Route path="/evdb" element={<EVDBPage />} />
         <Route path="/forgotpassword" element={<ForgotPasswordPage />} />
-        <Route path="/prc" element={<PRCPage />} />
         <Route path="/passwordreset" element={<PasswordResetPage />} />
         <Route path="/passwordchanged" element={<PasswordChangedPage />} />
         <Route path="/tos" element={<TermsOfServicePage />} />

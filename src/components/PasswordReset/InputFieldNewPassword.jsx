@@ -1,3 +1,5 @@
+//InputFieldNewPassword.jsx
+
 import React from 'react';
 
 const styles = {
@@ -20,14 +22,16 @@ const styles = {
   },
 };
 
-const defaultProps = {
-  text: 'New Password',
-};
-
-const InputField = (props) => {
+const InputFieldNewPassword = ({ value, onChange }) => {
   return (
-    <input style={styles.Input} placeholder={props.text ?? defaultProps.text} />
+    <input
+      style={styles.Input}
+      type="password"
+      placeholder="New Password"
+      value={value}
+      onChange={onChange}
+    />
   );
 };
 
-export default InputField;
+export default InputFieldNewPassword;

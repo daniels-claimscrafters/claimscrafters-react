@@ -49,6 +49,9 @@ import TextPrivacy from './TextPrivacy';
 import TextSubtitle from './TextSubtitle';
 import TextTitle from './TextTitle';
 import TextTOU from './TextTOU';
+import IconHome from './IconHome';
+
+import { GoogleLogin } from 'react-google-login';
 
 const YourTargetComponent = () => {
   const [formData, setFormData] = useState({
@@ -89,6 +92,20 @@ const YourTargetComponent = () => {
       [fieldName]: '',
     });
   };
+
+  const isFormComplete = () => {
+    return (
+      formData.firstName !== '' &&
+      formData.lastName !== '' &&
+      formData.title !== '' &&
+      formData.company !== '' &&
+      formData.phone !== '' &&
+      formData.email !== '' &&
+      formData.createPassword !== '' &&
+      formData.confirmPassword !== '' &&
+      isAgreeChecked
+    );
+};
 
   const handleFirstNameBlur = () => {
     const isValid = isValidFirstName(formData.firstName);
@@ -256,7 +273,7 @@ const YourTargetComponent = () => {
     const sendFormDataToBackend = async (formData) => {
       // Implement your logic to send the form data to the backend
       // You can use fetch, axios, or any other method suitable for your backend API
-      const response = await fetch('https://6881-2600-1010-b06f-3038-e877-f840-f311-aef6.ngrok-free.app/auth/register', {
+      const response = await fetch('https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -271,18 +288,26 @@ const YourTargetComponent = () => {
     return (
       <form onSubmit={handleSubmit}>
       <div>
-        <div>
-        {/* Header */}
-        <TextHeader />
-      </div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+  {/* TextHeader */}
+  <div style={{ flex: '1', textAlign: 'center' }}>
+    <TextHeader />
+  </div>
+  {/* IconHome */}
+  <IconHome />
+</div>
 
-      <div style={{ display: 'flex', justifyContent: 'center', gap: '30px', marginBottom: '20px' }}>
-        {/* Social Media Buttons in a line with reduced gap */}
-        <ButtonGoogle />
-        <ButtonWindows />
-        <ButtonLinkedIn />
-        <ButtonFacebook />
-      </div>
+
+      {/* 
+<div style={{ display: 'flex', justifyContent: 'center', gap: '30px', marginBottom: '20px' }}>
+  Social Media Buttons in a line with reduced gap 
+  <ButtonGoogle onClick={handleGoogleButtonClick} />
+  <ButtonWindows />
+  <ButtonLinkedIn />
+  <ButtonFacebook />
+</div>
+*/}
+
 
       <div>
         {/* Subtitle */}
@@ -412,7 +437,7 @@ const YourTargetComponent = () => {
         </div>
           <div>
             {/* Button Signup */}
-            <ButtonSignup />
+            <ButtonSignup disabled={!isFormComplete()} />
           </div>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             {/* Text Already Have */}

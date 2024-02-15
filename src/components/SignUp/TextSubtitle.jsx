@@ -12,7 +12,7 @@ const styles = {
 };
 
 const defaultProps = {
-  text: 'Or, enter your details to create an account.',
+  text: 'Enter your details to create an account.',
 };
 
 const Text = (props) => {

@@ -1,3 +1,4 @@
+// IconLogout.jsx
 import React from 'react';
 
 const styles = {
@@ -10,7 +11,8 @@ const styles = {
     width: '38px',
     height: '57px',
     marginRight: '30px',
-    marginLeft: '20px'
+    marginLeft: '20px',
+    cursor: 'pointer',
   },
 };
 
@@ -27,12 +29,12 @@ const defaultProps = {
   IconComponent,
 };
 
-const Icon = (props) => {
+const IconLogout = ({ onClick }) => {
   return (
-    props.IconComponent 
-      ? <props.IconComponent style={styles.Icon} /> 
-      : <defaultProps.IconComponent />
+    <div onClick={onClick}>
+      {IconComponent ? <IconComponent style={styles.Icon} /> : <defaultProps.IconComponent />}
+    </div>
   );
 };
 
-export default Icon;
+export default IconLogout;

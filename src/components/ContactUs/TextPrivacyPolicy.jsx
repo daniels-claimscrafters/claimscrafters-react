@@ -7,7 +7,7 @@ const styles = {
     fontSize: '18px',
     fontFamily: 'Poppins',
     lineHeight: '23px',
-    marginRight: '10px',
+    marginRight: '30px',
     cursor: 'pointer',
   },
 };

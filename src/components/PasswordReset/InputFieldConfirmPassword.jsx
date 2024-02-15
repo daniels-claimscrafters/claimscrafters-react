@@ -21,14 +21,16 @@ const styles = {
   },
 };
 
-const defaultProps = {
-  text: 'New Password',
-};
-
-const InputField = (props) => {
+const InputFieldConfirmPassword = ({ value, onChange }) => {
   return (
-    <input style={styles.Input} placeholder={props.text ?? defaultProps.text} />
+    <input
+      style={styles.Input}
+      type="password"
+      placeholder="Confirm New Password"
+      value={value}
+      onChange={onChange}
+    />
   );
 };
 
-export default InputField;
+export default InputFieldConfirmPassword;

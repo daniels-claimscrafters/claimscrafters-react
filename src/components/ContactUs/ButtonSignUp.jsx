@@ -19,7 +19,7 @@ const styles = {
     fontWeight: 600,
     lineHeight: '21px',
     outline: 'none',
-    marginRight: '10px',
+    marginRight: '30px',
   },
 };
 

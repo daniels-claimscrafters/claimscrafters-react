@@ -1,5 +1,5 @@
 // ContactUsPage.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ButtonSendMessage from './ButtonSendMessage';
 import ButtonSignUp from './ButtonSignUp';
@@ -33,11 +33,24 @@ const ContactUsPage = () => {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [recaptchaValue, setRecaptchaValue] = useState('');
   const [submitEnabled, setSubmitEnabled] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
+
+  console.log("Initial state of submitEnabled:", submitEnabled);
+  console.log("Initial state of name:", name);
+  console.log("Initial state of email:", email);
+  console.log("Initial state of message:", message);
+  console.log("Initial state of recaptchaValue:", recaptchaValue);
+
+  useEffect(() => {
+    // Enable submit button if all fields are filled and recaptcha is completed
+    setSubmitEnabled(!!name && !!email && !!message && !!recaptchaValue);
+  }, [name, email, message, recaptchaValue]);
 
   const handleRecaptchaChange = (value) => {
     setRecaptchaValue(value);
     setSubmitEnabled(!!value); // Enable the submit button if the reCAPTCHA value is truthy
     console.log("reCAPTCHA value:", value);
+    console.log("Submit enabled:", submitEnabled);
   };
 
   const [validationErrors, setValidationErrors] = useState({
@@ -122,24 +135,29 @@ const ContactUsPage = () => {
       // Add other validation checks as needed
 
       // Make an HTTP POST request to a hypothetical endpoint
-      const response = await axios.post('https://jsonplaceholder.typicode.com/posts', {
-        name,
-        email,
-        message,
-      });
+      const response = await axios.post('https://ef90-2600-1010-b022-c395-ccde-8ce7-1ab6-6289.ngrok-free.app/email/contact', {
+      name,
+      email,
+      message,
+      recaptchaToken: recaptchaValue, // Include the reCAPTCHA token in the request
+    });
 
-      // Check the response and update state or show messages accordingly
-      if (response.status === 201) {
-        setFormSubmitted(true);
-      } else {
-        // Handle error
-        console.error('Form submission failed');
-      }
-    } catch (error) {
-      // Handle error
-      console.error('Error during form submission', error);
+    // Check the response and update state or show messages accordingly
+    if (response.status === 200) {
+      setFormSubmitted(true);
+      setSuccessMessage('Your message was sent successfully!');
+      // Optionally, you can reset the form fields here:
+      setName('');
+      setEmail('');
+      setMessage('');
+      setRecaptchaValue('');
+    } else {
+      console.error('Form submission failed');
     }
-  };
+  } catch (error) {
+    console.error('Error during form submission', error);
+  }
+};
 
   return (
     <div>
@@ -167,6 +185,12 @@ const ContactUsPage = () => {
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
           <TextMainHeader />
           <TextMainBody />
+
+          {formSubmitted && (
+            <div style={{ color: 'green', marginBottom: '10px' }}>
+              {successMessage}
+            </div>
+          )}
   
           <form onSubmit={handleSubmit}>
   {/* Name Field */}
@@ -192,15 +216,16 @@ const ContactUsPage = () => {
 
   {/* reCAPTCHA v3 */}
   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      {/* ReCAPTCHA */}
       <ReCAPTCHA
-        sitekey="6LclTGgpAAAAAH2ZRurlnCHuD5AmM4dEKYWnIEOe" // Use your actual reCAPTCHA v3 site key here
-        onChange={handleRecaptchaChange}
-      />
+          sitekey="6LduMHIpAAAAALziGJQsC8-wQg5SOI_8C7b7QneU" // Your reCAPTCHA site key
+          onChange={handleRecaptchaChange}
+        />
     </div>
 
 
   {/* Use ButtonSendMessage as the submit button */}
-  <ButtonSendMessage type="submit">Send Message</ButtonSendMessage>
+  <ButtonSendMessage type="submit" disabled={!submitEnabled}>Send Message</ButtonSendMessage>
 </form>
         </div>
       </div>

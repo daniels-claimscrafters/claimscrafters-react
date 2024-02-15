@@ -9,7 +9,7 @@ const styles = {
     fontWeight: 600,
     lineHeight: '21px',
     textAlign: 'center',
-    marginRight: '10px',
+    marginRight: '20px',
     cursor: 'pointer',
   },
 };

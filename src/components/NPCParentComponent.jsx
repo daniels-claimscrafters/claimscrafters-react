@@ -98,7 +98,7 @@ const NPCParentComponent = () => {
       console.log('NPC data submitted:', npcData);
   
       // Send NPC data to the server
-      const response = await fetch('https://ef90-2600-1010-b022-c395-ccde-8ce7-1ab6-6289.ngrok-free.app/npc', {
+      const response = await fetch('https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/npc', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

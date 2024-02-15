@@ -18,8 +18,8 @@ const styles = {
     fontWeight: 700,
     lineHeight: '22px',
     outline: 'none',
-    marginTop: '10px',
-    marginBottom: '10px',
+    marginTop: '40px',
+    marginBottom: '20px',
   },
 };
 
@@ -27,10 +27,16 @@ const defaultProps = {
   label: 'Sign up',
 };
 
-const Button = (props) => {
+const Button = ({ disabled, label }) => {
+  const buttonStyles = {
+    ...styles.Button,
+    backgroundColor: disabled ? '#CCCCCC' : '#2a84ea',
+    cursor: disabled ? 'not-allowed' : 'pointer',
+  };
+
   return (
-    <button style={styles.Button}>
-      {props.label ?? defaultProps.label}
+    <button style={buttonStyles} disabled={disabled}>
+      {label ?? defaultProps.label}
     </button>
   );
 };

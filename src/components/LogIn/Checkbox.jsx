@@ -1,3 +1,7 @@
+// Checkbox.jsx
+
+
+
 import React from 'react';
 
 const styles = {
@@ -32,22 +36,24 @@ const styles = {
 };
 
 const Checkbox = ({ checked, onChange }) => {
-  const handleClick = () => {
-    onChange(!checked);
+  const onClick = (event) => {
+    console.log('Checkbox clicked');
+    onChange(!checked, event); // Pass the event object explicitly
   };
 
+  console.log('Checkbox checked:', checked);
+
   return (
-    <div style={styles.Container} onClick={handleClick}>
-      <input
-        type="checkbox"
-        checked={checked}
-        onChange={() => {}}
-      />
-      {checked && <div style={styles.Check}>✓</div>}
+    <div style={styles.Container} onClick={onClick}>
+      <div style={{
+        ...styles.Check,
+        display: checked ? 'block' : 'none',
+      }}>
+        ✓
+      </div>
+      <input type="checkbox" style={styles.Input} checked={checked} onChange={() => {}} />
     </div>
   );
 };
-
-
 
 export default Checkbox;
