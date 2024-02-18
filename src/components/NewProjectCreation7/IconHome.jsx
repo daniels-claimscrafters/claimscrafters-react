@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const styles = {
   Icon: {
@@ -27,10 +28,20 @@ const defaultProps = {
 };
 
 const Icon = (props) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    console.log('Clicked!');
+    // Use the navigate function to redirect to the /homescreen route
+    navigate('/');
+  };
+
+  const IconToRender = props.IconComponent ? props.IconComponent : defaultProps.IconComponent;
+
   return (
-    props.IconComponent 
-      ? <props.IconComponent style={styles.Icon} /> 
-      : <defaultProps.IconComponent />
+    <div style={{ cursor: 'pointer' }} onClick={handleClick}>
+      <IconToRender style={styles.Icon} />
+    </div>
   );
 };
 

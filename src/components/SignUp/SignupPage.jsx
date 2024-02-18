@@ -298,16 +298,6 @@ const YourTargetComponent = () => {
 </div>
 
 
-      {/* 
-<div style={{ display: 'flex', justifyContent: 'center', gap: '30px', marginBottom: '20px' }}>
-  Social Media Buttons in a line with reduced gap 
-  <ButtonGoogle onClick={handleGoogleButtonClick} />
-  <ButtonWindows />
-  <ButtonLinkedIn />
-  <ButtonFacebook />
-</div>
-*/}
-
 
       <div>
         {/* Subtitle */}

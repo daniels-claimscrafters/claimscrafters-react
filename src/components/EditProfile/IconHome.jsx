@@ -1,19 +1,17 @@
-// IconHome.jsx
-
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const styles = {
   Icon: {
-    color: '#ffffff',
-    fill: '#ffffff',
+    color: '#030303',
+    fill: '#030303',
     fontSize: '40px',
-    top: '49px',
-    left: '1305px',
+    top: '42px',
+    left: '1325px',
     width: '40px',
     height: '40px',
-    marginRight: '30px',
-    cursor: 'pointer',
+    marginRight: '40px',
+    marginTop: '20px',
   },
 };
 
@@ -34,7 +32,7 @@ const Icon = (props) => {
   const handleClick = () => {
     console.log('Clicked!');
     // Use the navigate function to redirect to the /homescreen route
-    navigate('/');
+    navigate('/pmhs');
   };
 
   const IconToRender = props.IconComponent ? props.IconComponent : defaultProps.IconComponent;

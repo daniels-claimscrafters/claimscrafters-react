@@ -1,3 +1,5 @@
+// ButtonBack.jsx
+
 import React from 'react';
 
 const styles = {
@@ -25,12 +27,18 @@ const defaultProps = {
   label: 'Back',
 };
 
-const Button = (props) => {
+const ButtonBack = ({ label, onBack }) => {
+  const handleClick = () => {
+    if (onBack) {
+      onBack(); // Invoke the onBack function passed as prop
+    }
+  };
+
   return (
-    <button style={styles.Button}>
-      {props.label ?? defaultProps.label}
+    <button style={styles.Button} onClick={handleClick}>
+      {label ?? 'Back'}
     </button>
   );
 };
 
-export default Button;
+export default ButtonBack;

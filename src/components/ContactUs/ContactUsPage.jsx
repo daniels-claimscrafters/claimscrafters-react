@@ -135,7 +135,7 @@ const ContactUsPage = () => {
       // Add other validation checks as needed
 
       // Make an HTTP POST request to a hypothetical endpoint
-      const response = await axios.post('https://ef90-2600-1010-b022-c395-ccde-8ce7-1ab6-6289.ngrok-free.app/email/contact', {
+      const response = await axios.post('https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/email/contact', {
       name,
       email,
       message,

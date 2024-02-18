@@ -39,7 +39,38 @@ const NPCParentComponent = () => {
     expiration: '',
     cvv: '',
     price: '',
+    token: '' // New field to store token
   });
+
+  // Function to check if user is logged in
+  const isLoggedIn = () => {
+    const token = getTokenFromCookie();
+    return !!token;
+  };
+
+  // Function to retrieve token from cookie
+  const getTokenFromCookie = () => {
+    const cookies = document.cookie.split(';');
+    for (let cookie of cookies) {
+      const [name, value] = cookie.trim().split('=');
+      if (name === 'token') {
+        return value;
+      }
+    }
+    return null;
+  };
+
+  useEffect(() => {
+    const token = getTokenFromCookie();
+    if (token) {
+      // User is logged in, update npcData with the token
+      setNPCData(prevNPCData => ({ ...prevNPCData, token }));
+      console.log('User is logged in');
+    } else {
+      console.log('User is not logged in');
+      // Redirect to login page or perform other actions
+    }
+  }, []);
 
   const handleInputChange = (name, value) => {
     setNPCData((prevData) => {
@@ -76,6 +107,27 @@ const NPCParentComponent = () => {
     });
   };
 
+  useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      // Cancel the event
+      event.preventDefault();
+      // Chrome requires returnValue to be set
+      event.returnValue = '';
+      // Display a confirmation dialog
+      const confirmationMessage = 'Are you sure you want to leave this page? Your unsaved changes may be lost.';
+      // eslint-disable-next-line no-alert
+      return confirmationMessage;
+    };
+
+    // Add event listener for beforeunload
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      // Remove event listener when component unmounts
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, []); // Only run once on component mount
+
   const handleColumnsSelected = (selectedColumns) => {
     setNPCData((prevData) => {
       const newData = {
@@ -97,11 +149,12 @@ const NPCParentComponent = () => {
       // Perform submit logic with npcData
       console.log('NPC data submitted:', npcData);
   
-      // Send NPC data to the server
+      // Send NPC data to the server with token in headers
       const response = await fetch('https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/npc', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${npcData.token}` // Include token in the Authorization header
         },
         body: JSON.stringify(npcData),
       });

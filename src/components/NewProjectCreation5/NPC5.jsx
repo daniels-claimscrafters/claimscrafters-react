@@ -151,7 +151,7 @@ const NPC5 = ({ npcData, onInputChange, onNext, onPrevious, onColumnsSelected })
 
   <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '80%', marginTop: '20px' }}>
         <div style={{ marginRight: '5px' }}>
-          <ButtonBack />
+          <ButtonBack onBack={onPrevious} />
         </div>
         <div style={{ marginLeft: '5px' }}>
         <ButtonContinue disabled={isContinueDisabled} label="Continue" onClick={onNext} />

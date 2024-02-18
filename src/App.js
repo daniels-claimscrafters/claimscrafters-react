@@ -21,6 +21,8 @@ import NPC5 from './components/NewProjectCreation5/NPC5';
 import NPC6 from './components/NewProjectCreation6/NPC6';
 import NPC7 from './components/NewProjectCreation7/NPC7';
 import NPCParentComponent from './components/NPCParentComponent';
+import ProjectDetailsPage from './components/ProjectDetails/ProjectDetailsPage';
+import EditProfilePage from './components/EditProfile/EditProfilePage';
 
 const App = () => {
   return (
@@ -46,6 +48,8 @@ const App = () => {
         <Route path="/npc6" element={<NPC6 />} />
         <Route path="/npc7" element={<NPC7 />} />
         <Route path="/npcpc" element={<NPCParentComponent />} />
+        <Route path="/projectdetails" element={<ProjectDetailsPage />} />
+        <Route path="/editprofile" element={<EditProfilePage />} />
       </Routes>
     </Router>
   );
