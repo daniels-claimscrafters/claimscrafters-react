@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const styles = {
   Icon: {
@@ -12,25 +13,13 @@ const styles = {
   },
 };
 
-const IconComponent = () => (
-  <svg style={styles.Icon}  viewBox="0 0 24 24">
-    <path fill="none" d="M0 0h24v24H0z">
-    </path>
-    <path d="M3 3v18h18V3H3zm14 12.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z">
-    </path>
-  </svg>
+const IconExit = () => (
+  <Link to="/login">
+    <svg style={styles.Icon} viewBox="0 0 24 24">
+      <path fill="none" d="M0 0h24v24H0z"></path>
+      <path d="M3 3v18h18V3H3zm14 12.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"></path>
+    </svg>
+  </Link>
 );
 
-const defaultProps = {
-  IconComponent,
-};
-
-const Icon = (props) => {
-  return (
-    props.IconComponent 
-      ? <props.IconComponent style={styles.Icon} /> 
-      : <defaultProps.IconComponent />
-  );
-};
-
-export default Icon;
+export default IconExit;

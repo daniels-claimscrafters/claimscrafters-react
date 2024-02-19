@@ -1,5 +1,6 @@
 // NPCParentComponent.jsx
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import NPC1 from './NewProjectCreation1/NPC1';
 import NPC2 from './NewProjectCreation2/NPC2';
 import NPC3 from './NewProjectCreation3/NPC3';
@@ -9,6 +10,7 @@ import NPC6 from './NewProjectCreation6/NPC6';
 import NPC7 from './NewProjectCreation7/NPC7'; // Import NPC7
 
 const NPCParentComponent = () => {
+  const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [npcData, setNPCData] = useState({
     // Fields being collected
@@ -27,7 +29,7 @@ const NPCParentComponent = () => {
     adjusterPhone: '',
     adjusterEmail: '',
     salesTax: '',
-    deprecationRange: '',
+    depreciationRange: '',
     spreadsheetUpload: '',
     numberOfLines: '',
     didAcceptLegal: '',
@@ -162,6 +164,7 @@ const NPCParentComponent = () => {
       // Check if the request was successful
       if (response.ok) {
         console.log('NPC data sent successfully!');
+        navigate('/projectdetails');
         // Handle success response
       } else {
         // Handle error response

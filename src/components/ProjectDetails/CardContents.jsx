@@ -36,11 +36,17 @@ const styles = {
     padding: '10px 0',
   },
   cell: {
-    flex: '1',
+    flex: '1', // Let each cell take up equal space initially
+    minWidth: '100px', // Define a minimum width for each cell
+    maxWidth: '200px', // Define a maximum width for each cell to prevent excessive expansion
+    overflow: 'hidden', // Hide overflow content
+    textOverflow: 'ellipsis', // Truncate text that overflows its container
+    whiteSpace: 'nowrap', // Prevent text from wrapping to the next line
   },
 };
 
 const CardContents = ({ projectDetails }) => {
+  
   return (
     <div style={styles.Card}>
       <div style={styles.headerRow}>
@@ -85,31 +91,48 @@ const CardContents = ({ projectDetails }) => {
 <div style={styles.cell}>Class</div>
         </div>
         {/* Render data rows */}
-{projectDetails.project.spreadsheetData.map((item, index) => (
-  <div key={index} style={styles.row}>
-    <div style={styles.cell}>{index + 1}</div>
-    <div style={styles.cell}>{item.Room}</div>
-    <div style={styles.cell}>{item.Description}</div>
-    <div style={styles.cell}>{/* Placeholder for Qty */}</div>
-    <div style={styles.cell}>{item['RCV High']}</div>
-    <div style={styles.cell}>{item['RCV Low']}</div>
-    <div style={styles.cell}>{/* Placeholder for Sales Tax */}</div>
-    <div style={styles.cell}>
-      {(item['RCV High'] + item['RCV Low']) / 2} {/* RCV Avg (ea) */}
+        {projectDetails.project.spreadsheetData.map((item, index) => (
+    <div key={index} style={styles.row}>
+       {/* Line */}
+       <div style={styles.cell}>{index + 1}</div>
+        {/* Room */}
+        <div style={styles.cell}>{item.Room}</div>
+        {/* Item */}
+        <div style={styles.cell}>{item.Item}</div>
+        {/* Description */}
+        <div style={styles.cell}>{item.Description}</div>
+        {/* Quantity */}
+        <div style={styles.cell}>{item.Quantity}</div>
+        {/* RCV High */}
+        <div style={styles.cell}>{item['RCV High']}</div>
+        {/* RCV Low */}
+        <div style={styles.cell}>{item['RCV Low']}</div>
+        {/* RCV Avg (ea) */}
+        <div style={styles.cell}>{(item['RCV High'] + item['RCV Low']) / 2}</div>
+        {/* RCV (ext) */}
+        <div style={styles.cell}>{(item['RCV High'] + item['RCV Low']) / 2 * item.Quantity}</div>
+        {/* Sales Tax */}
+        <div style={styles.cell}>{projectDetails.project.salesTax}</div>
+        {console.log('Sales Tax:', projectDetails.project.salesTax)}
+        {/* Sales Tax Amount */}
+        <div style={styles.cell}>{projectDetails.project.salesTax * ((item['RCV High'] + item['RCV Low']) / 2 * item.Quantity)}</div>
+        {/* RCV Total */}
+        <div style={styles.cell}>{item['RCV High'] * item.Quantity}</div>
+        {/* Depreciation */}
+        <div style={styles.cell}>{item.Depreciation}</div>
+        {/* Dep Years */}
+        <div style={styles.cell}>{projectDetails.project.depreciationRange}</div>
+        {console.log('Dep years: ', projectDetails.project.depreciationRange)}
+        {/* Dep Amount */}
+        <div style={styles.cell}>{(item['RCV High'] * item.Quantity) * item.Depreciation * projectDetails.project.depreciationRange}</div>
+        {/* ACV Total */}
+        <div style={styles.cell}>{item['RCV High'] * item.Quantity - (item['RCV High'] * item.Quantity) * item.Depreciation * projectDetails.project.depreciationRange}</div>
+        {/* Subclass */}
+        <div style={styles.cell}>{item.Subclass}</div>
+        {/* Class */}
+        <div style={styles.cell}>{item.Class}</div>
     </div>
-    <div style={styles.cell}>
-      {(item['RCV High'] + item['RCV Low']) / 2 * item.Qty} {/* RCV (ext) */}
-    </div>
-    <div style={styles.cell}>{/* Placeholder for Sales Tax Amount */}</div>
-    <div style={styles.cell}>{item['RCV High'] * item.Qty}</div> {/* RCV Total */}
-    <div style={styles.cell}>{item.Depreciation}</div>
-    <div style={styles.cell}>{/* Placeholder for Depreciation Years */}</div>
-    <div style={styles.cell}>{/* Placeholder for Depreciation Amount */}</div>
-    <div style={styles.cell}>{/* Placeholder for ACV Total */}</div>
-    <div style={styles.cell}>{item.Subclass}</div>
-    <div style={styles.cell}>{item.Class}</div>
-  </div>
-))}
+  ))}
       </div>
     </div>
   );

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import TextHeader from './TextHeader';
 import ImageProfile from './ImageProfile';
 import ImageHeader from './ImageHeader';
-import ImageChangelog from './ImageChangelog';
+import CardChangelog from './CardChangelog';
 import HeaderBackground from './HeaderBackground';
 import CardValuation from './CardValuation';
 import CardDetails from './CardDetails';
@@ -31,6 +31,10 @@ const ProjectDetailsPage = () => {
             setIsLoading(false); // Update loading state even on error
         });
     }, []); // Run only once on component mount
+
+    const handleUpdateProjectDetails = (updatedDetails) => {
+        setProjectDetails(updatedDetails);
+    };
     
     if (isLoading) {
         return <div>Loading...</div>;
@@ -58,12 +62,15 @@ const ProjectDetailsPage = () => {
                     <CardValuation projectDetails={projectDetails} />
                 </div>
                 <div style={{ padding: '10px' }}>
-                    <ImageChangelog />
+                    <CardChangelog />
                 </div>
             </div>
             <div style={{ display: 'flex', padding: '10px' }}>
                 {/* Pass projectDetails as props to CardContents */}
-                <CardContents projectDetails={projectDetails} />
+                <CardContents 
+                    projectDetails={projectDetails} 
+                    setProjectDetails={handleUpdateProjectDetails}
+                />
             </div>
         </div>
     );

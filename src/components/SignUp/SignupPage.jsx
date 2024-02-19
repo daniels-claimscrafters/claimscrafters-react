@@ -1,4 +1,8 @@
+// SignupPage.jsx
+
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import {
   isValidFirstName,
   isValidLastName,
@@ -54,6 +58,9 @@ import IconHome from './IconHome';
 import { GoogleLogin } from 'react-google-login';
 
 const YourTargetComponent = () => {
+
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -244,25 +251,23 @@ const YourTargetComponent = () => {
 
       if (isFormValid) {
         try {
-          // Perform form submission to the backend
-          const response = await sendFormDataToBackend(formData);
-    
-          // Handle the backend response
-          console.log('Backend Response:', response);
-          setFormData({
-            firstName: '',
-            lastName: '',
-            title: '',
-            company: '',
-            phone: '',
-            email: '',
-            createPassword: '',
-            confirmPassword: '',
+          const response = await fetch('https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/auth/register', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
           });
-
+    
+          if (response.ok) {
+            // Redirect to '/evdb' upon successful signup
+            navigate('/evdb');
+          } else {
+            // Handle signup failure (e.g., display error message)
+          }
         } catch (error) {
-          // Handle errors during backend submission
-          console.error('Error submitting form to backend:', error);
+          console.error('Error sending form data:', error);
+          // Handle error (e.g., display error message)
         }
       } else {
         // Form is incomplete or invalid, handle accordingly

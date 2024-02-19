@@ -34,7 +34,7 @@ import TextCardBodyDepreciation from './TextCardBodyDepreciation';
 
 const NPC3 = (props) => {
   const { npcData, onInputChange, onNext, onPrevious } = props;
-  const isContinueDisabled = !npcData.salesTax || !npcData.deprecationRange;
+  const isContinueDisabled = !npcData.salesTax || !npcData.depreciationRange;
     return (
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}>
         {/* Row 1 */}

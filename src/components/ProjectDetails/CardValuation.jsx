@@ -45,30 +45,102 @@ const styles = {
   },
 };
 
-const CardValuation = (props) => {
+const CardValuation = ({ projectDetails }) => {
+  console.log ('card valuation: ', projectDetails)
+
+  // Initialize total
+let suggestedRCVTotal = 0;
+
+// Iterate through each item in spreadsheetData
+projectDetails.project.spreadsheetData.forEach(item => {
+    // Parse RCV High, RCV Low, and Quantity from the current item
+    const RCVHigh = parseFloat(item['RCV High']);
+    const RCVLow = parseFloat(item['RCV Low']);
+    const quantity = parseFloat(item['Quantity']);
+    
+    // Calculate RCV (ext) for the current item using the provided formula
+    const RCVExt = (RCVHigh + RCVLow) / 2 * quantity;
+    
+    // Add RCV (ext) to total
+    suggestedRCVTotal += RCVExt;
+});
+
+// Use suggestedRCVTotal for further processing or display
+console.log('Suggested RCV Total:', suggestedRCVTotal);
+
+// Calculate total RCV tax
+const totalRCVTax = suggestedRCVTotal * (projectDetails.project.salesTax / 100);
+
+// Calculate RCV with tax total
+const rcvWithTaxTotal = suggestedRCVTotal + totalRCVTax;
+
+let suggestedACVTotal = 0; // Initialize total ACV
+
+// Iterate over each item in the spreadsheet data
+projectDetails.project.spreadsheetData.forEach(item => {
+    // Parse RCV High, RCV Low, Quantity, and Depreciation from the current item
+    const RCVHigh = parseFloat(item['RCV High']);
+    const RCVLow = parseFloat(item['RCV Low']);
+    const quantity = parseFloat(item['Quantity']);
+    const depreciation = parseFloat(item['Depreciation']);
+    
+    // Calculate ACV for the current item using the provided formula
+    const ACV = RCVHigh * quantity - (RCVHigh * quantity) * depreciation * projectDetails.project.depreciationRange;
+    
+    // Add ACV to total
+    suggestedACVTotal += ACV;
+});
+
+// Calculate total ACV tax by multiplying total ACV by the sales tax rate
+const totalACVTax = suggestedACVTotal * (projectDetails.project.salesTax / 100);
+
+// Calculate ACV with tax total by adding total ACV and total ACV tax
+const acvWithTaxTotal = suggestedACVTotal + totalACVTax;
+
+let totalDepreciation = 0; // Initialize total depreciation
+
+// Iterate over each item in the spreadsheet data
+projectDetails.project.spreadsheetData.forEach(item => {
+    // Parse RCV High, Quantity, and Depreciation from the current item
+    const RCVHigh = parseFloat(item['RCV High']);
+    const quantity = parseFloat(item['Quantity']);
+    const depreciation = parseFloat(item['Depreciation']);
+    
+    // Calculate depreciation amount for the current item using the provided formula
+    const depreciationAmount = (RCVHigh * quantity) * depreciation * projectDetails.project.depreciationRange;
+    
+    // Add depreciation amount to total
+    totalDepreciation += depreciationAmount;
+});
+
+// Now you have the total depreciation amount
+
+
+
   return (
     <div style={styles.Card}>
       <div style={styles.firstColumn}>
-        <div style={styles.innerCard}>Card Content</div>
+      <div style={styles.innerCard}>Number Of Items: {projectDetails.project.numberOfLines}</div>
       </div>
       <div style={styles.column}>
         <div style={styles.headerText}>RCV</div>
-        <div style={styles.text}>Suggested RCV Total:</div>
-        <div style={styles.text}>Tax Rate:</div>
-        <div style={styles.text}>Total RCV Tax:</div>
-        <div style={styles.text}>RCV with Tax Total:</div>
+        <div style={styles.text}>Suggested RCV Total: {suggestedRCVTotal}</div>
+        <div style={styles.text}>Tax Rate: {projectDetails.project.salesTax}</div>
+        <div style={styles.text}>Total RCV Tax: {totalRCVTax}</div>
+        <div style={styles.text}>RCV with Tax Total: {rcvWithTaxTotal}</div>
       </div>
       <div style={styles.column}>
         <div style={styles.headerText}>ACV</div>
-        <div style={styles.text}>Suggested ACV Total:</div>
-        <div style={styles.text}>Tax Rate:</div>
-        <div style={styles.text}>Total ACV Tax:</div>
-        <div style={styles.text}>ACV with Tax Total:</div>
+        <div style={styles.text}>Suggested ACV Total: {suggestedACVTotal}</div>
+        <div style={styles.text}>Tax Rate: {projectDetails.project.salesTax}</div>
+        <div style={styles.text}>Total ACV Tax: {totalACVTax}</div>
+        <div style={styles.text}>ACV with Tax Total: {acvWithTaxTotal}</div>
       </div>
       <div style={styles.column}>
         <div style={styles.headerText}>&nbsp;</div>
-        <div style={styles.text}>Depreciating Years:</div>
-        <div style={styles.text}>Total Depreciation:</div>
+        <div style={styles.text}>Depreciating Years: {projectDetails.project.depreciationRange}</div>
+        <div style={styles.text}>Total Depreciation: {totalDepreciation}</div>
+
       </div>
     </div>
   );
