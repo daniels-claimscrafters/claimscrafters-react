@@ -55,8 +55,6 @@ import TextTitle from './TextTitle';
 import TextTOU from './TextTOU';
 import IconHome from './IconHome';
 
-import { GoogleLogin } from 'react-google-login';
-
 const YourTargetComponent = () => {
 
   const navigate = useNavigate();
