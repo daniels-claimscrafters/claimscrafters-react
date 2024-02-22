@@ -35,7 +35,9 @@ const NPC5 = ({ npcData, onInputChange, onNext, onPrevious, onColumnsSelected })
       console.log('Selected Columns:', selectedColumns);
       onColumnsSelected(selectedColumns);
     };
-    const isContinueDisabled = !npcData.selectedColumnsData === 0;
+    const hasNonIntegerQuantity = npcData.selectedColumnsData.some(row => isNaN(row.quantity) || !Number.isInteger(Number(row.quantity)));
+    const isContinueDisabled = npcData.selectedColumnsData.length === 0 || hasNonIntegerQuantity;
+
 
     return (
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px', minHeight: '100vh' }}>

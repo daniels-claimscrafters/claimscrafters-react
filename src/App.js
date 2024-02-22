@@ -24,6 +24,7 @@ import NPCParentComponent from './components/NPCParentComponent';
 import ProjectDetailsPage from './components/ProjectDetails/ProjectDetailsPage';
 import EditProfilePage from './components/EditProfile/EditProfilePage';
 
+
 const App = () => {
   return (
     <Router>

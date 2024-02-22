@@ -1,6 +1,6 @@
 // CardDetails.jsx
 
-import React from 'react';
+import React, { useState } from 'react';
 
 const styles = {
   cardContainer: {
@@ -38,6 +38,7 @@ const styles = {
 };
 
 const CardDetails = ({ projectDetails }) => {
+  const [selectedStatus, setSelectedStatus] = useState(projectDetails.project.status);
 
   if (!projectDetails) {
     return <div>Loading...</div>;
@@ -50,6 +51,32 @@ const CardDetails = ({ projectDetails }) => {
     console.log('Carrier:', projectDetails.project.carrier);
     const projectStatusOptions = ['Started', 'In Process', 'Completed', 'Closed'];
   // Render UI using the project details directly
+  const handleStatusChange = (event) => {
+    const newStatus = event.target.value;
+    setSelectedStatus(newStatus);
+    updateProjectStatus(newStatus);
+  };
+
+  const updateProjectStatus = async (newStatus) => {
+    try {
+      const response = await fetch(`https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/npc/project/updatestatus`, {
+        method: 'PUT',
+        headers: {
+          'ngrok-skip-browser-warning': '69420',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ status: newStatus })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update project status');
+      }
+
+      console.log('Project status updated successfully');
+    } catch (error) {
+      console.error('Error updating project status:', error);
+    }
+  };
   return (
     <div style={styles.cardContainer}>
       <div style={{ flex: '0 0 100%', marginBottom: '10px', marginTop: '5px' }}>
@@ -67,9 +94,9 @@ const CardDetails = ({ projectDetails }) => {
         </div>
       </div>
       <div style={{ flex: '0 0 100%', marginBottom: '10px', marginTop: '20px' }}>
-        <div style={styles.fieldContainer}>
+      <div style={styles.fieldContainer}>
         <label style={styles.label}>Project Status:</label>
-        <select style={styles.input}>
+        <select style={styles.input} value={selectedStatus} onChange={handleStatusChange}>
           {projectStatusOptions.map((status, index) => (
             <option key={index} value={status}>{status}</option>
           ))}

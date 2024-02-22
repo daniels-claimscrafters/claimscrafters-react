@@ -3,17 +3,15 @@ import React from 'react';
 const styles = {
   Text: {
     color: '#030303',
-    fontSize: '20px',
+    fontSize: '32px',
     fontFamily: 'Poppins',
-    fontWeight: 600,
-    lineHeight: '32px',
-    marginBottom: '20px',
-    textAlign: 'center'
+    fontWeight: 800,
+    lineHeight: '44px',
   },
 };
 
 const defaultProps = {
-  text: 'Activity Tracker',
+  text: '<SUBJECT INPUT>',
 };
 
 const Text = (props) => {

@@ -1,5 +1,6 @@
 // EditProfilePage.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import IconHome from './IconHome';
 import ImageProfile from './ImageProfile';
 import InputFieldFirstName from './InputFieldFirstName';
@@ -27,6 +28,7 @@ import TextPhoto from './TextPhoto'
 
 
 const EditProfilePage = () => {
+    const navigate = useNavigate();
     // State variables for user details
     const [firstName, setFirstName] = useState('');
     const [email, setEmail] = useState('');
@@ -36,6 +38,52 @@ const EditProfilePage = () => {
     const [postalCode, setPostalCode] = useState('');
     const [state, setState] = useState('');
     const [title, setTitle] = useState('');
+
+    const [userData, setUserData] = useState(null);
+  // Function to retrieve token from cookie
+  const getTokenFromCookie = () => {
+    const cookies = document.cookie.split(';');
+    for (let cookie of cookies) {
+      const [name, value] = cookie.trim().split('=');
+      if (name === 'token') {
+        return value;
+      }
+    }
+    return null;
+  };
+
+  useEffect(() => {
+    // Check if the user is authenticated
+    const token = getTokenFromCookie();
+    if (!token) {
+      // User is not authenticated, redirect to login page
+      navigate('/login');
+    } else {
+      // Fetch user data if user is authenticated
+      fetchUserData(token);
+    }
+  }, [navigate]);
+
+  // Function to fetch user data
+  const fetchUserData = async (token) => {
+    try {
+      const response = await fetch('https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/user', {
+        method: 'GET',
+        headers: {
+          'ngrok-skip-browser-warning': '69420',
+          Authorization: `Bearer ${token}`
+        }
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setUserData(data.user);
+      } else {
+        console.error('Failed to fetch user data');
+      }
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+  };
 
     const handleProfilePictureClick = () => {
         // Implement the logic to open a file picker or perform any action to change the profile picture

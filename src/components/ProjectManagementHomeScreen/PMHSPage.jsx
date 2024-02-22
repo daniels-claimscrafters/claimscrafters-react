@@ -1,3 +1,5 @@
+// PMHSPAge.jsx
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import TextUsername from './TextUsername';
@@ -33,11 +35,30 @@ import CardActivityTracker from './CardActivityTracker';
 import CardProjects from './CardProjects';
 import TextActivityTracker from './TextActivityTracker';
 import IconLogout from './IconLogout';
-import CardMyTasks from './CardMyTasks';
+import TasksList from './TasksList';
+import ProjectsList from './ProjectsList';
+import CardTaskParent from './CardTaskParent';
+
 
 const PMHSPage = () => {
   const navigate = useNavigate();
+  const [projects, setProjects] = useState(null);
+  const [showCardTaskParent, setShowCardTaskParent] = useState(false);
+  const [pageReady, setPageReady] = useState(false);
+
+
   const [userData, setUserData] = useState(null);
+  // Function to retrieve token from cookie
+  const getTokenFromCookie = () => {
+    const cookies = document.cookie.split(';');
+    for (let cookie of cookies) {
+      const [name, value] = cookie.trim().split('=');
+      if (name === 'token') {
+        return value;
+      }
+    }
+    return null;
+  };
 
   useEffect(() => {
     // Check if the user is authenticated
@@ -72,17 +93,40 @@ const PMHSPage = () => {
     }
   };
 
-  // Function to retrieve token from cookie
-  const getTokenFromCookie = () => {
-    const cookies = document.cookie.split(';');
-    for (let cookie of cookies) {
-      const [name, value] = cookie.trim().split('=');
-      if (name === 'token') {
-        return value;
-      }
-    }
-    return null;
+  const toggleCardTaskParent = () => {
+    console.log('it worked')
+    setShowCardTaskParent(!showCardTaskParent);
+    console.log('it worked')
   };
+
+  useEffect(() => {
+    // If user data is available, fetch projects
+    if (userData && userData.id) {
+      fetchProjects(userData.id);
+    }
+  }, [userData]);
+
+// Function to fetch projects
+const fetchProjects = async (userId) => {
+  try {
+    const response = await fetch('https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/npc/project/getprojects', {
+      method: 'POST', // Use POST method
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ userId }) // Pass userId in the request body
+    });
+    if (response.ok) {
+      const data = await response.json();
+      setProjects(data.projects);
+      setPageReady(true);
+    } else {
+      console.error('Failed to fetch projects');
+    }
+  } catch (error) {
+    console.error('Error fetching projects:', error);
+  }
+};
 
   const handleLogout = () => {
     // Clear the authentication token from cookie
@@ -91,11 +135,14 @@ const PMHSPage = () => {
     navigate('/login');
   };
 
+
+
   // Log the userData variable
   console.log('User data:', userData);
+  console.log('Projects:', projects);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100%' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
       {/* Main Content */}
       <div style={{ marginLeft: '20px', display: 'flex', flexDirection: 'column', flexGrow: 1, width: '100%' }}>
         {/* Top Row */}
@@ -111,27 +158,7 @@ const PMHSPage = () => {
               <TextSubtitle />
             </div>
           </div>
-          {/* Middle Section: Search Bar */}
-          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-            <InputFieldSearch />
-            {/* Include the search icon within InputFieldSearch component */}
-          </div>
-          {/* Right Section: ImageProfile, TextUsername, and IconLogout */}
-<div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end' }}>
-  {/* ImageProfile */}
-  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginRight: '10px' }}>
-    {/* ImageProfile */}
-    <ImageProfile />
-    {/* TextUsername */}
-    <TextUsername userData={userData} />
-  </div>
-  {/* IconLogout */}
-  <IconLogout onClick={handleLogout} />
-</div>
-        </div>
-        {/* Cards and Project Buttons Section */}
-        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px', width: '100%' }}>
-          {/* Left Section: Cards */}
+          {/* Middle Section: Cards */}
           <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
             <CardInProcess>
               <CardInProcessSubcard>
@@ -155,33 +182,38 @@ const PMHSPage = () => {
               <TextTotalInt />
             </CardTotal>
           </div>
-          {/* Right Section: Project Buttons */}
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <TextMyProjects />
-              <CardButtonBackground>
-                <ButtonCreateNew />
-                <ButtonProjectsClosed />
-                <ButtonProjectsCompleted />
-                <ButtonProjectsProgress />
-              </CardButtonBackground>
+          {/* Right Section: ImageProfile, TextUsername, and IconLogout */}
+          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end' }}>
+            {/* ImageProfile */}
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginRight: '10px' }}>
+              {/* ImageProfile */}
+              <ImageProfile />
+              {/* TextUsername */}
+              <TextUsername userData={userData} />
             </div>
+            {/* IconLogout */}
+            <IconLogout onClick={handleLogout} />
           </div>
         </div>
-        {/* TextActivityTracker and CardActivityTracker */}
-        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '50%' }}>
-            <TextActivityTracker />
-            <CardActivityTracker />
-          </div>
-          <CardProjects />
-        </div>
-        {/* CardProjects */}
-        {/* CardMyTasks */}
-        <CardMyTasks />
+        {/* Cards and Project Buttons Section */}
+<div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginBottom: '20px', width: '100%' }}>
+  {/* Left Section: TasksList */}
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '33%', marginTop: '40px' }}>
+  <TasksList 
+        showCardTaskParent={showCardTaskParent}
+        toggleCardTaskParent={toggleCardTaskParent}
+      />
+  </div>
+  {/* Right Section: ProjectsList */}
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '66%' }}>
+  {pageReady && <ProjectsList projects={projects} />}
+  </div>
+</div>
+{/* Render CardTaskParent if showCardTaskParent is true */}
+{showCardTaskParent && <CardTaskParent />}
       </div>
     </div>
   );
-};
+}
 
 export default PMHSPage;

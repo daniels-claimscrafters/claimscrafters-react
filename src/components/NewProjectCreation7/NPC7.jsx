@@ -28,6 +28,7 @@ import TextSubheader4 from './TextSubheader4';
 const NPC7 = ({ npcData, onInputChange, onPrevious, numberOfLines, onSubmit }) => {
   // Define state variables to hold the total price and credit card information
   const [totalPrice, setTotalPrice] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
   const [creditCardInfo, setCreditCardInfo] = useState({
     cardholderName: '',
     cardNumber: '',

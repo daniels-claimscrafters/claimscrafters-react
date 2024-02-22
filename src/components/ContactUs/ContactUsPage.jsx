@@ -1,11 +1,11 @@
 // ContactUsPage.jsx
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ButtonSendMessage from './ButtonSendMessage';
 import ButtonSignUp from './ButtonSignUp';
 import CardFooterBackground from './CardFooterBackground';
 import Header from './Header';
-import ImageCaptcha from './ImageCaptcha';
 import ImageFooterLogo from './ImageFooterLogo';
 import ImageJumbotron from './ImageJumbotron';
 import ImageLogo from './ImageLogo';
@@ -21,10 +21,8 @@ import TextPrivacyPolicy from './TextPrivacyPolicy';
 import TextSignIn from './TextSignIn';
 import TextTermsOfUse from './TextTermsOfUse';
 import VerticalDividerFooter from './VerticalDividerFooter';
-import { isValidFirstName, isValidEmail } from '../../validationUtils';
+import { isNotEmpty2, isValidEmail } from '../../validationUtils';
 import ReCAPTCHA from "react-google-recaptcha";
-
-// Import other components as needed
 
 const ContactUsPage = () => {
   const [name, setName] = useState('');
@@ -35,12 +33,6 @@ const ContactUsPage = () => {
   const [submitEnabled, setSubmitEnabled] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
 
-  console.log("Initial state of submitEnabled:", submitEnabled);
-  console.log("Initial state of name:", name);
-  console.log("Initial state of email:", email);
-  console.log("Initial state of message:", message);
-  console.log("Initial state of recaptchaValue:", recaptchaValue);
-
   useEffect(() => {
     // Enable submit button if all fields are filled and recaptcha is completed
     setSubmitEnabled(!!name && !!email && !!message && !!recaptchaValue);
@@ -48,9 +40,7 @@ const ContactUsPage = () => {
 
   const handleRecaptchaChange = (value) => {
     setRecaptchaValue(value);
-    setSubmitEnabled(!!value); // Enable the submit button if the reCAPTCHA value is truthy
-    console.log("reCAPTCHA value:", value);
-    console.log("Submit enabled:", submitEnabled);
+    setSubmitEnabled(!!value);
   };
 
   const [validationErrors, setValidationErrors] = useState({
@@ -75,7 +65,7 @@ const ContactUsPage = () => {
   };
 
   const handleNameBlur = () => {
-    const isValid = isValidFirstName(name);
+    const isValid = isNotEmpty2(name);
     setValidationErrors((prevErrors) => ({
       ...prevErrors,
       name: isValid ? '' : 'Invalid name.',
@@ -91,7 +81,7 @@ const ContactUsPage = () => {
   };
 
   const handleMessageBlur = () => {
-    const isValid = isValidFirstName(message); // Change this if needed
+    const isValid = isNotEmpty2(message);
     setValidationErrors((prevErrors) => ({
       ...prevErrors,
       message: isValid ? '' : 'Invalid message.',
@@ -105,7 +95,7 @@ const ContactUsPage = () => {
 
     try {
       // Add your validation checks here before making the API call
-      if (!isValidFirstName(name)) {
+      if (!isNotEmpty2(name)) {
         setValidationErrors((prevErrors) => ({
           ...prevErrors,
           name: 'Invalid name.',
@@ -123,7 +113,7 @@ const ContactUsPage = () => {
         return;
       }
 
-      if (!isValidFirstName(message)) {
+      if (!isNotEmpty2(message)) {
         setValidationErrors((prevErrors) => ({
           ...prevErrors,
           message: 'Invalid message.',
@@ -131,10 +121,6 @@ const ContactUsPage = () => {
         console.error('Invalid message');
         return;
       }
-
-      // Add other validation checks as needed
-
-      // Make an HTTP POST request to a hypothetical endpoint
       const response = await axios.post('https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/email/contact', {
       name,
       email,
@@ -142,11 +128,9 @@ const ContactUsPage = () => {
       recaptchaToken: recaptchaValue, // Include the reCAPTCHA token in the request
     });
 
-    // Check the response and update state or show messages accordingly
     if (response.status === 200) {
       setFormSubmitted(true);
       setSuccessMessage('Your message was sent successfully!');
-      // Optionally, you can reset the form fields here:
       setName('');
       setEmail('');
       setMessage('');

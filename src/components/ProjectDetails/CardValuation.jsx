@@ -78,18 +78,26 @@ let suggestedACVTotal = 0; // Initialize total ACV
 
 // Iterate over each item in the spreadsheet data
 projectDetails.project.spreadsheetData.forEach(item => {
-    // Parse RCV High, RCV Low, Quantity, and Depreciation from the current item
-    const RCVHigh = parseFloat(item['RCV High']);
-    const RCVLow = parseFloat(item['RCV Low']);
-    const quantity = parseFloat(item['Quantity']);
-    const depreciation = parseFloat(item['Depreciation']);
-    
-    // Calculate ACV for the current item using the provided formula
-    const ACV = RCVHigh * quantity - (RCVHigh * quantity) * depreciation * projectDetails.project.depreciationRange;
-    
-    // Add ACV to total
-    suggestedACVTotal += ACV;
+  // Parse RCV High, RCV Low, Quantity, and Depreciation from the current item
+  const RCVHigh = parseFloat(item['RCV High']);
+  const RCVLow = parseFloat(item['RCV Low']);
+  const quantity = parseFloat(item['Quantity']);
+  const depreciation = parseFloat(item['Depreciation']);
+
+  
+
+  // Calculate ACV for the current item using the provided formula
+  const ACV = ((RCVHigh + RCVLow) / 2 * quantity) +
+  (projectDetails.project.salesTax / 100 * ((RCVHigh + RCVLow) / 2 * quantity)) - 
+  (((RCVHigh + RCVLow) / 2 * quantity) * (depreciation / 100) * projectDetails.project.depreciationRange);
+
+  // Log the calculated ACV
+  console.log('ACV:', ACV);
+
+  // Add ACV to total
+  suggestedACVTotal += ACV;
 });
+
 
 // Calculate total ACV tax by multiplying total ACV by the sales tax rate
 const totalACVTax = suggestedACVTotal * (projectDetails.project.salesTax / 100);
@@ -99,15 +107,18 @@ const acvWithTaxTotal = suggestedACVTotal + totalACVTax;
 
 let totalDepreciation = 0; // Initialize total depreciation
 
+console.log("yo", projectDetails.project.depreciationRange)
+
 // Iterate over each item in the spreadsheet data
 projectDetails.project.spreadsheetData.forEach(item => {
     // Parse RCV High, Quantity, and Depreciation from the current item
     const RCVHigh = parseFloat(item['RCV High']);
+    const RCVLow = parseFloat(item['RCV Low']);
     const quantity = parseFloat(item['Quantity']);
     const depreciation = parseFloat(item['Depreciation']);
     
     // Calculate depreciation amount for the current item using the provided formula
-    const depreciationAmount = (RCVHigh * quantity) * depreciation * projectDetails.project.depreciationRange;
+    const depreciationAmount = ((RCVHigh + RCVLow) / 2 * quantity) * (depreciation / 100) * projectDetails.project.depreciationRange;
     
     // Add depreciation amount to total
     totalDepreciation += depreciationAmount;

@@ -1,6 +1,6 @@
 // CardContents.jsx
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 const styles = {
   Card: {
@@ -12,6 +12,7 @@ const styles = {
     borderRadius: '12px',
     border: '1px solid #030303',
     boxSizing: 'border-box',
+    overflowY: 'auto',
   },
   headerRow: {
     display: 'flex',
@@ -37,35 +38,142 @@ const styles = {
   },
   cell: {
     flex: '1', // Let each cell take up equal space initially
-    minWidth: '100px', // Define a minimum width for each cell
-    maxWidth: '200px', // Define a maximum width for each cell to prevent excessive expansion
+    minWidth: '200px', // Define a minimum width for each cell
+    maxWidth: '300px', // Define a maximum width for each cell to prevent excessive expansion
     overflow: 'hidden', // Hide overflow content
     textOverflow: 'ellipsis', // Truncate text that overflows its container
     whiteSpace: 'nowrap', // Prevent text from wrapping to the next line
+    marginLeft: '50px',
+  },
+  input: {
+    width: '80px', // Adjust width as needed
+    marginLeft: '10px',
   },
 };
 
-const CardContents = ({ projectDetails }) => {
+const CardContents = ({ projectDetails, setProjectDetails }) => {
+  const [originalProjectDetails, setOriginalProjectDetails] = useState(null);
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    // Store the original projectDetails when the component mounts
+    if (!originalProjectDetails && projectDetails) {
+      setOriginalProjectDetails(projectDetails);
+      console.log('Original Project Details set:', projectDetails);
+    }
+  }, [projectDetails]);
+
+  useEffect(() => {
+    // Check if the user is authenticated
+    const token = getTokenFromCookie();
+    if (!token) {
+      // User is not authenticated, redirect to login page
+      //navigate('/login');
+      console.log('cookie error')
+    } else {
+      // Fetch user data if user is authenticated
+      fetchUserData(token);
+    }
+  }, []);
+
+  // Function to retrieve token from cookie
+  const getTokenFromCookie = () => {
+    const cookies = document.cookie.split(';');
+    for (let cookie of cookies) {
+      const [name, value] = cookie.trim().split('=');
+      if (name === 'token') {
+        return value;
+      }
+    }
+    return null;
+  };
   
+  const handleFieldChange = (index, fieldName, value) => {
+    console.log(`Updating field ${fieldName} at index ${index} with value:`, value);
+    // Update the projectDetails state with the new value
+    const updatedProjectDetails = { ...projectDetails };
+    updatedProjectDetails.project.spreadsheetData[index][fieldName] = value;
+    setProjectDetails(updatedProjectDetails);
+  };
+
+  // Function to fetch user data
+  const fetchUserData = async (token) => {
+    try {
+      const response = await fetch('https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/user', {
+        method: 'GET',
+        headers: {
+          'ngrok-skip-browser-warning': '69420',
+          Authorization: `Bearer ${token}`
+        }
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setUserData(data.user);
+        console.log('Fetched user data:', data.user);
+      } else {
+        console.error('Failed to fetch user data');
+      }
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+  };
+
+  const createChangelogEntry = async () => {
+    try {
+      // Assuming you have the necessary attributes available:
+      const originalSpreadsheetData = originalProjectDetails.project.spreadsheetData;
+console.log('Original Project Details:', originalSpreadsheetData);
+
+const userFirstName = userData.firstName;
+console.log('User First Name:', userFirstName);
+
+const userLastName = userData.lastName;
+console.log('User Last Name:', userLastName);
+
+const userId = userData.id;
+console.log('User ID:', userId);
+
+// Retrieve projectId from props
+const projectId = projectDetails.project.id;
+console.log('Project ID:', projectId);
+
+const updatedProjectDetails = projectDetails.project.spreadsheetData;;
+console.log('Updated Project Details:', updatedProjectDetails);
+  
+      const response = await fetch('https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/npc/project/changelog', {
+        method: 'POST',
+        headers: {
+          'ngrok-skip-browser-warning': '69420',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          originalSpreadsheetData,
+          userFirstName,
+          userLastName,
+          userId,
+          updatedProjectDetails,
+          projectId
+        }),
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Changelog entry created successfully:', data);
+      } else {
+        console.error('Failed to create changelog entry');
+      }
+    } catch (error) {
+      console.error('Error creating changelog entry:', error);
+    }
+  };
+
+
   return (
     <div style={styles.Card}>
       <div style={styles.headerRow}>
         <div style={styles.headerItem}>Contents Inventory</div>
         <div>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            width="24"
-            height="24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            style={styles.icon}
-          >
-            <path d="M7.127 22.562l-7.127 1.438 1.438-7.128 5.689 5.69zm1.414-1.414l11.228-11.225-5.69-5.692-11.227 11.227 5.689 5.69zm9.768-21.148l-2.816 2.817 5.691 5.691 2.816-2.819-5.691-5.689z"/>
-          </svg>
+        <button style={styles.saveButton} onClick={createChangelogEntry}>Save</button>
           <button>Download</button>
         </div>
       </div>
@@ -96,17 +204,41 @@ const CardContents = ({ projectDetails }) => {
        {/* Line */}
        <div style={styles.cell}>{index + 1}</div>
         {/* Room */}
-        <div style={styles.cell}>{item.Room}</div>
+        <input
+              style={{ ...styles.cell, ...styles.input }}
+              value={item.Room}
+              onChange={(e) => handleFieldChange(index, 'Room', e.target.value)}
+            />
         {/* Item */}
-        <div style={styles.cell}>{item.Item}</div>
+        <input
+              style={styles.cell}
+              value={item.Item}
+              onChange={(e) => handleFieldChange(index, 'Item', e.target.value)}
+            />
         {/* Description */}
-        <div style={styles.cell}>{item.Description}</div>
+    <input
+      style={styles.cell}
+      value={item.Description}
+      onChange={(e) => handleFieldChange(index, 'Description', e.target.value)}
+    />
         {/* Quantity */}
-        <div style={styles.cell}>{item.Quantity}</div>
+        <input
+              style={styles.cell}
+              value={item.Quantity}
+              onChange={(e) => handleFieldChange(index, 'Quantity', e.target.value)}
+            />
         {/* RCV High */}
-        <div style={styles.cell}>{item['RCV High']}</div>
+        <input
+              style={styles.cell}
+              value={item['RCV High']}
+              onChange={(e) => handleFieldChange(index, 'RCV High', e.target.value)}
+            />
         {/* RCV Low */}
-        <div style={styles.cell}>{item['RCV Low']}</div>
+        <input
+              style={styles.cell}
+              value={item['RCV Low']}
+              onChange={(e) => handleFieldChange(index, 'RCV Low', e.target.value)}
+            />
         {/* RCV Avg (ea) */}
         <div style={styles.cell}>{(item['RCV High'] + item['RCV Low']) / 2}</div>
         {/* RCV (ext) */}
@@ -115,18 +247,31 @@ const CardContents = ({ projectDetails }) => {
         <div style={styles.cell}>{projectDetails.project.salesTax}</div>
         {console.log('Sales Tax:', projectDetails.project.salesTax)}
         {/* Sales Tax Amount */}
-        <div style={styles.cell}>{projectDetails.project.salesTax * ((item['RCV High'] + item['RCV Low']) / 2 * item.Quantity)}</div>
+<div style={styles.cell}>
+  {projectDetails.project.salesTax / 100 * ((item['RCV High'] + item['RCV Low']) / 2 * item.Quantity)}
+</div>
         {/* RCV Total */}
-        <div style={styles.cell}>{item['RCV High'] * item.Quantity}</div>
+<div style={styles.cell}>
+  {(item['RCV High'] + item['RCV Low']) / 2 * item.Quantity +
+   (projectDetails.project.salesTax / 100 * ((item['RCV High'] + item['RCV Low']) / 2 * item.Quantity))}
+</div>
         {/* Depreciation */}
         <div style={styles.cell}>{item.Depreciation}</div>
         {/* Dep Years */}
         <div style={styles.cell}>{projectDetails.project.depreciationRange}</div>
         {console.log('Dep years: ', projectDetails.project.depreciationRange)}
         {/* Dep Amount */}
-        <div style={styles.cell}>{(item['RCV High'] * item.Quantity) * item.Depreciation * projectDetails.project.depreciationRange}</div>
+{/* Depreciation Amount */}
+<div style={styles.cell}>
+  {((item['RCV High'] + item['RCV Low']) / 2 * item.Quantity) * (item.Depreciation / 100) * projectDetails.project.depreciationRange}
+</div>
         {/* ACV Total */}
-        <div style={styles.cell}>{item['RCV High'] * item.Quantity - (item['RCV High'] * item.Quantity) * item.Depreciation * projectDetails.project.depreciationRange}</div>
+<div style={styles.cell}>
+  {((item['RCV High'] + item['RCV Low']) / 2 * item.Quantity) +
+   (projectDetails.project.salesTax / 100 * ((item['RCV High'] + item['RCV Low']) / 2 * item.Quantity)) - 
+   (((item['RCV High'] + item['RCV Low']) / 2 * item.Quantity) * (item.Depreciation / 100) * projectDetails.project.depreciationRange)}
+</div>
+
         {/* Subclass */}
         <div style={styles.cell}>{item.Subclass}</div>
         {/* Class */}

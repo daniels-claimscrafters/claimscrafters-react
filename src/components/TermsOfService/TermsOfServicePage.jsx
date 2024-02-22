@@ -6,6 +6,7 @@ import IconHome from './IconHome';
 import ImageLogo from './ImageLogo';
 import TextBody from './TextBody';
 import TextHeader from './TextHeader';
+import NPCLoadingScreen from '../NPCLoadingScreen';
 
 const TermsOfServicePage = () => {
     return (

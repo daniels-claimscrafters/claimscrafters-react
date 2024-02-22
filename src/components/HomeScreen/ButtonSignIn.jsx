@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const styles = {
@@ -20,6 +20,7 @@ const styles = {
     outline: 'none',
     marginRight: '40px',
     marginLeft: '20px',
+    transition: 'transform 0.3s ease', // Adding transition for transform property
   },
 };
 
@@ -29,14 +30,31 @@ const defaultProps = {
 
 const Button = (props) => {
   const navigate = useNavigate();
+  const [isHovered, setIsHovered] = useState(false);
 
   const handleClick = () => {
     // Use the navigate function to redirect to the /login route
     navigate('/login');
   };
 
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
+
   return (
-    <button style={styles.Button} onClick={handleClick}>
+    <button 
+      style={{
+        ...styles.Button,
+        transform: isHovered ? 'scale(1.1)' : 'scale(1)', // Apply scale transform based on hover state
+      }} 
+      onClick={handleClick}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       {props.label ?? defaultProps.label}
     </button>
   );

@@ -12,7 +12,7 @@ const styles = {
 };
 
 const defaultProps = {
-  text: 'Once the Processing has been completed, a comprehensive assessment of the contens inventory value will be made available for the user to view, make changes if necessary  and download or share via email.',
+  text: 'Once the Processing has been completed, a comprehensive assessment of the contents inventory value will be made available for the user to view, make changes if necessary  and download or share via email.',
 };
 
 const Text = (props) => {

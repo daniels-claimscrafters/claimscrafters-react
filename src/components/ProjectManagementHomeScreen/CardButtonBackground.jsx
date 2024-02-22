@@ -1,3 +1,5 @@
+// CardButtonBackground.jsx
+
 import React from 'react';
 
 const styles = {
@@ -7,12 +9,13 @@ const styles = {
     height: '40px',
     backgroundColor: '#f0f0f0',
     borderRadius: '24px',
-    display: 'flex',
-    flexDirection: 'row',
+    display: 'flex', // Added display flex
+    justifyContent: 'center', // Center align the buttons
     padding: '10px',
+    marginBottom: '20px',
   },
   Button: {
-    marginRight: '8px', // Add margin between all buttons
+    marginRight: '30px', // Add margin between all buttons
   },
 };
 

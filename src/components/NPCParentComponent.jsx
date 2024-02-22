@@ -8,10 +8,12 @@ import NPC4 from './NewProjectCreation4/NPC4';
 import NPC5 from './NewProjectCreation5/NPC5';
 import NPC6 from './NewProjectCreation6/NPC6';
 import NPC7 from './NewProjectCreation7/NPC7'; // Import NPC7
+import NPCLoadingScreen from './NPCLoadingScreen'
 
 const NPCParentComponent = () => {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
   const [npcData, setNPCData] = useState({
     // Fields being collected
     claimNumber: '',
@@ -44,12 +46,7 @@ const NPCParentComponent = () => {
     token: '' // New field to store token
   });
 
-  // Function to check if user is logged in
-  const isLoggedIn = () => {
-    const token = getTokenFromCookie();
-    return !!token;
-  };
-
+  const [userData, setUserData] = useState(null);
   // Function to retrieve token from cookie
   const getTokenFromCookie = () => {
     const cookies = document.cookie.split(';');
@@ -63,16 +60,39 @@ const NPCParentComponent = () => {
   };
 
   useEffect(() => {
+    // Check if the user is authenticated
     const token = getTokenFromCookie();
-    if (token) {
-      // User is logged in, update npcData with the token
-      setNPCData(prevNPCData => ({ ...prevNPCData, token }));
-      console.log('User is logged in');
+    if (!token) {
+      // User is not authenticated, redirect to login page
+      navigate('/login');
     } else {
-      console.log('User is not logged in');
-      // Redirect to login page or perform other actions
+      // Fetch user data if user is authenticated
+      fetchUserData(token);
     }
-  }, []);
+  }, [navigate]);
+
+  // Function to fetch user data
+  const fetchUserData = async (token) => {
+    try {
+      const response = await fetch('https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/user', {
+        method: 'GET',
+        headers: {
+          'ngrok-skip-browser-warning': '69420',
+          Authorization: `Bearer ${token}`
+        }
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setUserData(data.user);
+      } else {
+        console.error('Failed to fetch user data');
+      }
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+  };
+
+
 
   const handleInputChange = (name, value) => {
     setNPCData((prevData) => {
@@ -149,6 +169,7 @@ const NPCParentComponent = () => {
   const handleSubmit = async () => {
     try {
       // Perform submit logic with npcData
+      setIsLoading(true);
       console.log('NPC data submitted:', npcData);
   
       // Send NPC data to the server with token in headers
@@ -163,8 +184,12 @@ const NPCParentComponent = () => {
   
       // Check if the request was successful
       if (response.ok) {
-        console.log('NPC data sent successfully!');
-        navigate('/projectdetails');
+        const responseData = await response.json();
+        console.log('NPC data sent successfully!', responseData);
+        // Extract project ID from the response
+        const { projectId } = responseData;
+        navigate(`/projectdetails?projectId=${projectId}`);
+        //navigate('/projectdetails');
         // Handle success response
       } else {
         // Handle error response
@@ -172,6 +197,8 @@ const NPCParentComponent = () => {
       }
     } catch (error) {
       console.error('Error sending NPC data:', error.message);
+    } finally {
+      setIsLoading(false); // Set loading state to false after request completes
     }
   };  
 
@@ -235,6 +262,8 @@ const NPCParentComponent = () => {
           onSubmit={handleSubmit}
         />
       )}
+      {/* Loading screen */}
+      {isLoading && <NPCLoadingScreen />}
     </div>
   );
 };
