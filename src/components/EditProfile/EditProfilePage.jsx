@@ -24,7 +24,10 @@ import TextFirstName from './TextFirstName';
 import TextEmail from './TextEmail';
 import TextCity from './TextCity';
 import InputFieldCity from './InputFieldCity';
-import TextPhoto from './TextPhoto'
+import TextPhoto from './TextPhoto';
+import CardSideBar from './CardSideBar';
+import IconLogout from './IconLogout';
+import ButtonSave from './ButtonSave';
 
 
 const EditProfilePage = () => {
@@ -122,76 +125,114 @@ const EditProfilePage = () => {
           console.error('Invalid field name:', fieldName);
       }
     };
+    const handleLogout = () => {
+      // Clear the authentication token from cookie
+      document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+      // Redirect user to login page
+      navigate('/login');
+    };
   
     return (
+      <div style={{ display: 'flex' }}>
+      {/* First Column */}
+      <div style={{ flex: 1, maxWidth: '88px' }}>
+      <CardSideBar>
+  <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%', marginLeft: '20px' }}>
+    <div>
+      <IconHome />
+    </div>
+    <div>
+      <IconLogout onClick={handleLogout} />
+    </div>
+  </div>
+</CardSideBar>
+
+      </div>
+      {/* Second Column */}
+      <div style={{ flex: 1, maxWidth: '100%' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', marginBottom: '20px' }}>
+    <TextHeader />
+    <ButtonSave />
+  </div>
+    
+        {/* Main Content */}
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', }}>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        {/* Header Section */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', marginBottom: '20px' }}>
-          <TextHeader />
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <ImageProfile onClick={handleProfilePictureClick} />
             <TextPhoto />
           </div>
-          <IconHome />
-        </div>
-  
-        {/* Main Content */}
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           {/* Row 1 */}
-<div style={{ display: 'flex', justifyContent: 'space-between', width: '80%', marginBottom: '20px' }}>
-  <div style={{ display: 'flex', flexDirection: 'column', width: '45%' }}>
+<div style={{ display: 'flex', width: '80%', marginBottom: '20px', justifyContent: 'center' }}>
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '239px' }}>
     <TextFirstName />
-    <InputFieldFirstName onChange={(value) => handleFieldChange('First Name', value)} />
+    <div style={{ justifyContent: 'center' }}> {/* Center the input field horizontally */}
+      <InputFieldFirstName onChange={(value) => handleFieldChange('First Name', value)} />
+    </div>
   </div>
-  <div style={{ width: '5%' }}></div> {/* Increased width to add space */}
-  <div style={{ display: 'flex', flexDirection: 'column', width: '45%' }}>
+  
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '239px' }}>
     <TextEmail />
-    <InputFieldEmail onChange={(value) => handleFieldChange('Email', value)} />
+    <div style={{ justifyContent: 'center' }}> {/* Center the input field horizontally */}
+      <InputFieldEmail onChange={(value) => handleFieldChange('Email', value)} />
+    </div>
   </div>
 </div>
+
+{/* Row 2 */}
+<div style={{ display: 'flex', width: '80%', marginBottom: '20px', justifyContent: 'center' }}>
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '239px' }}>
+    <TextLastName />
+    <div style={{ justifyContent: 'center' }}> {/* Center the input field horizontally */}
+      <InputFieldLastName onChange={(value) => handleFieldChange('Last Name', value)} />
+    </div>
+  </div>
   
-          {/* Row 2 */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', width: '80%', marginBottom: '20px' }}>
-            <div style={{ display: 'flex', flexDirection: 'column', width: '45%' }}>
-              <TextLastName />
-              <InputFieldLastName onChange={(value) => handleFieldChange('Last Name', value)} />
-            </div>
-            <div style={{ width: '10%' }}></div> {/* Spacer */}
-            <div style={{ display: 'flex', flexDirection: 'column', width: '45%' }}>
-              <TextOrganization />
-              <InputFieldOrganization onChange={(value) => handleFieldChange('Organization', value)} />
-            </div>
-          </div>
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '239px' }}>
+    <TextOrganization />
+    <div style={{ justifyContent: 'center' }}> {/* Center the input field horizontally */}
+      <InputFieldOrganization onChange={(value) => handleFieldChange('Organization', value)} />
+    </div>
+  </div>
+</div>
+
+{/* Row 3 */}
+<div style={{ display: 'flex', width: '80%', marginBottom: '20px', justifyContent: 'center' }}>
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '239px' }}>
+    <TextPhone />
+    <div style={{ justifyContent: 'center' }}> {/* Center the input field horizontally */}
+      <InputFieldPhone onChange={(value) => handleFieldChange('Phone', value)} />
+    </div>
+  </div>
   
-          {/* Row 3 */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', width: '80%', marginBottom: '20px' }}>
-            <div style={{ display: 'flex', flexDirection: 'column', width: '45%' }}>
-              <TextPhone />
-              <InputFieldPhone onChange={(value) => handleFieldChange('Phone', value)} />
-            </div>
-            <div style={{ width: '10%' }}></div> {/* Spacer */}
-            <div style={{ display: 'flex', flexDirection: 'column', width: '45%' }}>
-              <TextPostalCode />
-              <InputFieldPostalCode onChange={(value) => handleFieldChange('Postal Code', value)} />
-            </div>
-          </div>
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '239px' }}>
+    <TextPostalCode />
+    <div style={{ justifyContent: 'center' }}> {/* Center the input field horizontally */}
+      <InputFieldPostalCode onChange={(value) => handleFieldChange('Postal Code', value)} />
+    </div>
+  </div>
+</div>
+
+{/* Row 4 */}
+<div style={{ display: 'flex', width: '80%', marginBottom: '20px', justifyContent: 'center' }}>
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '239px' }}>
+    <TextState />
+    <div style={{ justifyContent: 'center' }}> {/* Center the input field horizontally */}
+      <InputFieldState onChange={(value) => handleFieldChange('State', value)} />
+    </div>
+  </div>
   
-          {/* Row 4 */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', width: '80%', marginBottom: '20px' }}>
-            <div style={{ display: 'flex', flexDirection: 'column', width: '45%' }}>
-              <TextState />
-              <InputFieldState onChange={(value) => handleFieldChange('State', value)} />
-            </div>
-            <div style={{ width: '10%' }}></div> {/* Spacer */}
-            <div style={{ display: 'flex', flexDirection: 'column', width: '45%' }}>
-              <TextTitle />
-              <InputFieldTitle onChange={(value) => handleFieldChange('Title', value)} />
-            </div>
-          </div>
-  
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '239px' }}>
+    <TextTitle />
+    <div style={{ justifyContent: 'center' }}> {/* Center the input field horizontally */}
+      <InputFieldTitle onChange={(value) => handleFieldChange('Title', value)} />
+    </div>
+  </div>
+</div>
+    
           {/* Add more rows here as needed */}
         </div>
       </div>
+    </div>
     );
   };
   

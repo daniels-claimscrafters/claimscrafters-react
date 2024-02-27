@@ -7,13 +7,14 @@ import ButtonProjectsCompleted from './ButtonProjectsCompleted';
 import ButtonProjectsClosed from './ButtonProjectsClosed';
 import CardButtonBackground from './CardButtonBackground';
 import CardProjects from './CardProjects';
+import ButtonProjectsStarted from './ButtonProjectsStarted';
 
 const ProjectsList = (projects ) => {
   const [filter, setFilter] = useState('Started');
 
   const handleFilterChange = (status) => {
     setFilter(status);
-    console.log(filter)
+    console.log('filter', filter)
   };
 
     console.log('ProjectsList: ', projects)
@@ -21,8 +22,10 @@ const ProjectsList = (projects ) => {
     <div>
       <CardButtonBackground>
         <ButtonCreateNew />
-        <ButtonProjectsProgress onClick={() => handleFilterChange('In Progress')} />
-        <ButtonProjectsCompleted onClick={() => handleFilterChange('Complete')} />
+
+        <ButtonProjectsStarted onClick={() => handleFilterChange('Started')} />
+        <ButtonProjectsProgress onClick={() => handleFilterChange('In Procress')} />
+        <ButtonProjectsCompleted onClick={() => handleFilterChange('Completed')} />
         <ButtonProjectsClosed onClick={() => handleFilterChange('Closed')} />
       </CardButtonBackground>
       <CardProjects projects={projects} filter={filter} />

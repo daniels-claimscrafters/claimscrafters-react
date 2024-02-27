@@ -13,7 +13,7 @@ const styles = {
     backgroundPosition: 'center center',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
-    marginTop: '40px',
+    marginTop: '10px',
     marginBottom: '10px',
     cursor: 'pointer', // Make the cursor change to indicate clickability
   },

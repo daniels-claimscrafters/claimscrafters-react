@@ -305,6 +305,7 @@ const SignupPage = () => {
       {/* First row */}
       <div style={{ display: 'flex', marginBottom: '20px' }}>
         <div style={{ marginRight: '10px' }}>
+          <TextFirstName/>
           <InputFieldFirstName
             value={formData.firstName}
             onChange={(e) => handleChange('firstName', e.target.value)}
@@ -316,6 +317,7 @@ const SignupPage = () => {
 
         </div>
         <div style={{ marginLeft: '10px' }}>
+        <TextLastName/>
           <InputFieldLastName
             value={formData.lastName}
             onChange={(e) => handleChange('lastName', e.target.value)}
@@ -330,6 +332,7 @@ const SignupPage = () => {
       {/* Second row */}
       <div style={{ display: 'flex', marginBottom: '20px' }}>
         <div style={{ marginRight: '10px' }}>
+          <TextTitle/>
           <InputFieldTitle
             value={formData.title}
             onChange={(e) => handleChange('title', e.target.value)}
@@ -340,6 +343,7 @@ const SignupPage = () => {
       )}
         </div>
         <div style={{ marginLeft: '10px' }}>
+        <TextCompany/>
           <InputFieldCompany
             value={formData.company}
             onChange={(e) => handleChange('company', e.target.value)}
@@ -354,6 +358,7 @@ const SignupPage = () => {
       {/* Third row */}
       <div style={{ display: 'flex', marginBottom: '20px' }}>
       <div style={{ marginRight: '10px' }}>
+      <TextPhone/>
           <InputFieldPhone
             value={formData.phone}
             onChange={(e) => handleChange('phone', e.target.value)}
@@ -364,6 +369,7 @@ const SignupPage = () => {
       )}
         </div>
         <div style={{ marginLeft: '10px' }}>
+        <TextEmail/>
           <InputFieldEmail
             value={formData.email}
             onChange={(e) => handleChange('email', e.target.value)}
@@ -385,7 +391,11 @@ const SignupPage = () => {
           transition={{ duration: 1.0 }} // Transition duration
         ><ImageLogo/></motion.div>
         </div>
+        
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginLeft: '10px'  }}>
+        <div style={{ display: 'flex', alignItems: 'flex-end', width: '468px' }}>
+    <TextCreateAPassword />
+  </div>
         <InputFieldCAP
             value={formData.createPassword}
             onChange={(e) => handleChange('createPassword', e.target.value)}
@@ -395,6 +405,9 @@ const SignupPage = () => {
           {validationErrors.createPassword && (
         <div style={{ color: 'red' }}>{validationErrors.createPassword}</div>
       )}
+      <div style={{ display: 'flex', alignItems: 'flex-end', width: '468px' }}>
+    <TextConfirmPassword />
+  </div>
           <InputFieldCP
             value={formData.confirmPassword}
             onChange={(e) => handleChange('confirmPassword', e.target.value)}

@@ -1,13 +1,15 @@
 // ProjectsList/CardProjects.jsx
 
 import React from 'react';
+import StatusCard from './statusCard'; // Update 'statuscard' to 'statusCard'
+
 
 const styles = {
   Card: {
     top: '306px',
     left: '586px',
     width: '1000px',
-    height: '674px', // Adjust the height as needed
+    height: '600px', // Adjust the height as needed
     backgroundColor: '#1e1f26',
     borderRadius: '20px',
     border: '2px solid #cddef2',
@@ -40,35 +42,23 @@ const styles = {
   },
 };
 
-const CardProjects = ({ projects }) => {
+const CardProjects = ({ projects, filter }) => {
+  console.log(filter);
+  const filteredProjects = projects['projects'].filter(project => {
+    return project.status === filter;
+  });
 
-  const getStatusStyle = (status) => {
-    switch (status) {
-      case 'Started':
-        return { ...styles.td, color: 'black',
-        backgroundColor: '#00ff00', // Example background color
-        borderRadius: '40px', // Example border radius
-        width: '20px',
-        
-       };
-      case 'In Process':
-        return { ...styles.td, color: 'blue' }; // Example: Orange color for In Progress status
-      case 'Complete':
-        return { ...styles.td, color: 'red' }; // Example: Red color for Pending status
-        case 'Closed':
-          return { ...styles.td, color: 'grey' }; // Example: Red color for Pending status
-      default:
-        return styles.td; // Default style
-    }
-  };
+  console.log('1 :', filteredProjects);
 
-  if (!projects || projects === null) {
-    return null; // Return null if projects is null or undefined
-  }
+  const filteredProjectsWithStatus = filteredProjects.filter(project => {
+    return project.status === filter;
+  });
+  
+  console.log('2: ', filteredProjectsWithStatus);
 
-  console.log('CardProjects: ', projects);
-  console.log('Type of projects:', typeof projects);
+  
   return (
+    
     <div style={styles.Card}>
       <table style={styles.table}>
         <thead>
@@ -82,24 +72,29 @@ const CardProjects = ({ projects }) => {
             <th style={styles.th}>Status</th> {/* New column for Status */}
           </tr>
         </thead>
+        
         <tbody>
-          {Object.keys(projects).map((key) => (
-            projects[key].map((project, index) => (
-              <tr key={index}>
-                <td style={styles.td}>
-                  <a href={`/projectDetails?projectId=${project.id}`} style={{ color: '#ffffff', textDecoration: 'underline' }}>View</a>
-                </td>
-                <td style={styles.td}>{project.claimNumber}</td>
-                <td style={styles.td}>{`${project.insuredFirstName} ${project.insuredLastName}`}</td>
-                <td style={styles.td}>{project.lossAddress}</td>
-                <td style={styles.td}>{project.lossCity}</td>
-                <td style={styles.td}>{project.lossState}</td>
-                <td style={getStatusStyle(project.status)}>{project.status}</td>
-              </tr>
-            ))
-          ))}
-        </tbody>
-      </table>
+        {filteredProjectsWithStatus.map((project, index) => (
+          <tr key={index}>
+            <td style={styles.td}>
+              <a href={`/projectDetails?projectId=${project.id}`} style={{ fontWeight: 500, fontFamily: 'Red Hat Display', color: '#2a84ea', textDecoration: 'underline', fontSize: '14px' }}>View</a>
+            </td>
+            <td style={styles.td}>{project.claimNumber}</td>
+            <td style={styles.td}>{`${project.insuredFirstName} ${project.insuredLastName}`}</td>
+            <td style={styles.td}>{project.lossAddress}</td>
+            <td style={styles.td}>{project.lossCity}</td>
+            <td style={styles.td}>{project.lossState}</td>
+            <td style={{ ...styles.td, padding: 0 }}>
+              {/* Render your card component here */}
+              <div style={{ width: '100%', height: '100%' }}>
+                {/* Replace 'CardComponent' with your actual card component */}
+                <StatusCard status={project.status} />
+              </div>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
     </div>
   );
 };

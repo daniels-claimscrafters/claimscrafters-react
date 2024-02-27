@@ -1,3 +1,4 @@
+// CardActivityTracker.jsx
 import React, { useState } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
@@ -11,7 +12,7 @@ const styles = {
     top: '332px',
     left: '96px',
     width: '650px',
-    height: '344px',
+    height: '275px',
     backgroundColor: '#fafafa',
     borderRadius: '16px',
     border: '1px solid #3164f4',
@@ -25,14 +26,16 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     border: 'none', // Remove border for the entire calendar
-    padding: '5px',
+    padding: '2px',
   },
   calendar: {
     border: 'none' // Remove border for the calendar component
   }
 };
 
-const CardActivityTracker = () => {
+const CardActivityTracker = ({ events }) => { // Destructure props to access events
+  console.log('first console.log', events);
+  console.log('events prop:', events);
   const [date, setDate] = useState(new Date());
 
   const onChange = (date) => {
@@ -44,7 +47,7 @@ const CardActivityTracker = () => {
       <div className="rbc-calendar" style={styles.calendarContainer}> {/* Apply .rbc-calendar class here */}
         <Calendar
           localizer={localizer}
-          events={[]}
+          events={events}
           startAccessor="start"
           endAccessor="end"
           onChange={onChange}

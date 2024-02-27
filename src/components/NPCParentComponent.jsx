@@ -95,11 +95,47 @@ const NPCParentComponent = () => {
 
 
   const handleInputChange = (name, value) => {
-    setNPCData((prevData) => {
-      const newData = { ...prevData, [name]: value };
-      console.log(`NPCParentComponent - Updated NPC data: `, newData);
-      return newData;
-    });
+    let formattedValue = value;
+  
+    // Formatting logic based on field name
+    switch (name) {
+      case 'adjusterEmail':
+        formattedValue = formattedValue.replace(/\s/g, '').toLowerCase();
+        break;
+      case 'insuredFirstName':
+      case 'insuredLastName':
+      case 'adjusterFirstName':
+      case 'adjusterLastName':
+        formattedValue = formattedValue.trim();
+        formattedValue = formattedValue.charAt(0).toUpperCase() + formattedValue.slice(1);
+        break;
+      case 'adjusterPhone':
+        const phoneNumber = value.replace(/\D/g, '');
+        if (phoneNumber.length > 3 && phoneNumber.length <= 6) {
+          formattedValue = `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(3)}`;
+        } else if (phoneNumber.length > 6) {
+          formattedValue = `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(3, 6)}-${phoneNumber.slice(6, 10)}`;
+        }
+        break;
+        case 'lossPostalCode':
+        // Remove spaces and allow only numbers
+        formattedValue = value.replace(/\s/g, '').replace(/\D/g, '');
+        break;
+        case 'claimNumber':
+      
+  
+        // Trim spaces from the beginning and end
+        formattedValue = value.trim();
+        break;
+      default:
+        // No special formatting for other fields
+        break;
+    }
+  
+    setNPCData((prevData) => ({
+      ...prevData,
+      [name]: formattedValue,
+    }));
   };
 
   const handleNext = () => {
@@ -263,7 +299,7 @@ const NPCParentComponent = () => {
         />
       )}
       {/* Loading screen */}
-      <NPCLoadingScreen />
+      {isLoading && <NPCLoadingScreen />}
     </div>
   );
 };

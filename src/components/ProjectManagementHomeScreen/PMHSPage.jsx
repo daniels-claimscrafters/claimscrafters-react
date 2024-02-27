@@ -40,6 +40,7 @@ import TasksList from './TasksList';
 import ProjectsList from './ProjectsList';
 import CardTaskParent from './CardTaskParent';
 import { motion } from "framer-motion";
+import MenuIcon from './MenuIcon';
 
 
 const PMHSPage = () => {
@@ -129,11 +130,6 @@ const PMHSPage = () => {
     setCompleted(completedCount);
     setTotal(totalCount);
   };
-  
-
-  console.log("In Process:", inProcess);
-console.log("Completed:", completed);
-console.log("Total:", total);
 
   
 
@@ -266,7 +262,9 @@ useEffect(() => {
   {/* Right Section: ImageProfile, TextUsername, and IconLogout */}
   <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end' }}>
     {/* ImageProfile and TextUsername */}
+    <MenuIcon />
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginRight: '30px' }}>
+      
       {/* ImageProfile */}
       <motion.div
           initial={{ scale: 0 }} // Initial scale is 0
@@ -284,7 +282,7 @@ useEffect(() => {
       {/* Cards and Project Buttons Section */}
       <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginBottom: '20px', width: '100%' }}>
         {/* Left Section: TasksList */}
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '33%', marginLeft: '40px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: 'auto', marginLeft: '20px' }}>
         <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center'  }}>
         <CardInProcess inProcess={inProcess} />
   <CardCompleted completed={completed} />
@@ -294,15 +292,20 @@ useEffect(() => {
 
           
           {/* TasksList */}
-          <TasksList 
-            showCardTaskParent={showCardTaskParent}
-            toggleCardTaskParent={toggleCardTaskParent}
-            tasks={tasks}
-          />
+          {tasks !== null ? (
+    <TasksList 
+      showCardTaskParent={showCardTaskParent}
+      toggleCardTaskParent={toggleCardTaskParent}
+      tasks={tasks}
+    />
+  ) : (
+    <div>Loading tasks...</div>
+  )}
         </div>
         {/* Right Section: ProjectsList */}
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '66%' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100%', width: '66%', marginLeft: '20px' }}>
           {/* ProjectsList */}
+          <TextMyProjects/>
           {pageReady && <ProjectsList projects={projects} />}
         </div>
       </div>

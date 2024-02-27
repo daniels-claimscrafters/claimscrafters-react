@@ -88,7 +88,7 @@ const PreviewData = ({ excelData, onColumnsSelected }) => {
       onColumnsSelected(dataToPreview);
     } else {
       // If not, render an error message
-      setError("Quantity column must contain only integers.");
+      setError("Quantity column must contain only numbers.");
     }
   };
 
@@ -108,8 +108,8 @@ const PreviewData = ({ excelData, onColumnsSelected }) => {
 
   const styles = {
     cardContainer: {
-      width: '100%',
-      maxWidth: '90%',
+      width: '1500px',
+      
       height: '500px',
       margin: '0 auto',
       padding: '20px',
@@ -120,14 +120,14 @@ const PreviewData = ({ excelData, onColumnsSelected }) => {
       
       display: 'flex', // Activate flexbox
       flexDirection: 'column', // To stack items vertically
-      alignItems: 'flex-start', // Align items to the start of the cross axis (left)
+      alignItems: 'center', // Align items to the start of the cross axis (left)
     },
     flexContainer: {
       display: 'flex', // Activate flexbox
       flexDirection: 'row', // To lay out items horizontally
-      justifyContent: 'center', // Align items to the start of the main axis (left)
+      justifyContent: 'space-between', // Distribute items evenly along the main axis
       flexWrap: 'wrap', // Allow items to wrap to the next line if necessary
-      width: '100%',
+      width: '90%',
       height: '100px'
     },
     selectContainer: {
@@ -135,6 +135,8 @@ const PreviewData = ({ excelData, onColumnsSelected }) => {
       color: '#030303',
       fontSize: '18px',
       fontFamily: 'Poppins',
+      maxWidth: '300px',
+      alignItems: 'center'
     },
     selectLabel: {
       marginRight: '10px',
@@ -148,6 +150,7 @@ const PreviewData = ({ excelData, onColumnsSelected }) => {
       color: '#030303',
       fontSize: '14px',
       fontFamily: 'Poppins',
+      maxWidth: '300px'
     },
     previewTableContainer: {
       width: '100%',
@@ -290,7 +293,9 @@ const PreviewData = ({ excelData, onColumnsSelected }) => {
           
         </div>
       ) : (
-        <p>No data available for preview.</p>
+        <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+        <p style={{ textAlign: 'center' }}>No data available for preview.</p>
+      </div>
       )}
       <div style={styles.previewButtonContainer}>
       <button style={styles.previewButton} onClick={deleteFirstRow}>Delete First Row</button>

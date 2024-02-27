@@ -10,8 +10,8 @@ const styles = {
     left: '1325px',
     width: '40px',
     height: '40px',
-    marginRight: '40px',
-    marginTop: '20px',
+    marginRight: '20px',
+    marginTop: '10px',
   },
 };
 

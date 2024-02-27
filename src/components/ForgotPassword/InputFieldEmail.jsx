@@ -33,7 +33,6 @@ const InputFieldEmail = (props) => {
   return (
     <input
       style={styles.Input}
-      type="email"
       placeholder={text ?? defaultProps.text}
       value={value}
       onChange={onChange}

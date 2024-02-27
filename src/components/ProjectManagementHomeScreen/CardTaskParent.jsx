@@ -16,6 +16,7 @@ const styles = {
     transform: 'translate(-50%, -50%)',
     zIndex: '9999',
     boxShadow: '0px 0px 20px rgba(0, 0, 0, 1.5)', // Add box shadow for elevation
+    
   },
   headerContainer: {
     display: 'flex',
@@ -28,35 +29,27 @@ const styles = {
     paddingRight: '20px',
     display: 'flex',
     flexDirection: 'column',
-    
+    overflow: 'auto',
     alignItems: 'center', // Optional: Align elements vertically in the center
   },
-  columnsContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    width: '80%',
-    alignItems: 'center',
-    justifyContent: 'center', // Center elements horizontally
-  },
-  column: {
-    flex: '1',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '90%',
-  },
+
   fieldContainer: {
     marginBottom: '10px',
     display: 'flex',
     flexDirection: 'column',
-    width: '90%',
+    width: '100%',
+    alignItems: 'center',
   },
   label: {
+    color: '#030303',
+    fontSize: '18px',
+    fontFamily: 'Poppins',
     marginBottom: '5px',
   },
   headerTextField: {
     width: '80%',
     padding: '8px',
-    color: '#000000',
+    color: '#030303',
     fontSize: '32px',
     fontFamily: 'Poppins',
     fontWeight: 800,
@@ -69,14 +62,18 @@ const styles = {
     padding: '8px',
     borderRadius: '4px',
     border: '1px solid #ccc',
+    color: '#030303',
+    fontSize: '18px',
+    fontFamily: 'Poppins',
   },
   bigTextField: {
     width: '90%',
-    height: '200px',
+    height: '125px',
     padding: '8px',
     borderRadius: '4px',
     border: '1px solid #ccc',
     backgroundColor: '#cddef2',
+    resize: 'none',
   },
   iconContainer: {
     display: 'flex',
@@ -99,6 +96,9 @@ const CardTaskParent = ({ onClick, onClose, userData }) => {
     description: '',
     userId: userDataId
   });
+  const [errorMessage, setErrorMessage] = useState('');
+
+  console.log('123', taskData);
 
   const [popup, setPopup] = useState(null);
 
@@ -110,8 +110,36 @@ const CardTaskParent = ({ onClick, onClose, userData }) => {
   };
 
   const handleSubmit = () => {
-    // Perform any validation or data processing before submitting
+    setErrorMessage('');
+    if (
+      !taskData.subject ||
+      !taskData.start_date ||
+      !taskData.due_date ||
+      !taskData.status ||
+      !taskData.priority ||
+      !taskData.description
+    ) {
+      setErrorMessage('All fields are required');
+      // Optionally, display an error message to the user or handle it in any other way
+      return;
+    }
+  
+    // Convert start_date and due_date to Date objects
+    const startDate = new Date(taskData.start_date);
+    console.log(startDate);
+    const dueDate = new Date(taskData.due_date);
+    console.log(dueDate);
+  
+    // Check if the due date is before the start date
+    if (dueDate < startDate) {
+      setErrorMessage('Due date cannot be before start date');
+      // Optionally, display an error message to the user or handle it in any other way
+      return;
+    }
+  
+    // If all validations pass, proceed with form submission
     console.log('Submitting task:', taskData);
+  
 
     // Send POST request to your server
     axios.post('https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/tasks/createTask', taskData)
@@ -140,11 +168,16 @@ const CardTaskParent = ({ onClick, onClose, userData }) => {
   return (
     <div style={styles.CardTaskParent}>
       <CardTask>
+
+        
+      
       <div style={styles.iconContainer}>
+      {errorMessage && <p style={{ color: 'red', marginRight: '28%' }}>{errorMessage}</p>}
             <IconSave onClick={handleSubmit} />
             <IconExit onClick={onClose} /> {/* Call onClose function to close the popup */}
           </div>
         <div style={styles.headerContainer}>
+          
           <input
             type="text"
             style={styles.headerTextField}
@@ -155,8 +188,9 @@ const CardTaskParent = ({ onClick, onClose, userData }) => {
         </div>
         
         <div style={styles.contentContainer}>
+        
           
-            <div style={styles.column}>
+        
               <div style={styles.fieldContainer}>
                 <label style={styles.label}>Start Date:</label>
                 <input 
@@ -183,9 +217,9 @@ const CardTaskParent = ({ onClick, onClose, userData }) => {
                   onChange={(e) => handleFieldChange('status', e.target.value)} 
                 >
                   <option value="">Select Status</option>
-                  <option value="pending">Pending</option>
-                  <option value="in_progress">In Progress</option>
-                  <option value="completed">Completed</option>
+                  <option value="Pending">Pending</option>
+                  <option value="In Progress">In Progress</option>
+                  <option value="Completed">Completed</option>
                 </select>
               </div>
               <div style={styles.fieldContainer}>
@@ -196,9 +230,9 @@ const CardTaskParent = ({ onClick, onClose, userData }) => {
                   onChange={(e) => handleFieldChange('priority', e.target.value)} 
                 >
                   <option value="">Select Priority</option>
-                  <option value="low">Low</option>
-                  <option value="medium">Medium</option>
-                  <option value="high">High</option>
+                  <option value="Low">Low</option>
+                  <option value="Medium">Medium</option>
+                  <option value="High">High</option>
                 </select>
               </div>
             </div>
@@ -210,8 +244,10 @@ const CardTaskParent = ({ onClick, onClose, userData }) => {
               value={taskData.description} 
               onChange={(e) => handleFieldChange('description', e.target.value)} 
             />
+            
           </div>
-        </div>
+          
+        
       </CardTask>
       {popup && (
         <Popup

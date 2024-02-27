@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 const styles = {
   Icon: {
     color: '#ffffff',
-    fill: '#ffffff',
+    fill: '#000000',
     fontSize: '40px',
     top: '49px',
     left: '1305px',

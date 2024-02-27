@@ -1,5 +1,5 @@
 // NPCLoadingScreen.jsx
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 const styles = {
@@ -30,7 +30,7 @@ const styles = {
     width: '300px', // Adjust as needed
     height: '300px', // Adjust as needed
     marginBottom: '30px',
-    borderRadius: '120px',
+    borderRadius: '200px',
     animation: 'scaleUpDown 2s ease-in-out infinite',
   },
   title: {
@@ -44,25 +44,28 @@ const styles = {
 
 
 const NPCLoadingScreen = () => {
+  const [rotation, setRotation] = useState(0);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      // Update rotation state to create spinning effect
+      setRotation(prevRotation => (prevRotation + 1) % 360);
+    }, 20); // Adjust the interval as needed for desired spinning speed
+
+    // Clear interval on component unmount
+    return () => clearInterval(intervalId);
+  }, []); // Run effect only once on component mount
+
   return (
     <div style={styles.overlay}>
       <div style={styles.popup}>
         <div style={styles.header}>
-        <motion.img
+          <motion.img
             src="https://assets.api.uizard.io/api/cdn/stream/616c0541-6abe-4fb7-aedb-96cdcde8c0bd.png"
             alt="Loading..."
-            style={styles.image}
-            animate={{
-              rotate: 360, // Spin the image 360 degrees
-              transition: { duration: 2, ease: 'linear' },
-            }}
-            onAnimationComplete={() => {
-              // Animation complete callback
-              // You can add code here to trigger the next animation
-              // For example, start the pulsing animation
-            }}
+            style={{ ...styles.image, transform: `rotate(${rotation}deg)` }}
           />
-          <h2 style={styles.title}>Thank you for purchase. We are current valuating your contents with ContentIQ. Depending on the size of your claim this can take any from a few seconds to 10 minutes. You will be automatically redirected once complete. Thank you for patience.</h2>
+          <h2 style={styles.title}>Thank you for your purchase. We are currently evaluating your contents with ContentIQ. Depending on the size of your claim, this can take anywhere from a few seconds to 10 minutes. You will be automatically redirected once complete. Thank you for your patience.</h2>
         </div>
         {/* You can add additional content or animations here */}
       </div>
