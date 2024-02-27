@@ -28,6 +28,7 @@ const defaultProps = {
 
 const InputFieldEmail = (props) => {
   const { text, value, onChange } = props;
+  
 
   return (
     <input

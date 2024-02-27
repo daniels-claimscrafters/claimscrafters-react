@@ -4,9 +4,9 @@ import { isNotEmpty } from '../../validationUtils';
 
 const styles = {
   Input: {
-    top: '513px',
-    left: '83px',
-    width: '606px',
+    top: '676px',
+    left: '80px',
+    width: '626px',
     height: '88px',
     padding: '0px 8px',
     border: '1px solid #ceced3',

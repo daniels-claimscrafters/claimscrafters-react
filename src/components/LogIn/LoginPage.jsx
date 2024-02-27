@@ -1,15 +1,12 @@
 // LoginPage.jsx
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import ButtonLogIn from './ButtonLogIn';
 import Checkbox from './Checkbox';
 import IconEmail from './IconEmail';
-import IconFacebook from './IconFacebook';
-import IconGoogle from './IconGoogle';
-import IconLinkedin from './IconLinkedin';
 import IconPassword from './IconPassword';
-import IconWindows from './IconWindows';
 import ImageHeader from './ImageHeader';
 import ImageJumbotron from './ImageJumbotron';
 import InputFieldEmail from './InputFieldEmail';
@@ -17,13 +14,13 @@ import InputFieldPassword from './InputFieldPassword';
 import TextEmailField from './TextEmailField';
 import TextForgotPassword from './TextForgotPassword';
 import TextIDHAA from './TextIDHAA';
-import TextOr from './TextOr';
 import TextPasswordField from './TextPasswordField';
 import TextRememberMe from './TextRememberMe';
 import TextSignup from './TextSignup';
 import TextSubtitle from './TextSubtitle';
 import TextTitle from './TextTitle';
 import IconHome from './IconHome';
+import { motion } from "framer-motion";
 
 const LogInPage = () => {
   const [email, setEmail] = useState('');
@@ -79,7 +76,12 @@ const LogInPage = () => {
     } catch (error) {
       console.error('Error during login', error);
       if (error.response && error.response.status === 401) {
-        setError('Invalid credentials. Please check your email and password and try again.'); // Set error message for 401 response
+        const errorMessage = error.response.data.error; // Get error message from backend response
+        if (errorMessage === 'Email not confirmed. Please check your email for confirmation instructions.') {
+          setError(errorMessage); // Set error message for email not confirmed
+        } else {
+          setError('Invalid credentials. Please check your email and password and try again.'); // Set error message for other 401 responses
+        }
       } else {
         setError('An error occurred during login. Please try again later.'); // Set generic error message
       }
@@ -103,7 +105,12 @@ const LogInPage = () => {
     <div style={{ display: 'flex' }}>
       {/* Left column with ImageJumbotron */}
       <div>
-        <ImageJumbotron />
+      <motion.div
+          initial={{ scale: 0 }} // Initial scale is 0
+          animate={{ scale: 1 }} // Animate to scale 1
+          transition={{ duration: 1.0 }} // Transition duration
+        ><ImageJumbotron /></motion.div>
+        
       </div>
   
       {/* Right column with form */}
@@ -111,11 +118,20 @@ const LogInPage = () => {
         <div style={{ marginLeft: '20px', textAlign: 'center', display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
           {/* ImageHeader */}
           <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
-            <ImageHeader />
+          <motion.div
+          initial={{ scale: 0 }} // Initial scale is 0
+          animate={{ scale: 1 }} // Animate to scale 1
+          transition={{ duration: 1.0 }} // Transition duration
+        ><ImageHeader /></motion.div>
           </div>
           {/* IconHome */}
           <div>
-            <IconHome />
+          <motion.div
+          initial={{ scale: 0 }} // Initial scale is 0
+          animate={{ scale: 1 }} // Animate to scale 1
+          whileHover={{ scale: 1.1 }} // Scale up to 1.1 when hovered
+          transition={{ duration: 1.0 }} // Transition duration
+        ><IconHome /></motion.div>
           </div>
         </div>
         <TextTitle />
@@ -149,16 +165,30 @@ const LogInPage = () => {
               <Checkbox checked={rememberMe} onChange={handleRememberMeChange} />
             </div>
             <div style={{ display: 'flex', alignItems: 'center' }}>
-              <TextForgotPassword style={{ marginLeft: 'auto' }} />
+            <motion.span
+      whileHover={{ textDecoration: 'underline' }} // Animate underline on hover
+      style={{ cursor: 'pointer' }} // Change cursor to pointer on hover
+    ><TextForgotPassword style={{ marginLeft: 'auto' }} /></motion.span>
+              
             </div>
           </div>
           {/* Login Button */}
-          <ButtonLogIn type="submit" />
+          <motion.div
+          initial={{ scale: 0 }} // Initial scale is 0
+          animate={{ scale: 1 }} // Animate to scale 1
+          transition={{ duration: 1.0 }} // Transition duration
+          whileHover={{ scale: 1.1 }} // Scale up to 1.1 when hovered
+        ><ButtonLogIn type="submit" /></motion.div>
+          
         </form>
         {/* IDHAA and Signup text */}
         <div style={{ display: 'flex', marginLeft: '20px' }}>
           <TextIDHAA />
-          <TextSignup />
+          <motion.span
+      whileHover={{ textDecoration: 'underline' }} // Animate underline on hover
+      style={{ cursor: 'pointer' }} // Change cursor to pointer on hover
+    ><TextSignup /></motion.span>
+          
         </div>
       </div>
     </div>

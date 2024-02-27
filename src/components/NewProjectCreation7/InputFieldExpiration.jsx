@@ -27,14 +27,14 @@ const styles = {
   },
 };
 
-const InputFieldExpiration = ({ text = 'MM / YY', onChange }) => {
-  const [value, setValue] = useState(text);
+const InputFieldExpiration = ({ onChange }) => {
+  const [value, setValue] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = (e) => {
     const newValue = e.target.value;
     setValue(newValue);
-    onChange(newValue); // Pass the value directly to the parent component
+    onChange('expiration', newValue); // Pass the identifier and the new value to the parent component
     setErrorMessage('');
   };
 
@@ -47,15 +47,15 @@ const InputFieldExpiration = ({ text = 'MM / YY', onChange }) => {
 
   return (
     <div>
-    <input
-      style={styles.Input}
-      placeholder={text}
-      value={value}
-      onChange={handleChange}
-      onBlur={handleBlur}
-    />
-    {errorMessage && <div style={styles.ErrorMessage}>{errorMessage}</div>}
-  </div>
+      <input
+        style={styles.Input}
+        placeholder="MM / YY"
+        value={value}
+        onChange={handleChange}
+        onBlur={handleBlur}
+      />
+      {errorMessage && <div style={styles.ErrorMessage}>{errorMessage}</div>}
+    </div>
   );
 };
 

@@ -1,0 +1,37 @@
+  /* calendarStyles.css */
+.custom-date-cell {
+    background-color: #fafafa; /* Change background color */
+    border: none !important; /* Remove border */
+    width: 30px; /* Set width */
+    height: 30px; /* Set height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .rbc-calendar {
+    border: none !important; /* Remove border from the entire calendar */
+  }
+  
+  /* Custom CSS to change font to Manrope for everything in React Big Calendar */
+.rbc-calendar,
+.rbc-calendar *,
+.rbc-agenda-view,
+.rbc-month-view,
+.rbc-week-view,
+.rbc-day-view,
+.rbc-time-view,
+.rbc-toolbar,
+.rbc-header,
+.rbc-day-bg,
+.rbc-time-header,
+.rbc-event,
+.rbc-event-label,
+.rbc-event-content,
+.rbc-today,
+.rbc-off-range,
+.rbc-off-range-bg,
+.rbc-header + .rbc-header,
+.rbc-time-content + .rbc-time-content {
+  font-family: 'Manrope', sans-serif; /* Change the font family to Manrope */
+}

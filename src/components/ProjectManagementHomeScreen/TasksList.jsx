@@ -12,7 +12,8 @@ const styles = {
   },
 };
 
-const TasksList = ({ showCardTaskParent, toggleCardTaskParent }) => {
+const TasksList = ({ showCardTaskParent, toggleCardTaskParent, tasks }) => {
+  console.log('tasks2', tasks)
   return (
     <div style={styles.tasksListContainer}>
       <TextActivityTracker />
@@ -20,6 +21,7 @@ const TasksList = ({ showCardTaskParent, toggleCardTaskParent }) => {
       <CardMyTasks 
         showCardTaskParent={showCardTaskParent}
         toggleCardTaskParent={toggleCardTaskParent}
+        tasks={tasks}
       />
     </div>
   );

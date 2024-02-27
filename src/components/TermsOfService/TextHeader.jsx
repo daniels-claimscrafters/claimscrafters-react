@@ -3,11 +3,11 @@ import React from 'react';
 const styles = {
   Text: {
     color: '#030303',
-    fontSize: '24px',
+    fontSize: '36px',
     fontFamily: 'Poppins',
-    fontWeight: '500',
+    fontWeight: '1000',
     lineHeight: '31px',
-    padding: '10px'
+    
   },
 };
 

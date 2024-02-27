@@ -4,9 +4,9 @@ import React, { useState } from 'react';
 const styles = {
   Dropdown: {
     cursor: 'pointer',
-    top: '509px',
-    left: '719px',
-    width: '626px',
+    top: '676px',
+    left: '80px',
+    width: '616px',
     height: '88px',
     padding: '0px 8px',
     border: '1px solid #ceced3',

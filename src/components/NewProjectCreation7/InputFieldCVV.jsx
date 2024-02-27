@@ -1,4 +1,3 @@
-// InputFieldCVV.jsx
 import React, { useState } from 'react';
 import { isValidCVV } from '../../validationUtils';
 
@@ -27,14 +26,14 @@ const styles = {
   },
 };
 
-const InputFieldCVV = ({ text = '***', onChange }) => {
-  const [value, setValue] = useState(text);
+const InputFieldCVV = ({ onChange }) => {
+  const [value, setValue] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = (e) => {
     const newValue = e.target.value;
     setValue(newValue);
-    onChange(newValue); // Pass the value directly to the parent component
+    onChange('cvv', newValue); // Pass the identifier and the new value to the parent component
     setErrorMessage('');
   };
 
@@ -47,15 +46,15 @@ const InputFieldCVV = ({ text = '***', onChange }) => {
 
   return (
     <div>
-    <input
-      style={styles.Input}
-      placeholder={text}
-      value={value}
-      onChange={handleChange}
-      onBlur={handleBlur}
-    />
-    {errorMessage && <div style={styles.ErrorMessage}>{errorMessage}</div>}
-  </div>
+      <input
+        style={styles.Input}
+        placeholder="***"
+        value={value}
+        onChange={handleChange}
+        onBlur={handleBlur}
+      />
+      {errorMessage && <div style={styles.ErrorMessage}>{errorMessage}</div>}
+    </div>
   );
 };
 

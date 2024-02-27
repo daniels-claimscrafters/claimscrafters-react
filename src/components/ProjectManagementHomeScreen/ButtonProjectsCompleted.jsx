@@ -5,8 +5,6 @@ import React from 'react';
 const styles = {
   Button: {
     cursor: 'pointer',
-    top: '193px',
-    left: '1034px',
     width: '158px',
     height: '36px',
     padding: '0px 8px',
@@ -22,16 +20,16 @@ const styles = {
   },
 };
 
-const defaultProps = {
-  label: 'Projects Completed',
-};
+const ButtonProjectsCompleted = ({ onClick }) => {
+  const handleClick = () => {
+    onClick('Complete');
+  };
 
-const Button = (props) => {
   return (
-    <button style={styles.Button}>
-      {props.label ?? defaultProps.label}
+    <button style={styles.Button} onClick={handleClick}>
+      Projects Completed
     </button>
   );
 };
 
-export default Button;
+export default ButtonProjectsCompleted;

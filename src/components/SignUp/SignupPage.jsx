@@ -1,8 +1,6 @@
 // SignupPage.jsx
 
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-
 import {
   isValidFirstName,
   isValidLastName,
@@ -12,22 +10,9 @@ import {
   isValidEmail,
   isValidCreatePassword,
   isValidConfirmPassword,
-  isFormComplete,
 } from '../../validationUtils';
-import ButtonFacebook from './ButtonFacebook';
-import ButtonGoogle from './ButtonGoogle';
-import ButtonLinkedIn from './ButtonLinkedIn';
 import ButtonSignup from './ButtonSignup';
-import ButtonWindows from './ButtonWindows';
 import Checkbox from './Checkbox';
-import IconCAP from './IconCAP';
-import IconCompany from './IconCompany';
-import IconCP from './IconCP';
-import IconEmail from './IconEmail';
-import IconFirstName from './IconFirstName';
-import IconLastName from './IconLastName';
-import IconTitle from './IconTitle';
-import IconPhone from './IconPhone';
 import ImageLogo from './ImageLogo';
 import InputFieldCAP from './InputFieldCAP';
 import InputFieldCompany from './InputFieldCompany';
@@ -54,12 +39,13 @@ import TextSubtitle from './TextSubtitle';
 import TextTitle from './TextTitle';
 import TextTOU from './TextTOU';
 import IconHome from './IconHome';
+import { motion } from "framer-motion";
+import Popup from './Popup'
 
-
-
-const YourTargetComponent = () => {
-
-  const navigate = useNavigate();
+const SignupPage = () => {
+  const [showEvdbPage, setShowEvdbPage] = useState(false);
+  const [isAgreeChecked, setIsAgreeChecked] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const [formData, setFormData] = useState({
     firstName: '',
@@ -83,16 +69,42 @@ const YourTargetComponent = () => {
     confirmPassword: '',
   });
 
-  const [isAgreeChecked, setIsAgreeChecked] = useState(false);
-
   const handleChange = (fieldName, value) => {
+    let formattedValue = value;
+
+    // Check if the field is the email
+  if (fieldName === 'email') {
+    // Remove spaces
+    formattedValue = formattedValue.replace(/\s/g, '');
+    // Convert to lowercase
+    formattedValue = formattedValue.toLowerCase();
+  }
+
+    if (fieldName === 'firstName' || fieldName === 'lastName') {
+      // Remove leading and trailing spaces
+      formattedValue = formattedValue.trim();
+      // Capitalize the first letter
+      formattedValue = formattedValue.charAt(0).toUpperCase() + formattedValue.slice(1);
+    }
+  
+    // If the field is the phone number, format it
+    if (fieldName === 'phone') {
+      // Remove all non-digit characters
+      const phoneNumber = value.replace(/\D/g, '');
+      
+      // Apply phone number format if it matches a specific pattern
+      if (phoneNumber.length > 3 && phoneNumber.length <= 6) {
+        formattedValue = `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(3)}`;
+      } else if (phoneNumber.length > 6) {
+        formattedValue = `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(3, 6)}-${phoneNumber.slice(6, 10)}`;
+      }
+    }
+  
     setFormData({
       ...formData,
-      [fieldName]: value,
+      [fieldName]: formattedValue,
     });
-
-    console.log('Current Form Data:', formData);
-
+  
     // Clear validation error for the current field when user starts typing
     setValidationErrors({
       ...validationErrors,
@@ -261,190 +273,179 @@ const YourTargetComponent = () => {
     
           if (response.ok) {
             // Redirect to '/evdb' upon successful signup
-            navigate('/evdb');
+            setTimeout(() => {
+              setShowEvdbPage(true);
+            }, 0);
           } else {
-            // Handle signup failure (e.g., display error message)
+            if (response.status === 400) {
+              setErrorMessage('Email is already registered. Please use a different email.');
+            } else {
+              setErrorMessage('An error occurred. Please try again later.');
+            }
           }
         } catch (error) {
           console.error('Error sending form data:', error);
-          // Handle error (e.g., display error message)
+          setErrorMessage('An error occurred while processing your request. Please try again later.');
         }
       } else {
         // Form is incomplete or invalid, handle accordingly
         console.log('Form is incomplete or invalid. Please check fields.');
+        setErrorMessage('Form is incomplete or invalid. Please check fields.');
       }
-    };
-    
-    const sendFormDataToBackend = async (formData) => {
-      // Implement your logic to send the form data to the backend
-      // You can use fetch, axios, or any other method suitable for your backend API
-      const response = await fetch('https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/auth/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-    
-      // Parse and return the response
-      return response.json();
     };
 
     return (
       <form onSubmit={handleSubmit}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100vw', height: '100vh' }}>
+      
       <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-  {/* TextHeader */}
-  <div style={{ flex: '1', textAlign: 'center' }}>
-    <TextHeader />
-  </div>
-  {/* IconHome */}
-  <IconHome />
-</div>
-
-
-
-      <div>
-        {/* Subtitle */}
-        <TextSubtitle />
+        <TextHeader/>
+        <TextSubtitle/>
       </div>
-
-      <div style={{ display: 'flex', justifyContent: 'center', gap: '20px' }}>
-  {/* Left Column */}
-  <div>
-    <div>
-      {/* Full Name */}
-      <TextFirstName />
-      <InputFieldFirstName
-        value={formData.firstName}
-        onChange={(e) => handleChange('firstName', e.target.value)}
-        onBlur={handleFirstNameBlur}
-        type="text"
-        text="First Name"
-      />
-      {validationErrors.firstName && (
+      {/* First row */}
+      <div style={{ display: 'flex', marginBottom: '20px' }}>
+        <div style={{ marginRight: '10px' }}>
+          <InputFieldFirstName
+            value={formData.firstName}
+            onChange={(e) => handleChange('firstName', e.target.value)}
+            onBlur={handleFirstNameBlur}
+          />
+          {validationErrors.firstName && (
         <div style={{ color: 'red' }}>{validationErrors.firstName}</div>
       )}
-    </div>
-    <div>
-      {/* Title */}
-      <TextTitle />
-      <InputFieldTitle
-        value={formData.title}
-        onChange={(e) => handleChange('title', e.target.value)}
-        onBlur={handleTitleBlur}
-      />
-      {validationErrors.title && (
-        <div style={{ color: 'red' }}>{validationErrors.title}</div>
-      )}
-    </div>
-    <div>
-      {/* Phone */}
-      <TextPhone />
-      <InputFieldPhone
-        value={formData.phone}
-        onChange={(e) => handleChange('phone', e.target.value)}
-        onBlur={handlePhoneBlur}
-      />
-      {validationErrors.phone && (
-        <div style={{ color: 'red' }}>{validationErrors.phone}</div>
-      )}
-    </div>
-    <div>
-      {/* Image Logo */}
-      <ImageLogo />
-    </div>
-  </div>
 
-  {/* Right Column */}
-  <div>
-    <div>
-      {/* Last Name */}
-      <TextLastName />
-      <InputFieldLastName
-        value={formData.lastName}
-        onChange={(e) => handleChange('lastName', e.target.value)}
-        onBlur={handleLastNameBlur}
-      />
-      {validationErrors.lastName && (
+        </div>
+        <div style={{ marginLeft: '10px' }}>
+          <InputFieldLastName
+            value={formData.lastName}
+            onChange={(e) => handleChange('lastName', e.target.value)}
+            onBlur={handleLastNameBlur}
+          />
+          {validationErrors.lastName && (
         <div style={{ color: 'red' }}>{validationErrors.lastName}</div>
       )}
-    </div>
-    <div>
-      {/* Company */}
-      <TextCompany />
-      <InputFieldCompany
-        value={formData.company}
-        onChange={(e) => handleChange('company', e.target.value)}
-        onBlur={handleCompanyBlur}
-      />
-      {validationErrors.company && (
+        </div>
+      </div>
+
+      {/* Second row */}
+      <div style={{ display: 'flex', marginBottom: '20px' }}>
+        <div style={{ marginRight: '10px' }}>
+          <InputFieldTitle
+            value={formData.title}
+            onChange={(e) => handleChange('title', e.target.value)}
+            onBlur={handleTitleBlur}
+          />
+          {validationErrors.title && (
+        <div style={{ color: 'red' }}>{validationErrors.title}</div>
+      )}
+        </div>
+        <div style={{ marginLeft: '10px' }}>
+          <InputFieldCompany
+            value={formData.company}
+            onChange={(e) => handleChange('company', e.target.value)}
+            onBlur={handleCompanyBlur}
+          />
+          {validationErrors.company && (
         <div style={{ color: 'red' }}>{validationErrors.company}</div>
       )}
-    </div>
-    <div>
-      {/* Email */}
-      <TextEmail />
-      <InputFieldEmail
-        value={formData.email}
-        onChange={(e) => handleChange('email', e.target.value)}
-        onBlur={handleEmailBlur}
-      />
-      {validationErrors.email && (
+        </div>
+      </div>
+
+      {/* Third row */}
+      <div style={{ display: 'flex', marginBottom: '20px' }}>
+      <div style={{ marginRight: '10px' }}>
+          <InputFieldPhone
+            value={formData.phone}
+            onChange={(e) => handleChange('phone', e.target.value)}
+            onBlur={handlePhoneBlur}
+          />
+          {validationErrors.phone && (
+        <div style={{ color: 'red' }}>{validationErrors.phone}</div>
+      )}
+        </div>
+        <div style={{ marginLeft: '10px' }}>
+          <InputFieldEmail
+            value={formData.email}
+            onChange={(e) => handleChange('email', e.target.value)}
+            onBlur={handleEmailBlur}
+          />
+          {validationErrors.email && (
         <div style={{ color: 'red' }}>{validationErrors.email}</div>
       )}
-    </div>
-    <div>
-      {/* Create a Password */}
-      <TextCreateAPassword />
-      <InputFieldCAP
-        type="password"
-        value={formData.createPassword}
-        onChange={(e) => handleChange('createPassword', e.target.value)}
-        onBlur={handleCreatePasswordBlur}
-      />
-      {validationErrors.createPassword && (
+        </div>
+      </div>
+
+      {/* Fourth row */}
+      <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', marginRight: '10px', width: '468px' }}>
+          {/* First column */}
+          <motion.div
+          initial={{ scale: 0 }} // Initial scale is 0
+          animate={{ scale: 1 }} // Animate to scale 1
+          transition={{ duration: 1.0 }} // Transition duration
+        ><ImageLogo/></motion.div>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginLeft: '10px'  }}>
+        <InputFieldCAP
+            value={formData.createPassword}
+            onChange={(e) => handleChange('createPassword', e.target.value)}
+            onBlur={handleCreatePasswordBlur}
+            type="password"
+          />
+          {validationErrors.createPassword && (
         <div style={{ color: 'red' }}>{validationErrors.createPassword}</div>
       )}
-    </div>
-    <div>
-      {/* Confirm Password */}
-      <TextConfirmPassword />
-      <InputFieldCP
-        type="password"
-        value={formData.confirmPassword}
-        onChange={(e) => handleChange('confirmPassword', e.target.value)}
-        onBlur={handleConfirmPasswordBlur}
-      />
-      {validationErrors.confirmPassword && (
+          <InputFieldCP
+            value={formData.confirmPassword}
+            onChange={(e) => handleChange('confirmPassword', e.target.value)}
+            onBlur={handleConfirmPasswordBlur}
+            type="password"
+          />
+          {validationErrors.confirmPassword && (
         <div style={{ color: 'red' }}>{validationErrors.confirmPassword}</div>
       )}
-    </div>
-          <div>
-          {/* Checkbox, Text By Signing, Text TOS, Text And, Text Privacy */}
-          <div style={{ display: 'flex', alignItems: 'center' }}>
+          <div style={{ display: 'flex', marginBottom: '30px'}}>
             <Checkbox onChange={handleCheckboxChange} />
-            <TextBySigning />
-            <TextTOU />
-            <TextAnd />
-            <TextPrivacy />
+            <TextBySigning/>
+            <motion.div
+  whileHover={{ textDecoration: 'underline' }} // Add underline on hover
+>
+<TextTOU/>
+</motion.div>
+            
+            <TextAnd/>
+            <motion.div
+  whileHover={{ textDecoration: 'underline' }} // Add underline on hover
+>
+<TextPrivacy/>
+</motion.div>
+            
+          </div>
+          {errorMessage && <div style={{ color: 'red', marginBottom: '2px' }}>{errorMessage}</div>}
+
+          <motion.div
+          initial={{ scale: 0 }} // Initial scale is 0
+          animate={{ scale: 1 }} // Animate to scale 1
+          whileHover={{ scale: 1.1 }} // Scale up to 1.1 when hovered
+          transition={{ duration: 1.0 }} // Transition duration
+        ><ButtonSignup disabled={!isFormComplete()} /></motion.div>
+           
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}></div>
+          <div style={{ display: 'flex' }}>
+            <TextAlreadyHave/>
+            <motion.div
+  whileHover={{ textDecoration: 'underline' }} // Add underline on hover
+>
+<TextLogIn/>
+</motion.div>
+            
           </div>
         </div>
-          <div>
-            {/* Button Signup */}
-            <ButtonSignup disabled={!isFormComplete()} />
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            {/* Text Already Have */}
-            <TextAlreadyHave />
-            <TextLogIn />
-          </div>
-        </div>
- </div>
-      {/* Rest of your component code */}
+      </div>
+      {showEvdbPage && <Popup />}
     </div>
     </form>
-    );
-  };
-  
-  export default YourTargetComponent;
+  );
+};
+
+export default SignupPage;

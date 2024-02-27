@@ -34,7 +34,11 @@ import TextCardBodyDepreciation from './TextCardBodyDepreciation';
 
 const NPC3 = (props) => {
   const { npcData, onInputChange, onNext, onPrevious } = props;
+  console.log("npcData:", npcData);
   const isContinueDisabled = !npcData.salesTax || !npcData.depreciationRange;
+  console.log("salesTax:", npcData.salesTax);
+  console.log("deprecationRange:", npcData.deprecationRange);
+  console.log("isContinueDisabled:", isContinueDisabled);
     return (
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}>
         {/* Row 1 */}
@@ -140,7 +144,7 @@ const NPC3 = (props) => {
         {/* Left Column: Sales Tax */}
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginRight: '10px' }}>
           <TextSalesTax />
-          <div style={{ marginBottom: '20px' }}>
+          <div style={{ marginBottom: '90px' }}>
             <InputFieldSalesTax 
             value={npcData.salesTax}
             onChange={onInputChange}

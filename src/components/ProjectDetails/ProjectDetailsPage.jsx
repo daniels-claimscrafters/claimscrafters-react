@@ -9,6 +9,7 @@ import HeaderBackground from './HeaderBackground';
 import CardValuation from './CardValuation';
 import CardDetails from './CardDetails';
 import CardContents from './CardContents';
+import ExcelGenerator from './ExcelGenerator';
 
 const ProjectDetailsPage = () => {
     const navigate = useNavigate();
@@ -59,9 +60,13 @@ console.log(projectId); // This will log '59'
         setUserData(data.user);
       } else {
         console.error('Failed to fetch user data');
+        document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+        navigate('/login');
       }
     } catch (error) {
       console.error('Error fetching user data:', error);
+      document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+      navigate('/login');
     }
   };
 
@@ -77,12 +82,26 @@ console.log(projectId); // This will log '59'
             console.log('Received project details:', data);
             setProjectDetails(data);
             setIsLoading(false); // Update loading state when data is fetched
+
+            console.log('userdata: ', userData.id)
+            console.log('projectdetails: ', data.project.userId)
+
+            const isUserIdMatch = userData && data.project.userId === userData.id;
+
+            console.log('User ID match:', isUserIdMatch);
+
+            if (!isUserIdMatch) {
+                console.log('User ID does not match. Redirecting...');
+                navigate('/pmhs');
+            }
         })
         .catch(error => {
             console.error('Error fetching project details:', error);
-            setIsLoading(false); // Update loading state even on error
+            //navigate('/pmhs');
         });
     }, [projectId]); // Re-run effect whenever projectId changes
+
+    
 
     const handleUpdateProjectDetails = (updatedDetails) => {
         setProjectDetails(updatedDetails);
@@ -106,6 +125,7 @@ console.log(projectId); // This will log '59'
                     <ImageProfile />
                 </div>
             </HeaderBackground>
+            
             <div style={{ display: 'flex', flexDirection: 'row' }}>
                 <div style={{ flex: 1, padding: '10px' }}>
                     {/* Pass projectDetails as props to CardDetails */}
@@ -113,7 +133,7 @@ console.log(projectId); // This will log '59'
                     {/* Pass projectDetails as props to CardValuation */}
                     <CardValuation projectDetails={projectDetails} />
                 </div>
-                <div style={{ padding: '10px' }}>
+                <div style={{ paddingTop: '10px', paddingLeft: '10px', paddingRight: '10px', }}>
                     <CardChangelog projectDetails={projectDetails}/>
                 </div>
             </div>

@@ -10,8 +10,6 @@ const styles = {
     left: '10px',
     width: '38px',
     height: '57px',
-    marginRight: '30px',
-    marginLeft: '20px',
     cursor: 'pointer',
   },
 };

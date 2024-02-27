@@ -5,8 +5,6 @@ import React from 'react';
 const styles = {
   Button: {
     cursor: 'pointer',
-    top: '193px',
-    left: '829px',
     width: '157px',
     height: '36px',
     padding: '0px 8px',
@@ -22,16 +20,17 @@ const styles = {
   },
 };
 
-const defaultProps = {
-  label: 'Projects In Process',
-};
+const ButtonProjectsProgress = ({ onClick }) => {
+  const handleClick = () => {
+    
+    onClick('In Process');
+  };
 
-const Button = (props) => {
   return (
-    <button style={styles.Button}>
-      {props.label ?? defaultProps.label}
+    <button style={styles.Button} onClick={handleClick}>
+      Projects In Process
     </button>
   );
 };
 
-export default Button;
+export default ButtonProjectsProgress;

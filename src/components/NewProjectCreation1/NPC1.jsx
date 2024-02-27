@@ -194,7 +194,7 @@ const NPC1 = (props) => {
       </div>
 
       {/* Loss Information Section */}
-      <div style={{ display: 'flex', flexDirection: 'column' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', marginTop: '20px', }}>
         <div style={{ marginBottom: '20px' }}>
           <TextLossAddress />
           <InputFieldLossAddress 

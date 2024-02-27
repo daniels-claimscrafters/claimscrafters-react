@@ -24,7 +24,7 @@ const Text = (props) => {
 
   const handleClick = () => {
     // Redirect to /contactus
-    navigate('/contactus');
+    navigate('/tos');
   };
 
   const handleMouseEnter = () => {

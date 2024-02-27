@@ -35,7 +35,20 @@ const InputFieldSalesTax = (props) => {
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = (e) => {
-    const newValue = e.target.value;
+    let newValue = e.target.value;
+  
+    // Replace non-digit and non-decimal point characters with empty string
+    newValue = newValue.replace(/[^\d.]/g, '');
+  
+    // Limit input to two digits after the decimal point
+    const decimalIndex = newValue.indexOf('.');
+    if (decimalIndex !== -1) {
+      const decimalPart = newValue.substring(decimalIndex + 1);
+      if (decimalPart.length > 2) {
+        newValue = newValue.slice(0, decimalIndex + 3);
+      }
+    }
+  
     console.log(`InputFieldSalesTax - New value: ${newValue}`);
     onChange('salesTax', newValue);
     setErrorMessage(''); // Clear error message when the user starts typing

@@ -15,10 +15,10 @@ const defaultProps = {
   text: '2',
 };
 
-const Text = (props) => {
+const Text = ({ inProcess }) => {
   return (
     <div style={styles.Text}>
-      {props.text ?? defaultProps.text}
+      {inProcess ?? defaultProps.text}
     </div>
   );
 };

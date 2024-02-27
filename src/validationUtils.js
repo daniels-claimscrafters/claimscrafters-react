@@ -139,9 +139,9 @@ export const isValidSalesTax = (value) => {
 };
 
 export const isValidDateFormat = (date) => {
-  // Date format validation logic
-  const dateFormatRegex = /^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])\/\d{4}$/;
-
+  // Date format validation logic for YYYY-MM-DD format
+  const dateFormatRegex = /^\d{4}-\d{2}-\d{2}$/;
+  
   return date.trim() !== '' && dateFormatRegex.test(date.trim());
 };
 

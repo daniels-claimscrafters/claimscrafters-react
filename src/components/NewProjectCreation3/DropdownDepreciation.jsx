@@ -37,6 +37,7 @@ const DropdownDepreciation = (props) => {
   const handleChange = (e) => {
     const selectedValue = e.target.value;
     onChange('depreciationRange', selectedValue); // Call the onChange handler with the selected value
+    console.log('depreciationRange', selectedValue);
   };
 
   return (

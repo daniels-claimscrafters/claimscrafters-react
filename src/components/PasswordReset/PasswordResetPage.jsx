@@ -1,6 +1,6 @@
 //PasswordResetPage.jsx
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState} from 'react';
+import { useNavigate} from 'react-router-dom';
 import { isValidCreatePassword } from '../../validationUtils'; 
 import axios from 'axios';
 import ButtonSubmit from './ButtonSubmit';
@@ -11,14 +11,19 @@ import TextConfirmPassword from './TextConfirmPassword';
 import TextHeader from './TextHeader';
 import TextNewPassword from './TextNewPassword';
 import TextShow from './TextShow';
+import Popup from './Popup';
 
 const PasswordResetPage = () => {
   // State variables to hold the new password and confirmed password
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const [showSuccessDialog, setShowSuccessDialog] = useState(false);
+
+  const [showPRCPage, setPRCPage] = useState(false);
   const navigate = useNavigate();
+  const urlParams = new URLSearchParams(window.location.search);
+const resetPasswordToken  = urlParams.get('token');
+console.log(resetPasswordToken )
 
   // Function to handle password change submission
   const handlePasswordChange = async () => {
@@ -37,12 +42,12 @@ const PasswordResetPage = () => {
       const response = await axios.post('https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/auth/reset-password', {
         newPassword,
         confirmPassword,
-        // Include any additional data needed for password reset, such as reset token
+        resetPasswordToken // Include any additional data needed for password reset, such as reset token
       });
       // Handle success response
       console.log('Password changed successfully');
 
-      setShowSuccessDialog(true);
+      setPRCPage(true);
 
     } catch (error) {
       // Handle error response
@@ -76,18 +81,12 @@ const PasswordResetPage = () => {
         </InputFieldConfirmPassword>
         {/* Button to submit password change */}
         <ButtonSubmit onClick={handlePasswordChange} />
+        
         {/* Display error message if any */}
+        
         {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
       </div>
-      {showSuccessDialog && (
-        <div className="dialog">
-          <p>Password changed successfully!</p>
-          <button onClick={() => {
-            setShowSuccessDialog(false);
-            navigate('/login'); // Redirect to login page
-          }}>Continue to Login</button>
-        </div>
-      )}
+      {showPRCPage && <Popup />}
     </div>
   );
 };

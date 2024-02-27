@@ -1,6 +1,6 @@
 //TextGetStarted.jsx
 
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const styles = {
@@ -21,31 +21,23 @@ const defaultProps = {
 
 const TextGetStarted = (props) => {
   const navigate = useNavigate();
-  const [isHovered, setIsHovered] = useState(false);
+  
 
   const handleClick = () => {
     // Redirect to /signup
     navigate('/signup');
   };
 
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
 
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-  };
 
   return (
     <div
       style={{
         ...styles.Text,
-        transform: isHovered ? 'scale(1.1)' : 'scale(1)', // Apply scale transform based on hover state
-        ...props.style,
+        
       }}
       onClick={handleClick}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      
     >
       {props.text ?? defaultProps.text}
     </div>

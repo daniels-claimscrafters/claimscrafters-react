@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import TextUsername from './TextUsername';
+import ImageLogo from './ImageLogo';
 import TextTotalInt from './TextTotalInt';
 import TextTotal from './TextTotal';
 import TextSubtitle from './TextSubtitle';
@@ -38,6 +39,7 @@ import IconLogout from './IconLogout';
 import TasksList from './TasksList';
 import ProjectsList from './ProjectsList';
 import CardTaskParent from './CardTaskParent';
+import { motion } from "framer-motion";
 
 
 const PMHSPage = () => {
@@ -45,8 +47,10 @@ const PMHSPage = () => {
   const [projects, setProjects] = useState(null);
   const [showCardTaskParent, setShowCardTaskParent] = useState(false);
   const [pageReady, setPageReady] = useState(false);
-
-
+  const [inProcess, setInProcess] = useState(0);
+  const [completed, setCompleted] = useState(0);
+  const [total, setTotal] = useState(0);
+  const [tasks, setTasks] = useState(null);
   const [userData, setUserData] = useState(null);
   // Function to retrieve token from cookie
   const getTokenFromCookie = () => {
@@ -85,6 +89,7 @@ const PMHSPage = () => {
       if (response.ok) {
         const data = await response.json();
         setUserData(data.user);
+        console.log(userData)
       } else {
         console.error('Failed to fetch user data');
       }
@@ -92,6 +97,45 @@ const PMHSPage = () => {
       console.error('Error fetching user data:', error);
     }
   };
+
+  useEffect(() => {
+    console.log("Projects before counting:", projects); // Log the projects before counting
+    countStatusTypes(projects);
+  }, [projects]);
+
+  
+  const countStatusTypes = (projects) => {
+    if (!projects) return; // Check if projects is null or undefined
+  
+    let inProcessCount = 0;
+    let completedCount = 0;
+    let totalCount = projects.length;
+  
+    console.log("Total projects:", totalCount); // Log the total number of projects
+  
+    projects.forEach(project => {
+      console.log("Project status:", project.status); // Log the status of each project
+      if (project.status === "In Process") {
+        inProcessCount++;
+      } else if (project.status === "Completed") {
+        completedCount++;
+      }
+    });
+  
+    console.log("In process count:", inProcessCount); // Log the count of projects in process
+    console.log("Completed count:", completedCount); // Log the count of completed projects
+  
+    setInProcess(inProcessCount);
+    setCompleted(completedCount);
+    setTotal(totalCount);
+  };
+  
+
+  console.log("In Process:", inProcess);
+console.log("Completed:", completed);
+console.log("Total:", total);
+
+  
 
   const toggleCardTaskParent = () => {
     console.log('it worked')
@@ -128,6 +172,37 @@ const fetchProjects = async (userId) => {
   }
 };
 
+ // Function to fetch tasks by user ID
+ const fetchTasksByUserId = async (userId) => {
+  try {
+    const response = await fetch(`https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/tasks/getalltasks?userId=${userId}`, {
+      method: 'GET', // Use GET method
+      headers: {
+        'Content-Type': 'application/json',
+        'ngrok-skip-browser-warning': '69420',
+      }
+    });
+    if (response.ok) {
+      const data = await response.json();
+      // Process the fetched tasks data
+      console.log('Tasks:', data.tasks);
+      setTasks(data.tasks);
+      // You can set the tasks state here if needed
+    } else {
+      console.error('Failed to fetch tasks');
+    }
+  } catch (error) {
+    console.error('Error fetching tasks:', error);
+  }
+};
+
+useEffect(() => {
+  // If userData is available and contains the user ID
+  if (userData && userData.id) {
+    fetchTasksByUserId(userData.id);
+  }
+}, [userData]); // Empty dependency array to trigger the effect only once on mount
+
   const handleLogout = () => {
     // Clear the authentication token from cookie
     document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
@@ -135,84 +210,107 @@ const fetchProjects = async (userId) => {
     navigate('/login');
   };
 
-
-
-  // Log the userData variable
-  console.log('User data:', userData);
-  console.log('Projects:', projects);
-
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
-      {/* Main Content */}
-      <div style={{ marginLeft: '20px', display: 'flex', flexDirection: 'column', flexGrow: 1, width: '100%' }}>
-        {/* Top Row */}
-        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px', width: '100%' }}>
-          {/* Left Section: TextHeader and TextSubtitle */}
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-              <TextHeader />
-              {/* Add any other components you want to place to the right */}
-            </div>
-            {/* Subtitle Section */}
-            <div>
-              <TextSubtitle />
-            </div>
-          </div>
-          {/* Middle Section: Cards */}
-          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-            <CardInProcess>
-              <CardInProcessSubcard>
-                <IconInProcess />
-              </CardInProcessSubcard>
-              <TextInProcess />
-              <TextInProcessInt />
-            </CardInProcess>
-            <CardCompleted>
-              <CardCompletedSubcard>
-                <IconCompleted />
-              </CardCompletedSubcard>
-              <TextCompleted />
-              <TextCompletedInt />
-            </CardCompleted>
-            <CardTotal>
-              <CardTotalSubcard>
-                <IconTotal />
-              </CardTotalSubcard>
-              <TextTotal />
-              <TextTotalInt />
-            </CardTotal>
-          </div>
-          {/* Right Section: ImageProfile, TextUsername, and IconLogout */}
-          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end' }}>
-            {/* ImageProfile */}
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginRight: '10px' }}>
-              {/* ImageProfile */}
-              <ImageProfile />
-              {/* TextUsername */}
-              <TextUsername userData={userData} />
-            </div>
-            {/* IconLogout */}
-            <IconLogout onClick={handleLogout} />
-          </div>
-        </div>
-        {/* Cards and Project Buttons Section */}
-<div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginBottom: '20px', width: '100%' }}>
-  {/* Left Section: TasksList */}
-  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '33%', marginTop: '40px' }}>
-  <TasksList 
-        showCardTaskParent={showCardTaskParent}
-        toggleCardTaskParent={toggleCardTaskParent}
-      />
-  </div>
-  {/* Right Section: ProjectsList */}
-  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '66%' }}>
-  {pageReady && <ProjectsList projects={projects} />}
-  </div>
-</div>
-{/* Render CardTaskParent if showCardTaskParent is true */}
-{showCardTaskParent && <CardTaskParent />}
+    <div style={{ display: 'flex', height: '100vh' }}>
+  {/* Sidebar Section */}
+  <div style={{ flex: '0 0 auto', width: '90px', backgroundColor: '#f0f0f0' }}>
+  <CardSideBar>
+    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%' }}>
+    <div style={{ display: 'flex', justifyContent: 'center' }}>
+    <motion.div
+          initial={{ scale: 0 }} // Initial scale is 0
+          animate={{ scale: 1 }} // Animate to scale 1
+          whileHover={{ scale: 1.1 }} // Scale up to 1.1 when hovered
+          transition={{ duration: 1.0 }} // Transition duration
+        ><IconHome /></motion.div>
+      
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+      <motion.div
+          initial={{ scale: 0 }} // Initial scale is 0
+          animate={{ scale: 1 }} // Animate to scale 1
+          whileHover={{ scale: 1.1 }} // Scale up to 1.1 when hovered
+          transition={{ duration: 1.0 }} // Transition duration
+        ><IconLogout onClick={handleLogout}/></motion.div>
       </div>
     </div>
+  </CardSideBar>
+  </div>
+  {/* Main Content Section */}
+  <div style={{ flex: '1', backgroundColor: '#ffffff' }}>
+    {/* Main Content */}
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100%' }}>
+      {/* Top Row */}
+<div style={{ display: 'flex', backgroundColor: '#000000', borderRadius: '4px', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px', width: '100%' }}>
+  {/* Left Section: ImageLogo */}
+  <div>
+  <motion.div
+          initial={{ scale: 0 }} // Initial scale is 0
+          animate={{ scale: 1 }} // Animate to scale 1
+          transition={{ duration: 1.0 }} // Transition duration
+        ><ImageLogo /></motion.div>
+  </div>
+  {/* Middle Section: TextHeader and TextSubtitle */}
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+      {/* TextHeader */}
+      <TextHeader />
+      {/* Add any other components you want to place to the right */}
+    </div>
+    {/* Subtitle Section */}
+    <div>
+      {/* TextSubtitle */}
+      <TextSubtitle />
+    </div>
+  </div>
+  {/* Right Section: ImageProfile, TextUsername, and IconLogout */}
+  <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end' }}>
+    {/* ImageProfile and TextUsername */}
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginRight: '30px' }}>
+      {/* ImageProfile */}
+      <motion.div
+          initial={{ scale: 0 }} // Initial scale is 0
+          animate={{ scale: 1 }} // Animate to scale 1
+          whileHover={{ scale: 1.1 }} // Scale up to 1.1 when hovered
+          transition={{ duration: 1.0 }} // Transition duration
+        ><ImageProfile /></motion.div>
+      
+      {/* TextUsername */}
+      
+      <TextUsername userData={userData} />
+    </div>          
+  </div>
+</div>
+      {/* Cards and Project Buttons Section */}
+      <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginBottom: '20px', width: '100%' }}>
+        {/* Left Section: TasksList */}
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '33%', marginLeft: '40px' }}>
+        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center'  }}>
+        <CardInProcess inProcess={inProcess} />
+  <CardCompleted completed={completed} />
+  <CardTotal total={total} />
+              
+          </div>
+
+          
+          {/* TasksList */}
+          <TasksList 
+            showCardTaskParent={showCardTaskParent}
+            toggleCardTaskParent={toggleCardTaskParent}
+            tasks={tasks}
+          />
+        </div>
+        {/* Right Section: ProjectsList */}
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '66%' }}>
+          {/* ProjectsList */}
+          {pageReady && <ProjectsList projects={projects} />}
+        </div>
+      </div>
+      {/* Render CardTaskParent if showCardTaskParent is true */}
+      {showCardTaskParent && <CardTaskParent userData={userData} onClose={toggleCardTaskParent} />}
+    </div>
+  </div>
+</div>
   );
 }
 

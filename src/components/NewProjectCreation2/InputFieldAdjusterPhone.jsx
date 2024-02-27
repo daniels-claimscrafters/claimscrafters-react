@@ -1,3 +1,5 @@
+// InputFieldAdjusterPhone.jsx
+
 import React, { useState } from 'react';
 import { isValidPhoneNPC } from '../../validationUtils';
 
@@ -34,9 +36,13 @@ const InputFieldPhone = (props) => {
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = (e) => {
-    const newValue = e.target.value;
-    console.log(`InputFieldPhone - New value: ${newValue}`);
-    onChange('adjusterPhone', newValue);
+    let newValue = e.target.value;
+    
+    // Format the phone number as needed
+    newValue = newValue.replace(/\D/g, ''); // Remove all non-digit characters
+    newValue = newValue.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3'); // Format as (XXX) XXX-XXXX
+    
+    onChange('adjusterPhone', newValue); // Pass the formatted value to the parent component
     setErrorMessage(''); // Clear error message when the user starts typing
   };
 

@@ -10,10 +10,11 @@ const TextUsername = ({ userData }) => {
 
 const styles = {
   Text: {
-    color: '#000000',
+    color: '#ffffff',
     fontSize: '14px',
     fontFamily: 'Roboto',
     lineHeight: '16px',
+    marginTop: '10px'
   },
 };
 

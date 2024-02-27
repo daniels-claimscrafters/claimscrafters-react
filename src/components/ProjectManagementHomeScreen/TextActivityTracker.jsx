@@ -7,8 +7,9 @@ const styles = {
     fontFamily: 'Poppins',
     fontWeight: 600,
     lineHeight: '32px',
-    marginBottom: '20px',
-    textAlign: 'center'
+    textAlign: 'center',
+    marginTop: '10px',
+    marginBottom: '10px',
   },
 };
 

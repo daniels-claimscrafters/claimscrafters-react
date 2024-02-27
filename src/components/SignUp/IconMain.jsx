@@ -8,7 +8,7 @@ const styles = {
     top: '20px',
     left: '-6px',
     width: '259px',
-    height: '156px',
+    height: '120px',
   },
 };
 

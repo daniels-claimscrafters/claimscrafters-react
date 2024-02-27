@@ -12,6 +12,8 @@ const styles = {
     boxSizing: 'border-box',
     boxShadow: '0px 1px 12px rgba(3,3,3,0.08)',
     marginTop: '20px',
+    padding: '20px',
+    fontFamily: 'Poppins',
   },
   Table: {
     width: '100%',
@@ -19,12 +21,16 @@ const styles = {
     textAlign: 'center',
   },
   TableHeader: {
-    backgroundColor: '#f2f2f2',
+    backgroundColor: '#ffffff',
     borderBottom: '1px solid #dddddd',
-    padding: '10px',
+    height: '60px'
   },
   TableCell: {
     borderBottom: '1px solid #dddddd',
+    padding: '10px',
+  },
+  TableCellLast: {
+    
     padding: '10px',
   },
 };
@@ -66,8 +72,8 @@ const CardPriceBreakdown = () => {
             
           </tr>
           <tr>
-            <td style={styles.TableCell}>1000+ Lines</td>
-            <td style={styles.TableCell}>$1.25 / line</td>
+            <td style={styles.TableCellLast}>1000+ Lines</td>
+            <td style={styles.TableCellLast}>$1.25 / line</td>
             
           </tr>
           {/* Add more rows as needed */}

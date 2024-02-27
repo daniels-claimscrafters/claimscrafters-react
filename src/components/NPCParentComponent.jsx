@@ -263,7 +263,7 @@ const NPCParentComponent = () => {
         />
       )}
       {/* Loading screen */}
-      {isLoading && <NPCLoadingScreen />}
+      <NPCLoadingScreen />
     </div>
   );
 };

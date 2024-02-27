@@ -137,19 +137,18 @@ const NPC7 = ({ npcData, onInputChange, onPrevious, numberOfLines, onSubmit }) =
             <TextSubheader4 />
             <TextCardholderName />
             <InputFieldCardholderName 
-              onChange={(value) => handleInputChange('cardholderName', value)}
-              onBlur={() => handleBlur('cardholderName')} // Add onBlur prop
-            />
+  onChange={(name, value) => handleInputChange(name, value)}
+/>
             <TextCardNumber />
-            <InputFieldCardNumber onChange={(value) => handleInputChange('cardNumber', value)} />
+            <InputFieldCardNumber onChange={(name, value) => handleInputChange(name, value)}/>
             <div style={{ display: 'flex', marginBottom: '10px' }}>
               <div style={{ marginRight: '10px' }}>
                 <TextExpiration />
-                <InputFieldExpiration onChange={(value) => handleInputChange('expiration', value)} />
+                <InputFieldExpiration onChange={(name, value) => handleInputChange(name, value)} />
               </div>
               <div>
                 <TextCVV />
-                <InputFieldCVV onChange={(value) => handleInputChange('cvv', value)} />
+                <InputFieldCVV onChange={(name, value) => handleInputChange(name, value)} />
               </div>
             </div>
             <ButtonPay totalPrice={totalPrice} onClick={handleSubmit} />

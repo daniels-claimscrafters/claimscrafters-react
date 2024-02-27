@@ -44,6 +44,7 @@ import VerticalDividerFooter from './VerticalDividerFooter';
 import ButtonDashboard from './ButtonDashboard';
 import ImageProfile from './ImageProfile';
 import TextUsername from './TextUsername';
+import { motion } from "framer-motion";
 
 // Import other components as needed
 
@@ -113,39 +114,84 @@ const clearToken = () => {
     <div className="home-screen-page">
       <Header>
         {/* Logo on the left */}
-        <ImageLogo />
+        <motion.div
+          initial={{ scale: 0 }} // Initial scale is 0
+          animate={{ scale: 1 }} // Animate to scale 1
+          transition={{ duration: 1.0 }} // Transition duration
+        ><ImageLogo /></motion.div>
+        
 
         {/* Header text in the middle */}
+        
         <HeaderText />
 
         {/* Conditional rendering for authentication */}
         {isAuthenticated ? (
   // Render image profile and dashboard button if authenticated
   <>
-    <ButtonDashboard />
+    <motion.div
+          initial={{ scale: 0 }} // Initial scale is 0
+          animate={{ scale: 1 }} // Animate to scale 1
+          whileHover={{ scale: 1.1 }}
+          transition={{ duration: 1.0 }} // Transition duration
+        ><ButtonDashboard /></motion.div>
+    
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginLeft: '10px' }}>
             {/* ImageProfile */}
             <div style={{ display: 'flex', alignItems: 'center' }}>
-              <ImageProfile />
+            <motion.div
+          initial={{ scale: 0 }} // Initial scale is 0
+          animate={{ scale: 1 }} // Animate to scale 1
+          whileHover={{ scale: 1.1 }}
+          transition={{ duration: 1.0 }} // Transition duration
+        ><ImageProfile /></motion.div>
+              
             </div>
             {/* TextUsername */}
             <div style={{ textAlign: 'center', marginRight: '25px', marginTop: '10px' }}> {/* Ensure TextUsername is centered */}
-              <TextUsername userData={userData} />
+            <motion.div
+          initial={{ scale: 0 }} // Initial scale is 0
+          animate={{ scale: 1 }} // Animate to scale 1
+          transition={{ duration: 1.0 }} // Transition duration
+        ><TextUsername userData={userData} /></motion.div>
             </div>
           </div>
   </>
         ) : (
           // Render sign-in button if not authenticated
           <>
-            <TextGetStarted />
-            <ButtonSignIn />
+          <motion.div
+      initial={{ scale: 0 }} // Initial scale is 0
+      animate={{ scale: 1 }} // Animate to scale 1
+      whileHover={{ scale: 1.1 }} // Scale up to 1.1 when hovered
+      transition={{ duration: 1.0 }}
+      style={{ width: 100, height: 100, border: "1px solid black", display: "flex", justifyContent: "center", alignItems: "center" }}
+    >
+      <TextGetStarted />
+    </motion.div>
+            
+    <motion.div
+      initial={{ scale: 0 }} // Initial scale is 0
+      animate={{ scale: 1 }} // Animate to scale 1
+      whileHover={{ scale: 1.1 }} // Scale up to 1.1 when hovered
+      transition={{ duration: 1.0 }}
+      style={{ width: 200, height: 100, border: "1px solid black", display: "flex", justifyContent: "center", alignItems: "center" }}
+    >
+      <ButtonSignIn />
+    </motion.div>
           </>
         )}
       </Header>
 
       <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
         <div style={{ flexShrink: 0, marginRight: '20px' }}>
+        <motion.div
+          initial={{ scale: 0 }} // Initial scale is 0
+          animate={{ scale: 1 }} // Animate to scale 1
+          transition={{ duration: 1.0 }} // Transition duration
+        >
           <ImageJumbotron />
+        </motion.div>
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column' }}>

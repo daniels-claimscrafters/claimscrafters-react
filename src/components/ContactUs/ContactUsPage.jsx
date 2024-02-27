@@ -23,6 +23,8 @@ import TextTermsOfUse from './TextTermsOfUse';
 import VerticalDividerFooter from './VerticalDividerFooter';
 import { isNotEmpty2, isValidEmail } from '../../validationUtils';
 import ReCAPTCHA from "react-google-recaptcha";
+import { motion } from "framer-motion";
+import Popup from './Popup'
 
 const ContactUsPage = () => {
   const [name, setName] = useState('');
@@ -31,7 +33,9 @@ const ContactUsPage = () => {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [recaptchaValue, setRecaptchaValue] = useState('');
   const [submitEnabled, setSubmitEnabled] = useState(false);
-  const [successMessage, setSuccessMessage] = useState('');
+  const [FailureMessage, setFailureMessage] = useState('');
+  const [showCudbPage, setShowCudbPage] = useState(false);
+  
 
   useEffect(() => {
     // Enable submit button if all fields are filled and recaptcha is completed
@@ -129,17 +133,22 @@ const ContactUsPage = () => {
     });
 
     if (response.status === 200) {
-      setFormSubmitted(true);
-      setSuccessMessage('Your message was sent successfully!');
+      setTimeout(() => {
+        setShowCudbPage(true);
+      }, 0);
       setName('');
       setEmail('');
       setMessage('');
       setRecaptchaValue('');
     } else {
       console.error('Form submission failed');
+      setFormSubmitted(true); // Update formSubmitted state to true
+      setFailureMessage('Your message was sent successfully!');
     }
   } catch (error) {
     console.error('Error during form submission', error);
+    setFormSubmitted(true); // Set formSubmitted to true to trigger rendering of failure message
+        setFailureMessage('An unexpected error occurred. Please try again later.'); // Set failure message
   }
 };
 
@@ -149,11 +158,28 @@ const ContactUsPage = () => {
         {/* Header content */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <ImageLogo />
+          <motion.div
+          initial={{ scale: 0 }} // Initial scale is 0
+          animate={{ scale: 1 }} // Animate to scale 1
+          transition={{ duration: 1.0 }} // Transition duration
+        ><ImageLogo /></motion.div>
+            
           </div>
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <TextSignIn style={{ marginRight: '10px' }} />
-            <ButtonSignUp />
+          <motion.div
+          initial={{ scale: 0 }} // Initial scale is 0
+          animate={{ scale: 1 }} // Animate to scale 1
+          whileHover={{ scale: 1.1 }} // Scale up to 1.1 when hovered
+          transition={{ duration: 1.0 }} // Transition duration
+        ><TextSignIn style={{ marginRight: '10px' }} /></motion.div>
+            
+            <motion.div
+          initial={{ scale: 0 }} // Initial scale is 0
+          animate={{ scale: 1 }} // Animate to scale 1
+          whileHover={{ scale: 1.1 }} // Scale up to 1.1 when hovered
+          transition={{ duration: 1.0 }} // Transition duration
+        ><ButtonSignUp /></motion.div>
+            
           </div>
         </div>
       </Header>
@@ -162,7 +188,12 @@ const ContactUsPage = () => {
       <div style={{ display: 'flex' }}>
         {/* Left column with ImageJumbotron */}
         <div style={{ flex: 1 }}>
-          <ImageJumbotron />
+        <motion.div
+          initial={{ scale: 0 }} // Initial scale is 0
+          animate={{ scale: 1 }} // Animate to scale 1
+          transition={{ duration: 1.0 }} // Transition duration
+        ><ImageJumbotron /></motion.div>
+          
         </div>
   
         {/* Right column with other elements */}
@@ -171,8 +202,8 @@ const ContactUsPage = () => {
           <TextMainBody />
 
           {formSubmitted && (
-            <div style={{ color: 'green', marginBottom: '10px' }}>
-              {successMessage}
+            <div style={{ color: 'red', marginBottom: '10px' }}>
+              {FailureMessage}
             </div>
           )}
   
@@ -209,7 +240,13 @@ const ContactUsPage = () => {
 
 
   {/* Use ButtonSendMessage as the submit button */}
-  <ButtonSendMessage type="submit" disabled={!submitEnabled}>Send Message</ButtonSendMessage>
+  <motion.div
+          initial={{ scale: 0 }} // Initial scale is 0
+          animate={{ scale: 1 }} // Animate to scale 1
+          whileHover={{ scale: 1.1 }} // Scale up to 1.1 when hovered
+          transition={{ duration: 1.0 }} // Transition duration
+        ><ButtonSendMessage type="submit" disabled={!submitEnabled}>Send Message</ButtonSendMessage></motion.div>
+  
 </form>
         </div>
       </div>
@@ -219,12 +256,27 @@ const ContactUsPage = () => {
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <ImageFooterLogo />
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <TextTermsOfUse />
+          <motion.div
+          initial={{ scale: 0 }} // Initial scale is 0
+          animate={{ scale: 1 }} // Animate to scale 1
+          whileHover={{ scale: 1.1 }} // Scale up to 1.1 when hovered
+          transition={{ duration: 1.0 }} // Transition duration
+        ><TextTermsOfUse /></motion.div>
+            
             <VerticalDividerFooter />
-            <TextPrivacyPolicy />
+            <motion.div
+          initial={{ scale: 0 }} // Initial scale is 0
+          animate={{ scale: 1 }} // Animate to scale 1
+          whileHover={{ scale: 1.1 }} // Scale up to 1.1 when hovered
+          transition={{ duration: 1.0 }} // Transition duration
+        ><TextPrivacyPolicy /></motion.div>
+            
           </div>
         </div>
       </CardFooterBackground>
+
+      {showCudbPage && <Popup />}
+      
     </div>
   );  
 };

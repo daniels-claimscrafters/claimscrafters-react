@@ -17,7 +17,7 @@ const styles = {
     fontFamily: 'Roboto',
     lineHeight: '24px',
     outline: 'none',
-    marginBottom: '10px',
+    marginBottom: '30px',
   },
 };
 

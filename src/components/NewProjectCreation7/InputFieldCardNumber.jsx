@@ -1,4 +1,3 @@
-// InputFieldCardNumber.jsx
 import React, { useState } from 'react';
 import { isValidCardNumber } from '../../validationUtils';
 
@@ -6,7 +5,7 @@ const styles = {
   Input: {
     top: '463px',
     left: '1121px',
-    width: '255px',
+    width: '69%',
     height: '48px',
     padding: '0px 8px',
     border: '1px solid #ceced3',
@@ -27,14 +26,14 @@ const styles = {
   },
 };
 
-const InputFieldCardNumber = ({ text = '**** **** **** ****', onChange }) => {
-  const [value, setValue] = useState(text);
+const InputFieldCardNumber = ({ onChange }) => {
+  const [value, setValue] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = (e) => {
     const newValue = e.target.value;
     setValue(newValue);
-    onChange(newValue); // Pass the value directly to the parent component
+    onChange('cardNumber', newValue); // Pass the identifier and the new value to the parent component
     setErrorMessage('');
   };
 
@@ -47,15 +46,15 @@ const InputFieldCardNumber = ({ text = '**** **** **** ****', onChange }) => {
 
   return (
     <div>
-    <input
-      style={styles.Input}
-      placeholder={text}
-      value={value}
-      onChange={handleChange}
-      onBlur={handleBlur}
-    />
-    {errorMessage && <div style={styles.ErrorMessage}>{errorMessage}</div>}
-  </div>
+      <input
+        style={styles.Input}
+        placeholder="**** **** **** ****" // Set the placeholder text directly here
+        value={value}
+        onChange={handleChange}
+        onBlur={handleBlur}
+      />
+      {errorMessage && <div style={styles.ErrorMessage}>{errorMessage}</div>}
+    </div>
   );
 };
 

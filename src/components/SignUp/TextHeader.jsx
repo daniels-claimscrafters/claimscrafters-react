@@ -8,8 +8,7 @@ const styles = {
     fontWeight: 700,
     lineHeight: '56px',
     textAlign: 'center',
-    marginTop: '20px',
-    marginBottom: '20px',
+    marginBottom: '10px',
   },
 };
 

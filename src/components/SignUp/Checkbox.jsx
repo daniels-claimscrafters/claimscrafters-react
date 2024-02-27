@@ -21,7 +21,7 @@ const styles = {
   Check: {
     display: 'none',
     transition: 'left 0.3s ease',
-    zIndex: 1,
+    
   },
   Input: {
     position: 'absolute',

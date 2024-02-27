@@ -15,10 +15,10 @@ const defaultProps = {
   text: '3',
 };
 
-const Text = (props) => {
+const Text = ({ completed }) => {
   return (
     <div style={styles.Text}>
-      {props.text ?? defaultProps.text}
+      {completed ?? defaultProps.text}
     </div>
   );
 };

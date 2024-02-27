@@ -18,30 +18,44 @@ const styles = {
   column: {
     flex: '1',
     marginRight: '10px', // Add margin right for space between columns
+    marginTop: '10px',
   },
   firstColumn: {
     flex: '1',
-    marginRight: '10px', // Add margin right for space between columns
+    marginRight: '40px', // Add margin right for space between columns
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
   },
   innerCard: {
-    width: '90%', // Adjust width of the inner card as needed
-    height: '90%', // Adjust height of the inner card as needed
-    backgroundColor: 'white',
-    borderRadius: '8px',
-    border: '1px solid black',
+    width: '100%', // Adjust width of the inner card as needed
+    height: '100%', // Adjust height of the inner card as needed
+    backgroundColor: '#cddef2',
+    borderRadius: '12px',
+    border: '1px solid #030303',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    textAlign: 'center',
+    fontSize: '20px',
+    fontFamily: 'Poppins',
+    fontWeight: 600,
   },
   headerText: {
     fontWeight: 'bold',
     marginBottom: '5px',
+    textAlign: 'center',
   },
   text: {
     marginBottom: '5px',
+    color: '#030303',
+    fontSize: '18px',
+    fontFamily: 'Poppins',
+    fontWeight: 600,
+    lineHeight: '23px',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
   },
 };
 
@@ -125,33 +139,53 @@ projectDetails.project.spreadsheetData.forEach(item => {
 });
 
 // Now you have the total depreciation amount
-
+let depreciationRange;
+switch (projectDetails.project.depreciationRange) {
+  case 2:
+    depreciationRange = "0 - 3 years";
+    break;
+  case 5:
+    depreciationRange = '4 - 6 years';
+    break;
+  case 8:
+    depreciationRange = '7 - 9 years';
+    break;
+  case 10:
+    depreciationRange = '10+ years';
+    break;
+  default:
+    depreciationRange = 'N/A';
+    break;
+}
 
 
   return (
     <div style={styles.Card}>
       <div style={styles.firstColumn}>
-      <div style={styles.innerCard}>Number Of Items: {projectDetails.project.numberOfLines}</div>
+      <div style={styles.innerCard}>
+    Number Of Items:
+    <br />
+    {projectDetails.project.numberOfLines}
+  </div>
       </div>
       <div style={styles.column}>
-        <div style={styles.headerText}>RCV</div>
-        <div style={styles.text}>Suggested RCV Total: {suggestedRCVTotal}</div>
-        <div style={styles.text}>Tax Rate: {projectDetails.project.salesTax}</div>
-        <div style={styles.text}>Total RCV Tax: {totalRCVTax}</div>
-        <div style={styles.text}>RCV with Tax Total: {rcvWithTaxTotal}</div>
+        <div style={styles.headerText}>RC</div>
+        <div style={styles.text}>Suggested RCV Total: ${suggestedRCVTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+        <div style={styles.text}>Tax Rate: {projectDetails.project.salesTax}%</div>
+        <div style={styles.text}>Total RCV Tax: ${totalRCVTax.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+        <div style={styles.text}>RCV with Tax Total: ${rcvWithTaxTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
       </div>
       <div style={styles.column}>
-        <div style={styles.headerText}>ACV</div>
-        <div style={styles.text}>Suggested ACV Total: {suggestedACVTotal}</div>
-        <div style={styles.text}>Tax Rate: {projectDetails.project.salesTax}</div>
-        <div style={styles.text}>Total ACV Tax: {totalACVTax}</div>
-        <div style={styles.text}>ACV with Tax Total: {acvWithTaxTotal}</div>
+        <div style={styles.headerText}>AC</div>
+        <div style={styles.text}>Suggested ACV Total: ${suggestedACVTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+        <div style={styles.text}>Tax Rate: {projectDetails.project.salesTax}%</div>
+        <div style={styles.text}>Total ACV Tax: ${totalACVTax.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+        <div style={styles.text}>ACV with Tax Total: ${acvWithTaxTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
       </div>
       <div style={styles.column}>
         <div style={styles.headerText}>&nbsp;</div>
-        <div style={styles.text}>Depreciating Years: {projectDetails.project.depreciationRange}</div>
-        <div style={styles.text}>Total Depreciation: {totalDepreciation}</div>
-
+        <div style={styles.text}>Depreciating Years: {depreciationRange}</div>
+        <div style={styles.text}>Total Depreciation: ${totalDepreciation.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
       </div>
     </div>
   );
