@@ -43,12 +43,15 @@ const styles = {
 };
 
 const CardProjects = ({ projects, filter }) => {
-  console.log(filter);
-  const filteredProjects = projects['projects'].filter(project => {
-    return project.status === filter;
-  });
+  console.log('here2', projects);
+console.log(filter);
 
-  console.log('1 :', filteredProjects);
+// Check if projects is null or undefined
+const filteredProjects = projects && projects['projects'] ? projects['projects'].filter(project => {
+  return project.status === filter;
+}) : [];
+
+console.log(filteredProjects);
 
   const filteredProjectsWithStatus = filteredProjects.filter(project => {
     return project.status === filter;
@@ -74,26 +77,32 @@ const CardProjects = ({ projects, filter }) => {
         </thead>
         
         <tbody>
-        {filteredProjectsWithStatus.map((project, index) => (
-          <tr key={index}>
-            <td style={styles.td}>
-              <a href={`/projectDetails?projectId=${project.id}`} style={{ fontWeight: 500, fontFamily: 'Red Hat Display', color: '#2a84ea', textDecoration: 'underline', fontSize: '14px' }}>View</a>
-            </td>
-            <td style={styles.td}>{project.claimNumber}</td>
-            <td style={styles.td}>{`${project.insuredFirstName} ${project.insuredLastName}`}</td>
-            <td style={styles.td}>{project.lossAddress}</td>
-            <td style={styles.td}>{project.lossCity}</td>
-            <td style={styles.td}>{project.lossState}</td>
-            <td style={{ ...styles.td, padding: 0 }}>
-              {/* Render your card component here */}
-              <div style={{ width: '100%', height: '100%' }}>
-                {/* Replace 'CardComponent' with your actual card component */}
-                <StatusCard status={project.status} />
-              </div>
-            </td>
-          </tr>
-        ))}
-      </tbody>
+  {filteredProjectsWithStatus.length > 0 ? (
+    filteredProjectsWithStatus.map((project, index) => (
+      <tr key={index}>
+        <td style={styles.td}>
+          <a href={`/projectDetails?projectId=${project.id}`} style={{ fontWeight: 500, fontFamily: 'Red Hat Display', color: '#2a84ea', textDecoration: 'underline', fontSize: '14px' }}>View</a>
+        </td>
+        <td style={styles.td}>{project.claimNumber}</td>
+        <td style={styles.td}>{`${project.insuredFirstName} ${project.insuredLastName}`}</td>
+        <td style={styles.td}>{project.lossAddress}</td>
+        <td style={styles.td}>{project.lossCity}</td>
+        <td style={styles.td}>{project.lossState}</td>
+        <td style={{ ...styles.td, padding: 0 }}>
+          {/* Render your card component here */}
+          <div style={{ width: '100%', height: '100%' }}>
+            {/* Replace 'CardComponent' with your actual card component */}
+            <StatusCard status={project.status} />
+          </div>
+        </td>
+      </tr>
+    ))
+  ) : (
+    <tr>
+      <td colSpan="7" style={{ textAlign: 'center', fontStyle: 'italic', paddingTop: '10px', color: 'white' }}>No Projects</td>
+    </tr>
+  )}
+</tbody>
     </table>
     </div>
   );

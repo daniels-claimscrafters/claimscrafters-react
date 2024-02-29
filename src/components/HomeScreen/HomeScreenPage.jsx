@@ -1,6 +1,5 @@
 // HomeScreen.jsx
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import ButtonSignIn from './ButtonSignIn';
 import ButtonTheChallenge from './ButtonTheChallenge';
 import ButtonTheOpportunity from './ButtonTheOpportunity';
@@ -45,6 +44,7 @@ import ButtonDashboard from './ButtonDashboard';
 import ImageProfile from './ImageProfile';
 import TextUsername from './TextUsername';
 import { motion } from "framer-motion";
+import BASE_URL from '../../global.js';
 
 // Import other components as needed
 
@@ -52,17 +52,6 @@ import { motion } from "framer-motion";
 const HomeScreen = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userData, setUserData] = useState(null);
-
-  useEffect(() => {
-    // Check if the user is authenticated
-    const token = getTokenFromCookie();
-    if (token) {
-      // User is authenticated, set authentication status to true
-      setIsAuthenticated(true);
-      // Fetch user data
-      fetchUserData(token);
-    }
-  }, []);
 
   // Function to retrieve token from cookie
   const getTokenFromCookie = () => {
@@ -77,10 +66,26 @@ const HomeScreen = () => {
     return null;
   };
 
+
+  useEffect(() => {
+    // Check if the user is authenticated
+    const token = getTokenFromCookie();
+    if (token) {
+      // User is authenticated, set authentication status to true
+      setIsAuthenticated(true);
+      // Fetch user data
+      fetchUserData(token);
+    }
+  }, []);
+
+  const clearToken = () => {
+    document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+  };
+
   // Function to fetch user data
 const fetchUserData = async (token) => {
   try {
-    const response = await fetch('https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/user', {
+    const response = await fetch(`${BASE_URL}/auth/get-user`, {
       method: 'GET',
       headers: {
         'ngrok-skip-browser-warning': '69420',
@@ -91,7 +96,7 @@ const fetchUserData = async (token) => {
     if (response.ok) {
       const data = await response.json();
       setUserData(data.user);
-    } else if (response.status === 401) {
+    } else if (response.status === 404) {
       // If the request is unauthorized, log the user out
       console.log('Unauthorized. Logging user out.');
       setIsAuthenticated(false);
@@ -104,10 +109,6 @@ const fetchUserData = async (token) => {
   } catch (error) {
     console.error('Error fetching user data:', error);
   }
-};
-
-const clearToken = () => {
-  document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
 };
 
   return (

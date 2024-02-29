@@ -50,7 +50,7 @@ const CardChangelog = ({ projectDetails }) => {
   console.log('id', projectId)
 
   useEffect(() => {
-    fetch(`https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/npc/project/getchangelog?projectId=${projectId}`, {
+    fetch(`https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/npc/get-changelog?projectId=${projectId}`, {
       headers: {
         'ngrok-skip-browser-warning': '69420',
         // Add any other headers you need

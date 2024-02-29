@@ -113,6 +113,7 @@ const SignupPage = () => {
   };
 
   const isFormComplete = () => {
+    // Check if all fields are not empty and validation errors are empty
     return (
       formData.firstName !== '' &&
       formData.lastName !== '' &&
@@ -122,9 +123,17 @@ const SignupPage = () => {
       formData.email !== '' &&
       formData.createPassword !== '' &&
       formData.confirmPassword !== '' &&
+      validationErrors.firstName === '' &&
+      validationErrors.lastName === '' &&
+      validationErrors.title === '' &&
+      validationErrors.company === '' &&
+      validationErrors.phone === '' &&
+      validationErrors.email === '' &&
+      validationErrors.createPassword === '' &&
+      validationErrors.confirmPassword === '' &&
       isAgreeChecked
     );
-};
+  };
 
   const handleFirstNameBlur = () => {
     const isValid = isValidFirstName(formData.firstName);
@@ -185,8 +194,7 @@ const SignupPage = () => {
         ? ''
         : (
           <>
-            Password must be at least 8 characters long and contain at least one<br />
-            uppercase letter, one lowercase letter, one number, and one special character
+            Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character
           </>
         ),
     }));
@@ -396,6 +404,7 @@ const SignupPage = () => {
         <div style={{ display: 'flex', alignItems: 'flex-end', width: '468px' }}>
     <TextCreateAPassword />
   </div>
+  <div style={{ marginBottom: '30px' }}>
         <InputFieldCAP
             value={formData.createPassword}
             onChange={(e) => handleChange('createPassword', e.target.value)}
@@ -403,11 +412,14 @@ const SignupPage = () => {
             type="password"
           />
           {validationErrors.createPassword && (
-        <div style={{ color: 'red' }}>{validationErrors.createPassword}</div>
+        <div style={{ color: 'red', maxWidth: '468px' }}>{validationErrors.createPassword}</div>
       )}
+    </div>
       <div style={{ display: 'flex', alignItems: 'flex-end', width: '468px' }}>
     <TextConfirmPassword />
   </div>
+  <div>
+    <div style={{ marginBottom: '5px' }}>
           <InputFieldCP
             value={formData.confirmPassword}
             onChange={(e) => handleChange('confirmPassword', e.target.value)}
@@ -415,8 +427,11 @@ const SignupPage = () => {
             type="password"
           />
           {validationErrors.confirmPassword && (
-        <div style={{ color: 'red' }}>{validationErrors.confirmPassword}</div>
+        <div style={{ color: 'red', marginBottom: '5px' }}>{validationErrors.confirmPassword}</div>
+        
       )}
+      </div>
+      </div>
           <div style={{ display: 'flex', marginBottom: '30px'}}>
             <Checkbox onChange={handleCheckboxChange} />
             <TextBySigning/>

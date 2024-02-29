@@ -37,11 +37,6 @@ const ContactUsPage = () => {
   const [showCudbPage, setShowCudbPage] = useState(false);
   
 
-  useEffect(() => {
-    // Enable submit button if all fields are filled and recaptcha is completed
-    setSubmitEnabled(!!name && !!email && !!message && !!recaptchaValue);
-  }, [name, email, message, recaptchaValue]);
-
   const handleRecaptchaChange = (value) => {
     setRecaptchaValue(value);
     setSubmitEnabled(!!value);
@@ -52,6 +47,11 @@ const ContactUsPage = () => {
     email: '',
     message: '',
   });
+
+  useEffect(() => {
+    // Enable submit button if all fields are filled and there are no validation errors
+    setSubmitEnabled(!!name && !!email && !!message && !!recaptchaValue && Object.values(validationErrors).every(error => !error));
+  }, [name, email, message, recaptchaValue, validationErrors]);
 
   const handleNameChange = (e) => {
     setName(e.target.value);

@@ -122,7 +122,7 @@ const CardDetails = ({ projectDetails }) => {
       console.log('sent: ', projectDetails.project.id)
 
 
-      const response = await fetch(`https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/npc/project/updatestatus`, {
+      const response = await fetch(`https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/npc/update-status`, {
         method: 'PUT',
         headers: {
           'ngrok-skip-browser-warning': '69420',

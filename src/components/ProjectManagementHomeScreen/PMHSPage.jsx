@@ -80,7 +80,7 @@ const PMHSPage = () => {
   // Function to fetch user data
   const fetchUserData = async (token) => {
     try {
-      const response = await fetch('https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/user', {
+      const response = await fetch('https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/auth/get-user', {
         method: 'GET',
         headers: {
           'ngrok-skip-browser-warning': '69420',
@@ -149,7 +149,7 @@ const PMHSPage = () => {
 // Function to fetch projects
 const fetchProjects = async (userId) => {
   try {
-    const response = await fetch('https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/npc/project/getprojects', {
+    const response = await fetch('https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/npc/get-projects', {
       method: 'POST', // Use POST method
       headers: {
         'Content-Type': 'application/json'
@@ -171,7 +171,7 @@ const fetchProjects = async (userId) => {
  // Function to fetch tasks by user ID
  const fetchTasksByUserId = async (userId) => {
   try {
-    const response = await fetch(`https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/tasks/getalltasks?userId=${userId}`, {
+    const response = await fetch(`https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/tasks/get-all-tasks?UserId=${userId}`, {
       method: 'GET', // Use GET method
       headers: {
         'Content-Type': 'application/json',
@@ -292,21 +292,19 @@ useEffect(() => {
 
           
           {/* TasksList */}
-          {tasks !== null ? (
+          
     <TasksList 
       showCardTaskParent={showCardTaskParent}
       toggleCardTaskParent={toggleCardTaskParent}
       tasks={tasks}
     />
-  ) : (
-    <div>Loading tasks...</div>
-  )}
+
         </div>
         {/* Right Section: ProjectsList */}
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100%', width: '66%', marginLeft: '20px' }}>
           {/* ProjectsList */}
           <TextMyProjects/>
-          {pageReady && <ProjectsList projects={projects} />}
+          <ProjectsList projects={projects} pageReady={pageReady} />
         </div>
       </div>
       {/* Render CardTaskParent if showCardTaskParent is true */}

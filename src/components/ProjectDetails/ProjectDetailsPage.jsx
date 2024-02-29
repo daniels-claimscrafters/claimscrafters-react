@@ -48,7 +48,7 @@ console.log(projectId); // This will log '59'
   // Function to fetch user data
   const fetchUserData = async (token) => {
     try {
-      const response = await fetch('https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/user', {
+      const response = await fetch('https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/auth/get-user', {
         method: 'GET',
         headers: {
           'ngrok-skip-browser-warning': '69420',
@@ -72,7 +72,7 @@ console.log(projectId); // This will log '59'
 
     useEffect(() => {
         // Fetch project details from the server using the extracted project ID
-        fetch(`https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/npc/project/details?projectId=${projectId}`, {
+        fetch(`https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/npc/details?projectId=${projectId}`, {
             headers: {
                 'ngrok-skip-browser-warning': '69420'
             }

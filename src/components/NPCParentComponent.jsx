@@ -14,37 +14,6 @@ const NPCParentComponent = () => {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
-  const [npcData, setNPCData] = useState({
-    // Fields being collected
-    claimNumber: '',
-    dateOfLoss: '',
-    insuredFirstName: '',
-    insuredLastName: '',
-    lossAddress: '',
-    lossCity: '',
-    lossState: '',
-    lossPostalCode: '',
-    carrier: '',
-    lossType: '',
-    adjusterFirstName: '',
-    adjusterLastName: '',
-    adjusterPhone: '',
-    adjusterEmail: '',
-    salesTax: '',
-    depreciationRange: '',
-    spreadsheetUpload: '',
-    numberOfLines: '',
-    didAcceptLegal: '',
-    acceptLegalFullName: '',
-    selectedColumnsData: [],
-    // New fields for credit card information
-    cardholderName: '',
-    cardNumber: '',
-    expiration: '',
-    cvv: '',
-    price: '',
-    token: '' // New field to store token
-  });
 
   const [userData, setUserData] = useState(null);
   // Function to retrieve token from cookie
@@ -74,7 +43,7 @@ const NPCParentComponent = () => {
   // Function to fetch user data
   const fetchUserData = async (token) => {
     try {
-      const response = await fetch('https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/user', {
+      const response = await fetch('https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/auth/get-user', {
         method: 'GET',
         headers: {
           'ngrok-skip-browser-warning': '69420',
@@ -91,6 +60,39 @@ const NPCParentComponent = () => {
       console.error('Error fetching user data:', error);
     }
   };
+  
+  const [npcData, setNPCData] = useState({
+    // Fields being collected
+    claimNumber: '',
+    dateOfLoss: '',
+    insuredFirstName: '',
+    insuredLastName: '',
+    lossAddress: '',
+    lossCity: '',
+    lossState: '',
+    lossPostalCode: '',
+    carrier: '',
+    lossType: '',
+    adjusterFirstName: '',
+    adjusterLastName: '',
+    adjusterPhone: '',
+    adjusterEmail: '',
+    salesTax: '',
+    depreciationRange: '',
+    spreadsheetUpload: '',
+    numberOfLines: '',
+    didAcceptLegal: '',
+    acceptLegalFullName: '',
+    selectedColumnsData: [],
+    cardholderName: '',
+    cardNumber: '',
+    expiration: '',
+    cvv: '',
+    price: '',
+    UserId: userData.id,
+  });
+
+  
 
 
 

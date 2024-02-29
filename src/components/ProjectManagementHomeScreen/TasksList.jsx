@@ -15,6 +15,10 @@ const styles = {
 const TasksList = ({ showCardTaskParent, toggleCardTaskParent, tasks }) => {
   console.log('tasks2', tasks)
   const convertTasksToEvents = (tasks) => {
+    if (!tasks || tasks.length === 0) {
+      return []; // Return an empty array if tasks is null or empty
+    }
+  
     return tasks.map(task => ({
       id: task.id, // Assuming each task has an ID
       title: task.subject, // Use task subject as event title

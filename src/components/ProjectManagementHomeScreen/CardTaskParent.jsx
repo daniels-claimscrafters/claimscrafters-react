@@ -85,7 +85,7 @@ const styles = {
 
 const CardTaskParent = ({ onClick, onClose, userData }) => {
   const userDataId = userData.id;
-  console.log(userDataId);
+  console.log('hiiii"', userDataId);
 
   const [taskData, setTaskData] = useState({
     subject: '',
@@ -94,7 +94,7 @@ const CardTaskParent = ({ onClick, onClose, userData }) => {
     status: '',
     priority: '',
     description: '',
-    userId: userDataId
+    UserId: userDataId
   });
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -142,7 +142,7 @@ const CardTaskParent = ({ onClick, onClose, userData }) => {
   
 
     // Send POST request to your server
-    axios.post('https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/tasks/createTask', taskData)
+    axios.post('https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/tasks/create-task', taskData)
       .then(response => {
         console.log('Task submitted successfully:', response.data);
         // Optionally, clear the form fields after submission
@@ -153,6 +153,7 @@ const CardTaskParent = ({ onClick, onClose, userData }) => {
           status: '',
           priority: '',
           description: '',
+          UserId: userDataId,
         });
         setPopup({ message: 'Task submitted successfully', type: 'success' });
         setTimeout(() => window.location.reload(), 1500);
@@ -161,7 +162,7 @@ const CardTaskParent = ({ onClick, onClose, userData }) => {
         console.error('Error submitting task:', error);
         // Handle error
         setPopup({ message: 'Error submitting task', type: 'error' });
-        setTimeout(() => window.location.reload(), 1500);
+        //setTimeout(() => window.location.reload(), 8500);
       });
   };
 
