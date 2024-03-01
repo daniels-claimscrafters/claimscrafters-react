@@ -15,7 +15,7 @@ const NPCParentComponent = () => {
   const [step, setStep] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
 
-  const [userData, setUserData] = useState(null);
+  const [userData, setUserData] = useState(1);
   // Function to retrieve token from cookie
   const getTokenFromCookie = () => {
     const cookies = document.cookie.split(';');
@@ -60,6 +60,15 @@ const NPCParentComponent = () => {
       console.error('Error fetching user data:', error);
     }
   };
+
+  useEffect(() => {
+    if (userData) {
+      setNPCData(prevNPCData => ({
+        ...prevNPCData,
+        UserId: userData.id
+      }));
+    }
+  }, [userData]);
   
   const [npcData, setNPCData] = useState({
     // Fields being collected

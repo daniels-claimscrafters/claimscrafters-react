@@ -156,7 +156,7 @@ const CardTaskParent = ({ onClick, onClose, userData }) => {
           UserId: userDataId,
         });
         setPopup({ message: 'Task submitted successfully', type: 'success' });
-        setTimeout(() => window.location.reload(), 1500);
+        //setTimeout(() => window.location.reload(), 1500);
       })
       .catch(error => {
         console.error('Error submitting task:', error);
