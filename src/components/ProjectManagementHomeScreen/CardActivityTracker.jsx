@@ -1,5 +1,6 @@
 // CardActivityTracker.jsx
-import React, { useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
@@ -11,8 +12,8 @@ const styles = {
   Card: {
     top: '332px',
     left: '96px',
-    width: '650px',
-    height: '275px',
+    width: '750px',
+    height: '375px',
     backgroundColor: '#fafafa',
     borderRadius: '16px',
     border: '1px solid #3164f4',
@@ -33,31 +34,36 @@ const styles = {
   }
 };
 
-const CardActivityTracker = ({ events }) => { // Destructure props to access events
-  console.log('first console.log', events);
-  console.log('events prop:', events);
+const CardActivityTracker = ({ events }) => {
   const [date, setDate] = useState(new Date());
 
   const onChange = (date) => {
     setDate(date);
   };
 
+  useEffect(() => {
+    console.log('Events:', events);
+  }, [events]);
+
   return (
     <div style={styles.Card}>
-      <div className="rbc-calendar" style={styles.calendarContainer}> {/* Apply .rbc-calendar class here */}
+      <div className="rbc-calendar" style={styles.calendarContainer}>
         <Calendar
           localizer={localizer}
-          events={events}
+          events={events.map(event => ({
+            ...event,
+            className: 'custom-event' // Add a className to each event
+          }))}
           startAccessor="start"
           endAccessor="end"
           onChange={onChange}
-          style={styles.calendar} // Apply styles to the calendar component
-          dayPropGetter={() => ({ className: 'custom-date-cell' })} // Apply custom class to date cells
+          style={styles.calendar}
+          dayPropGetter={() => ({ className: 'custom-date-cell' })}
         />
+        
       </div>
     </div>
   );
 };
 
 export default CardActivityTracker;
-

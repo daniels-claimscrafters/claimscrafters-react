@@ -217,7 +217,7 @@ useEffect(() => {
           initial={{ scale: 0 }} // Initial scale is 0
           animate={{ scale: 1 }} // Animate to scale 1
           whileHover={{ scale: 1.1 }} // Scale up to 1.1 when hovered
-          transition={{ duration: 1.0 }} // Transition duration
+          transition={{ duration: 0.5 }} // Transition duration
         ><IconHome /></motion.div>
       
       </div>
@@ -226,7 +226,7 @@ useEffect(() => {
           initial={{ scale: 0 }} // Initial scale is 0
           animate={{ scale: 1 }} // Animate to scale 1
           whileHover={{ scale: 1.1 }} // Scale up to 1.1 when hovered
-          transition={{ duration: 1.0 }} // Transition duration
+          transition={{ duration: 0.5 }} // Transition duration
         ><IconLogout onClick={handleLogout}/></motion.div>
       </div>
     </div>
@@ -237,13 +237,13 @@ useEffect(() => {
     {/* Main Content */}
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100%' }}>
       {/* Top Row */}
-<div style={{ display: 'flex', backgroundColor: '#000000', borderRadius: '4px', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px', width: '100%' }}>
+<div style={{ display: 'flex', backgroundColor: '#000000', borderRadius: '4px', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px', width: '100%', maxHeight: '100px' }}>
   {/* Left Section: ImageLogo */}
   <div>
   <motion.div
           initial={{ scale: 0 }} // Initial scale is 0
           animate={{ scale: 1 }} // Animate to scale 1
-          transition={{ duration: 1.0 }} // Transition duration
+          transition={{ duration: 0.5 }} // Transition duration
         ><ImageLogo /></motion.div>
   </div>
   {/* Middle Section: TextHeader and TextSubtitle */}
@@ -262,16 +262,17 @@ useEffect(() => {
   {/* Right Section: ImageProfile, TextUsername, and IconLogout */}
   <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end' }}>
     {/* ImageProfile and TextUsername */}
-    <MenuIcon />
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginRight: '30px' }}>
-      
-      {/* ImageProfile */}
-      <motion.div
+    <motion.div
           initial={{ scale: 0 }} // Initial scale is 0
           animate={{ scale: 1 }} // Animate to scale 1
           whileHover={{ scale: 1.1 }} // Scale up to 1.1 when hovered
-          transition={{ duration: 1.0 }} // Transition duration
-        ><ImageProfile /></motion.div>
+          transition={{ duration: 0.5 }} // Transition duration
+        ><MenuIcon /></motion.div>
+    
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginRight: '30px' }}>
+      
+      {/* ImageProfile */}
+      <ImageProfile userData={userData} />
       
       {/* TextUsername */}
       
@@ -284,27 +285,61 @@ useEffect(() => {
         {/* Left Section: TasksList */}
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: 'auto', marginLeft: '20px' }}>
         <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center'  }}>
-        <CardInProcess inProcess={inProcess} />
-  <CardCompleted completed={completed} />
-  <CardTotal total={total} />
+        <motion.div
+      initial={{ scale: 0, opacity: 0 }} // Initial scale and opacity
+      animate={{ scale: 1, opacity: 1 }} // Animate to scale 1 and opacity 1
+      transition={{ delay: 0.1, duration: 0.5 }} // Delay animation by 0.5 seconds
+    >
+      <CardInProcess inProcess={inProcess} />
+    </motion.div>
+    <motion.div
+      initial={{ scale: 0, opacity: 0 }} // Initial scale and opacity
+      animate={{ scale: 1, opacity: 1 }} // Animate to scale 1 and opacity 1
+      transition={{ delay: 0.3, duration: 0.5 }} // Delay animation by 0.5 seconds
+    >
+      <CardCompleted completed={completed} />
+    </motion.div>
+    <motion.div
+      initial={{ scale: 0, opacity: 0 }} // Initial scale and opacity
+      animate={{ scale: 1, opacity: 1 }} // Animate to scale 1 and opacity 1
+      transition={{ delay: 0.5, duration: 0.5 }} // Delay animation by 0.5 seconds
+    >
+      <CardTotal total={total} />
+    </motion.div>
+        
               
           </div>
 
           
           {/* TasksList */}
-          
-    <TasksList 
+
+    <motion.div
+      initial={{ scale: 0, opacity: 0 }} // Initial scale and opacity
+      animate={{ scale: 1, opacity: 1 }} // Animate to scale 1 and opacity 1
+      transition={{ delay: 1.0, duration: 0.5 }} // Delay animation by 0.5 seconds
+    >
+      <TasksList 
       showCardTaskParent={showCardTaskParent}
       toggleCardTaskParent={toggleCardTaskParent}
       tasks={tasks}
     />
+    </motion.div>
+          
+    
 
         </div>
         {/* Right Section: ProjectsList */}
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100%', width: '66%', marginLeft: '20px' }}>
           {/* ProjectsList */}
-          <TextMyProjects/>
+          <motion.div
+      initial={{ scale: 0, opacity: 0 }} // Initial scale and opacity
+      animate={{ scale: 1, opacity: 1 }} // Animate to scale 1 and opacity 1
+      transition={{ delay: 1.5, duration: 0.5 }} // Delay animation by 0.5 seconds
+    >
+      <TextMyProjects/>
           <ProjectsList projects={projects} pageReady={pageReady} />
+    </motion.div>
+          
         </div>
       </div>
       {/* Render CardTaskParent if showCardTaskParent is true */}

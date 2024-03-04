@@ -1,5 +1,5 @@
 // NPC2.jsx
-import React from 'react';
+import React, { useState } from 'react';
 import CardCircle from './CardCircle';
 import HorizontalDivider from './HorizontalDivider';
 import IconHome from './IconHome';
@@ -38,17 +38,25 @@ import TextAdjusterLastName from './TextAdjusterLastName';
 
 const NPC2 = (props) => {
   const { npcData, onInputChange, onNext, onPrevious } = props;
+  const [validationErrors, setValidationErrors] = useState(false);
+  // Function to update validationErrors
+  const updateValidationErrors = (hasErrors) => {
+    setValidationErrors(hasErrors);
+  };
+
   const areAllFieldsFilled = () => {
     // Check if all the necessary fields in npcData are filled
-    return (
+    const allFieldsFilled =
       npcData.lossType.trim() !== '' &&
       npcData.carrier.trim() !== '' &&
       npcData.adjusterFirstName.trim() !== '' &&
       npcData.adjusterLastName.trim() !== '' &&
       npcData.adjusterPhone.trim() !== '' &&
-      npcData.adjusterEmail.trim() !== ''
-      // Add other required fields as needed
-    );
+      npcData.adjusterEmail.trim() !== '' &&
+
+      !validationErrors;
+
+      return allFieldsFilled;
   };
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}>
@@ -195,6 +203,7 @@ const NPC2 = (props) => {
             <InputFieldAdjusterPhone 
             value={npcData.adjusterPhone}
             onChange={onInputChange}
+            updateValidationErrors={updateValidationErrors}
             />
           </div>
           <div>
@@ -202,6 +211,7 @@ const NPC2 = (props) => {
             <InputFieldAdjusterEmail 
             value={npcData.adjusterEmail}
             onChange={onInputChange}
+            updateValidationErrors={updateValidationErrors}
             />
           </div>
         </div>

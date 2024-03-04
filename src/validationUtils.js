@@ -31,6 +31,14 @@ export const isValidTitle = (title) => {
   return title.trim() !== '' && title.trim().length >= 2; // Adjust the minimum length as needed
 };
 
+export const isValidPostalCode = (postalCode) => {
+  // Postal code validation logic
+  // Should be a 5-digit number
+  const postalCodeRegex = /^\d{5}$/;
+
+  return postalCodeRegex.test(postalCode.trim());
+};
+
 export const isValidCompany = (company) => {
   // Company validation logic
   // Add your own criteria (e.g., should not be empty and have a minimum length)

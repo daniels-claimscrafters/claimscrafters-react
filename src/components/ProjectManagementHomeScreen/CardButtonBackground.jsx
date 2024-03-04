@@ -15,15 +15,16 @@ const styles = {
     marginBottom: '20px',
   },
   Button: {
-    marginRight: '30px', // Add margin between all buttons
+    display: 'inline-block', // Align child elements horizontally
   },
 };
 
 const Card = (props) => {
-  const childrenWithSpacing = React.Children.map(props.children, (child) => (
-    <div style={styles.Button}>
+  const childrenWithSpacing = React.Children.map(props.children, (child, index) => (
+    <React.Fragment>
+      {index > 0 && <div style={{ width: '20px' }} />} {/* Add space between buttons */}
       {child}
-    </div>
+    </React.Fragment>
   ));
 
   return (
@@ -34,4 +35,5 @@ const Card = (props) => {
 };
 
 export default Card;
+
 

@@ -139,17 +139,17 @@ const fetchUserData = async (token) => {
     
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginLeft: '10px' }}>
             {/* ImageProfile */}
-            <div style={{ display: 'flex', alignItems: 'center' }}>
+            <div style={{ display: 'flex', alignItems: 'center', marginRight: '20px' }}>
             <motion.div
           initial={{ scale: 0 }} // Initial scale is 0
           animate={{ scale: 1 }} // Animate to scale 1
           whileHover={{ scale: 1.1 }}
           transition={{ duration: 1.0 }} // Transition duration
-        ><ImageProfile /></motion.div>
+        ><ImageProfile userData={userData} /></motion.div>
               
             </div>
             {/* TextUsername */}
-            <div style={{ textAlign: 'center', marginRight: '25px', marginTop: '10px' }}> {/* Ensure TextUsername is centered */}
+            <div style={{ textAlign: 'center', marginTop: '10px', marginRight: '20px' }}> {/* Ensure TextUsername is centered */}
             <motion.div
           initial={{ scale: 0 }} // Initial scale is 0
           animate={{ scale: 1 }} // Animate to scale 1

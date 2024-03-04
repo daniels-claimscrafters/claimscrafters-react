@@ -31,7 +31,7 @@ const defaultProps = {
 };
 
 const InputFieldLastName = (props) => {
-  const { value, onChange } = props;
+  const { value, onChange, updateValidationErrors } = props;
   const [validationError, setValidationError] = useState('');
 
   const handleChange = (e) => {
@@ -51,10 +51,12 @@ const InputFieldLastName = (props) => {
         console.log(`InputFieldLastName - Validation error: Invalid last name`);
         // Set the validation error
         setValidationError('Invalid last name');
+        updateValidationErrors(true);
       } else {
         // Clear the validation error if there is no error
         console.log('InputFieldLastName - Validation passed');
         setValidationError('');
+        updateValidationErrors(false);
       }
     }
   };

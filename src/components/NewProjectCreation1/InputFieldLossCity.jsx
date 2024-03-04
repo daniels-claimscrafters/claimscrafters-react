@@ -30,7 +30,7 @@ const defaultProps = {
 };
 
 const InputFieldLossCity = (props) => {
-  const { value, onChange } = props;
+  const { value, onChange, updateValidationErrors } = props;
   const [validationError, setValidationError] = useState('');
 
   const handleChange = (e) => {
@@ -50,10 +50,14 @@ const InputFieldLossCity = (props) => {
         console.log(`InputFieldLossCity - Validation error: Invalid loss city`);
         // Set the validation error
         setValidationError('Invalid loss city');
+        updateValidationErrors(true);
+
       } else {
         // Clear the validation error if there is no error
         console.log('InputFieldLossCity - Validation passed');
         setValidationError('');
+        updateValidationErrors(false);
+
       }
     }
   };

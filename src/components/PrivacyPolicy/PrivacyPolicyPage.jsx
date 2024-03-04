@@ -1,7 +1,7 @@
 // PrivacyPolicyPage.jsx
 
 // Import React
-import React from 'react';
+import React, { useEffect } from 'react';
 
 // Import Privacy Policy Components
 import CardBackground from './CardBackground';
@@ -12,6 +12,9 @@ import TextHeader from './TextHeader';
 import { motion } from "framer-motion";
 
 const PrivacyPolicyPage = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0); // Scroll to the top of the page when component mounts
+}, []); // Empty dependency array ensures this effect runs only once
   return (
     <div>
       {/* Header Section */}

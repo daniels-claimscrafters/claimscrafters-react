@@ -9,7 +9,7 @@ const styles = {
     top: '306px',
     left: '586px',
     width: '1000px',
-    height: '600px', // Adjust the height as needed
+    height: '680px', // Adjust the height as needed
     backgroundColor: '#1e1f26',
     borderRadius: '20px',
     border: '2px solid #cddef2',
@@ -25,7 +25,7 @@ const styles = {
   th: {
     color: '#ffffff',
     padding: '12px 8px',
-    textAlign: 'left',
+    textAlign: 'center',
     borderBottom: '2px solid #cddef2',
     fontSize: '14px',
     fontFamily: 'Red Hat Display',
@@ -39,25 +39,18 @@ const styles = {
     fontSize: '14px',
     fontFamily: 'Red Hat Display',
     fontWeight: 500,
+    textAlign: 'center',
   },
 };
 
 const CardProjects = ({ projects, filter }) => {
-  console.log('here2', projects);
-console.log(filter);
+  // Check if projects is null or undefined
+  const filteredProjects = (projects && projects['projects']) ? (filter === 'All' ? projects['projects'] : 
+                          projects['projects'].filter(project => {
+                            return project.status === filter;
+                          })) : [];
 
-// Check if projects is null or undefined
-const filteredProjects = projects && projects['projects'] ? projects['projects'].filter(project => {
-  return project.status === filter;
-}) : [];
-
-console.log(filteredProjects);
-
-  const filteredProjectsWithStatus = filteredProjects.filter(project => {
-    return project.status === filter;
-  });
-  
-  console.log('2: ', filteredProjectsWithStatus);
+  console.log('Filtered Projects:', filteredProjects);
 
   
   return (
@@ -77,8 +70,8 @@ console.log(filteredProjects);
         </thead>
         
         <tbody>
-  {filteredProjectsWithStatus.length > 0 ? (
-    filteredProjectsWithStatus.map((project, index) => (
+  {filteredProjects.length > 0 ? (
+    filteredProjects.map((project, index) => (
       <tr key={index}>
         <td style={styles.td}>
           <a href={`/projectDetails?projectId=${project.id}`} style={{ fontWeight: 500, fontFamily: 'Red Hat Display', color: '#2a84ea', textDecoration: 'underline', fontSize: '14px' }}>View</a>
@@ -90,7 +83,7 @@ console.log(filteredProjects);
         <td style={styles.td}>{project.lossState}</td>
         <td style={{ ...styles.td, padding: 0 }}>
           {/* Render your card component here */}
-          <div style={{ width: '100%', height: '100%' }}>
+          <div style={{ display: 'flex', justifyContent: 'center', width: '100%', height: '100%' }}>
             {/* Replace 'CardComponent' with your actual card component */}
             <StatusCard status={project.status} />
           </div>

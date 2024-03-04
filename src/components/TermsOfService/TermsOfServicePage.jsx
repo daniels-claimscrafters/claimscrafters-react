@@ -1,6 +1,6 @@
 // TermsOfServicePage.jsx
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import HeaderBackground from './HeaderBackground';
 import IconHome from './IconHome';
 import ImageLogo from './ImageLogo';
@@ -9,6 +9,9 @@ import TextHeader from './TextHeader';
 import { motion } from "framer-motion";
 
 const TermsOfServicePage = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0); // Scroll to the top of the page when component mounts
+}, []); // Empty dependency array ensures this effect runs only once
     return (
       <div style={{ display: 'flex', flexDirection: 'column' }}>
       {/* Header Section */}

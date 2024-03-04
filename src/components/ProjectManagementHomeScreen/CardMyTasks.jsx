@@ -9,14 +9,14 @@ const styles = {
   Card: {
     top: '699px',
     left: '92px',
-    width: '650px',
+    width: '750px',
     backgroundColor: '#f0f0f0',
     borderRadius: '12px',
-    padding: '20px',
+    padding: '10px',
     boxSizing: 'border-box',
     display: 'flex',
     flexDirection: 'column',
-    height: '280px'
+    height: '225px'
   },
   header: {
     display: 'flex',
@@ -32,6 +32,7 @@ const styles = {
     fontSize: '24px',
     fontWeight: 'bold',
     overflow: 'auto',
+    marginLeft: '10px'
   },
   plusIcon: {
     cursor: 'pointer',
@@ -42,7 +43,7 @@ const styles = {
     height: '35px',
     borderBottom: '1px solid #ccc',
     display: 'flex',
-    
+    width: '713px',
   },
   row2: {
     backgroundColor: '#f0f0f0',
@@ -56,7 +57,7 @@ const styles = {
     display: 'flex',
     justifyContent: 'center', // Center the content horizontally
     alignItems: 'center', // Center the content vertically
-    maxWidth: '122px',
+    width: '146px',
     overflow: 'hidden',
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
@@ -75,7 +76,8 @@ const styles = {
     color: '#030303',
     fontSize: '16px',
     fontFamily: 'Poppins',
-    fontWeight: 600,    
+    fontWeight: 600,
+    width: '142px'
   },
   // New style for the icon container
   iconContainer: {
@@ -95,9 +97,10 @@ const styles = {
     borderRadius: '12px',
     backgroundColor: '#2a84ea',
     color: '#ffffff',
-    fontSize: '16px',
+    fontSize: '14px',
     fontFamily: 'Poppins',
-    fontWeight: 500,
+    outline: 'none',
+    border: '0',
   },
   buttonContainer: {
     flex: 1, // Each button container takes up equal space

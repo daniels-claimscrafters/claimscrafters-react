@@ -84,8 +84,8 @@ const styles = {
 const CardTaskParentEdit = ({ task, onClose }) => {
   const [taskData, setTaskData] = useState({
     subject: task.subject,
-    start_date: task.start_date,
-    due_date: task.due_date,
+    start_date: task.start_date.slice(0, 10), // Extract only the date part
+    due_date: task.due_date.slice(0, 10), // Extract only the date part
     status: task.status,
     priority: task.priority,
     description: task.description,
@@ -120,9 +120,9 @@ const CardTaskParentEdit = ({ task, onClose }) => {
   
     // Convert start_date and due_date to Date objects
     const startDate = new Date(taskData.start_date);
-    console.log(startDate);
+    console.log('check1', startDate);
     const dueDate = new Date(taskData.due_date);
-    console.log(dueDate);
+    console.log('check2', dueDate);
   
     // Check if the due date is before the start date
     if (dueDate < startDate) {
@@ -132,7 +132,7 @@ const CardTaskParentEdit = ({ task, onClose }) => {
     }
     try {
       console.log(task.id, taskData);
-      const response = await axios.patch(`https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/tasks/edittask?taskId=${task.id}`, taskData);
+      const response = await axios.patch(`https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/tasks/edit-task?taskId=${task.id}`, taskData);
   
       if (response.status === 200) {
         console.log('Task updated successfully:', response.data);

@@ -30,7 +30,7 @@ const defaultProps = {
 };
 
 const InputFieldLossPostalCode = (props) => {
-  const { value, onChange } = props;
+  const { value, onChange, updateValidationErrors } = props;
   const [validationError, setValidationError] = useState('');
 
   const handleChange = (e) => {
@@ -40,6 +40,7 @@ const InputFieldLossPostalCode = (props) => {
 
     // Clear validation error when user starts typing
     setValidationError('');
+    updateValidationErrors(true);
   };
 
   const handleBlur = () => {
@@ -53,6 +54,7 @@ const InputFieldLossPostalCode = (props) => {
       } else {
         // Clear the validation error if there is no error
         setValidationError('');
+        updateValidationErrors(false);
       }
     }
   };

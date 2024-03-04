@@ -31,7 +31,7 @@ const defaultProps = {
 };
 
 const InputFieldLossAddress = (props) => {
-  const { value, onChange } = props;
+  const { value, onChange, updateValidationErrors } = props;
   const [validationError, setValidationError] = useState('');
 
   const handleChange = (e) => {
@@ -52,10 +52,12 @@ const InputFieldLossAddress = (props) => {
         console.log(`InputFieldLossAddress - Validation error: Invalid loss address`);
         // Set the validation error
         setValidationError('Invalid loss address');
+        updateValidationErrors(true);
       } else {
         // Clear the validation error if there is no error
         console.log('InputFieldLossAddress - Validation passed');
         setValidationError('');
+        updateValidationErrors(false);
       }
     }
   };

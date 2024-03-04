@@ -43,9 +43,17 @@ const NPC6 = ({ npcData, onInputChange, onNext, onPrevious }) => {
   
   
   const handleFullNameChange = (newValue) => {
-    setAcceptLegalFullName(newValue);
-    setIsInputFieldPopulated(!!newValue); // Check if newValue is not empty
-    onInputChange('acceptLegalFullName', newValue);
+    // Check if newValue has at least two characters
+    if (newValue.length >= 2) {
+      setAcceptLegalFullName(newValue);
+      setIsInputFieldPopulated(true); // If newValue has at least two characters, set to true
+      onInputChange('acceptLegalFullName', newValue);
+    } else {
+      setAcceptLegalFullName(newValue);
+      setIsInputFieldPopulated(false); // If newValue has less than two characters, set to false
+      // Optionally, you can clear the input field or show an error message here
+      // You can add your logic here depending on your requirements
+    }
   };
 
   const isContinueDisabled = !(isInputFieldPopulated && isCheckboxChecked);

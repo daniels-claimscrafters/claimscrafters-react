@@ -1,6 +1,7 @@
 // InputFieldPostalCode.jsx
 
-import React from 'react';
+import React, { useState } from 'react';
+import { isValidPostalCode } from '../../validationUtils';
 
 const styles = {
   Input: {
@@ -19,18 +20,45 @@ const styles = {
     lineHeight: '18px',
     outline: 'none',
   },
+  ErrorMessage: {
+    color: 'red',
+    marginTop: '5px',
+    fontSize: '14px',
+  },
 };
 
-const InputFieldPostalCode = ({ onChange }) => {
-  const handleChange = (event) => {
-    const value = event.target.value;
-    console.log("Postal Code:", value); // Added console.log statement
-    onChange(value);
+const defaultProps = {
+  text: 'Postal Code',
+};
+
+const InputField = (props) => {
+  const { value, onChange, text, updateValidationErrors } = props;
+  const [error, setError] = useState('');
+
+  const handleInputChange = (e) => {
+    const newValue = e.target.value;
+    if (!isValidPostalCode(newValue)) {
+      setError('Invalid postal code');
+      updateValidationErrors(true);
+    } else {
+      setError('');
+      updateValidationErrors(false);
+    }
+    onChange(e);
   };
 
   return (
-    <input type="text" placeholder="Enter your postal code" style={styles.Input} onChange={handleChange} />
+    <div>
+      <input
+        style={styles.Input}
+        placeholder={text ?? defaultProps.text}
+        value={value}
+        onChange={handleInputChange}
+      />
+      {error && <div style={styles.ErrorMessage}>{error}</div>}
+    </div>
   );
 };
 
-export default InputFieldPostalCode;
+export default InputField;
+

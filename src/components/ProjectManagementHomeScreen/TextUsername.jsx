@@ -14,7 +14,7 @@ const styles = {
     fontSize: '14px',
     fontFamily: 'Roboto',
     lineHeight: '16px',
-    marginTop: '10px'
+    marginTop: '5px'
   },
 };
 

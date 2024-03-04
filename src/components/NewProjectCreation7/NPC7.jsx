@@ -24,6 +24,7 @@ import TextPricingHeader from './TextPricingHeader';
 import TextPricingNum from './TextPricingNum';
 import TextPricingSubHeader from './TextPricingSubHeader';
 import TextSubheader4 from './TextSubheader4';
+import CheckoutForm from './CheckoutForm';
 
 const NPC7 = ({ npcData, onInputChange, onPrevious, numberOfLines, onSubmit }) => {
   // Define state variables to hold the total price and credit card information
@@ -153,6 +154,7 @@ const NPC7 = ({ npcData, onInputChange, onPrevious, numberOfLines, onSubmit }) =
             </div>
             <ButtonPay totalPrice={totalPrice} onClick={handleSubmit} />
           </div>
+          
         </div>
       </div>
     </div>

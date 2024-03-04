@@ -1,7 +1,10 @@
 // CardContents.jsx
 
 import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import Popup from './Popup';
+import { generateSummary, generateDetail, generateRawData } from './ExcelGenerator';
+
 
 const styles = {
   Card: {
@@ -47,7 +50,7 @@ const styles = {
   },
   spreadsheet: {
     
-    //padding: '10px',
+    height: '385px',
     overflow: 'auto', // Add overflow to allow scrolling if content exceeds height
   },
   row: {
@@ -55,6 +58,7 @@ const styles = {
     borderBottom: '1px solid #ccc',
     padding: '10px 0',
     boxSizing: 'border-box',
+    width: 'fit-content',
     
 },
   bigCell: {
@@ -117,6 +121,11 @@ const styles = {
     height: '30px',
     marginRight: '30px'
   },
+  dropdownOption: {
+    backgroundColor: '#f0f0f0', // Background color for options
+    color: '#030303', // Text color for options
+    textAlign: 'center',
+  },
 };
 
 const CardContents = ({ projectDetails, setProjectDetails }) => {
@@ -126,6 +135,7 @@ const CardContents = ({ projectDetails, setProjectDetails }) => {
   const [popupMessage, setPopupMessage] = useState('');
   const [popupType, setPopupType] = useState('');
   const [popupTextColor, setPopupTextColor] = useState('');
+  const [isDataChanged, setDataChanged] = useState(false);
   
 
   useEffect(() => {
@@ -133,6 +143,7 @@ const CardContents = ({ projectDetails, setProjectDetails }) => {
     if (!originalProjectDetails && projectDetails) {
       setOriginalProjectDetails(projectDetails);
       console.log('Original Project Details set:', projectDetails);
+      
     }
   }, [projectDetails]);
 
@@ -167,7 +178,29 @@ const CardContents = ({ projectDetails, setProjectDetails }) => {
     const updatedProjectDetails = { ...projectDetails };
     updatedProjectDetails.project.spreadsheetData[index][fieldName] = value;
     setProjectDetails(updatedProjectDetails);
-    
+    setDataChanged(true);
+  };
+
+  const handleQuantityChange = (index, value) => {
+    // Validate if the input is a valid integer
+    if (/^\d+$/.test(value) || value === '') {
+      // Update the projectDetails state with the new value
+      const updatedProjectDetails = { ...projectDetails };
+      updatedProjectDetails.project.spreadsheetData[index]['Quantity'] = value;
+      setProjectDetails(updatedProjectDetails);
+      setDataChanged(true);
+    }
+  };
+  
+  const handleDepreciationChange = (index, value) => {
+    // Validate if the input is a valid float
+    if (/^\d*\.?\d*$/.test(value) || value === '') {
+      // Update the projectDetails state with the new value
+      const updatedProjectDetails = { ...projectDetails };
+      updatedProjectDetails.project.spreadsheetData[index]['Depreciation'] = value;
+      setProjectDetails(updatedProjectDetails);
+      setDataChanged(true);
+    }
   };
 
   // Function to fetch user data
@@ -253,22 +286,77 @@ console.log('Updated Project Details:', updatedProjectDetails);
     }
   };
 
+  const handleDropdownChange = async (selectedOption) => {
+    try {
+        let modifiedExcelData;
+        let fileName;
+        if (selectedOption === "option1") {
+            const { modifiedExcelData: summaryData } = await generateSummary(projectDetails);
+            modifiedExcelData = summaryData;
+            fileName = 'Summary.xlsx';
+        } else if (selectedOption === "option2") {
+            const { modifiedExcelData2: detailData } = await generateDetail(projectDetails);
+            modifiedExcelData = detailData;
+            fileName = 'Detail.xlsx';
+        } else if (selectedOption === "option3") {
+            const { modifiedExcelData: rawData } = await generateRawData(projectDetails);
+            modifiedExcelData = rawData;
+            fileName = 'RawData.xlsx';
+        } else {
+            throw new Error("Invalid option selected");
+        }
+        // Trigger file download for modified Excel data
+        downloadExcel(modifiedExcelData, fileName);
+    } catch (error) {
+        console.error('Error generating Excel data:', error);
+    }
+};
+
+
+const downloadExcel = (data, filename) => {
+    const blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename; // Specify the filename for the downloaded file
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+};
 
 
   return (
     <div style={styles.Card}>
       <div style={styles.headerRow}>
         <div style={styles.titleText}>Contents Inventory</div>
-        <div>
-        <button 
-            style={styles.Button} 
-            onClick={createChangelogEntry} 
+      <div>
+    <div style={{ display: 'inline-block', marginRight: '10px' }}>
+    <motion.div
+            animate={isDataChanged ? { scale: [1, 1.2, 1, 1.2, 1] } : { scale: 1 }} // Apply animation only when isDataChanged is true
+            transition={{ duration: 0.2, repeat: 1 }} // Duration and number of repeats
           >
-            Save
-          </button>
-          <button style={styles.Button}>Download</button>
-        </div>
-      </div>
+            <button 
+              style={{ ...styles.Button, backgroundColor: isDataChanged ? '#2a84ea' : '#808080' }} 
+              onClick={createChangelogEntry}
+              disabled={!isDataChanged}
+            >
+              Save
+            </button>
+          </motion.div>
+
+      
+    </div>
+    <div style={{ display: 'inline-block' }}>
+    <select style={styles.Button} onChange={(event) => handleDropdownChange(event.target.value)}>
+  <option value="" disabled selected style={{ textAlign: 'center' }}>Download</option>
+  <option value="option1" style={styles.dropdownOption}>Summary</option>
+  <option value="option2" style={styles.dropdownOption}>Details</option>
+  <option value="option3" style={styles.dropdownOption}>Raw Data</option>
+</select>
+    </div>
+  </div>
+</div>
       <div style={styles.spreadsheet}>
         <div style={styles.row}>
           <div style={styles.cell}>Line</div>
@@ -316,11 +404,11 @@ console.log('Updated Project Details:', updatedProjectDetails);
               />
             </div>
             <div style={styles.cell}>
-              <input
-                style={styles.input}
-                value={item.Quantity}
-                onChange={(e) => handleFieldChange(index, 'Quantity', e.target.value)}
-              />
+            <input
+  style={styles.input}
+  value={item.Quantity}
+  onChange={(e) => handleQuantityChange(index, e.target.value)}
+/>
             </div>
             <div style={styles.cell}>
               <input
@@ -353,11 +441,12 @@ console.log('Updated Project Details:', updatedProjectDetails);
                 (projectDetails.project.salesTax / 100 * ((item['RCV High'] + item['RCV Low']) / 2 * item.Quantity))).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}
             </div>
             <div style={styles.cell}>
-  <input
-    style={styles.input}
-    value={item.Depreciation}
-    onChange={(e) => handleFieldChange(index, 'Depreciation', e.target.value)}
-  />
+            <input
+  style={styles.input}
+  value={item.Depreciation}
+  onChange={(e) => handleDepreciationChange(index, e.target.value)}
+/>
+
 </div>
             <div style={styles.cell}>
               {projectDetails.project.depreciationRange}

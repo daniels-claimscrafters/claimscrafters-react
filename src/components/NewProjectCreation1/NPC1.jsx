@@ -1,4 +1,6 @@
-import React from 'react';
+//NPC1.jsx
+
+import React, { useState } from 'react';
 import ButtonContinue from './ButtonContinue';
 import CardCircle from './CardCircle';
 import DropdownLossState from './DropdownLossState';
@@ -40,6 +42,12 @@ import CardFooterBackground from './CardFooterBackground';
 
 const NPC1 = (props) => {
   const { npcData, onInputChange, onNext } = props;
+  const [validationErrors, setValidationErrors] = useState(false);
+  // Function to update validationErrors
+  const updateValidationErrors = (hasErrors) => {
+    setValidationErrors(hasErrors);
+  };
+
   const areAllFieldsFilled = () => {
     // Check if all the necessary fields in npcData are filled
     const allFieldsFilled =
@@ -50,7 +58,8 @@ const NPC1 = (props) => {
       npcData.lossAddress.trim() !== '' &&
       npcData.lossCity.trim() !== '' &&
       npcData.lossState.trim() !== '' &&
-      npcData.lossPostalCode.trim() !== '';
+      npcData.lossPostalCode.trim() !== '' &&
+      !validationErrors;
   
     console.log('All fields filled:', allFieldsFilled);
     console.log('NPC Data:', npcData);
@@ -165,6 +174,7 @@ const NPC1 = (props) => {
           <InputFieldClaimNumber
             value={npcData.claimNumber}
             onChange={onInputChange}
+            updateValidationErrors={updateValidationErrors}
           />
         </div>
         <div>
@@ -172,6 +182,7 @@ const NPC1 = (props) => {
           <InputFieldDateofLoss
           value={npcData.dateOfLoss}
           onChange={onInputChange}
+          updateValidationErrors={updateValidationErrors}
           />
         </div>
       </div>
@@ -183,13 +194,16 @@ const NPC1 = (props) => {
           <InputFieldFirstName 
           value={npcData.insuredFirstName}
           onChange={onInputChange}
+          updateValidationErrors={updateValidationErrors}
           />
         </div>
         <div>
           <TextInsuredLastName />
           <InputFieldLastName 
           value={npcData.insuredLastName}
-          onChange={onInputChange}/>
+          onChange={onInputChange}
+          updateValidationErrors={updateValidationErrors}/>
+          
         </div>
       </div>
 
@@ -200,6 +214,7 @@ const NPC1 = (props) => {
           <InputFieldLossAddress 
           value={npcData.lossAddress}
           onChange={onInputChange}
+          updateValidationErrors={updateValidationErrors}
           />
         </div>
         <div style={{ display: 'flex', flexDirection: 'row' }}>
@@ -208,6 +223,7 @@ const NPC1 = (props) => {
             <InputFieldLossCity 
             value={npcData.lossCity}
             onChange={onInputChange}
+            updateValidationErrors={updateValidationErrors}
             />
           </div>
           <div>
@@ -215,6 +231,7 @@ const NPC1 = (props) => {
             <DropdownLossState 
             value={npcData.lossState}
             onChange={onInputChange}
+            updateValidationErrors={updateValidationErrors}
             />
           </div>
         </div>
@@ -223,6 +240,7 @@ const NPC1 = (props) => {
           <InputFieldLossPostalCode 
           value={npcData.lossPostalCode}
           onChange={onInputChange}
+          updateValidationErrors={updateValidationErrors}
           />
         </div>
       </div>

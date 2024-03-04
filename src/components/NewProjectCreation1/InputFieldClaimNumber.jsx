@@ -33,7 +33,7 @@ const defaultProps = {
 };
 
 const InputFieldClaimNumber = (props) => {
-  const { value, onChange } = props;
+  const { value, onChange, updateValidationErrors } = props;
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = (e) => {
@@ -44,10 +44,12 @@ const InputFieldClaimNumber = (props) => {
   };
 
   const handleBlur = () => {
+    updateValidationErrors(false);
     const validationError = isNotEmpty(value);
     if (validationError) {
       console.log(`InputFieldClaimNumber - Validation error: ${validationError}`);
       setErrorMessage(validationError);
+      updateValidationErrors(true);
     }
   };
 

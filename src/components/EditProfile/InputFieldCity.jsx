@@ -1,10 +1,13 @@
-import React from 'react';
+// InputFieldCity.jsx
+
+import React, { useState } from 'react';
+import { isNotEmpty } from '../../validationUtils';
 
 const styles = {
   Input: {
     top: '631px',
     left: '583px',
-    width: '264px',
+    width: '200px',
     height: '36px',
     padding: '0px 8px',
     border: '1px solid #ededed',
@@ -17,15 +20,43 @@ const styles = {
     lineHeight: '18px',
     outline: 'none',
   },
+  ErrorMessage: {
+    color: 'red',
+    marginTop: '5px',
+    fontSize: '14px',
+  },
 };
 
 const defaultProps = {
-  text: '',
+  text: 'City',
 };
 
 const InputField = (props) => {
+  const { value, onChange, text, updateValidationErrors } = props;
+  const [error, setError] = useState('');
+
+  const handleInputChange = (e) => {
+    const inputValue = e.target.value;
+    if (isNotEmpty(inputValue)) {
+      setError('Please enter a city.');
+      updateValidationErrors(true);
+    } else {
+      setError('');
+      updateValidationErrors(false);
+    }
+    onChange(e);
+  };
+
   return (
-    <input style={styles.Input} placeholder={props.text ?? defaultProps.text} />
+    <div>
+      <input
+        style={styles.Input}
+        placeholder={text ?? defaultProps.text}
+        value={value}
+        onChange={handleInputChange}
+      />
+      {error && <div style={styles.ErrorMessage}>{error}</div>}
+    </div>
   );
 };
 

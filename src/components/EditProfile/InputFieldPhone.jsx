@@ -1,6 +1,7 @@
 // InputFieldPhone.jsx
 
-import React from 'react';
+import React, { useState } from 'react';
+import { isValidPhone } from '../../validationUtils';
 
 const styles = {
   Input: {
@@ -19,18 +20,45 @@ const styles = {
     lineHeight: '18px',
     outline: 'none',
   },
+  ErrorMessage: {
+    color: 'red',
+    marginTop: '5px',
+    fontSize: '14px',
+  },
 };
 
-const InputFieldPhone = ({ onChange }) => {
-  const handleChange = (event) => {
-    const value = event.target.value;
-    console.log("Phone:", value); // Added console.log statement
-    onChange(value);
+const defaultProps = {
+  text: 'Phone',
+};
+
+const InputField = (props) => {
+  const { value, onChange, text, updateValidationErrors } = props;
+  const [error, setError] = useState('');
+
+  const handleInputChange = (e) => {
+    const inputValue = e.target.value;
+    if (!isValidPhone(inputValue)) {
+      setError('Please enter a valid phone number.');
+      updateValidationErrors(true);
+    } else {
+      setError('');
+      updateValidationErrors(false);
+    }
+    onChange(e);
   };
 
   return (
-    <input type="tel" placeholder="Enter your phone number" style={styles.Input} onChange={handleChange} />
+    <div>
+      <input
+        style={styles.Input}
+        placeholder={text ?? defaultProps.text}
+        value={value}
+        onChange={handleInputChange}
+      />
+      {error && <div style={styles.ErrorMessage}>{error}</div>}
+    </div>
   );
 };
 
-export default InputFieldPhone;
+export default InputField;
+

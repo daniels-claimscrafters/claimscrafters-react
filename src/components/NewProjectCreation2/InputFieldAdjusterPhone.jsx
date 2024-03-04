@@ -32,7 +32,7 @@ const defaultProps = {
 };
 
 const InputFieldPhone = (props) => {
-  const { value, onChange } = props;
+  const { value, onChange, updateValidationErrors } = props;
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = (e) => {
@@ -51,9 +51,11 @@ const InputFieldPhone = (props) => {
     if (validationError) {
       console.log(`InputFieldPhone - Validation error: ${validationError}`);
       setErrorMessage(validationError);
+      updateValidationErrors(true);
     }
     else {
       console.log('ok');
+      updateValidationErrors(false);
     }
   };
 

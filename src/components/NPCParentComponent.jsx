@@ -110,6 +110,14 @@ const NPCParentComponent = () => {
   
     // Formatting logic based on field name
     switch (name) {
+      case 'lossAddress':
+      case 'lossCity':
+        // Capitalize the start of each word
+        formattedValue = formattedValue
+            .split(' ')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ');
+        break;
       case 'adjusterEmail':
         formattedValue = formattedValue.replace(/\s/g, '').toLowerCase();
         break;
@@ -129,9 +137,9 @@ const NPCParentComponent = () => {
         }
         break;
         case 'lossPostalCode':
-        // Remove spaces and allow only numbers
-        formattedValue = value.replace(/\s/g, '').replace(/\D/g, '');
-        break;
+          // Allow only numbers and limit to 5 digits
+          formattedValue = value.replace(/\D/g, '').slice(0, 5);
+          break;
         case 'claimNumber':
       
   

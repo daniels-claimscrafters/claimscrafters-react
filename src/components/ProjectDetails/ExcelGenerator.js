@@ -1,14 +1,9 @@
-import React, { useState, useEffect } from 'react';
+// ExcelGenerator.js
 import ExcelJS from 'exceljs';
+import axios from 'axios';
 
-const ExcelGenerator = ({ projectDetails }) => {
-    useEffect(() => {
-        // Load Excel file when the component mounts
-        loadExcelFile();
-    }, []);
-    console.log('Im here')
-    console.log(projectDetails)
 
+const generateSummary = async (projectDetails) => {
     let suggestedRCVTotal = 0;
 
     // Iterate through each item in spreadsheetData
@@ -73,28 +68,41 @@ const ExcelGenerator = ({ projectDetails }) => {
         totalDepreciation += depreciationAmount;
     });
 
-    const loadExcelFile = async () => {
-        // Create a new workbook
-        console.log('here?')
-        const workbook = new ExcelJS.Workbook();
-        console.log('heree')
-        
-            // Load the existing Excel template
-            try {
-                await workbook.xlsx.readFile('../../../public/Claims Crafters Summary V1.2.xlsx');
-                // Continue with processing the Excel file...
-            } catch (error) {
-                console.error('Error reading Excel file:', error);
-                // Handle the error, such as displaying an error message to the user or logging it.
-            }
-        console.log('hereee')
-            // Get the first worksheet
-            const worksheet = workbook.getWorksheet(1);
-      
-            // Rest of the code...
-        
-         
-      
+    const headers = {
+        'ngrok-skip-browser-warning': '69420'
+    };
+
+// Fetch the Excel template file
+const response = await axios.get('https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/npc/get-excel', {
+            headers: headers,
+            responseType: 'arraybuffer' // Specify response type as array buffer
+        });
+
+console.log('response: ', response);
+
+const arrayBuffer = response.data;
+console.log(arrayBuffer);
+
+// Create a new workbook
+const workbook = new ExcelJS.Workbook();
+
+console.log('workbook', workbook);
+
+await workbook.xlsx.load(arrayBuffer);
+console.log('workbook2', workbook);
+console.log('2');
+
+// Remove the second and third worksheets
+workbook.removeWorksheet(3);
+workbook.removeWorksheet(2); // After the second one is removed, the next one will take its position as index 2
+
+
+// Log the number of worksheets in the workbook
+console.log("Number of Worksheets:", workbook.worksheets.length);
+
+// Get the first worksheet
+const worksheet = workbook.worksheets[0];
+
 
           // Get the cell E18 and set its value to suggestedRCVTotal
     const cellE18 = worksheet.getCell('E18');
@@ -140,8 +148,15 @@ cellD6.value = projectDetails.project.carrier;
 // Get the cell reference for any cell within the merged range, for example D8
 const cellD8 = worksheet.getCell('D8');
 
+// Parse the dateOfLoss and format it to mm/dd/yyyy
+const formattedDateOfLoss = new Date(projectDetails.project.dateOfLoss).toLocaleDateString('en-US', {
+    month: '2-digit',
+    day: '2-digit',
+    year: 'numeric'
+});
+
 // Set the value for the cell D8, which will apply to the entire merged range D8:F8
-cellD8.value = projectDetails.project.dateOfLoss;
+cellD8.value = formattedDateOfLoss;
 
 // Get the cell reference for any cell within the merged range, for example D10
 const cellD10 = worksheet.getCell('D10');
@@ -216,128 +231,240 @@ const cellH10 = worksheet.getCell('H10');
 // Set the value of cell H10 to the depreciation range
 cellH10.value = depreciationRange;
 
+const modifiedExcelData = await workbook.xlsx.writeBuffer();
 
+console.log('mm', modifiedExcelData);
 
+return { modifiedExcelData }; 
+    }
 
-const calculateRoomsRCVTotal = (projectDetails) => {
-    const { spreadsheetData, salesTax } = projectDetails.project;
-    let roomsRCVTotal = {};
+const generateDetail = async (projectDetails) => {
+    const headers = {
+        'ngrok-skip-browser-warning': '69420'
+    };
 
-    // Iterate through each item in the spreadsheetData
-    spreadsheetData.forEach(item => {
-        const room = item.Room || 'Unknown Room';
+    // Fetch the Excel template file
+    const response = await axios.get('https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/npc/get-excel', {
+        headers: headers,
+        responseType: 'arraybuffer' // Specify response type as array buffer
+    });
+
+    console.log('response: ', response);
+
+    const arrayBuffer = response.data;
+    console.log(arrayBuffer);
+
+    // Create a new workbook
+    const workbook = new ExcelJS.Workbook();
+
+    console.log('workbook', workbook);
+
+    await workbook.xlsx.load(arrayBuffer);
+    console.log('workbook2', workbook);
+    console.log('2');
+
+    workbook.removeWorksheet(3);
+workbook.removeWorksheet(1);
+
+    // Get the second worksheet
+    const worksheet = workbook.getWorksheet(2); // Change 2 to the appropriate index of the second worksheet
+
+    // Iterate over projectDetails and replace cells starting from A13
+    projectDetails.project.spreadsheetData.forEach((item, index) => {
+        const rowNumber = index + 13; // Start from row 13
+
+        // Set values for each cell in the row
+        worksheet.getCell(`A${rowNumber}`).value = index + 1; // Auto-incrementing Line number
+        worksheet.getCell(`B${rowNumber}`).value = item.Room;
+        worksheet.getCell(`C${rowNumber}`).value = item.Item;
+        worksheet.getCell(`D${rowNumber}`).value = item.Description;
+        worksheet.getCell(`E${rowNumber}`).value = item.Quantity;
+
+        const RCVHigh = parseFloat(item['RCV High']);
+        const RCVLow = parseFloat(item['RCV Low']);
+        const RCVAvg = (RCVHigh + RCVLow) / 2;
+        const RCVExt = RCVAvg * item.Quantity;
+        const salesTaxAmount = projectDetails.project.salesTax / 100 * RCVExt;
+        const RCVTotal = RCVExt + salesTaxAmount;
+        const depreciationAmount = RCVExt * item.Depreciation / 100 * projectDetails.project.depreciationRange;
+        const ACVTotal = RCVExt + salesTaxAmount - depreciationAmount;
+
+        worksheet.getCell(`F${rowNumber}`).value = `$${RCVHigh.toFixed(2)}`; // RCV High
+        worksheet.getCell(`G${rowNumber}`).value = `$${RCVLow.toFixed(2)}`; // RCV Low
+        worksheet.getCell(`H${rowNumber}`).value = `$${RCVAvg.toFixed(2)}`; // RCV Avg (ea)
+        worksheet.getCell(`I${rowNumber}`).value = `$${RCVExt.toFixed(2)}`; // RCV (ext)
+        worksheet.getCell(`J${rowNumber}`).value = `${projectDetails.project.salesTax}%`; // Sales Tax
+        worksheet.getCell(`K${rowNumber}`).value = `$${salesTaxAmount.toFixed(2)}`; // Sales Tax Amount
+        worksheet.getCell(`L${rowNumber}`).value = `$${RCVTotal.toFixed(2)}`; // RCV Total
+        worksheet.getCell(`M${rowNumber}`).value = item.Depreciation; // Depreciation
+        worksheet.getCell(`N${rowNumber}`).value = projectDetails.project.depreciationRange; // Dep Years
+        worksheet.getCell(`O${rowNumber}`).value = `$${depreciationAmount.toFixed(2)}`; // Dep Amount
+        worksheet.getCell(`P${rowNumber}`).value = `$${ACVTotal.toFixed(2)}`; // ACV Total
+        worksheet.getCell(`Q${rowNumber}`).value = item.Subclass;
+        worksheet.getCell(`R${rowNumber}`).value = item.Class;
+    });
+    let suggestedRCVTotal = 0;
+
+    // Iterate through each item in spreadsheetData
+    projectDetails.project.spreadsheetData.forEach(item => {
+        // Parse RCV High, RCV Low, and Quantity from the current item
         const RCVHigh = parseFloat(item['RCV High']);
         const RCVLow = parseFloat(item['RCV Low']);
         const quantity = parseFloat(item['Quantity']);
-
+        
         // Calculate RCV (ext) for the current item using the provided formula
         const RCVExt = (RCVHigh + RCVLow) / 2 * quantity;
-        const RCVWithTax = RCVExt + (parseFloat(salesTax) / 100 * RCVExt);
-
-        // Add RCV (ext) to total for the room
-        if (!roomsRCVTotal[room]) {
-            roomsRCVTotal[room] = RCVWithTax;
-        } else {
-            roomsRCVTotal[room] += RCVWithTax;
-        }
+        
+        // Add RCV (ext) to total
+        suggestedRCVTotal += RCVExt;
     });
 
-    return roomsRCVTotal;
-};
+    // Calculate total RCV tax
+    const totalRCVTax = suggestedRCVTotal * (projectDetails.project.salesTax / 100);
 
+    // Calculate RCV with tax total
+    const rcvWithTaxTotal = suggestedRCVTotal + totalRCVTax;
 
+    let suggestedACVTotal = 0; // Initialize total ACV
 
-
-const calculateClassRCVTotal = (projectDetails) => {
-    const { spreadsheetData, salesTax } = projectDetails.project;
-    let classRCVTotal = {};
-
-    // Iterate through each item in the spreadsheetData
-    spreadsheetData.forEach(item => {
-        const itemClass = item.Class || 'Unknown Class';
-        const RCVHigh = parseFloat(item['RCV High']);
-        const RCVLow = parseFloat(item['RCV Low']);
-        const quantity = parseFloat(item['Quantity']);
-
-        // Calculate RCV (ext) for the current item using the provided formula
-        const RCVExt = (RCVHigh + RCVLow) / 2 * quantity;
-        const RCVWithTax = RCVExt + (parseFloat(salesTax) / 100 * RCVExt);
-
-        // Add RCV (ext) to total for the class
-        if (!classRCVTotal[itemClass]) {
-            classRCVTotal[itemClass] = RCVWithTax;
-        } else {
-            classRCVTotal[itemClass] += RCVWithTax;
-        }
-    });
-
-    return classRCVTotal;
-};
-
-const calculateACVByRoom = (projectDetails) => {
-    const { spreadsheetData, salesTax, depreciationRange } = projectDetails.project;
-    let roomACVTotal = {};
-
-    // Iterate through each item in the spreadsheetData
-    spreadsheetData.forEach(item => {
-        const room = item.Room || 'Unknown Room';
+    // Iterate over each item in the spreadsheet data
+    projectDetails.project.spreadsheetData.forEach(item => {
+        // Parse RCV High, RCV Low, Quantity, and Depreciation from the current item
         const RCVHigh = parseFloat(item['RCV High']);
         const RCVLow = parseFloat(item['RCV Low']);
         const quantity = parseFloat(item['Quantity']);
         const depreciation = parseFloat(item['Depreciation']);
-
+        
         // Calculate ACV for the current item using the provided formula
         const ACV = ((RCVHigh + RCVLow) / 2 * quantity) +
-            (parseFloat(salesTax) / 100 * ((RCVHigh + RCVLow) / 2 * quantity)) -
-            (((RCVHigh + RCVLow) / 2 * quantity) * (depreciation / 100) * depreciationRange);
+            (projectDetails.project.salesTax / 100 * ((RCVHigh + RCVLow) / 2 * quantity)) - 
+            (((RCVHigh + RCVLow) / 2 * quantity) * (depreciation / 100) * projectDetails.project.depreciationRange);
         
-        // Add ACV to total for the room
-        if (!roomACVTotal[room]) {
-            roomACVTotal[room] = ACV;
-        } else {
-            roomACVTotal[room] += ACV;
-        }
+        // Add ACV to total
+        suggestedACVTotal += ACV;
     });
 
-    return roomACVTotal;
-};
+    // Calculate total ACV tax by multiplying total ACV by the sales tax rate
+    const totalACVTax = suggestedACVTotal * (projectDetails.project.salesTax / 100);
 
-const calculateACVByClass = (projectDetails) => {
-    const { spreadsheetData, salesTax, depreciationRange } = projectDetails.project;
-    let classACVTotal = {};
+    // Calculate ACV with tax total by adding total ACV and total ACV tax
+    const acvWithTaxTotal = suggestedACVTotal + totalACVTax;
 
-    // Iterate through each item in the spreadsheetData
-    spreadsheetData.forEach(item => {
-        const itemClass = item.Class || 'Unknown Class';
+    let totalDepreciation = 0; // Initialize total depreciation
+
+    // Iterate over each item in the spreadsheet data
+    projectDetails.project.spreadsheetData.forEach(item => {
+        // Parse RCV High, Quantity, and Depreciation from the current item
         const RCVHigh = parseFloat(item['RCV High']);
         const RCVLow = parseFloat(item['RCV Low']);
         const quantity = parseFloat(item['Quantity']);
         const depreciation = parseFloat(item['Depreciation']);
-
-        // Calculate ACV for the current item using the provided formula
-        const ACV = ((RCVHigh + RCVLow) / 2 * quantity) +
-            (parseFloat(salesTax) / 100 * ((RCVHigh + RCVLow) / 2 * quantity)) -
-            (((RCVHigh + RCVLow) / 2 * quantity) * (depreciation / 100) * depreciationRange);
         
-        // Add ACV to total for the class
-        if (!classACVTotal[itemClass]) {
-            classACVTotal[itemClass] = ACV;
-        } else {
-            classACVTotal[itemClass] += ACV;
-        }
+        // Calculate depreciation amount for the current item using the provided formula
+        const depreciationAmount = ((RCVHigh + RCVLow) / 2 * quantity) * (depreciation / 100) * projectDetails.project.depreciationRange;
+        
+        // Add depreciation amount to total
+        totalDepreciation += depreciationAmount;
     });
 
-    return classACVTotal;
-}
+    // Set the value of cell I3 to the suggested RCV total
+    worksheet.getCell('I3').value = `$${suggestedRCVTotal.toFixed(2)}`;
 
-    // Return the JSX markup with the calculated values
-    return (
-        <div>
-            <button>Generate Excel File</button>
-        </div>
-    );
+    // Set the value of cell I5 to the total RCV tax
+    worksheet.getCell('I5').value = `$${totalRCVTax.toFixed(2)}`;
+
+    // Set the value of cell I6 to the RCV with tax total
+    worksheet.getCell('I6').value = `$${rcvWithTaxTotal.toFixed(2)}`;
+
+    worksheet.getCell('L3').value = `$${suggestedRCVTotal.toFixed(2)}`;
+
+    worksheet.getCell('L4').value = `$${totalRCVTax.toFixed(2)}`;
+
+    worksheet.getCell('L6').value = `$${rcvWithTaxTotal.toFixed(2)}`;
+
+    worksheet.getCell('L7').value = `$${totalDepreciation.toFixed(2)}`;
+
+    worksheet.getCell('L9').value = `$${suggestedACVTotal.toFixed(2)}`;
+
+    const modifiedExcelData2 = await workbook.xlsx.writeBuffer();
+
+    console.log('mm', modifiedExcelData2);
+
+    return { modifiedExcelData2 };
 };
-}
 
-export default ExcelGenerator;
+const generateRawData = async (projectDetails) => {
+    const headers = {
+        'ngrok-skip-browser-warning': '69420'
+    };
+
+    try {
+        // Fetch the Excel template file
+        const response = await axios.get('https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/npc/get-excel', {
+            headers: headers,
+            responseType: 'arraybuffer' // Specify response type as array buffer
+        });
+
+        const arrayBuffer = response.data;
+
+        // Create a new workbook
+        const workbook = new ExcelJS.Workbook();
+
+        // Load the workbook from the array buffer
+        await workbook.xlsx.load(arrayBuffer);
+
+        workbook.removeWorksheet(2);
+workbook.removeWorksheet(1);
+
+        // Get the third worksheet
+        const worksheet = workbook.getWorksheet(3);
+
+        // Iterate over projectDetails and replace cells starting from A2
+        projectDetails.project.spreadsheetData.forEach((item, index) => {
+            const rowNumber = index + 2; // Start from row 2
+
+            // Set values for each cell in the row
+            worksheet.getCell(`A${rowNumber}`).value = index + 1; // Auto-incrementing Line number
+            worksheet.getCell(`B${rowNumber}`).value = item.Room;
+            worksheet.getCell(`C${rowNumber}`).value = item.Item;
+            worksheet.getCell(`D${rowNumber}`).value = item.Description;
+            worksheet.getCell(`E${rowNumber}`).value = item.Quantity;
+
+            const RCVHigh = parseFloat(item['RCV High']);
+            const RCVLow = parseFloat(item['RCV Low']);
+            const RCVAvg = (RCVHigh + RCVLow) / 2;
+            const RCVExt = RCVAvg * item.Quantity;
+            const salesTaxAmount = projectDetails.project.salesTax / 100 * RCVExt;
+            const RCVTotal = RCVExt + salesTaxAmount;
+            const depreciationAmount = RCVExt * item.Depreciation / 100 * projectDetails.project.depreciationRange;
+            const ACVTotal = RCVExt + salesTaxAmount - depreciationAmount;
+
+            worksheet.getCell(`F${rowNumber}`).value = `$${RCVHigh.toFixed(2)}`; // RCV High
+            worksheet.getCell(`G${rowNumber}`).value = `$${RCVLow.toFixed(2)}`; // RCV Low
+            worksheet.getCell(`H${rowNumber}`).value = `$${RCVAvg.toFixed(2)}`; // RCV Avg (ea)
+            worksheet.getCell(`I${rowNumber}`).value = `$${RCVExt.toFixed(2)}`; // RCV (ext)
+            worksheet.getCell(`J${rowNumber}`).value = `${projectDetails.project.salesTax}%`; // Sales Tax
+            worksheet.getCell(`K${rowNumber}`).value = `$${salesTaxAmount.toFixed(2)}`; // Sales Tax Amount
+            worksheet.getCell(`L${rowNumber}`).value = `$${RCVTotal.toFixed(2)}`; // RCV Total
+            worksheet.getCell(`M${rowNumber}`).value = item.Depreciation; // Depreciation
+            worksheet.getCell(`N${rowNumber}`).value = projectDetails.project.depreciationRange; // Dep Years
+            worksheet.getCell(`O${rowNumber}`).value = `$${depreciationAmount.toFixed(2)}`; // Dep Amount
+            worksheet.getCell(`P${rowNumber}`).value = `$${ACVTotal.toFixed(2)}`; // ACV Total
+            worksheet.getCell(`Q${rowNumber}`).value = item.Subclass;
+            worksheet.getCell(`R${rowNumber}`).value = item.Class;
+        });
+
+        // Write the modified Excel data to a buffer
+        const modifiedExcelData = await workbook.xlsx.writeBuffer();
+
+        // Return the modified Excel data
+        return { modifiedExcelData };
+    } catch (error) {
+        console.error('Error generating raw data:', error);
+        throw error; // Re-throw the error to be handled by the caller
+    }
+};
+
+export { generateSummary, generateDetail, generateRawData };
+
     

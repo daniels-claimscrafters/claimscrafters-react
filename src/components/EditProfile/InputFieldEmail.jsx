@@ -20,12 +20,19 @@ const styles = {
 };
 
 const defaultProps = {
-  text: 'Thomas D',
+  text: 'Email',
 };
 
 const InputField = (props) => {
+  const { value, onChange, text } = props;
+
   return (
-    <input style={styles.Input} placeholder={props.text ?? defaultProps.text} />
+    <input
+      style={styles.Input}
+      placeholder={text ?? defaultProps.text}
+      value={value}
+      onChange={onChange}
+    />
   );
 };
 

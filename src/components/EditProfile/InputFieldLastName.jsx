@@ -1,6 +1,7 @@
 // InputFieldLastName.jsx
 
-import React from 'react';
+import React, { useState } from 'react';
+import { isValidLastName } from '../../validationUtils';
 
 const styles = {
   Input: {
@@ -19,17 +20,42 @@ const styles = {
     lineHeight: '18px',
     outline: 'none',
   },
+  ErrorMessage: {
+    color: 'red',
+    marginTop: '5px',
+    fontSize: '14px',
+  },
 };
 
-const InputFieldLastName = ({ onChange }) => {
-  const handleChange = (event) => {
-    const value = event.target.value;
-    onChange(value);
+const defaultProps = {
+  text: 'Last Name',
+};
+
+const InputField = (props) => {
+  const { value, onChange, text } = props;
+  const [error, setError] = useState('');
+
+  const handleInputChange = (e) => {
+    const inputValue = e.target.value;
+    if (!isValidLastName(inputValue)) {
+      setError('Please enter a valid last name.');
+    } else {
+      setError('');
+    }
+    onChange(e);
   };
 
   return (
-    <input type="text" placeholder="Enter your last name" style={styles.Input} onChange={handleChange} />
+    <div>
+      <input
+        style={styles.Input}
+        placeholder={text ?? defaultProps.text}
+        value={value}
+        onChange={handleInputChange}
+      />
+      {error && <div style={styles.ErrorMessage}>{error}</div>}
+    </div>
   );
 };
 
-export default InputFieldLastName;
+export default InputField;

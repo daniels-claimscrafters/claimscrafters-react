@@ -8,7 +8,7 @@ const styles = {
     cursor: 'pointer',
     top: '193px',
     left: '630px',
-    width: '156px',
+    width: '175px',
     height: '36px',
     padding: '0px 8px',
     border: '0',

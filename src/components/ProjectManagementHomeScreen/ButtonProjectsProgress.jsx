@@ -5,7 +5,7 @@ import React from 'react';
 const styles = {
   Button: {
     cursor: 'pointer',
-    width: '157px',
+    width: '125px',
     height: '36px',
     padding: '0px 8px',
     border: '0',

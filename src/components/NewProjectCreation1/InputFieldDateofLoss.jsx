@@ -33,7 +33,7 @@ const defaultProps = {
 };
 
 const InputFieldDateofLoss = (props) => {
-  const { value, onChange } = props;
+  const { value, onChange, updateValidationErrors } = props;
   const [validationError, setValidationError] = useState('');
 
   const handleChange = (e) => {
@@ -43,10 +43,12 @@ const InputFieldDateofLoss = (props) => {
   };
 
   const handleBlur = () => {
+    updateValidationErrors(false);
     if (value !== undefined) {
       const isValid = isValidDateFormat(value);
       if (!isValid) {
         setValidationError('Invalid date format');
+        updateValidationErrors(true);
       }
     }
   };

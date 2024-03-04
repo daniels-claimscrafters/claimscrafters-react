@@ -1,11 +1,15 @@
+// ImageLogo.jsx
+
+// ImageLogo.jsx
+
 import React from 'react';
 
 const styles = {
   ImageContainer: {
     top: '546px',
     left: '269px',
-    width: '200px',
-    height: '150px',
+    width: '120px', // Decreased width
+    height: '100px', // Decreased height
     borderRadius: '8px',
     backgroundImage: 'url(./image.png)',
     backgroundPosition: 'center center',

@@ -48,7 +48,6 @@ const styles = {
     fontWeight: 500,
     border: '1px solid #ceced3',
     color: '#030303',
-    textTransform: 'capitalize',
     outline: 'none',
     maxWidth: '50%', // Adjust input width as needed
   },
