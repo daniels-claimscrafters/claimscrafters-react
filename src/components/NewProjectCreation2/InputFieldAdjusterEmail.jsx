@@ -6,7 +6,7 @@ const styles = {
     top: '838px',
     left: '719px',
     width: '626px',
-    height: '88px',
+    height: '60px',
     padding: '0px 8px',
     border: '1px solid #ceced3',
     boxSizing: 'border-box',
@@ -37,6 +37,7 @@ const InputFieldEmail = (props) => {
     const newValue = e.target.value;
     console.log(`InputFieldEmail - New value: ${newValue}`);
     onChange('adjusterEmail', newValue);
+    updateValidationErrors(true);
     setErrorMessage(''); // Clear error message when the user starts typing
   };
 

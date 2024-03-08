@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import ButtonContinue from './ButtonContinue';
 import CardCircle from './CardCircle';
+import CardCircleMain from './CardCircleMain';
 import DropdownLossState from './DropdownLossState';
 import HorizontalDivider from './HorizontalDivider';
 import IconHome from './IconHome';
@@ -67,7 +68,7 @@ const NPC1 = (props) => {
     return allFieldsFilled;
   };
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         {/* Row 1 */}
         <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -84,16 +85,16 @@ const NPC1 = (props) => {
         </div>
   
     {/* Row 2 Centered */}
-<div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '100%', marginTop: '20px' }}>
+<div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '100%', marginTop: '10px' }}>
   <HorizontalDivider />
 
   {/* Card Circle 1 */}
   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-    <CardCircle>
+    <CardCircleMain >
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
         <Text1 style={{ margin: 0 }}>1</Text1>
       </div>
-    </CardCircle>
+    </CardCircleMain>
     <TextInsuredInformation />
   </div>
 
@@ -161,14 +162,14 @@ const NPC1 = (props) => {
 </div>
 
 {/* New Section with TextHeader2 and TextSubtitle */}
-<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '40px', marginBottom: '20px' }}>
+<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '10px', marginBottom: '10px' }}>
   <TextHeader2 />
   <TextSubheader />
 </div>
 
 
       {/* Financial Inputs Section */}
-      <div style={{ display: 'flex', flexDirection: 'row', marginTop: '20px' }}>
+      <div style={{ display: 'flex', flexDirection: 'row' }}>
         <div style={{ marginRight: '20px' }}>
           <TextClaimNumber />
           <InputFieldClaimNumber
@@ -188,7 +189,7 @@ const NPC1 = (props) => {
       </div>
 
       {/* Insured Information Section */}
-      <div style={{ display: 'flex', flexDirection: 'row', marginTop: '20px' }}>
+      <div style={{ display: 'flex', flexDirection: 'row', marginTop: '10px' }}>
         <div style={{ marginRight: '20px' }}>
           <TextInsuredFirstName />
           <InputFieldFirstName 
@@ -208,8 +209,8 @@ const NPC1 = (props) => {
       </div>
 
       {/* Loss Information Section */}
-      <div style={{ display: 'flex', flexDirection: 'column', marginTop: '20px', }}>
-        <div style={{ marginBottom: '20px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', marginTop: '10px', }}>
+        <div style={{ marginBottom: '10px' }}>
           <TextLossAddress />
           <InputFieldLossAddress 
           value={npcData.lossAddress}
@@ -235,7 +236,7 @@ const NPC1 = (props) => {
             />
           </div>
         </div>
-        <div style={{ marginTop: '20px' }}>
+        <div style={{ marginTop: '10px' }}>
           <TextLossPostalCode />
           <InputFieldLossPostalCode 
           value={npcData.lossPostalCode}
@@ -250,7 +251,7 @@ const NPC1 = (props) => {
       <ButtonContinue label="Continue" onClick={onNext} disabled={!areAllFieldsFilled()} />
       </div>
       {/* Footer Section */}
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginTop: '20px', width: '100%' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginTop: '10px', width: '100%' }}>
         <CardFooterBackground >
           <ImageFooterLogo />
         </CardFooterBackground>

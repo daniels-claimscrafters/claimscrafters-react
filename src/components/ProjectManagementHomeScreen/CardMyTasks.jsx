@@ -16,7 +16,7 @@ const styles = {
     boxSizing: 'border-box',
     display: 'flex',
     flexDirection: 'column',
-    height: '225px'
+    height: '195px'
   },
   header: {
     display: 'flex',

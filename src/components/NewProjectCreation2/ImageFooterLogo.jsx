@@ -4,8 +4,8 @@ const styles = {
   ImageContainer: {
     top: '1436px',
     left: '10px',
-    width: '140px',
-    height: '118px',
+    width: '80px',
+    height: '80px',
     borderRadius: '8px',
     backgroundImage: 'url(./image.png)',
     backgroundPosition: 'center center',

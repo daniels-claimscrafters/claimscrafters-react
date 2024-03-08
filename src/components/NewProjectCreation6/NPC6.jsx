@@ -1,6 +1,7 @@
 // npc6.jsx
 import React, { useState } from 'react';
 import CardCircle from './CardCircle';
+import CardCircleMain from './CardCircleMain';
 import HorizontalDivider from './HorizontalDivider';
 import IconHome from './IconHome';
 import ImageLogo from './ImageLogo';
@@ -25,6 +26,8 @@ import TextBody from './TextBody';
 import TextCheckbox from './TextCheckbox';
 import TextHeader2 from './TextHeader2';
 import TextSubtitle from './TextSubtitle';
+import ImageFooterLogo from './ImageFooterLogo';
+import CardFooterBackground from './CardFooterBackground';
 
 
 const NPC6 = ({ npcData, onInputChange, onNext, onPrevious }) => {
@@ -60,7 +63,7 @@ const NPC6 = ({ npcData, onInputChange, onNext, onPrevious }) => {
 
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       {/* Row 1 */}
       <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
         <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -74,13 +77,85 @@ const NPC6 = ({ npcData, onInputChange, onNext, onPrevious }) => {
         </div>
       </div>
 
-      {/* Row 2 Centered */}
-      <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '100%', marginTop: '20px' }}>
-        {/* Assuming CardCircle, HorizontalDivider, Text1, Text2, ..., Text6 components */}
-      </div>
+     {/* Row 2 Centered */}
+  <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '100%', marginTop: '10px', marginBottom: '10px' }}>
+    <HorizontalDivider />
+  
+    {/* Card Circle 1 */}
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <CardCircle>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
+          <Text1 style={{ margin: 0 }}>1</Text1>
+        </div>
+      </CardCircle>
+      <TextInsuredInformation />
+    </div>
+  
+    <HorizontalDivider />
+  
+    {/* Card Circle 2 */}
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <CardCircle>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
+          <Text2 style={{ margin: 0 }}>2</Text2>
+        </div>
+      </CardCircle>
+      <TextLossDetails />
+    </div>
+  
+    <HorizontalDivider />
+  
+    {/* Card Circle 3 */}
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <CardCircle>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
+          <Text3 style={{ margin: 0 }}>3</Text3>
+        </div>
+      </CardCircle>
+      <TextFinancialInputs />
+    </div>
+  
+    <HorizontalDivider />
+  
+    {/* Card Circle 4 */}
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <CardCircle>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
+          <Text4 style={{ margin: 0 }}>4</Text4>
+        </div>
+      </CardCircle>
+      <TextProvidePersonal />
+    </div>
+  
+    <HorizontalDivider />
+  
+    {/* Card Circle 5 */}
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <CardCircle>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
+          <Text5 style={{ margin: 0 }}>5</Text5>
+        </div>
+      </CardCircle>
+      <TextAdditional />
+    </div>
+  
+    <HorizontalDivider />
+  
+    {/* Card Circle 6 */}
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <CardCircleMain>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
+          <Text6 style={{ margin: 0 }}>6</Text6>
+        </div>
+      </CardCircleMain>
+      <TextPayment />
+    </div>
+  
+    <HorizontalDivider />
+  </div>
 
       {/* Row 3 Centered */}
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', marginTop: '20px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
         {/* TextHeader2 */}
         <TextHeader2 />
         {/* TextSubtitle */}
@@ -90,7 +165,7 @@ const NPC6 = ({ npcData, onInputChange, onNext, onPrevious }) => {
       </div>
 
       {/* Row 4 Centered */}
-      <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '100%', marginTop: '20px' }}>
+      <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
         <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginRight: '20px' }}>
         <Checkbox checked={didAcceptLegal} onChange={handleCheckboxChange} />
           <TextCheckbox />
@@ -102,7 +177,7 @@ const NPC6 = ({ npcData, onInputChange, onNext, onPrevious }) => {
       </div>
 
       {/* Row 5 Centered */}
-      <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '100%', marginTop: '20px' }}>
+      <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '100%', marginTop: '15px' }}>
         <div style={{ marginRight: '10px' }}>
           <ButtonBack onClick={onPrevious} />
         </div>
@@ -110,6 +185,21 @@ const NPC6 = ({ npcData, onInputChange, onNext, onPrevious }) => {
         <ButtonContinue disabled={isContinueDisabled} label="Continue" onClick={onNext} />
         </div>
       </div>
+
+      <div style={{
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-start',
+  marginTop: 'auto', /* Pushes the footer to the bottom of the page */
+  width: '100%',
+  position: 'fixed', /* Fix the position of the footer */
+  bottom: 0, /* Align the footer to the bottom of the viewport */
+}}>
+        <CardFooterBackground>
+          <ImageFooterLogo />
+        </CardFooterBackground>
+      </div>
+
     </div>
   );
 };

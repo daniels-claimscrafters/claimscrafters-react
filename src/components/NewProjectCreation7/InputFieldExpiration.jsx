@@ -18,7 +18,7 @@ const styles = {
     fontFamily: 'Poppins',
     lineHeight: '18px',
     outline: 'none',
-    marginBottom: '40px'
+    marginBottom: '10px'
   },
   ErrorMessage: {
     color: 'red',
@@ -27,21 +27,37 @@ const styles = {
   },
 };
 
-const InputFieldExpiration = ({ onChange }) => {
+const InputFieldExpiration = ({ onChange, updateValidationErrors }) => {
   const [value, setValue] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = (e) => {
-    const newValue = e.target.value;
+    let newValue = e.target.value;
+    // Remove any non-numeric characters from the input value
+    newValue = newValue.replace(/[^\d/]/g, '');
+    // Limit the input to a maximum of 5 characters (MM/YY format)
+    newValue = newValue.slice(0, 5);
+    // Format the input value as MM/YY
+    if (newValue.length > 2 && newValue.indexOf('/') === -1) {
+        newValue = `${newValue.slice(0, 2)}/${newValue.slice(2)}`;
+    }
     setValue(newValue);
     onChange('expiration', newValue); // Pass the identifier and the new value to the parent component
     setErrorMessage('');
-  };
+};
+
+
+
 
   const handleBlur = () => {
     const isValid = isValidExpirationDate(value);
     if (!isValid) {
       setErrorMessage('Invalid expiration date');
+      updateValidationErrors(true);
+    }
+    else {
+      console.log('ok');
+      updateValidationErrors(false);
     }
   };
 
@@ -49,7 +65,7 @@ const InputFieldExpiration = ({ onChange }) => {
     <div>
       <input
         style={styles.Input}
-        placeholder="MM / YY"
+        placeholder="MM/YY"
         value={value}
         onChange={handleChange}
         onBlur={handleBlur}

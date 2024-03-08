@@ -32,8 +32,9 @@ const defaultProps = {
 };
 
 const InputField = (props) => {
-  const { value, onChange, text } = props;
+  const { value, onChange, text, userData } = props;
   const [error, setError] = useState('');
+  const lastName = userData.lastName;
 
   const handleInputChange = (e) => {
     const inputValue = e.target.value;
@@ -49,7 +50,7 @@ const InputField = (props) => {
     <div>
       <input
         style={styles.Input}
-        placeholder={text ?? defaultProps.text}
+        placeholder={lastName ?? defaultProps.text}
         value={value}
         onChange={handleInputChange}
       />

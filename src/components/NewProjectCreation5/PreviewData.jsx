@@ -110,9 +110,9 @@ const PreviewData = ({ excelData, onColumnsSelected }) => {
     cardContainer: {
       width: '1500px',
       
-      height: '500px',
+      height: '370px',
       margin: '0 auto',
-      padding: '20px',
+      padding: '15px',
       border: '1px solid #ccc',
       borderRadius: '8px',
       boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
@@ -128,10 +128,9 @@ const PreviewData = ({ excelData, onColumnsSelected }) => {
       justifyContent: 'space-between', // Distribute items evenly along the main axis
       flexWrap: 'wrap', // Allow items to wrap to the next line if necessary
       width: '90%',
-      height: '100px'
+      height: '80px'
     },
     selectContainer: {
-      marginBottom: '20px',
       color: '#030303',
       fontSize: '18px',
       fontFamily: 'Poppins',
@@ -162,7 +161,6 @@ const PreviewData = ({ excelData, onColumnsSelected }) => {
     },
   
     previewTable: {
-      marginTop: '20px',
       borderCollapse: 'collapse',
       width: '100%',
       height: '100px',
@@ -184,13 +182,12 @@ const PreviewData = ({ excelData, onColumnsSelected }) => {
       fontFamily: 'Poppins',
     },
     previewButtonContainer: {
-      marginTop: '20px',
       display: 'flex',
       justifyContent: 'center', // Center items horizontally
       width: '100%',
     },
     previewButton: {
-      marginTop: '20px',
+      marginTop: '10px',
       padding: '10px 20px',
       borderRadius: '5px',
       border: 'none',
@@ -300,7 +297,7 @@ const PreviewData = ({ excelData, onColumnsSelected }) => {
       <div style={styles.previewButtonContainer}>
       <button style={styles.previewButton} onClick={deleteFirstRow}>Delete First Row</button>
     <button style={styles.previewButton} onClick={handleColumnConfirmation}>
-      Confirm Selected Columns
+      Confirm Columns
     </button>
     </div>
     <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>

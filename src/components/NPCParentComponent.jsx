@@ -255,7 +255,11 @@ const NPCParentComponent = () => {
     } finally {
       setIsLoading(false); // Set loading state to false after request completes
     }
-  };  
+  };
+
+  const updateLoadingState = (newState) => {
+    setIsLoading(newState);
+  };
 
   return (
     <div>
@@ -315,6 +319,7 @@ const NPCParentComponent = () => {
           numberOfLines={npcData.numberOfLines}
           onPrevious={handlePrevious}
           onSubmit={handleSubmit}
+          updateLoadingState={updateLoadingState}
         />
       )}
       {/* Loading screen */}

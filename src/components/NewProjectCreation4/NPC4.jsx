@@ -1,3 +1,5 @@
+import React, { useState } from 'react';
+import CardCircleMain from './CardCircleMain';
 import CardCircle from './CardCircle';
 import HorizontalDivider from './HorizontalDivider';
 import IconHome from './IconHome';
@@ -12,6 +14,7 @@ import TextAdditional from './TextAdditional';
 import TextFinancialInputs from './TextFinancialInputs';
 import TextHeader from './TextHeader';
 import TextInsuredInformation from './TextInsuredInformation';
+import TextInstructions from './TextInstructions';
 import TextLossDetails from './TextLossDetails';
 import TextPayment from './TextPayment';
 import TextProvidePersonal from './TextProvidePersonal';
@@ -30,16 +33,19 @@ import CardSubupload from './CardSubupload';
 
 const NPC4 = (props) => {
   const { npcData, onInputChange, onNext, onPrevious } = props;
+  const [fileName, setFileName] = useState('');
   const isContinueDisabled = !npcData.spreadsheetUpload;
-  const handleFileUpload = (file, fileContent) => {
+  const handleFileUpload = (uploadedFile, fileContent) => {
     // Handle the file upload logic here
-    console.log('File uploaded in NPC4:', file);
+    console.log('File name uploaded in NPC4:', uploadedFile);
+
+    setFileName(uploadedFile);
   
     // Pass both the file name and content to the parent component
-    props.onFileUpload(file, fileContent);
+    props.onFileUpload(uploadedFile, fileContent);
   };
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '10px' }}>
         {/* Row 1 */}
         <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -56,7 +62,7 @@ const NPC4 = (props) => {
         </div>
   
         {/* Row 2 Centered */}
-  <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '100%', marginTop: '20px' }}>
+  <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '100%', marginTop: '10px' }}>
     <HorizontalDivider />
   
     {/* Card Circle 1 */}
@@ -97,11 +103,11 @@ const NPC4 = (props) => {
   
     {/* Card Circle 4 */}
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      <CardCircle>
+      <CardCircleMain>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
           <Text4 style={{ margin: 0 }}>4</Text4>
         </div>
-      </CardCircle>
+      </CardCircleMain>
       <TextProvidePersonal />
     </div>
   
@@ -133,7 +139,7 @@ const NPC4 = (props) => {
   </div>
 
   {/* New Section with TextHeader2 and TextSubtitle */}
-  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '40px', marginBottom: '20px' }}>
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '10px', marginBottom: '10px' }}>
         <TextHeader2 />
         <TextSubheader />
       </div>
@@ -142,10 +148,11 @@ const NPC4 = (props) => {
   <CardSubupload />
 
   {/* Flex container for centering with adjusted vertical position */}
-  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginTop: '40px'}}>
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginTop: '20px'}}>
+    <TextInstructions />
     <IconUpload />
     <ButtonUpload />
-    <TextUpload />
+    <TextUpload fileName={fileName} />
   </div>
 </CardUpload>
 
@@ -160,7 +167,15 @@ const NPC4 = (props) => {
       </div>
 
       {/* Footer Section */}
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginTop: '20px', width: '100%' }}>
+      <div style={{
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-start',
+  marginTop: 'auto', /* Pushes the footer to the bottom of the page */
+  width: '100%',
+  position: 'fixed', /* Fix the position of the footer */
+  bottom: 0, /* Align the footer to the bottom of the viewport */
+}}>
         <CardFooterBackground>
           <ImageFooterLogo />
         </CardFooterBackground>

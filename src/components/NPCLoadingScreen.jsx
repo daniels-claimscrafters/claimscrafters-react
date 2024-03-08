@@ -50,7 +50,7 @@ const NPCLoadingScreen = () => {
     const intervalId = setInterval(() => {
       // Update rotation state to create spinning effect
       setRotation(prevRotation => (prevRotation + 1) % 360);
-    }, 20); // Adjust the interval as needed for desired spinning speed
+    }, 10); // Adjust the interval as needed for desired spinning speed
 
     // Clear interval on component unmount
     return () => clearInterval(intervalId);
@@ -65,7 +65,7 @@ const NPCLoadingScreen = () => {
             alt="Loading..."
             style={{ ...styles.image, transform: `rotate(${rotation}deg)` }}
           />
-          <h2 style={styles.title}>Thank you for your purchase. We are currently evaluating your contents with ContentIQ. Depending on the size of your claim, this can take anywhere from a few seconds to 5 minutes. You will be automatically redirected once complete. Thank you for your patience.</h2>
+          <h2 style={styles.title}>Thank you for your purchase. We are currently evaluating your contents with ContentIQ. Depending on the size of your claim, this can take anywhere from a few seconds to 5 minutes. You will recieve a confirmation email once your claim is ready to view. You will be automatically redirected. Thank you for your patience.</h2>
         </div>
         {/* You can add additional content or animations here */}
       </div>

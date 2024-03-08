@@ -2,15 +2,16 @@ import React from 'react';
 
 const styles = {
   Text: {
-    color: '#ffffff',
-    fontSize: '24px',
+    color: '#040000',
+    fontSize: '14px',
     fontFamily: 'Poppins',
-    lineHeight: '34px',
+    fontWeight: 500,
+    lineHeight: '20px',
   },
 };
 
 const defaultProps = {
-  text: 'Welcome to ContentsIQ',
+  text: 'Purchaser Email (this is where the invoice will be sent to)*',
 };
 
 const Text = (props) => {

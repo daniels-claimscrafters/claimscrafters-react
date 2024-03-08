@@ -9,7 +9,6 @@ import HeaderBackground from './HeaderBackground';
 import CardValuation from './CardValuation';
 import CardDetails from './CardDetails';
 import CardContents from './CardContents';
-import ExcelGenerator from './ExcelGenerator';
 
 const ProjectDetailsPage = () => {
     const navigate = useNavigate();

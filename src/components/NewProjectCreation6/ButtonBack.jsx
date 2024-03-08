@@ -23,18 +23,15 @@ const styles = {
 
 const defaultProps = {
   label: 'Back',
+  onClick: () => {}, // Default empty function for onClick
 };
 
-const ButtonBack = ({ label, onBack }) => {
-  const handleClick = () => {
-    if (onBack) {
-      onBack(); // Invoke the onBack function passed as prop
-    }
-  };
+const ButtonBack = (props) => {
+  const { label, onClick } = props;
 
   return (
-    <button style={styles.Button} onClick={handleClick}>
-      {label ?? 'Back'}
+    <button style={styles.Button} onClick={onClick}>
+      {label ?? defaultProps.label}
     </button>
   );
 };

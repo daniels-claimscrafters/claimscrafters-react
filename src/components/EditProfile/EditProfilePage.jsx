@@ -28,6 +28,7 @@ import TextPhoto from './TextPhoto';
 import CardSideBar from './CardSideBar';
 import IconLogout from './IconLogout';
 import ButtonSave from './ButtonSave';
+import Popup from './Popup';
 
 const styles = {
   customFileInput: {
@@ -51,10 +52,14 @@ const EditProfilePage = () => {
     streetAddress: '',
     city: '',
     postalCode: '',
+    state: '',
   });
 
   const [validationErrors, setValidationErrors] = useState(false);
-
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupMessage, setPopupMessage] = useState('');
+  const [popupType, setPopupType] = useState('');
+  const [popupTextColor, setPopupTextColor] = useState('');
   const [userData, setUserData] = useState(null);
   const [imageFile, setImageFile] = useState(null);
 
@@ -72,6 +77,7 @@ const EditProfilePage = () => {
       formData.title.trim() !== '' &&
       formData.streetAddress.trim() !== '' &&
       formData.city.trim() !== '' &&
+      formData.state.trim() !== '' &&
       formData.postalCode.trim() !== '' &&
       !validationErrors;
   
@@ -112,15 +118,24 @@ const uploadImageToBackend = async (file, userId) => {
       // Check if request was successful
       if (response.ok) {
         console.log('Image uploaded successfully.');
-        window.location.reload();
+        setPopupMessage('Image uploaded successfully.');
+        setPopupType('success');
+        setPopupTextColor('green');
       } else {
         console.error('Failed to upload image.');
-        // Handle error scenario
+        setPopupMessage('Failed to upload image.');
+        setPopupType('error');
+        setPopupTextColor('red');
       }
+      setShowPopup(true);
+      setTimeout(() => window.location.reload(), 1500);
     };
   } catch (error) {
     console.error('Error uploading image:', error);
-    // Handle error scenario
+      setPopupMessage('Error uploading image.');
+      setPopupType('error');
+      setShowPopup(true);
+      setTimeout(() => window.location.reload(), 1500);
   }
 };
 
@@ -162,6 +177,7 @@ const uploadImageToBackend = async (file, userId) => {
           if (response.ok) {
               const data = await response.json();
               setUserData(data.user);
+              console.log('ud: ', userData);
           } else {
               console.error('Failed to fetch user data');
           }
@@ -237,16 +253,23 @@ const handleChange = (fieldName, value) => {
         });
     
         if (response.ok) {
-          console.log('User profile updated successfully.');
-          // Optionally, you can fetch the updated user data and set it in state
-          window.location.reload();
+          setPopupMessage('User profile updated successfully.');
+          setPopupType('success');
+          setPopupTextColor('green');
         } else {
-          console.error('Failed to update user profile.');
-          // Handle error scenario
+          setPopupMessage('Failed to update user profile.');
+        setPopupType('error');
+        setPopupTextColor('red');
         }
+        setShowPopup(true);
+      setTimeout(() => window.location.reload(), 1500);
+
       } catch (error) {
         console.error('Error updating user profile:', error);
-        // Handle error scenario
+        setPopupMessage('Error updating user profile');
+      setPopupType('error');
+      setShowPopup(true);
+      setTimeout(() => window.location.reload(), 1500);
       }
     };
 
@@ -256,6 +279,7 @@ const handleChange = (fieldName, value) => {
     };
   
     return (
+      userData && (
       <div style={{ display: 'flex' }}>
           {/* First Column */}
           <div style={{ flex: 1, maxWidth: '88px' }}>
@@ -272,12 +296,12 @@ const handleChange = (fieldName, value) => {
           </div>
           {/* Second Column */}
           <div style={{ flex: 1, maxWidth: '100%' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', marginBottom: '20px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
                   <TextHeader />
                   <ButtonSave label='Save' onClick={handleSaveButtonClick} disabled={!areAllFieldsFilled()} />
               </div>
               {/* Main Content */}
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '80%' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginTop: '20px' }}>
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                   <ImageProfile userData={userData} />
                   <label htmlFor="file-input" style={styles.customFileInput}>
@@ -286,12 +310,12 @@ const handleChange = (fieldName, value) => {
 <input id="file-input" type="file" accept="image/*" onChange={(e) => handleImageChange(e.target.files[0])} style={{ display: 'none' }} />
                   </div>
                   {/* Row 1 */}
-                  <div style={{ display: 'flex', width: '80%', marginBottom: '20px', justifyContent: 'center', gap: '80px' }}>
+                  <div style={{ display: 'flex', width: '80%', marginBottom: '20px', justifyContent: 'center', gap: '80px', marginTop: '20px' }}>
                       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '239px' }}>
                           <TextFirstName />
                           <div style={{ justifyContent: 'center' }}> {/* Center the input field horizontally */}
                               <InputFieldFirstName value={formData.firstName}
-                                onChange={(e) => handleChange('firstName', e.target.value)} updateValidationErrors={updateValidationErrors} />
+                                onChange={(e) => handleChange('firstName', e.target.value)} updateValidationErrors={updateValidationErrors} userData={userData}/>
                           </div>
                       </div>
                       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '239px' }}>
@@ -299,7 +323,7 @@ const handleChange = (fieldName, value) => {
                           <div style={{ justifyContent: 'center' }}> {/* Center the input field horizontally */}
                           <InputFieldLastName 
     value={formData.lastName} 
-    onChange={(e) => handleChange('lastName', e.target.value)} updateValidationErrors={updateValidationErrors}
+    onChange={(e) => handleChange('lastName', e.target.value)} updateValidationErrors={updateValidationErrors} userData={userData}
   />
                           </div>
                       </div>
@@ -311,7 +335,7 @@ const handleChange = (fieldName, value) => {
                           <div style={{ justifyContent: 'center' }}> {/* Center the input field horizontally */}
                           <InputFieldTitle 
     value={formData.title} 
-    onChange={(e) => handleChange('title', e.target.value)} updateValidationErrors={updateValidationErrors} 
+    onChange={(e) => handleChange('title', e.target.value)} updateValidationErrors={updateValidationErrors} userData={userData}
   />
                           </div>
                           
@@ -321,7 +345,7 @@ const handleChange = (fieldName, value) => {
                           <div style={{ justifyContent: 'center' }}> {/* Center the input field horizontally */}
                           <InputFieldPhone 
     value={formData.phone} 
-    onChange={(e) => handleChange('phone', e.target.value)} updateValidationErrors={updateValidationErrors}
+    onChange={(e) => handleChange('phone', e.target.value)} updateValidationErrors={updateValidationErrors} userData={userData}
   />
                           </div>
                       </div>
@@ -333,7 +357,7 @@ const handleChange = (fieldName, value) => {
                           <div style={{ justifyContent: 'center' }}> {/* Center the input field horizontally */}
                           <InputFieldOrganization 
     value={formData.organization} 
-    onChange={(e) => handleChange('organization', e.target.value)} updateValidationErrors={updateValidationErrors}
+    onChange={(e) => handleChange('organization', e.target.value)} updateValidationErrors={updateValidationErrors} userData={userData}
   />
                           </div>
                       </div>
@@ -348,7 +372,7 @@ const handleChange = (fieldName, value) => {
                           <div style={{ justifyContent: 'center' }}> {/* Center the input field horizontally */}
                           <InputFieldStreetAddress 
     value={formData.streetAddress} 
-    onChange={(e) => handleChange('streetAddress', e.target.value)} updateValidationErrors={updateValidationErrors}
+    onChange={(e) => handleChange('streetAddress', e.target.value)} updateValidationErrors={updateValidationErrors} userData={userData}
   />
                           </div>
                       </div>
@@ -360,7 +384,7 @@ const handleChange = (fieldName, value) => {
                           <div style={{ justifyContent: 'center' }}> {/* Center the input field horizontally */}
                           <InputFieldCity 
     value={formData.city} 
-    onChange={(e) => handleChange('city', e.target.value)} updateValidationErrors={updateValidationErrors}
+    onChange={(e) => handleChange('city', e.target.value)} updateValidationErrors={updateValidationErrors} userData={userData}
   />
                           </div>
                       </div>
@@ -369,7 +393,7 @@ const handleChange = (fieldName, value) => {
                           <div style={{ justifyContent: 'center' }}> {/* Center the input field horizontally */}
                           <InputFieldState 
   value={formData.state} 
-  onChange={handleChange} 
+  onChange={(e) => handleChange('state', e.target.value)} updateValidationErrors={updateValidationErrors} userData={userData}
 />
                           </div>
                       </div>
@@ -381,14 +405,16 @@ const handleChange = (fieldName, value) => {
                           <div style={{ justifyContent: 'center' }}> {/* Center the input field horizontally */}
                           <InputFieldPostalCode 
     value={formData.postalCode} 
-    onChange={(e) => handleChange('postalCode', e.target.value)} updateValidationErrors={updateValidationErrors}
+    onChange={(e) => handleChange('postalCode', e.target.value)} updateValidationErrors={updateValidationErrors} userData={userData}
   />
                           </div>
                       </div>
                   </div>
               </div>
           </div>
+          {showPopup && <Popup message={popupMessage} type={popupType} textColor={popupTextColor}/>}
       </div>
+      )
   );
 };
   

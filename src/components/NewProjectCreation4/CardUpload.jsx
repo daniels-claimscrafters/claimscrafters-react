@@ -5,7 +5,7 @@ const styles = {
     top: '498px',
     left: '153px',
     width: '1163px',
-    height: '559px',
+    height: '450px',
     backgroundColor: '#ffffff',
     borderRadius: '12px',
     border: '1px solid #030303',
@@ -16,23 +16,17 @@ const styles = {
   FileInput: {
     display: 'none', // Hide the input visually
   },
-  Popup: {
-    position: 'absolute',
-    bottom: '10px', // Adjust the distance from the bottom as needed
-    left: '50%',
-    transform: 'translateX(-50%)',
-    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-    padding: '10px',
-    borderRadius: '8px',
-    boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.16)',
-    zIndex: '9999',
+  UploadedFileName: {
+    color: '#030303', // Match specified font color
+    fontSize: '16px', // Match specified font size
+    fontFamily: 'Poppins', // Match specified font family
+    textAlign: 'center', // Align text center
   },
 };
 
 const CardUpload = (props) => {
   const { onFileUpload, onClick } = props;
   const fileInputRef = useRef(null);
-  const [uploadedFileName, setUploadedFileName] = useState('');
 
   const handleClick = () => {
     if (fileInputRef.current) {
@@ -45,12 +39,18 @@ const CardUpload = (props) => {
 
   const handleFileChange = (event) => {
     const uploadedFile = event.target.files[0];
+    // Check if a file was selected
+  if (!uploadedFile) {
+    // Display a message to the user or perform any other action
+    console.log('No file selected');
+    return;
+  }
+  
     const reader = new FileReader();
 
     reader.onload = (event) => {
       const fileContent = event.target.result;
       onFileUpload(uploadedFile.name, fileContent);
-      setUploadedFileName(uploadedFile.name); // Update the uploaded file name state
     };
 
     reader.readAsArrayBuffer(uploadedFile);
@@ -66,13 +66,10 @@ const CardUpload = (props) => {
         ref={fileInputRef}
       />
       {props.children}
-      {uploadedFileName && (
-        <div style={styles.Popup}>
-          Uploaded File: {uploadedFileName}
-        </div>
-      )}
+      
     </div>
   );
 };
 
 export default CardUpload;
+

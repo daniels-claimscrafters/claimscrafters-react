@@ -5,7 +5,7 @@ const styles = {
   Input: {
     top: '463px',
     left: '1121px',
-    width: '69%',
+    width: '500px',
     height: '48px',
     padding: '0px 8px',
     border: '1px solid #ceced3',
@@ -26,12 +26,18 @@ const styles = {
   },
 };
 
-const InputFieldCardNumber = ({ onChange }) => {
+const InputFieldCardNumber = ({ onChange, updateValidationErrors }) => {
   const [value, setValue] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = (e) => {
-    const newValue = e.target.value;
+    let newValue = e.target.value;
+    // Remove any non-numeric characters from the input value
+    newValue = newValue.replace(/\D/g, '');
+    // Truncate the input value if it exceeds 16 digits
+    newValue = newValue.slice(0, 16);
+    // Insert spaces after every 4 characters for better readability
+    newValue = newValue.replace(/(.{4})/g, '$1 ').trim();
     setValue(newValue);
     onChange('cardNumber', newValue); // Pass the identifier and the new value to the parent component
     setErrorMessage('');
@@ -41,6 +47,11 @@ const InputFieldCardNumber = ({ onChange }) => {
     const isValid = isValidCardNumber(value);
     if (!isValid) {
       setErrorMessage('Invalid card number');
+      updateValidationErrors(true);
+    }
+    else {
+      console.log('ok');
+      updateValidationErrors(false);
     }
   };
 

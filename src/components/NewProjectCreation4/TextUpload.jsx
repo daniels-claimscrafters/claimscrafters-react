@@ -9,14 +9,11 @@ const styles = {
   },
 };
 
-const defaultProps = {
-  text: 'Excel File formats allowed: .xls, .xlsx',
-};
-
 const Text = (props) => {
+  const { fileName } = props;
   return (
     <div style={styles.Text}>
-      {props.text ?? defaultProps.text}
+      File Uploaded: {fileName}
     </div>
   );
 };

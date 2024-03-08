@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import CardNumberOfLines from './CardNumberOfLines';
 import ButtonPay from './ButtonPay';
 import CardPriceBreakdown from './CardPriceBreakdown';
@@ -24,18 +25,49 @@ import TextPricingHeader from './TextPricingHeader';
 import TextPricingNum from './TextPricingNum';
 import TextPricingSubHeader from './TextPricingSubHeader';
 import TextSubheader4 from './TextSubheader4';
+import TextStripeEmail from './TextStripeEmail';
+import InputFieldStripeEmail from './InputFieldStripeEmail';
+
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
 import CheckoutForm from './CheckoutForm';
 
-const NPC7 = ({ npcData, onInputChange, onPrevious, numberOfLines, onSubmit }) => {
+const stripePromise = loadStripe('pk_test_51NiiAZCjhYpSpOvRGjQmKbqADIMOaR1nvbnfy4UNdQ7d39Y9hkuMth2JT7WicwuuxcYDHLfCjBmJ7X5HYDLNMw2B00OpdnRxnO');
+
+const NPC7 = ({ updateLoadingState, npcData, onInputChange, onPrevious, numberOfLines, onSubmit }) => {
   // Define state variables to hold the total price and credit card information
   const [totalPrice, setTotalPrice] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [validationErrors, setValidationErrors] = useState(false);
   const [creditCardInfo, setCreditCardInfo] = useState({
     cardholderName: '',
     cardNumber: '',
     expiration: '',
     cvv: '',
+    stripeEmail: '',
   });
+
+  const navigate = useNavigate();
+
+  const areAllFieldsFilled = () => {
+    // Check if all the necessary fields in npcData are filled
+    const allFieldsFilled =
+      npcData.cardholderName.trim() !== '' &&
+      npcData.cardNumber.trim() !== '' &&
+      npcData.expiration.trim() !== '' &&
+      npcData.cvv.trim() !== '' &&
+      npcData.stripeEmail.trim() !== '' &&
+
+      !validationErrors;
+
+      console.log(allFieldsFilled);
+
+      return allFieldsFilled;
+  };
+
+  const updateValidationErrors = (hasErrors) => {
+    setValidationErrors(hasErrors);
+  };
 
   useEffect(() => {
     // Update npcData with the total price whenever it changes
@@ -54,15 +86,31 @@ const NPC7 = ({ npcData, onInputChange, onPrevious, numberOfLines, onSubmit }) =
     onInputChange(name, value);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Update npcData with credit card information
-    onInputChange('cardholderName', creditCardInfo.cardholderName);
-    onInputChange('cardNumber', creditCardInfo.cardNumber);
-    onInputChange('expiration', creditCardInfo.expiration);
-    onInputChange('cvv', creditCardInfo.cvv);
-    // Call onSubmit prop to handle form submission in the parent component if needed
-    onSubmit && onSubmit();
+  const handleSubmit1 = async (paymentMethodId, updatedNpcData) => {
+    // Call your server-side endpoint to complete the payment
+    try {
+      const response = await fetch('https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/npc/charge', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ paymentMethodId, updatedNpcData }), // Include npcData in the request body
+      });
+      if (response.ok) {
+        // Payment successful, handle success case
+        console.log('Payment successful!');
+        updateLoadingState(true);
+        setTimeout(() => {
+          navigate('/pmhs');
+        }, 15000);
+      } else {
+        // Payment failed, handle error case
+        const errorData = await response.json();
+        console.error('Payment failed:', errorData.error);
+      }
+    } catch (error) {
+      console.error('Error processing payment:', error);
+    }
   };
 
   // Define a function to calculate the total price based on the number of lines
@@ -134,30 +182,16 @@ const NPC7 = ({ npcData, onInputChange, onPrevious, numberOfLines, onSubmit }) =
 
           {/* Right Side Column */}
           <div style={{ flex: 1, marginLeft: '10px' }}>
-            <TextHeader4 />
-            <TextSubheader4 />
-            <TextCardholderName />
-            <InputFieldCardholderName 
-  onChange={(name, value) => handleInputChange(name, value)}
-/>
-            <TextCardNumber />
-            <InputFieldCardNumber onChange={(name, value) => handleInputChange(name, value)}/>
-            <div style={{ display: 'flex', marginBottom: '10px' }}>
-              <div style={{ marginRight: '10px' }}>
-                <TextExpiration />
-                <InputFieldExpiration onChange={(name, value) => handleInputChange(name, value)} />
+          <Elements stripe={stripePromise}>
+        <CheckoutForm handleSubmit={handleSubmit1} npcData={npcData} />
+      </Elements>
               </div>
-              <div>
-                <TextCVV />
-                <InputFieldCVV onChange={(name, value) => handleInputChange(name, value)} />
-              </div>
-            </div>
-            <ButtonPay totalPrice={totalPrice} onClick={handleSubmit} />
+            
           </div>
           
         </div>
       </div>
-    </div>
+
   );
 };
 

@@ -161,10 +161,12 @@ export const isValidCardholderName = (name) => {
 };
 
 export const isValidCardNumber = (number) => {
+  // Remove spaces from the input number
+  const trimmedNumber = number.replace(/\s/g, '');
   // Card number validation logic
-  // Assume a valid card number should contain exactly 16 digits
-  const numberRegex = /^\d{16}$/;
-  return number.trim() !== '' && numberRegex.test(number.trim());
+  // Assume a valid card number should contain up to 16 digits
+  const numberRegex = /^\d{1,16}$/;
+  return trimmedNumber.trim() !== '' && numberRegex.test(trimmedNumber.trim());
 };
 
 export const isValidExpirationDate = (expiration) => {
@@ -187,7 +189,7 @@ export const isValidExpirationDate = (expiration) => {
 
 export const isValidCVV = (cvv) => {
   // CVV validation logic
-  // Assume a valid CVV should contain exactly 3 digits
-  const cvvRegex = /^\d{3}$/;
+  // Assume a valid CVV should contain no more than 4 digits
+  const cvvRegex = /^\d{3,4}$/;
   return cvv.trim() !== '' && cvvRegex.test(cvv.trim());
 };

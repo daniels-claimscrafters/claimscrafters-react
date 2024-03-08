@@ -237,7 +237,7 @@ useEffect(() => {
     {/* Main Content */}
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100%' }}>
       {/* Top Row */}
-<div style={{ display: 'flex', backgroundColor: '#000000', borderRadius: '4px', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px', width: '100%', maxHeight: '100px' }}>
+<div style={{ display: 'flex', backgroundColor: '#000000', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px', width: '100%', maxHeight: '130px' }}>
   {/* Left Section: ImageLogo */}
   <div>
   <motion.div

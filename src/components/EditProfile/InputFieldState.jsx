@@ -26,6 +26,7 @@ const styles = {
 };
 
 const defaultProps = {
+  text: 'Choose',
   values: [
     'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware',
     'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky',
@@ -38,22 +39,20 @@ const defaultProps = {
 };
 
 const InputFieldState = (props) => {
-  const { value, onChange } = props;
+  const { value, onChange, userData } = props;
+  const state = userData.state;
 
-  const handleChange = (e) => {
+  const handleInputChange = (e) => {
     const newValue = e.target.value;
-    console.log(`Dropdown - New value: ${newValue}`);
-    onChange('state', newValue);
-
+    onChange(e);
   };
 
   return (
     <div>
       <select
         style={styles.Dropdown}
-        defaultValue=""
-        value={value || ''}
-        onChange={handleChange}
+        value={value || state}
+        onChange={handleInputChange}
       >
         <option value="" disabled hidden>{props.label ?? defaultProps.label}</option>
         {(props.values ?? defaultProps.values).map((value) => (

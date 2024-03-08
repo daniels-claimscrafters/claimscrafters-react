@@ -9,7 +9,7 @@ const styles = {
     top: '306px',
     left: '586px',
     width: '1000px',
-    height: '680px', // Adjust the height as needed
+    height: '650px', // Adjust the height as needed
     backgroundColor: '#1e1f26',
     borderRadius: '20px',
     border: '2px solid #cddef2',

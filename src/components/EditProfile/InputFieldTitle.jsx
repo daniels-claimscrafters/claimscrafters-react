@@ -34,8 +34,9 @@ const defaultProps = {
 };
 
 const InputField = (props) => {
-  const { value, onChange, text, updateValidationErrors } = props;
+  const { value, onChange, text, updateValidationErrors, userData } = props;
   const [error, setError] = useState('');
+  const title = userData.title;
 
   const handleInputChange = (e) => {
     const inputValue = e.target.value;
@@ -53,7 +54,7 @@ const InputField = (props) => {
     <div>
       <input
         style={styles.Input}
-        placeholder={text ?? defaultProps.text}
+        placeholder={title ?? defaultProps.text}
         value={value}
         onChange={handleInputChange}
       />

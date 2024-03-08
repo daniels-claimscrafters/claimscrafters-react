@@ -5,7 +5,7 @@ const styles = {
     cursor: 'pointer',
     top: '796px',
     left: '842px',
-    width: '534px',
+    width: '500px',
     height: '56px',
     padding: '0px 8px',
     border: '0',
@@ -19,13 +19,19 @@ const styles = {
     lineHeight: '26px',
     outline: 'none',
   },
+  DisabledButton: {
+    backgroundColor: '#999999',
+    cursor: 'not-allowed',
+  }
 };
 
-const ButtonPay = ({ totalPrice, onClick }) => {
+const ButtonPay = ({ totalPrice, onClick, disabled }) => {
   const label = totalPrice ? `Pay $${totalPrice}` : 'Pay $0.00';
 
+  const buttonStyle = disabled ? { ...styles.Button, ...styles.DisabledButton } : styles.Button;
+
   return (
-    <button style={styles.Button} onClick={onClick}>
+    <button style={buttonStyle} onClick={onClick} disabled={disabled}>
       {label}
     </button>
   );

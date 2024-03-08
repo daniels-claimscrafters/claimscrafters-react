@@ -1,6 +1,7 @@
 // NPC2.jsx
 import React, { useState } from 'react';
 import CardCircle from './CardCircle';
+import CardCircleMain from './CardCircleMain';
 import HorizontalDivider from './HorizontalDivider';
 import IconHome from './IconHome';
 import ImageLogo from './ImageLogo';
@@ -59,7 +60,7 @@ const NPC2 = (props) => {
       return allFieldsFilled;
   };
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       {/* Row 1 */}
       <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
         <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -76,7 +77,7 @@ const NPC2 = (props) => {
       </div>
 
       {/* Row 2 Centered */}
-<div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '100%', marginTop: '20px' }}>
+<div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '100%', marginTop: '10px' }}>
   <HorizontalDivider />
 
   {/* Card Circle 1 */}
@@ -93,11 +94,11 @@ const NPC2 = (props) => {
 
   {/* Card Circle 2 */}
   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-    <CardCircle>
+    <CardCircleMain>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
         <Text2 style={{ margin: 0 }}>2</Text2>
       </div>
-    </CardCircle>
+    </CardCircleMain>
     <TextLossDetails />
   </div>
 
@@ -153,7 +154,7 @@ const NPC2 = (props) => {
 </div>
 
       {/* New Section with TextHeader2 and TextSubtitle */}
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '40px', marginBottom: '20px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '10px', marginBottom: '10px' }}>
         <TextHeader2 />
         <TextSubheader />
       </div>
@@ -225,7 +226,16 @@ const NPC2 = (props) => {
       </form>
 
       {/* Footer Section */}
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginTop: '20px', width: '100%' }}>
+      <div style={{
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-start',
+  marginTop: 'auto', /* Pushes the footer to the bottom of the page */
+  width: '100%',
+  position: 'fixed', /* Fix the position of the footer */
+  bottom: 0, /* Align the footer to the bottom of the viewport */
+}}>
+
         <CardFooterBackground>
           <ImageFooterLogo />
         </CardFooterBackground>

@@ -1,4 +1,6 @@
 // NPC5.jsx
+import React from 'react';
+import CardCircleMain from './CardCircleMain';
 import CardCircle from './CardCircle';
 import HorizontalDivider from './HorizontalDivider';
 import IconHome from './IconHome';
@@ -40,7 +42,7 @@ const NPC5 = ({ npcData, onInputChange, onNext, onPrevious, onColumnsSelected })
 
 
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px', minHeight: '100vh' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', maxHeight: '100vh' }}>
         {/* Row 1 */}
         <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -57,7 +59,7 @@ const NPC5 = ({ npcData, onInputChange, onNext, onPrevious, onColumnsSelected })
         </div>
   
         {/* Row 2 Centered */}
-  <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '100%', marginTop: '20px' }}>
+  <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '100%', marginTop: '10px' }}>
     <HorizontalDivider />
   
     {/* Card Circle 1 */}
@@ -110,11 +112,11 @@ const NPC5 = ({ npcData, onInputChange, onNext, onPrevious, onColumnsSelected })
   
     {/* Card Circle 5 */}
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      <CardCircle>
+      <CardCircleMain>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
           <Text5 style={{ margin: 0 }}>5</Text5>
         </div>
-      </CardCircle>
+      </CardCircleMain>
       <TextAdditional />
     </div>
   
@@ -133,7 +135,7 @@ const NPC5 = ({ npcData, onInputChange, onNext, onPrevious, onColumnsSelected })
     <HorizontalDivider />
   </div>
   {/* New Section with TextHeader2 and TextSubtitle */}
-  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '40px', marginBottom: '20px' }}>
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '10px', marginBottom: '10px' }}>
         <TextHeader2 />
         <TextSubheader />
       </div>
@@ -144,14 +146,20 @@ const NPC5 = ({ npcData, onInputChange, onNext, onPrevious, onColumnsSelected })
         onColumnsSelected={handleColumnsSelected}
       />
 
-      <TextMain />
-      <CardButton style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+<div style={{ display: 'flex', flexDirection: 'row', marginTop: '10px' }}> {/* Container for TextMain and CardButton */}
+  <div style={{ display: 'flex', alignItems: 'center', marginRight: '10px' }}> {/* Flex container for TextMain */}
+    <TextMain />
+  </div>
+  <CardButton style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '15px' }}>
       <TextCardButton text={npcData.numberOfLines.toString()} />
     </div>
   </CardButton>
+</div>
 
-  <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '80%', marginTop: '20px' }}>
+
+
+  <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '80%', marginTop: '10px' }}>
         <div style={{ marginRight: '5px' }}>
           <ButtonBack onBack={onPrevious} />
         </div>
@@ -160,7 +168,15 @@ const NPC5 = ({ npcData, onInputChange, onNext, onPrevious, onColumnsSelected })
         </div>
       </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginTop: 'auto', width: '100%' }}>
+      <div style={{
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-start',
+  marginTop: 'auto', /* Pushes the footer to the bottom of the page */
+  width: '100%',
+  position: 'fixed', /* Fix the position of the footer */
+  bottom: 0, /* Align the footer to the bottom of the viewport */
+}}>
         <CardFooterBackground>
           <ImageFooterLogo />
         </CardFooterBackground>

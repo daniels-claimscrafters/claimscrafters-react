@@ -12,7 +12,7 @@ const styles = {
 };
 
 const defaultProps = {
-  text: 'Sales Tax',
+  text: 'Sales Tax %',
 };
 
 const Text = (props) => {
