@@ -35,6 +35,8 @@ const ContactUsPage = () => {
   const [submitEnabled, setSubmitEnabled] = useState(false);
   const [FailureMessage, setFailureMessage] = useState('');
   const [showCudbPage, setShowCudbPage] = useState(false);
+  const API_URL = process.env.REACT_APP_API_URL;
+
   
 
   const handleRecaptchaChange = (value) => {
@@ -125,7 +127,7 @@ const ContactUsPage = () => {
         console.error('Invalid message');
         return;
       }
-      const response = await axios.post('https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/email/contact', {
+      const response = await axios.post(`${API_URL}/email/contact`, {
       name,
       email,
       message,

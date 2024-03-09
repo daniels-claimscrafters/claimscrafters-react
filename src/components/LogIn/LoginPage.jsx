@@ -28,6 +28,7 @@ const LogInPage = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState(''); // State for error message
   const [authenticated, setAuthenticated] = useState(false);
+  const API_URL = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -54,7 +55,7 @@ const LogInPage = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/auth/login', {
+      const response = await axios.post(`${API_URL}/auth/login`, {
         email,
         password,
       });

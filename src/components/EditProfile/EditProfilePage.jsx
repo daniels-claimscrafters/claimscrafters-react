@@ -62,6 +62,7 @@ const EditProfilePage = () => {
   const [popupTextColor, setPopupTextColor] = useState('');
   const [userData, setUserData] = useState(null);
   const [imageFile, setImageFile] = useState(null);
+  const API_URL = process.env.REACT_APP_API_URL;
 
   const updateValidationErrors = (hasErrors) => {
     setValidationErrors(hasErrors);
@@ -107,7 +108,7 @@ const uploadImageToBackend = async (file, userId) => {
       const base64Image = reader.result.split(',')[1]; // Extract base64 string without data:image/png;base64,
       
       // Make POST request to backend endpoint
-      const response = await fetch('https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/auth/update-profile-picture', {
+      const response = await fetch(`${API_URL}/auth/update-profile-picture`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -167,7 +168,7 @@ const uploadImageToBackend = async (file, userId) => {
   // Function to fetch user data
   const fetchUserData = async (token) => {
       try {
-          const response = await fetch('https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/auth/get-user', {
+          const response = await fetch(`${API_URL}/auth/get-user`, {
               method: 'GET',
               headers: {
                   'ngrok-skip-browser-warning': '69420',
@@ -243,7 +244,7 @@ const handleChange = (fieldName, value) => {
         ...formData, // Include the updated form data
       };
       try {
-        const response = await fetch('https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/auth/update-profile', {
+        const response = await fetch(`${API_URL}/auth/update-profile`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
