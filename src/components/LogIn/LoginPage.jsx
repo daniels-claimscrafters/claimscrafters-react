@@ -30,6 +30,7 @@ const LogInPage = () => {
   const [authenticated, setAuthenticated] = useState(false);
   const API_URL = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
+  console.log(API_URL);
 
   useEffect(() => {
     // Check if the user is authenticated (e.g., by checking the presence of a JWT token in the cookie)

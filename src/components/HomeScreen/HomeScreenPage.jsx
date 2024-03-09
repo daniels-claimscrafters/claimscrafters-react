@@ -44,7 +44,6 @@ import ButtonDashboard from './ButtonDashboard';
 import ImageProfile from './ImageProfile';
 import TextUsername from './TextUsername';
 import { motion } from "framer-motion";
-import BASE_URL from '../../global.js';
 
 // Import other components as needed
 
@@ -52,6 +51,7 @@ import BASE_URL from '../../global.js';
 const HomeScreen = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userData, setUserData] = useState(null);
+  const API_URL = process.env.REACT_APP_API_URL;
 
   // Function to retrieve token from cookie
   const getTokenFromCookie = () => {
@@ -85,7 +85,7 @@ const HomeScreen = () => {
   // Function to fetch user data
 const fetchUserData = async (token) => {
   try {
-    const response = await fetch(`${BASE_URL}/auth/get-user`, {
+    const response = await fetch(`${API_URL}/auth/get-user`, {
       method: 'GET',
       headers: {
         'ngrok-skip-browser-warning': '69420',

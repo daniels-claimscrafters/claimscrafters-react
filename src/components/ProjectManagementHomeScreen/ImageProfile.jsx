@@ -20,6 +20,7 @@ const styles = {
 const ImageProfile = ({ userData }) => {
   const [profileImageUrl, setProfileImageUrl] = useState('https://assets.api.uizard.io/api/cdn/stream/616c0541-6abe-4fb7-aedb-96cdcde8c0bd.png');
   const userId = userData?.id; // Use optional chaining to prevent errors if userData is null or undefined
+  const API_URL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     if (userId) { // Check if userId is truthy
@@ -30,7 +31,7 @@ const ImageProfile = ({ userData }) => {
       };
     
       // Fetch the user's profile image URL from the server
-      axios.get(`https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/auth/get-profile-picture?userId=${userId}`, {
+      axios.get(`${API_URL}/auth/get-profile-picture?userId=${userId}`, {
         headers: headers // Pass the headers object here
       })
         .then(response => {

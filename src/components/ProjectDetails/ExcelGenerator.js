@@ -1,7 +1,7 @@
 // ExcelGenerator.js
 import ExcelJS from 'exceljs';
 import axios from 'axios';
-
+const API_URL = process.env.REACT_APP_API_URL;
 
 const generateSummary = async (projectDetails) => {
     let suggestedRCVTotal = 0;
@@ -73,7 +73,7 @@ const generateSummary = async (projectDetails) => {
     };
 
 // Fetch the Excel template file
-const response = await axios.get('https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/npc/get-excel', {
+const response = await axios.get(`${API_URL}/npc/get-excel`, {
             headers: headers,
             responseType: 'arraybuffer' // Specify response type as array buffer
         });
@@ -244,7 +244,7 @@ const generateDetail = async (projectDetails) => {
     };
 
     // Fetch the Excel template file
-    const response = await axios.get('https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/npc/get-excel', {
+    const response = await axios.get(`${API_URL}/npc/get-excel`, {
         headers: headers,
         responseType: 'arraybuffer' // Specify response type as array buffer
     });
@@ -400,7 +400,7 @@ const generateRawData = async (projectDetails) => {
 
     try {
         // Fetch the Excel template file
-        const response = await axios.get('https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/npc/get-excel', {
+        const response = await axios.get(`${API_URL}/npc/get-excel`, {
             headers: headers,
             responseType: 'arraybuffer' // Specify response type as array buffer
         });

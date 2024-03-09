@@ -47,10 +47,11 @@ const CardChangelog = ({ projectDetails }) => {
   const [entries, setEntries] = useState([]);
 
   const projectId = projectDetails.project.id;
+  const API_URL = process.env.REACT_APP_API_URL;
   console.log('id', projectId)
 
   useEffect(() => {
-    fetch(`https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/npc/get-changelog?projectId=${projectId}`, {
+    fetch(`${API_URL}/npc/get-changelog?projectId=${projectId}`, {
       headers: {
         'ngrok-skip-browser-warning': '69420',
         // Add any other headers you need

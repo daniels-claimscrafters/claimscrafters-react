@@ -18,7 +18,7 @@ const projectId = urlParams.get('projectId');
 console.log(projectId); // This will log '59'
     const [projectDetails, setProjectDetails] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
-
+    const API_URL = process.env.REACT_APP_API_URL;
     const [userData, setUserData] = useState(null);
   // Function to retrieve token from cookie
   const getTokenFromCookie = () => {
@@ -47,7 +47,7 @@ console.log(projectId); // This will log '59'
   // Function to fetch user data
   const fetchUserData = async (token) => {
     try {
-      const response = await fetch('https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/auth/get-user', {
+      const response = await fetch(`${API_URL}/auth/get-user`, {
         method: 'GET',
         headers: {
           'ngrok-skip-browser-warning': '69420',
@@ -71,7 +71,7 @@ console.log(projectId); // This will log '59'
 
     useEffect(() => {
         // Fetch project details from the server using the extracted project ID
-        fetch(`https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/npc/details?projectId=${projectId}`, {
+        fetch(`${API_URL}/npc/details?projectId=${projectId}`, {
             headers: {
                 'ngrok-skip-browser-warning': '69420'
             }

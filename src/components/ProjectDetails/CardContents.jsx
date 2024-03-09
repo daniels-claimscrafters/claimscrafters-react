@@ -136,6 +136,7 @@ const CardContents = ({ projectDetails, setProjectDetails }) => {
   const [popupType, setPopupType] = useState('');
   const [popupTextColor, setPopupTextColor] = useState('');
   const [isDataChanged, setDataChanged] = useState(false);
+  const API_URL = process.env.REACT_APP_API_URL;
   
 
   useEffect(() => {
@@ -206,7 +207,7 @@ const CardContents = ({ projectDetails, setProjectDetails }) => {
   // Function to fetch user data
   const fetchUserData = async (token) => {
     try {
-      const response = await fetch('https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/auth/get-user', {
+      const response = await fetch(`${API_URL}/auth/get-user`, {
         method: 'GET',
         headers: {
           'ngrok-skip-browser-warning': '69420',
@@ -247,7 +248,7 @@ console.log('Project ID:', projectId);
 const updatedProjectDetails = projectDetails.project.spreadsheetData;;
 console.log('Updated Project Details:', updatedProjectDetails);
   
-      const response = await fetch('https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/npc/changelog', {
+      const response = await fetch(`${API_URL}/npc/changelog`, {
         method: 'POST',
         headers: {
           'ngrok-skip-browser-warning': '69420',

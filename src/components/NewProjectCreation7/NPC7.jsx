@@ -47,6 +47,8 @@ const NPC7 = ({ updateLoadingState, npcData, onInputChange, onPrevious, numberOf
     stripeEmail: '',
   });
 
+  const API_URL = process.env.REACT_APP_API_URL;
+
   const navigate = useNavigate();
 
   const areAllFieldsFilled = () => {
@@ -89,7 +91,7 @@ const NPC7 = ({ updateLoadingState, npcData, onInputChange, onPrevious, numberOf
   const handleSubmit1 = async (paymentMethodId, updatedNpcData) => {
     // Call your server-side endpoint to complete the payment
     try {
-      const response = await fetch('https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/npc/charge', {
+      const response = await fetch(`${API_URL}/npc/charge`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

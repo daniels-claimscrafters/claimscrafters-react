@@ -14,6 +14,7 @@ const NPCParentComponent = () => {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
+  const API_URL = process.env.REACT_APP_API_URL;
 
   const [userData, setUserData] = useState(1);
   // Function to retrieve token from cookie
@@ -43,7 +44,7 @@ const NPCParentComponent = () => {
   // Function to fetch user data
   const fetchUserData = async (token) => {
     try {
-      const response = await fetch('https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/auth/get-user', {
+      const response = await fetch(`${API_URL}/auth/get-user`, {
         method: 'GET',
         headers: {
           'ngrok-skip-browser-warning': '69420',

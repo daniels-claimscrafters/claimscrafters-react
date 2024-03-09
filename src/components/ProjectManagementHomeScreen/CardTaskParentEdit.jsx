@@ -91,6 +91,7 @@ const CardTaskParentEdit = ({ task, onClose }) => {
     description: task.description,
   });
   const [errorMessage, setErrorMessage] = useState('');
+  const API_URL = process.env.REACT_APP_API_URL;
 
   console.log('heeeeere',taskData);
 
@@ -132,7 +133,7 @@ const CardTaskParentEdit = ({ task, onClose }) => {
     }
     try {
       console.log(task.id, taskData);
-      const response = await axios.patch(`https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/tasks/edit-task?taskId=${task.id}`, taskData);
+      const response = await axios.patch(`${API_URL}/tasks/edit-task?taskId=${task.id}`, taskData);
   
       if (response.status === 200) {
         console.log('Task updated successfully:', response.data);

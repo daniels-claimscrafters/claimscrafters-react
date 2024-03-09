@@ -88,6 +88,7 @@ const CardDetails = ({ projectDetails }) => {
   const [popupMessage, setPopupMessage] = useState('');
   const [popupType, setPopupType] = useState('');
   const [popupTextColor, setPopupTextColor] = useState('');
+  const API_URL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     if (projectDetails) {
@@ -121,7 +122,7 @@ const CardDetails = ({ projectDetails }) => {
       console.log('sent: ', projectDetails.project.id)
 
 
-      const response = await fetch(`https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/npc/update-status`, {
+      const response = await fetch(`${API_URL}/npc/update-status`, {
         method: 'PUT',
         headers: {
           'ngrok-skip-browser-warning': '69420',

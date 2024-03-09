@@ -53,6 +53,8 @@ const PMHSPage = () => {
   const [total, setTotal] = useState(0);
   const [tasks, setTasks] = useState(null);
   const [userData, setUserData] = useState(null);
+  const API_URL = process.env.REACT_APP_API_URL;
+
   // Function to retrieve token from cookie
   const getTokenFromCookie = () => {
     const cookies = document.cookie.split(';');
@@ -80,7 +82,7 @@ const PMHSPage = () => {
   // Function to fetch user data
   const fetchUserData = async (token) => {
     try {
-      const response = await fetch('https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/auth/get-user', {
+      const response = await fetch(`${API_URL}/auth/get-user`, {
         method: 'GET',
         headers: {
           'ngrok-skip-browser-warning': '69420',
@@ -149,7 +151,7 @@ const PMHSPage = () => {
 // Function to fetch projects
 const fetchProjects = async (userId) => {
   try {
-    const response = await fetch('https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/npc/get-projects', {
+    const response = await fetch(`${API_URL}/npc/get-projects`, {
       method: 'POST', // Use POST method
       headers: {
         'Content-Type': 'application/json'
@@ -171,7 +173,7 @@ const fetchProjects = async (userId) => {
  // Function to fetch tasks by user ID
  const fetchTasksByUserId = async (userId) => {
   try {
-    const response = await fetch(`https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/tasks/get-all-tasks?UserId=${userId}`, {
+    const response = await fetch(`${API_URL}/tasks/get-all-tasks?UserId=${userId}`, {
       method: 'GET', // Use GET method
       headers: {
         'Content-Type': 'application/json',

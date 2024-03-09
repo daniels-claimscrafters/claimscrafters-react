@@ -86,6 +86,7 @@ const styles = {
 const CardTaskParent = ({ onClick, onClose, userData }) => {
   const userDataId = userData.id;
   console.log('hiiii"', userDataId);
+  const API_URL = process.env.REACT_APP_API_URL;
 
   const [taskData, setTaskData] = useState({
     subject: '',
@@ -142,7 +143,7 @@ const CardTaskParent = ({ onClick, onClose, userData }) => {
   
 
     // Send POST request to your server
-    axios.post('https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/tasks/create-task', taskData)
+    axios.post(`${API_URL}/tasks/create-task`, taskData)
       .then(response => {
         console.log('Task submitted successfully:', response.data);
         // Optionally, clear the form fields after submission
