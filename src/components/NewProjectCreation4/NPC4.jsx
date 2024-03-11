@@ -29,20 +29,25 @@ import ButtonBack from './ButtonBack';
 import ButtonContinue from './ButtonContinue';
 import CardUpload from './CardUpload';
 import CardSubupload from './CardSubupload';
-
+import { motion } from "framer-motion";
 
 const NPC4 = (props) => {
   const { npcData, onInputChange, onNext, onPrevious } = props;
   const [fileName, setFileName] = useState('');
   const isContinueDisabled = !npcData.spreadsheetUpload;
+  const [animationKey, setAnimationKey] = useState(0);
   const handleFileUpload = (uploadedFile, fileContent) => {
     // Handle the file upload logic here
+    
     console.log('File name uploaded in NPC4:', uploadedFile);
 
     setFileName(uploadedFile);
   
     // Pass both the file name and content to the parent component
     props.onFileUpload(uploadedFile, fileContent);
+
+    // Increment the animation key to trigger animation
+    setAnimationKey(prevKey => prevKey + 1);
   };
     return (
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '10px' }}>
@@ -139,7 +144,7 @@ const NPC4 = (props) => {
   </div>
 
   {/* New Section with TextHeader2 and TextSubtitle */}
-  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '10px', marginBottom: '10px' }}>
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '50px', marginBottom: '10px' }}>
         <TextHeader2 />
         <TextSubheader />
       </div>
@@ -150,9 +155,16 @@ const NPC4 = (props) => {
   {/* Flex container for centering with adjusted vertical position */}
   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginTop: '20px'}}>
     <TextInstructions />
-    <IconUpload />
     <ButtonUpload />
-    <TextUpload fileName={fileName} />
+    <motion.div
+        key={animationKey} // Key to trigger animation when it changes
+        initial={{ scale: 0 }} // Initial scale set to 0 (hidden)
+        animate={{ scale: 1 }} // Animate to full scale
+        exit={{ scale: 0 }} // Animate back to scale 0 when component exits
+        transition={{ duration: 0.9 }} // Transition duration
+      >
+        <TextUpload fileName={fileName} />
+      </motion.div>
   </div>
 </CardUpload>
 
@@ -167,19 +179,6 @@ const NPC4 = (props) => {
       </div>
 
       {/* Footer Section */}
-      <div style={{
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'flex-start',
-  marginTop: 'auto', /* Pushes the footer to the bottom of the page */
-  width: '100%',
-  position: 'fixed', /* Fix the position of the footer */
-  bottom: 0, /* Align the footer to the bottom of the viewport */
-}}>
-        <CardFooterBackground>
-          <ImageFooterLogo />
-        </CardFooterBackground>
-      </div>
     </div>
   );
 };

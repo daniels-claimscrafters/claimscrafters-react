@@ -239,9 +239,9 @@ useEffect(() => {
     {/* Main Content */}
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100%' }}>
       {/* Top Row */}
-<div style={{ display: 'flex', backgroundColor: '#000000', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px', width: '100%', maxHeight: '130px' }}>
+<div style={{ display: 'flex', backgroundColor: '#000000', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%', maxHeight: '130px' }}>
   {/* Left Section: ImageLogo */}
-  <div>
+  <div style={{ paddingBottom: '10px'}}>
   <motion.div
           initial={{ scale: 0 }} // Initial scale is 0
           animate={{ scale: 1 }} // Animate to scale 1
@@ -283,9 +283,9 @@ useEffect(() => {
   </div>
 </div>
       {/* Cards and Project Buttons Section */}
-      <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginBottom: '20px', width: '100%' }}>
+      <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
         {/* Left Section: TasksList */}
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: 'auto', marginLeft: '20px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: 'auto', marginLeft: '20px', marginTop: '7px' }}>
         <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center'  }}>
         <motion.div
       initial={{ scale: 0, opacity: 0 }} // Initial scale and opacity

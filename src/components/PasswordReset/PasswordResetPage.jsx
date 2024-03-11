@@ -23,6 +23,7 @@ const PasswordResetPage = () => {
   const navigate = useNavigate();
   const urlParams = new URLSearchParams(window.location.search);
 const resetPasswordToken  = urlParams.get('token');
+const API_URL = process.env.REACT_APP_API_URL;
 console.log(resetPasswordToken )
 
   // Function to handle password change submission
@@ -39,7 +40,7 @@ console.log(resetPasswordToken )
 
     // Send request to server to change password
     try {
-      const response = await axios.post('https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/auth/reset-password', {
+      const response = await axios.post(`${API_URL}/auth/reset-password`, {
         newPassword,
         confirmPassword,
         resetPasswordToken // Include any additional data needed for password reset, such as reset token

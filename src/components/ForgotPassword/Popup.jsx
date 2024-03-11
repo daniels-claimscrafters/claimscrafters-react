@@ -51,7 +51,7 @@ const Popup = () => {
         fontFamily: 'Raleway',
         lineHeight: '30px',
         marginTop: '20px',
-      }}>You will receive an email with instructions on how to reset your password shortly</p>
+      }}>You will receive an email with instructions on how to reset your password shortly. Please wait for up to 5 minutes for it to arrive in your inbox.</p>
       <button style={{
         padding: '10px 20px',
         borderRadius: '4px',

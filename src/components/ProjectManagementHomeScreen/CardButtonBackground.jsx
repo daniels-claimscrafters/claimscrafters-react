@@ -12,7 +12,7 @@ const styles = {
     display: 'flex', // Added display flex
     justifyContent: 'center', // Center align the buttons
     padding: '10px',
-    marginBottom: '20px',
+    marginBottom: '10px',
   },
   Button: {
     display: 'inline-block', // Align child elements horizontally

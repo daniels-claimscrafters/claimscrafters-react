@@ -419,7 +419,7 @@ const SignupPage = () => {
     <TextConfirmPassword />
   </div>
   <div>
-    <div style={{ marginBottom: '5px' }}>
+    <div style={{ marginBottom: '15px' }}>
           <InputFieldCP
             value={formData.confirmPassword}
             onChange={(e) => handleChange('confirmPassword', e.target.value)}

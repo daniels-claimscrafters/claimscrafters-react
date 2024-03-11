@@ -12,8 +12,7 @@ const styles = {
     backgroundPosition: 'center center',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
-    margin: '10px',
-    marginBottom: '15px',
+    marginLeft: '10px',
   },
 };
 

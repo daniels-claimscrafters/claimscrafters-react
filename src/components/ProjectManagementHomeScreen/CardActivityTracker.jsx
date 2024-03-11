@@ -13,7 +13,7 @@ const styles = {
     top: '332px',
     left: '96px',
     width: '750px',
-    height: '375px',
+    height: '350px',
     backgroundColor: '#fafafa',
     borderRadius: '16px',
     border: '1px solid #3164f4',

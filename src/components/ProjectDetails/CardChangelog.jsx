@@ -76,37 +76,32 @@ const CardChangelog = ({ projectDetails }) => {
 
   return (
     <div style={styles.cardContainer}>
-  <h1 style={styles.header}>Changelog Entries</h1>
-  <div style={styles.entryContainer}>
-    <ul style={styles.entryList}>
-      {entries.slice().reverse().map((entry, index) => ( // Use slice() to create a copy of the array before reversing it
-        <li key={entry.id} style={{ ...styles.entryItem, backgroundColor: index % 2 === 0 ? '#cddef2' : '#f1f1f1' }}>
-          {/* Split the entry text into different parts */}
-          {entry.entry.split(/(Daniel Scholl \(User ID: \d+\)|changed Quantity on Line \d+ from \d+ to \d+ at|\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d+Z)/).map((part, index) => {
-            let textStyle = {}; // Define an empty object to hold the style for this part
-            // Apply different styles based on the content of the part
-            if (/Daniel Scholl \(User ID: \d+\)/.test(part)) {
-              // Blue color for user information
-              textStyle.color = 'blue';
-            } else if (/changed Quantity on Line \d+ from \d+ to \d+ at/.test(part)) {
-              // Black color for the action description
-              textStyle.color = 'black';
-            } else if (/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d+Z/.test(part)) {
-              // Red color for the timestamp
-              textStyle.color = 'red';
-            } else {
-              // Default color for other parts
-              textStyle.color = 'inherit';
-            }
-            // Render the part with the applied style
-            return <span key={index} style={textStyle}>{part}</span>;
-          })}
-        </li>
-        ))}
-      </ul>
+      <h1 style={styles.header}>Changelog Entries</h1>
+      <div style={styles.entryContainer}>
+        <ul style={styles.entryList}>
+          {entries.slice().reverse().map((entry, index) => (
+            <li key={entry.id} style={{ ...styles.entryItem, backgroundColor: index % 2 === 0 ? '#cddef2' : '#f1f1f1' }}>
+              {/* Split the entry text into different parts */}
+              {entry.entry.split(/(User ID: \d+)/).map((part, index) => {
+                let textStyle = {}; // Define an empty object to hold the style for this part
+                // Apply blue color to the user information part
+                if (/User ID: \d+/.test(part)) {
+                  textStyle.color = 'blue';
+                } else {
+                  // Default color for other parts
+                  textStyle.color = 'inherit';
+                }
+                // Render the part with the applied style
+                return <span key={index} style={textStyle}>{part}</span>;
+              })}
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
-  </div>
-);
+  );
+  
+  
 };
 
 export default CardChangelog;

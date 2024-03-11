@@ -168,20 +168,6 @@ const NPC5 = ({ npcData, onInputChange, onNext, onPrevious, onColumnsSelected })
         </div>
       </div>
 
-      <div style={{
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'flex-start',
-  marginTop: 'auto', /* Pushes the footer to the bottom of the page */
-  width: '100%',
-  position: 'fixed', /* Fix the position of the footer */
-  bottom: 0, /* Align the footer to the bottom of the viewport */
-}}>
-        <CardFooterBackground>
-          <ImageFooterLogo />
-        </CardFooterBackground>
-      </div>
-
     </div>
   );
 };

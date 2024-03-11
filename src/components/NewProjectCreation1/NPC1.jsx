@@ -162,7 +162,7 @@ const NPC1 = (props) => {
 </div>
 
 {/* New Section with TextHeader2 and TextSubtitle */}
-<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '10px', marginBottom: '10px' }}>
+<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '50px', marginBottom: '10px' }}>
   <TextHeader2 />
   <TextSubheader />
 </div>
@@ -251,11 +251,6 @@ const NPC1 = (props) => {
       <ButtonContinue label="Continue" onClick={onNext} disabled={!areAllFieldsFilled()} />
       </div>
       {/* Footer Section */}
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginTop: '10px', width: '100%' }}>
-        <CardFooterBackground >
-          <ImageFooterLogo />
-        </CardFooterBackground>
-      </div>
     </div>
   );
 };

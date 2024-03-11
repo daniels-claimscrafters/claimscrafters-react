@@ -51,6 +51,10 @@ const ContactUsPage = () => {
   });
 
   useEffect(() => {
+    window.scrollTo(0, 0); // Scroll to the top of the page when component mounts
+}, []);
+
+  useEffect(() => {
     // Enable submit button if all fields are filled and there are no validation errors
     setSubmitEnabled(!!name && !!email && !!message && !!recaptchaValue && Object.values(validationErrors).every(error => !error));
   }, [name, email, message, recaptchaValue, validationErrors]);
