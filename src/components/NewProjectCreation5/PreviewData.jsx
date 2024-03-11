@@ -13,124 +13,79 @@ const PreviewData = ({ excelData, onColumnsSelected }) => {
   const [columnNames, setColumnNames] = useState([]);
 
   useEffect(() => {
-    console.log(excelData);
     const convertExcelDataToWorkbook = () => {
       try {
-        const arrayBuffer = excelData; // Assuming excelData is already in arrayBuffer format
+        const arrayBuffer = excelData;
         const workbook = XLSX.read(arrayBuffer, { type: 'array' });
         return workbook;
       } catch (err) {
-        setError('Error reading Excel data');
         console.error('Error reading Excel data', err);
         return null;
       }
     };
-  
-    // Convert excelData to workbook
+
     const workbook = convertExcelDataToWorkbook(excelData);
-  
+
     if (workbook) {
-      // Extract worksheet names
       const worksheetNames = workbook.SheetNames;
       setWorksheetOptions(worksheetNames);
-  
-      // Set selected worksheet to the first worksheet in the workbook
+
       const firstSheetName = workbook.SheetNames[0];
       setSelectedWorksheet(firstSheetName);
-  
-      // Extract data from the first sheet
+
       const ws = workbook.Sheets[firstSheetName];
       const jsonData = XLSX.utils.sheet_to_json(ws, { header: 1 });
 
       const genericColumnHeaders = jsonData[0].map((header, index) => `Column ${String.fromCharCode(65 + index)}`);
-const formattedData = jsonData.slice(1).map((row) => {
-  const formattedRow = {};
-  genericColumnHeaders.forEach((header, index) => {
-    formattedRow[header] = row[index];
-  });
-  return formattedRow;
-});
-      
-      // Set the formatted data as tableData
-      console.log('Table Data:', formattedData);
-
+      const formattedData = jsonData.map((row, rowIndex) => {
+        const formattedRow = {};
+        if (rowIndex === 0) {
+          // Treat the first row as headers
+          row.forEach((header, index) => {
+            formattedRow[header] = `Column ${String.fromCharCode(65 + index)}`;
+          });
+        } else {
+          // Treat subsequent rows as data
+          genericColumnHeaders.forEach((header, index) => {
+            formattedRow[header] = row[index];
+          });
+        }
+        return formattedRow;
+      });
 
       setTableData(formattedData);
     }
   }, [excelData]);
-  
 
-  // Example array variable for table data
   useEffect(() => {
-    // Adjusted exampleTableData with 6 elements per row
-    const exampleTableData = [
-      { 
-        id: 1, 
-        name: 'John', 
-        age: 30, 
-        city: 'New York', 
-        country: 'USA', 
-        occupation: 'Engineer', 
-        hobby: 'Reading', 
-        pet: 'Dog', 
-        favoriteFood: 'Pizza', 
-        language: 'English', 
-        sport: 'Basketball', 
-        university: 'Harvard', 
-        degree: 'Computer Science', 
-        experience: '5 years', 
-        skill: 'JavaScript', 
-        certification: 'AWS Certified', 
-        project: 'React app', 
-        team: 'Dev Team' 
-      },
-      { 
-        id: 2, 
-        name: 'Jane', 
-        age: 25, 
-        city: 'Los Angeles', 
-        country: 'USA', 
-        occupation: 'Teacher', 
-        hobby: 'Painting', 
-        pet: 'Cat', 
-        favoriteFood: 'Sushi', 
-        language: 'Spanish', 
-        sport: 'Tennis', 
-        university: 'Stanford', 
-        degree: 'Mathematics', 
-        experience: '3 years', 
-        skill: 'Python', 
-        certification: 'Cisco Certified', 
-        project: 'Data Analysis', 
-        team: 'Analytics Team' 
-      },
-      { 
-        id: 3, 
-        name: 'Doe', 
-        age: 40, 
-        city: 'Chicago', 
-        country: 'USA', 
-        occupation: 'Doctor', 
-        hobby: 'Cooking', 
-        pet: 'Bird', 
-        favoriteFood: 'Steak', 
-        language: 'French', 
-        sport: 'Soccer', 
-        university: 'MIT', 
-        degree: 'Medicine', 
-        experience: '10 years', 
-        skill: 'Java', 
-        certification: 'MCSE', 
-        project: 'Medical Research', 
-        team: 'Research Team' 
+    if (!selectedWorksheet) return;
+
+    const workbook = XLSX.read(excelData, { type: 'array' });
+    const ws = workbook.Sheets[selectedWorksheet];
+    const jsonData = XLSX.utils.sheet_to_json(ws, { header: 1 });
+
+    const genericColumnHeaders = jsonData[0].map((header, index) => `Column ${String.fromCharCode(65 + index)}`);
+    const formattedData = jsonData.map((row, rowIndex) => {
+      const formattedRow = {};
+      if (rowIndex === 0) {
+        // Treat the first row as headers
+        row.forEach((header, index) => {
+          formattedRow[header] = `Column ${String.fromCharCode(65 + index)}`;
+        });
+      } else {
+        // Treat subsequent rows as data
+        genericColumnHeaders.forEach((header, index) => {
+          formattedRow[header] = row[index];
+        });
       }
-      // Add more objects for each row here
-    ];
-    
+      return formattedRow;
+    });
 
-    
-  }, []);
+    setTableData(formattedData);
+  }, [selectedWorksheet, excelData]);
 
+  
+  
   return (
     <div style={styles.cardContainer}>
       <div style={styles.inputRow}>
@@ -141,25 +96,32 @@ const formattedData = jsonData.slice(1).map((row) => {
       </select>
     </div>
     <div style={styles.inputRow}>
-  <select style={styles.inputField} value={selectedDescription} onChange={(e) => setSelectedDescription(e.target.value)}>
+  <label htmlFor="selectedDescription">Description:</label>
+  <select id="selectedDescription" style={styles.inputField} value={selectedDescription} onChange={(e) => setSelectedDescription(e.target.value)}>
     <option value="">Please select</option>
     {columnNames.map((columnName, index) => (
       <option key={index} value={columnName}>{columnName}</option>
     ))}
   </select>
-  <select style={styles.inputField} value={selectedQuantity} onChange={(e) => setSelectedQuantity(e.target.value)}>
+  
+  <label htmlFor="selectedQuantity">Quantity:</label>
+  <select id="selectedQuantity" style={styles.inputField} value={selectedQuantity} onChange={(e) => setSelectedQuantity(e.target.value)}>
     <option value="">Please select</option>
     {columnNames.map((columnName, index) => (
       <option key={index} value={columnName}>{columnName}</option>
     ))}
   </select>
-  <select style={styles.inputField} value={selectedRoom} onChange={(e) => setSelectedRoom(e.target.value)}>
+  
+  <label htmlFor="selectedRoom">Room:</label>
+  <select id="selectedRoom" style={styles.inputField} value={selectedRoom} onChange={(e) => setSelectedRoom(e.target.value)}>
     <option value="">Please select</option>
     {columnNames.map((columnName, index) => (
       <option key={index} value={columnName}>{columnName}</option>
     ))}
   </select>
-  <select style={styles.inputField} value={selectedItem} onChange={(e) => setSelectedItem(e.target.value)}>
+  
+  <label htmlFor="selectedItem">Item:</label>
+  <select id="selectedItem" style={styles.inputField} value={selectedItem} onChange={(e) => setSelectedItem(e.target.value)}>
     <option value="">Please select</option>
     {columnNames.map((columnName, index) => (
       <option key={index} value={columnName}>{columnName}</option>
@@ -167,12 +129,7 @@ const formattedData = jsonData.slice(1).map((row) => {
   </select>
 </div>
 
-      <div style={{ ...styles.headerRow, width: '90%', justifyContent: 'flex-start' }}>
-        <div style={styles.columnHeader}>Description</div>
-        <div style={styles.columnHeader}>Quantity</div>
-        <div style={styles.columnHeader}>Room</div>
-        <div style={styles.columnHeader}>Item</div>
-      </div>
+
       <div style={styles.tableBody}>
         {tableData.map((row, rowIndex) => (
           <div key={rowIndex} style={styles.tableRow}>
