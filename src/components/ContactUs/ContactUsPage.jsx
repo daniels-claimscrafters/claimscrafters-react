@@ -239,7 +239,7 @@ const ContactUsPage = () => {
   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       {/* ReCAPTCHA */}
       <ReCAPTCHA
-          sitekey="6LduMHIpAAAAALziGJQsC8-wQg5SOI_8C7b7QneU" // Your reCAPTCHA site key
+          sitekey="6LcqgZQpAAAAAPvJIRRCHA5wMhk-npenCAPDjKsN" // Your reCAPTCHA site key
           onChange={handleRecaptchaChange}
         />
     </div>
