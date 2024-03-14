@@ -101,10 +101,8 @@ const NPC7 = ({ updateLoadingState, npcData, onInputChange, onPrevious, numberOf
       if (response.ok) {
         // Payment successful, handle success case
         console.log('Payment successful!');
-        updateLoadingState(true);
-        setTimeout(() => {
-          navigate('/pmhs');
-        }, 15000);
+        //updateLoadingState(true);
+        //setTimeout(() => {navigate('/pmhs');}, 15000);
       } else {
         // Payment failed, handle error case
         const errorData = await response.json();
