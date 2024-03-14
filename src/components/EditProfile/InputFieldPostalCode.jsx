@@ -37,14 +37,23 @@ const InputField = (props) => {
   const postalCode = userData.postalCode;
 
   const handleInputChange = (e) => {
-    const newValue = e.target.value;
-    if (!isValidPostalCode(newValue)) {
-      setError('Invalid postal code');
-      updateValidationErrors(true);
-    } else {
-      setError('');
-      updateValidationErrors(false);
+    const inputValue = e.target.value;
+  
+    // Limit the input length to 5 digits
+    if (inputValue.length > 5) {
+      e.target.value = inputValue.slice(0, 5);
     }
+  
+    if (inputValue.length <= 5) {
+      if (!isValidPostalCode(inputValue)) {
+        setError('Invalid postal code');
+        updateValidationErrors(true);
+      } else {
+        setError('');
+        updateValidationErrors(false);
+      }
+    }
+  
     onChange(e);
   };
 

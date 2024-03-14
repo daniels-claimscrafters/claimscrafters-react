@@ -221,6 +221,14 @@ const handleChange = (fieldName, value) => {
     }
   }
 
+  if (fieldName === 'postalCode') {
+    // Remove all non-digit characters
+    const postalCode = value.replace(/\D/g, '');
+
+    // Limit the length to 5 digits
+    formattedValue = postalCode.slice(0, 5);
+  }
+
   // Update the form data state
   setFormData({
     ...formData,

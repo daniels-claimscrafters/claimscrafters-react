@@ -51,6 +51,12 @@ const InputFieldClaimNumber = (props) => {
       setErrorMessage(validationError);
       updateValidationErrors(true);
     }
+    const trimmedValue = value.trim();
+  
+  // Update the value only if it has changed
+  if (trimmedValue !== value) {
+    onChange('claimNumber', trimmedValue);
+  }
   };
 
   return (

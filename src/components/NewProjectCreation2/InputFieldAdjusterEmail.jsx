@@ -39,6 +39,16 @@ const InputFieldEmail = (props) => {
     onChange('adjusterEmail', newValue);
     updateValidationErrors(true);
     setErrorMessage(''); // Clear error message when the user starts typing
+    const isValid = !isValidEmailNPC(newValue);
+  
+  // Update validation errors based on email validity
+  if (isValid) {
+    setErrorMessage('');
+    updateValidationErrors(false);
+  } else {
+    setErrorMessage('Invalid email');
+    updateValidationErrors(true);
+  }
   };
 
   const handleBlur = () => {

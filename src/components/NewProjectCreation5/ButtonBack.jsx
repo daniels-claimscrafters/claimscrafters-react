@@ -27,9 +27,10 @@ const defaultProps = {
   label: 'Back',
 };
 
-const ButtonBack = ({ label, onBack }) => {
+const ButtonBack = ({ label, onBack, resetParentData }) => {
   const handleClick = () => {
     if (onBack) {
+      resetParentData();
       onBack(); // Invoke the onBack function passed as prop
     }
   };

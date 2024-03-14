@@ -1,34 +1,27 @@
-const ExcelJS = require('exceljs');
+const XLSX = require('xlsx-style');
+const fs = require('fs');
 
-// Load the existing Excel template
-const workbook = new ExcelJS.Workbook();
-workbook.xlsx.readFile('../public/Claims Crafters Summary V1.2.xlsx')
-    .then(() => {
-        // Get the worksheet containing the chart
-        const worksheet = workbook.getWorksheet('Contents Valuation Summary'); // Updated sheet name
+function modifyAndExportXLSX(inputFilePath, outputFilePath) {
+    // Load the workbook
+    const workbook = XLSX.readFile(inputFilePath, { cellStyles: true });
 
-        // Check if the worksheet exists
-        if (!worksheet) {
-            console.log('Worksheet not found.');
-            return;
-        }
+    // Get the first worksheet
+    const worksheet = workbook.Sheets[workbook.SheetNames[0]];
 
-        // Check if the worksheet contains any charts
-        if (!worksheet.charts || worksheet.charts.length === 0) {
-            console.log('No charts found in the worksheet.');
-            return;
-        }
+    // Modify the value of cell L17
+    worksheet['L17'] = {
+        v: 7,
+        t: 'n' // Specify the value type as number
+    };
 
-        // Access the array of charts in the worksheet
-        const charts = worksheet.charts;
+    // Write the modified workbook to a new file
+    XLSX.writeFile(workbook, outputFilePath);
 
-        // Iterate through the charts array
-        charts.forEach((chart, index) => {
-            console.log('Chart Index:', index);
-            console.log('Chart Name:', chart.name); // If the chart has a name
-            console.log('Chart Type:', chart.type);
-        });
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
+    console.log('File has been modified and exported successfully.');
+}
+
+
+// Usage example:
+const inputFilePath = './ClaimsCraftersExcel.xlsx'; // Provide the path to your input .xlsx file
+const outputFilePath = './output.xlsx'; // Provide the desired path for the output .xlsx file
+modifyAndExportXLSX(inputFilePath, outputFilePath);

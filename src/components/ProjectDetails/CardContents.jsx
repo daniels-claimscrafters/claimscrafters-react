@@ -182,6 +182,17 @@ const CardContents = ({ projectDetails, setProjectDetails }) => {
     setDataChanged(true);
   };
 
+  const handleRCVChange = (index, fieldName, value) => {
+    // Validate if the input is a valid integer
+    if (/^\d+(\.\d{0,2})?$/.test(value) || value === '') {
+      // Update the projectDetails state with the new value
+      const updatedProjectDetails = { ...projectDetails };
+      updatedProjectDetails.project.spreadsheetData[index][fieldName] = value;
+      setProjectDetails(updatedProjectDetails);
+      setDataChanged(true);
+    }
+  };
+
   const handleQuantityChange = (index, value) => {
     // Validate if the input is a valid integer
     if (/^\d+$/.test(value) || value === '') {
@@ -412,17 +423,19 @@ const downloadExcel = (data, filename) => {
 />
             </div>
             <div style={styles.cell}>
+            <span style={{ marginRight: '2px', marginTop: '4px', }}>$</span>
               <input
                 style={styles.input}
-                value={`$${item['RCV High'].toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}`}
-                onChange={(e) => handleFieldChange(index, 'RCV High', e.target.value)}
+                value={item['RCV High']}
+                onChange={(e) => handleRCVChange(index, 'RCV High', e.target.value)}
               />
             </div>
             <div style={styles.cell}>
+              <span style={{ marginRight: '2px', marginTop: '4px', }}>$</span>
   <input
     style={styles.input}
-    value={`$${item['RCV Low'].toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}`}
-    onChange={(e) => handleFieldChange(index, 'RCV Low', e.target.value)}
+    value={item['RCV Low']}
+    onChange={(e) => handleRCVChange(index, 'RCV Low', e.target.value)}
   />
 </div>
 <div style={styles.cell}>

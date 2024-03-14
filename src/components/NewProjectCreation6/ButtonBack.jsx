@@ -24,13 +24,19 @@ const styles = {
 const defaultProps = {
   label: 'Back',
   onClick: () => {}, // Default empty function for onClick
+  resetParentData: () => {},
 };
 
 const ButtonBack = (props) => {
-  const { label, onClick } = props;
+  const { label, onClick, resetParentData } = props;
+
+  const handleClick = () => {
+    onClick(); // Call the onClick function passed as a prop
+    resetParentData(); // Call the resetParentData function passed as a prop
+  };
 
   return (
-    <button style={styles.Button} onClick={onClick}>
+    <button style={styles.Button} onClick={handleClick}>
       {label ?? defaultProps.label}
     </button>
   );

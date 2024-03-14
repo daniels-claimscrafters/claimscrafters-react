@@ -4,6 +4,7 @@ import React from 'react';
 import TextActivityTracker from './TextActivityTracker';
 import CardActivityTracker from './CardActivityTracker';
 import CardMyTasks from './CardMyTasks';
+import moment from 'moment';
 
 
 const styles = {
@@ -19,14 +20,21 @@ const TasksList = ({ showCardTaskParent, toggleCardTaskParent, tasks }) => {
       return []; // Return an empty array if tasks is null or empty
     }
   
-    return tasks.map(task => ({
-      id: task.id, // Assuming each task has an ID
-      title: task.subject, // Use task subject as event title
-      start: new Date(task.start_date), // Convert start_date to Date object
-      end: new Date(task.due_date), // Convert due_date to Date object
-      // You can add more properties here as needed
-    }));
+    return tasks.map(task => {
+      // Parse dates with Moment.js and apply the correct timezone offset
+      const startDate = moment.utc(task.start_date).toDate();
+      const endDate = moment.utc(task.due_date).toDate();
+  
+      return {
+        id: task.id, // Assuming each task has an ID
+        title: task.subject, // Use task subject as event title
+        start: startDate,
+        end: endDate,
+        // You can add more properties here as needed
+      };
+    });
   };
+  
   const events = convertTasksToEvents(tasks);
   console.log('events', events)
   

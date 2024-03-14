@@ -60,6 +60,12 @@ const InputFieldLossAddress = (props) => {
         updateValidationErrors(false);
       }
     }
+    const trimmedValue = value.trim();
+  
+  // Update the value only if it has changed
+  if (trimmedValue !== value) {
+    onChange('lossAddress', trimmedValue);
+  }
   };
 
   console.log('ValidationError:', validationError);

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { isValidFirstName } from '../../validationUtils';
+import { isNotEmpty } from '../../validationUtils';
 
 const styles = {
   Input: {
@@ -45,7 +45,7 @@ const InputFieldLossCity = (props) => {
   const handleBlur = () => {
     // Check if the value is defined before validation
     if (value !== undefined) {
-      const isValid = isValidFirstName(value);
+      const isValid = !isNotEmpty(value);
       if (!isValid) {
         console.log(`InputFieldLossCity - Validation error: Invalid loss city`);
         // Set the validation error
@@ -60,6 +60,12 @@ const InputFieldLossCity = (props) => {
 
       }
     }
+    const trimmedValue = value.trim();
+  
+  // Update the value only if it has changed
+  if (trimmedValue !== value) {
+    onChange('lossCity', trimmedValue);
+  }
   };
 
   return (

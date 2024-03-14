@@ -102,9 +102,14 @@ const NPCParentComponent = () => {
     UserId: userData.id,
   });
 
-  
-
-
+  const resetParentData = () => {
+    // Reset relevant data in the parent component
+    setNPCData(prevState => ({
+      ...prevState,
+      numberOfLines: '',
+      selectedColumnsData: [],
+    }));
+  };
 
   const handleInputChange = (name, value) => {
     let formattedValue = value;
@@ -141,12 +146,7 @@ const NPCParentComponent = () => {
           // Allow only numbers and limit to 5 digits
           formattedValue = value.replace(/\D/g, '').slice(0, 5);
           break;
-        case 'claimNumber':
-      
-  
-        // Trim spaces from the beginning and end
-        formattedValue = value.trim();
-        break;
+          
       default:
         // No special formatting for other fields
         break;
@@ -178,6 +178,8 @@ const NPCParentComponent = () => {
       return {
         ...prevData,
         spreadsheetUpload: newSpreadsheetUploadValue,
+        numberOfLines: '',
+        selectedColumnsData: [],
       };
     }, () => {
       // Log the updated state of npcData after the state has been updated
@@ -212,6 +214,7 @@ const NPCParentComponent = () => {
         ...prevData,
         selectedColumnsData: selectedColumns,
         numberOfLines: selectedColumns.length, // Counting the number of lines
+        
       };
       console.log('NPCParentComponent - Updated NPC data: ', newData);
       return newData;
@@ -303,6 +306,7 @@ const NPCParentComponent = () => {
           onNext={handleNext}
           onPrevious={handlePrevious}
           onColumnsSelected={handleColumnsSelected}
+          resetParentData={resetParentData}
         />
       )}
       {step === 6 && (
@@ -311,6 +315,7 @@ const NPCParentComponent = () => {
           onInputChange={handleInputChange}
           onPrevious={handlePrevious}
           onNext={handleNext}
+          resetParentData={resetParentData}
         />
       )}
       {step === 7 && (

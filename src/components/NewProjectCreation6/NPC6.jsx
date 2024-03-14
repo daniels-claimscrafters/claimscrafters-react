@@ -30,7 +30,7 @@ import ImageFooterLogo from './ImageFooterLogo';
 import CardFooterBackground from './CardFooterBackground';
 
 
-const NPC6 = ({ npcData, onInputChange, onNext, onPrevious }) => {
+const NPC6 = ({ npcData, onInputChange, onNext, onPrevious, resetParentData }) => {
   const [didAcceptLegal, setDidAcceptLegal] = useState(false);
   const [acceptLegalFullName, setAcceptLegalFullName] = useState('');
   const [isInputFieldPopulated, setIsInputFieldPopulated] = useState(false);
@@ -155,7 +155,7 @@ const NPC6 = ({ npcData, onInputChange, onNext, onPrevious }) => {
   </div>
 
       {/* Row 3 Centered */}
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', marginTop: '40px' }}>
         {/* TextHeader2 */}
         <TextHeader2 />
         {/* TextSubtitle */}
@@ -179,25 +179,11 @@ const NPC6 = ({ npcData, onInputChange, onNext, onPrevious }) => {
       {/* Row 5 Centered */}
       <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '100%', marginTop: '15px' }}>
         <div style={{ marginRight: '10px' }}>
-          <ButtonBack onClick={onPrevious} />
+          <ButtonBack resetParentData={resetParentData} onClick={onPrevious} />
         </div>
         <div style={{ marginLeft: '10px' }}>
         <ButtonContinue disabled={isContinueDisabled} label="Continue" onClick={onNext} />
         </div>
-      </div>
-
-      <div style={{
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'flex-start',
-  marginTop: 'auto', /* Pushes the footer to the bottom of the page */
-  width: '100%',
-  position: 'fixed', /* Fix the position of the footer */
-  bottom: 0, /* Align the footer to the bottom of the viewport */
-}}>
-        <CardFooterBackground>
-          <ImageFooterLogo />
-        </CardFooterBackground>
       </div>
 
     </div>

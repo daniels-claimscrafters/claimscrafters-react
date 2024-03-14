@@ -165,6 +165,7 @@ const NPC3 = (props) => {
             <DropdownDepreciation 
             value={npcData.deprecationRange}
             onChange={onInputChange}
+            placeholder = {"This is placeholder"}
             />
           </div>
           <CardDepreciation>

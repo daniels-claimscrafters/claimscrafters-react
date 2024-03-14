@@ -32,7 +32,7 @@ const defaultProps = {
 };
 
 const InputField = (props) => {
-  const { value, onChange, text, userData } = props;
+  const { value, onChange, text, userData, updateValidationErrors } = props;
   const [error, setError] = useState('');
   const firstName = userData.firstName;
 
@@ -40,8 +40,10 @@ const InputField = (props) => {
     const inputValue = e.target.value;
     if (!isValidFirstName(inputValue)) {
       setError('Please enter a valid first name.');
+      updateValidationErrors(true);
     } else {
       setError('');
+      updateValidationErrors(false);
     }
     onChange(e);
   };

@@ -1,6 +1,6 @@
 // ProjectsList/CardProjects.jsx
 
-import React from 'react';
+import React, { useState } from 'react';
 import StatusCard from './statusCard'; // Update 'statuscard' to 'statusCard'
 
 
@@ -44,6 +44,8 @@ const styles = {
 };
 
 const CardProjects = ({ projects, filter }) => {
+  const [searchQuery, setSearchQuery] = useState('');
+
   // Check if projects is null or undefined
   const filteredProjects = (projects && projects['projects']) ? (filter === 'All' ? projects['projects'] : 
                           projects['projects'].filter(project => {
@@ -52,10 +54,29 @@ const CardProjects = ({ projects, filter }) => {
 
   console.log('Filtered Projects:', filteredProjects);
 
+  const searchFilteredProjects = filteredProjects.filter(project => {
+    const searchLower = searchQuery.toLowerCase();
+    return project.claimNumber.toLowerCase().includes(searchLower) ||
+           `${project.insuredFirstName} ${project.insuredLastName}`.toLowerCase().includes(searchLower) ||
+           project.lossAddress.toLowerCase().includes(searchLower) ||
+           project.lossCity.toLowerCase().includes(searchLower) ||
+           project.lossState.toLowerCase().includes(searchLower) ||
+           project.status.toLowerCase().includes(searchLower);
+  });
+
   
   return (
     
     <div style={styles.Card}>
+      {/* Search Bar */}
+      <input
+        type="text"
+        placeholder="Search projects..."
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        style={{ display: 'block' ,margin : '0 auto', padding: '10px', width: '95%', borderRadius: '12px', color: '#1d1d1f', fontSize: '14px', fontFamily: 'Poppins', outline: 'none', backgroundColor: 'rgba(255,255,255,0.87)', border: '1px solid #ceced3' }}
+      />
+
       <table style={styles.table}>
         <thead>
           <tr>
@@ -70,8 +91,8 @@ const CardProjects = ({ projects, filter }) => {
         </thead>
         
         <tbody>
-  {filteredProjects.length > 0 ? (
-    filteredProjects.map((project, index) => (
+  {searchFilteredProjects.length > 0 ? (
+    searchFilteredProjects.map((project, index) => (
       <tr key={index}>
         <td style={styles.td}>
           <a href={`/projectDetails?projectId=${project.id}`} style={{ fontWeight: 500, fontFamily: 'Red Hat Display', color: '#2a84ea', textDecoration: 'underline', fontSize: '14px' }}>View</a>

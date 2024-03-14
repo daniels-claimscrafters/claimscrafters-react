@@ -7,6 +7,7 @@ import IconSave from './IconSave';
 import CardTask from './CardTask';
 import axios from 'axios'; // Import Axios
 import Popup from './Popup';
+import moment from 'moment';
 
 const styles = {
   CardTaskParent: {
@@ -126,10 +127,10 @@ const CardTaskParent = ({ onClick, onClose, userData }) => {
     }
   
     // Convert start_date and due_date to Date objects
-    const startDate = new Date(taskData.start_date);
-    console.log(startDate);
-    const dueDate = new Date(taskData.due_date);
-    console.log(dueDate);
+    const startDate = moment(taskData.start_date).utc().toDate();
+    console.log('sd ', startDate);
+    const dueDate = moment(taskData.due_date).utc().toDate();
+    console.log('dd ', dueDate);
   
     // Check if the due date is before the start date
     if (dueDate < startDate) {
@@ -157,7 +158,7 @@ const CardTaskParent = ({ onClick, onClose, userData }) => {
           UserId: userDataId,
         });
         setPopup({ message: 'Task submitted successfully', type: 'success' });
-        setTimeout(() => window.location.reload(), 1500);
+        setTimeout(() => window.location.reload(), 111500);
       })
       .catch(error => {
         console.error('Error submitting task:', error);

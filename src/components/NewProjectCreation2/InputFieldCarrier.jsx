@@ -47,6 +47,12 @@ const InputFieldCarrier = (props) => {
       console.log(`InputFieldCarrier - Validation error: ${validationError}`);
       setErrorMessage(validationError);
     }
+    const trimmedValue = value.trim();
+  
+  // Update the value only if it has changed
+  if (trimmedValue !== value) {
+    onChange('carrier', trimmedValue);
+  }
   };
 
   return (

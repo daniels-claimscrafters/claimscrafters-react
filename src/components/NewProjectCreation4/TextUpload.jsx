@@ -15,7 +15,7 @@ const Text = (props) => {
   const { fileName } = props;
   return (
     <div style={styles.Text}>
-      File Uploaded: {fileName}
+      File Uploaded: {fileName ? fileName : '...'}
     </div>
   );
 };

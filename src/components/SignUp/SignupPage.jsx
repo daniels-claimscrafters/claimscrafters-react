@@ -46,6 +46,7 @@ const SignupPage = () => {
   const [showEvdbPage, setShowEvdbPage] = useState(false);
   const [isAgreeChecked, setIsAgreeChecked] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const API_URL = process.env.REACT_APP_API_URL;
 
   const [formData, setFormData] = useState({
     firstName: '',
@@ -80,6 +81,11 @@ const SignupPage = () => {
     formattedValue = formattedValue.toLowerCase();
   }
 
+  if (fieldName === 'title' || fieldName === 'company') {
+    // Capitalize the first letter
+    formattedValue = formattedValue.charAt(0).toUpperCase() + formattedValue.slice(1);
+  }
+
     if (fieldName === 'firstName' || fieldName === 'lastName') {
       // Remove leading and trailing spaces
       formattedValue = formattedValue.trim();
@@ -91,6 +97,7 @@ const SignupPage = () => {
     if (fieldName === 'phone') {
       // Remove all non-digit characters
       const phoneNumber = value.replace(/\D/g, '');
+      formattedValue = phoneNumber;
       
       // Apply phone number format if it matches a specific pattern
       if (phoneNumber.length > 3 && phoneNumber.length <= 6) {
@@ -271,7 +278,7 @@ const SignupPage = () => {
 
       if (isFormValid) {
         try {
-          const response = await fetch('https://f133-2600-1010-b040-a157-f048-6b47-d705-e729.ngrok-free.app/auth/register', {
+          const response = await fetch(`${API_URL}/auth/register`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

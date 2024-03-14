@@ -43,9 +43,11 @@
   background-color: #3164f4; /* Set background color */
   color: white; /* Set text color */
   border-radius: 100px; /* Set border radius */
-  padding: 5px; /* Add padding */
+  padding: 1px; /* Add padding */
   width: 30px;
   height: 10px;
+  margin-bottom: 8px;
+  visibility: hidden;
 }
 
 .rbc-event-content {
@@ -55,7 +57,6 @@
   color: white; /* Set text color */
   border-radius: 20px; /* Set border radius */
   padding: 1px; /* Add padding */
-  visibility: hidden;
 }
 
 .rbc-btn-group {

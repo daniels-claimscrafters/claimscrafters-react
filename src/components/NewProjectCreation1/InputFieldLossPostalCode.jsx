@@ -37,10 +37,14 @@ const InputFieldLossPostalCode = (props) => {
     const newValue = e.target.value;
     console.log(`InputFieldLossPostalCode - New value: ${newValue}`);
     onChange('lossPostalCode', newValue);
-
+  
     // Clear validation error when user starts typing
     setValidationError('');
     updateValidationErrors(true);
+    // Trigger blur event when the length reaches 5 characters
+    if (newValue.length === 5) {
+      handleBlur(newValue);
+    }
   };
 
   const handleBlur = () => {
@@ -51,6 +55,7 @@ const InputFieldLossPostalCode = (props) => {
         console.log(`InputFieldLossPostalCode - Validation error: ${error}`);
         // Set the validation error
         setValidationError(error);
+        updateValidationErrors(true);
       } else {
         // Clear the validation error if there is no error
         setValidationError('');

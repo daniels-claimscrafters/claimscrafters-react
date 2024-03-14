@@ -30,15 +30,15 @@ import ButtonBack from './ButtonBack';
 import ButtonContinue from './ButtonContinue';
 import PreviewData from './PreviewData';
 
-const NPC5 = ({ npcData, onInputChange, onNext, onPrevious, onColumnsSelected }) => {
+const NPC5 = ({ npcData, resetParentData, onNext, onPrevious, onColumnsSelected }) => {
     console.log('NPC5 - Excel Data:', npcData.spreadsheetUpload);
     const handleColumnsSelected = (selectedColumns) => {
       // Handle the selected columns data in NPC5 or pass it to NPCParentComponent
       console.log('Selected Columns:', selectedColumns);
       onColumnsSelected(selectedColumns);
     };
-    const hasNonIntegerQuantity = npcData.selectedColumnsData.some(row => isNaN(row.quantity) || !Number.isInteger(Number(row.quantity)));
-    const isContinueDisabled = npcData.selectedColumnsData.length === 0 || hasNonIntegerQuantity;
+    
+    const isContinueDisabled = npcData.selectedColumnsData.length === 0;
 
 
     return (
@@ -135,7 +135,7 @@ const NPC5 = ({ npcData, onInputChange, onNext, onPrevious, onColumnsSelected })
     <HorizontalDivider />
   </div>
   {/* New Section with TextHeader2 and TextSubtitle */}
-  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '10px', marginBottom: '10px' }}>
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px', marginBottom: '10px' }}>
         <TextHeader2 />
         <TextSubheader />
       </div>
@@ -144,6 +144,7 @@ const NPC5 = ({ npcData, onInputChange, onNext, onPrevious, onColumnsSelected })
       <PreviewData
         excelData={npcData.spreadsheetUpload}
         onColumnsSelected={handleColumnsSelected}
+        resetParentData={resetParentData} 
       />
 
 <div style={{ display: 'flex', flexDirection: 'row', marginTop: '10px' }}> {/* Container for TextMain and CardButton */}
@@ -161,7 +162,7 @@ const NPC5 = ({ npcData, onInputChange, onNext, onPrevious, onColumnsSelected })
 
   <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '80%', marginTop: '10px' }}>
         <div style={{ marginRight: '5px' }}>
-          <ButtonBack onBack={onPrevious} />
+          <ButtonBack resetParentData={resetParentData}  onBack={onPrevious} />
         </div>
         <div style={{ marginLeft: '5px' }}>
         <ButtonContinue disabled={isContinueDisabled} label="Continue" onClick={onNext} />

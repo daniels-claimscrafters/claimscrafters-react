@@ -8,6 +8,8 @@ import './calendarStyles.css'; // Import your custom styles
 
 const localizer = momentLocalizer(moment);
 
+
+
 const styles = {
   Card: {
     top: '332px',
@@ -37,6 +39,8 @@ const styles = {
 const CardActivityTracker = ({ events }) => {
   const [date, setDate] = useState(new Date());
 
+  console.log(events);
+
   const onChange = (date) => {
     setDate(date);
   };
@@ -50,10 +54,13 @@ const CardActivityTracker = ({ events }) => {
       <div className="rbc-calendar" style={styles.calendarContainer}>
         <Calendar
           localizer={localizer}
-          events={events.map(event => ({
-            ...event,
-            className: 'custom-event' // Add a className to each event
-          }))}
+          events={events.map(event => {
+            console.log('Event:', event); // Log each event before passing it
+            return {
+              ...event,
+              className: 'custom-event' // Add a className to each event
+            };
+          })}
           startAccessor="start"
           endAccessor="end"
           onChange={onChange}
