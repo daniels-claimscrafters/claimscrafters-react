@@ -161,8 +161,11 @@ cellD12.value = insuredFullName;
 // Get the cell reference for any cell within the merged range, for example D14
 const cellD14 = worksheet.getCell('D14');
 
+// Concatenate the address attributes to create a formatted address string
+const fullAddress = `${projectDetails.project.lossAddress}, ${projectDetails.project.lossCity}, ${projectDetails.project.lossState} ${projectDetails.project.lossPostalCode}`;
+
 // Set the value for the cell D14, which will apply to the entire merged range D14:F14
-cellD14.value = projectDetails.project.lossAddress;
+cellD14.value = fullAddress;
 
 // Concatenate adjusterFirstName and adjusterLastName
 const adjusterFullName = projectDetails.project.adjusterFirstName + ' ' + projectDetails.project.adjusterLastName;
@@ -322,7 +325,7 @@ workbook.removeWorksheet(1);
 
         // Get the third worksheet
         const worksheet = workbook.getWorksheet(3);
-
+        console.log('pjd ', projectDetails);
         // Iterate over projectDetails and replace cells starting from A2
         projectDetails.project.spreadsheetData.forEach((item, index) => {
             const rowNumber = index + 2; // Start from row 2
@@ -350,7 +353,7 @@ workbook.removeWorksheet(1);
             worksheet.getCell(`J${rowNumber}`).value = `${projectDetails.project.salesTax}%`; // Sales Tax
             worksheet.getCell(`K${rowNumber}`).value = `$${salesTaxAmount.toFixed(2)}`; // Sales Tax Amount
             worksheet.getCell(`L${rowNumber}`).value = `$${RCVTotal.toFixed(2)}`; // RCV Total
-            worksheet.getCell(`M${rowNumber}`).value = item.Depreciation; // Depreciation
+            worksheet.getCell(`M${rowNumber}`).value = item.Depreciation % 1 === 0 ? item.Depreciation.toFixed(2) : item.Depreciation.toFixed(2);
             worksheet.getCell(`N${rowNumber}`).value = projectDetails.project.depreciationRange; // Dep Years
             worksheet.getCell(`O${rowNumber}`).value = `$${depreciationAmount.toFixed(2)}`; // Dep Amount
             worksheet.getCell(`P${rowNumber}`).value = `$${ACVTotal.toFixed(2)}`; // ACV Total

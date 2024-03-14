@@ -151,6 +151,11 @@ const CardDetails = ({ projectDetails }) => {
       setShowPopup(true);
     }
   };
+
+  const formatAddress = (address, city, state, postalCode) => {
+    return `${address}, ${city}, ${state} ${postalCode}`;
+  };
+  
   return (
     <div style={styles.cardContainer}>
       <div style={{ flex: '0 0 100%', marginBottom: '10px', marginTop: '5px' }}>
@@ -178,7 +183,7 @@ const CardDetails = ({ projectDetails }) => {
         </div>
         <div style={styles.fieldContainer}>
           <label style={styles.label}>Insured Address:</label>
-          <input style={styles.input} type="text" value={projectDetails.project.lossAddress} readOnly />
+          <input style={styles.input} type="text" value={formatAddress(projectDetails.project.lossAddress, projectDetails.project.lossCity, projectDetails.project.lossState, projectDetails.project.lossPostalCode)} readOnly />
         </div>
       </div>
       <div style={{ flex: '0 0 100%', marginBottom: '10px' }}>

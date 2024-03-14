@@ -457,7 +457,7 @@ const downloadExcel = (data, filename) => {
             <div style={styles.cell}>
             <input
   style={styles.input}
-  value={item.Depreciation}
+  value={item.Depreciation % 1 === 0 ? item.Depreciation.toFixed(2) : parseFloat(item.Depreciation).toFixed(2)}
   onChange={(e) => handleDepreciationChange(index, e.target.value)}
 />
 
