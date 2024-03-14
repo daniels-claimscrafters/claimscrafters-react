@@ -262,6 +262,7 @@ const NPCParentComponent = () => {
   };
 
   const updateLoadingState = (newState) => {
+    console.log("triggereddd", newState);
     setIsLoading(newState);
   };
 
