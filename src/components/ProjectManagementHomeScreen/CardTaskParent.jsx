@@ -158,13 +158,13 @@ const CardTaskParent = ({ onClick, onClose, userData }) => {
           UserId: userDataId,
         });
         setPopup({ message: 'Task submitted successfully', type: 'success' });
-        setTimeout(() => window.location.reload(), 111500);
+        setTimeout(() => window.location.reload(), 2500);
       })
       .catch(error => {
         console.error('Error submitting task:', error);
         // Handle error
         setPopup({ message: 'Error submitting task', type: 'error' });
-        setTimeout(() => window.location.reload(), 8500);
+        setTimeout(() => window.location.reload(), 2500);
       });
   };
 

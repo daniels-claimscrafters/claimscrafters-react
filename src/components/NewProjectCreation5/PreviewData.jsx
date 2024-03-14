@@ -472,15 +472,17 @@ const handleDeleteRow = (rowIndex) => {
 <div style={styles.tableBody}>
   {tableData.map((row, rowIndex) => (
     <div key={rowIndex} style={styles.tableRow}>
-      {Object.values(row).map((cell, cellIndex) => (
-        <div key={cellIndex} style={styles.tableCell}>{cell}</div>
-      ))}
       {rowIndex !== 0 && ( // Exclude delete button for the header row
         <button style={styles.button2} onClick={() => handleDeleteRow(rowIndex)}>Delete</button>
       )}
+      {rowIndex === 0 && <div key="emptyCell" style={styles.etableCell}></div>} {/* Empty cell for the first row */}
+      {Object.values(row).map((cell, cellIndex) => (
+        <div key={cellIndex} style={styles.tableCell}>{cell}</div>
+      ))}
     </div>
   ))}
 </div>
+
       <div style={{ display: 'flex', marginTop: '20px' }}> {/* Container for buttons */}
       <button
         disabled={startOverDisabled} 
@@ -574,6 +576,17 @@ const styles = {
     textOverflow: 'ellipsis',
     fontFamily: 'Poppins',
     border: '1px solid #ceced3',
+    fontSize: '20px',
+    whiteSpace: 'nowrap',
+  },
+  etableCell: {
+    padding: '10px',
+    textAlign: 'left',
+    minWidth: '66px', // Fixed width for the table cell
+    maxWidth: '66px',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    fontFamily: 'Poppins',
     fontSize: '20px',
     whiteSpace: 'nowrap',
   },

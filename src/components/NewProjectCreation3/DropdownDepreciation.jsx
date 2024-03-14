@@ -23,6 +23,7 @@ const styles = {
 const defaultProps = {
   label: 'Depreciation',
   values: [
+    'Please Select',
     '0 - 3 years',
     '4 - 6 years',
     '7 - 9 years',

@@ -37,7 +37,7 @@ import TextCardBodyDepreciation from './TextCardBodyDepreciation';
 const NPC3 = (props) => {
   const { npcData, onInputChange, onNext, onPrevious } = props;
   console.log("npcData:", npcData);
-  const isContinueDisabled = !npcData.salesTax || !npcData.depreciationRange;
+  const isContinueDisabled = !npcData.salesTax || !npcData.depreciationRange || npcData.depreciationRange === "Please Select";
   console.log("salesTax:", npcData.salesTax);
   console.log("deprecationRange:", npcData.deprecationRange);
   console.log("isContinueDisabled:", isContinueDisabled);
@@ -165,7 +165,6 @@ const NPC3 = (props) => {
             <DropdownDepreciation 
             value={npcData.deprecationRange}
             onChange={onInputChange}
-            placeholder = {"This is placeholder"}
             />
           </div>
           <CardDepreciation>

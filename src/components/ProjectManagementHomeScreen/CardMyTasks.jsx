@@ -170,7 +170,7 @@ const CardMyTasks = ({ showCardTaskParent, toggleCardTaskParent, tasks }) => {
   <div style={styles.columnHeader}>Details</div>
 </div>
       {/* Map through all tasks and display them */}
-      <div style={{ overflowX: 'auto' }}>
+      <div style={{ overflowX: 'auto', paddingRight: '7px' }}>
   {upcomingTasks.length === 0 ? (
     <div style={{ textAlign: 'center', fontSize: '18px', color: '#999', marginTop: '20px' }}>
     No tasks yet

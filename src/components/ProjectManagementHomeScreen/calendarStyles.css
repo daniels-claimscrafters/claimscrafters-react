@@ -77,3 +77,7 @@
 .rbc-toolbar-label {
   text-align: center;
 }
+
+.rbc-agenda-time-cell {
+  display: none;
+}

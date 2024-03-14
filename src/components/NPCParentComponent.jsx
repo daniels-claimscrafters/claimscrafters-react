@@ -146,6 +146,8 @@ const NPCParentComponent = () => {
           // Allow only numbers and limit to 5 digits
           formattedValue = value.replace(/\D/g, '').slice(0, 5);
           break;
+
+        
           
       default:
         // No special formatting for other fields
