@@ -40,6 +40,7 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
   },
+  
   input: {
     flex: '1',
     padding: '5px',
@@ -50,6 +51,17 @@ const styles = {
     color: '#030303',
     outline: 'none',
     maxWidth: '50%', // Adjust input width as needed
+  },
+  addressInput: {
+    flex: '1',
+    padding: '5px',
+    fontSize: '14px',
+    fontFamily: 'Poppins',
+    fontWeight: 500,
+    border: '1px solid #ceced3',
+    color: '#030303',
+    outline: 'none',
+    maxWidth: '70%', // Adjust input width as needed
   },
   firstInput: {
     flex: '1',
@@ -179,7 +191,7 @@ const CardDetails = ({ projectDetails }) => {
         </div>
         <div style={styles.fieldContainer}>
           <label style={styles.label}>Insured Address:</label>
-          <input style={styles.input} type="text" value={formatAddress(projectDetails.project.lossAddress, projectDetails.project.lossCity, projectDetails.project.lossState, projectDetails.project.lossPostalCode)} readOnly />
+          <input style={styles.addressInput} type="text" value={formatAddress(projectDetails.project.lossAddress, projectDetails.project.lossCity, projectDetails.project.lossState, projectDetails.project.lossPostalCode)} readOnly />
         </div>
       </div>
       <div style={{ flex: '0 0 100%', marginBottom: '10px' }}>
