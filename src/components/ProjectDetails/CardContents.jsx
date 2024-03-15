@@ -148,7 +148,7 @@ const CardContents = ({ projectDetails, setProjectDetails }) => {
       console.log('Original Project Details set:', projectDetails);
       
     }
-  }, [projectDetails]);
+  }, []);
 
   useEffect(() => {
     // Check if the user is authenticated
