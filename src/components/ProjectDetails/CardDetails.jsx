@@ -61,7 +61,10 @@ const styles = {
     border: '1px solid #ceced3',
     color: '#030303',
     outline: 'none',
-    maxWidth: '70%', // Adjust input width as needed
+    maxWidth: '65%', // Adjust input width as needed
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
   },
   firstInput: {
     flex: '1',
@@ -163,6 +166,14 @@ const CardDetails = ({ projectDetails }) => {
   const formatAddress = (address, city, state, postalCode) => {
     return `${address}, ${city}, ${state} ${postalCode}`;
   };
+
+  const formatAdjusterName = (firstName, lastName) => {
+    return `${firstName} ${lastName}`;
+  };
+
+  const formatInsuredName = (firstName, lastName) => {
+    return `${firstName} ${lastName}`;
+  };
   
   return (
     <div style={styles.cardContainer}>
@@ -173,7 +184,7 @@ const CardDetails = ({ projectDetails }) => {
         </div>
         <div style={styles.fieldContainer}>
           <label style={styles.label}>Insured Name:</label>
-          <input style={styles.input} type="text" value={projectDetails.project.insuredFirstName} readOnly />
+          <input style={styles.input} type="text" value={formatInsuredName(projectDetails.project.insuredFirstName, projectDetails.project.insuredLastName)} readOnly />
         </div>
         <div style={styles.fieldContainer}>
           <label style={styles.label}>Carrier:</label>
@@ -197,7 +208,7 @@ const CardDetails = ({ projectDetails }) => {
       <div style={{ flex: '0 0 100%', marginBottom: '10px' }}>
         <div style={styles.fieldContainer}>
           <label style={styles.label}>Adjuster Name:</label>
-          <input style={styles.input} type="text" value={projectDetails.project.adjusterFirstName} readOnly />
+          <input style={styles.input} type="text" value={formatAdjusterName(projectDetails.project.adjusterFirstName, projectDetails.project.adjusterLastName)} readOnly />
         </div>
         <div style={styles.fieldContainer}>
           <label style={styles.label}>Adjuster Email:</label>

@@ -575,12 +575,12 @@ const styles = {
     textAlign: 'left',
     minWidth: '200px', // Fixed width for the table cell
     maxWidth: '200px',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
     fontFamily: 'Poppins',
     border: '1px solid #ceced3',
     fontSize: '20px',
     whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
   },
   etableCell: {
     padding: '10px',
