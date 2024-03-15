@@ -136,6 +136,8 @@ const CardContents = ({ projectDetails, setProjectDetails }) => {
   const [popupType, setPopupType] = useState('');
   const [popupTextColor, setPopupTextColor] = useState('');
   const [isDataChanged, setDataChanged] = useState(false);
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const API_URL = process.env.REACT_APP_API_URL;
   
 
@@ -183,6 +185,7 @@ const CardContents = ({ projectDetails, setProjectDetails }) => {
   };
 
   const handleRCVChange = (index, fieldName, value) => {
+    console.log(value);
     // Validate if the input is a valid integer
     if (/^\d+(\.\d{0,2})?$/.test(value) || value === '') {
       // Update the projectDetails state with the new value
@@ -239,6 +242,72 @@ const CardContents = ({ projectDetails, setProjectDetails }) => {
 
   const createChangelogEntry = async () => {
     try {
+      setError(false);
+      setErrorMessage('');
+      const quantityCheck = projectDetails.project.spreadsheetData.some(item => item.Quantity === '' || item.Quantity === '0');
+const depreciationCheck = projectDetails.project.spreadsheetData.some(item => item.Depreciation === '' || item.Depreciation === '0');
+const rcvHighCheck = projectDetails.project.spreadsheetData.some(item => item['RCV High'] === '' || item['RCV High'] === '0');
+const rcvLowCheck = projectDetails.project.spreadsheetData.some(item => item['RCV Low'] === '' || item['RCV Low'] === '0');
+const roomCheck = projectDetails.project.spreadsheetData.some(item => item.Room === '');
+const itemCheck = projectDetails.project.spreadsheetData.some(item => item.Item === '');
+const descriptionCheck = projectDetails.project.spreadsheetData.some(item => item.Description === ''); // Corrected from Item to Description
+const subclassCheck = projectDetails.project.spreadsheetData.some(item => item.Subclass === '');
+const classCheck = projectDetails.project.spreadsheetData.some(item => item.Class === '');
+
+if (quantityCheck) {
+  setError(true);
+  setErrorMessage('Quantity column cannot be 0 or empty');
+  return;
+}
+
+if (depreciationCheck) {
+  setError(true);
+  setErrorMessage('Depreciation column cannot be 0 or empty');
+  return;
+}
+
+if (rcvHighCheck) {
+  setError(true);
+  setErrorMessage('RCV High column cannot be 0 or empty');
+  return;
+}
+
+if (rcvLowCheck) {
+  setError(true);
+  setErrorMessage('RCV Low column cannot be 0 or empty');
+  return;
+}
+
+if (roomCheck) {
+  setError(true);
+  setErrorMessage('Room column cannot be empty');
+  return;
+}
+
+if (itemCheck) {
+  setError(true);
+  setErrorMessage('Item column cannot be empty');
+  return;
+}
+
+if (descriptionCheck) {
+  setError(true);
+  setErrorMessage('Description column cannot be empty');
+  return;
+}
+
+if (subclassCheck) {
+  setError(true);
+  setErrorMessage('Subclass column cannot be empty');
+  return;
+}
+
+if (classCheck) {
+  setError(true);
+  setErrorMessage('Class column cannot be empty');
+  return;
+}
+
       // Assuming you have the necessary attributes available:
       const originalSpreadsheetData = originalProjectDetails.project.spreadsheetData;
 console.log('Original Project Details:', originalSpreadsheetData);
@@ -342,7 +411,9 @@ const downloadExcel = (data, filename) => {
     <div style={styles.Card}>
       <div style={styles.headerRow}>
         <div style={styles.titleText}>Contents Inventory</div>
+        {error && <div style={{ color: 'red', marginLeft: '10px' }}>{errorMessage}</div>}
       <div>
+        
     <div style={{ display: 'inline-block', marginRight: '10px' }}>
     <motion.div
             animate={isDataChanged ? { scale: [1, 1.2, 1, 1.2, 1] } : { scale: 1 }} // Apply animation only when isDataChanged is true
@@ -439,20 +510,20 @@ const downloadExcel = (data, filename) => {
   />
 </div>
 <div style={styles.cell}>
-  ${((item['RCV High'] + item['RCV Low']) / 2).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}
+  ${((Number(item['RCV High']) + Number(item['RCV Low'])) / 2).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}
 </div>
 <div style={styles.cell}>
-  ${((item['RCV High'] + item['RCV Low']) / 2 * item.Quantity).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}
+  ${((Number(item['RCV High']) + Number(item['RCV Low'])) / 2 * item.Quantity).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}
 </div>
             <div style={styles.cell}>
               {typeof projectDetails.project.salesTax === 'number' ? projectDetails.project.salesTax : projectDetails.project.salesTax}%
             </div>
             <div style={styles.cell}>
-              ${(projectDetails.project.salesTax / 100 * ((item['RCV High'] + item['RCV Low']) / 2 * item.Quantity)).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}
+              ${(projectDetails.project.salesTax / 100 * ((Number(item['RCV High']) + Number(item['RCV Low'])) / 2 * item.Quantity)).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}
             </div>
             <div style={styles.cell}>
-              ${((item['RCV High'] + item['RCV Low']) / 2 * item.Quantity +
-                (projectDetails.project.salesTax / 100 * ((item['RCV High'] + item['RCV Low']) / 2 * item.Quantity))).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}
+              ${((Number(item['RCV High']) + Number(item['RCV Low'])) / 2 * item.Quantity +
+                (projectDetails.project.salesTax / 100 * ((Number(item['RCV High']) + Number(item['RCV Low'])) / 2 * item.Quantity))).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}
             </div>
             <div style={styles.cell}>
             <input
@@ -466,12 +537,12 @@ const downloadExcel = (data, filename) => {
               {projectDetails.project.depreciationRange}
             </div>
             <div style={styles.cell}>
-  ${((item['RCV High'] + item['RCV Low']) / 2 * item.Quantity * (item.Depreciation / 100) * projectDetails.project.depreciationRange).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+  ${((Number(item['RCV High']) + Number(item['RCV Low'])) / 2 * item.Quantity * (item.Depreciation / 100) * projectDetails.project.depreciationRange).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
 </div>
 <div style={styles.cell}>
-  ${((item['RCV High'] + item['RCV Low']) / 2 * item.Quantity +
-    (projectDetails.project.salesTax / 100 * ((item['RCV High'] + item['RCV Low']) / 2 * item.Quantity)) -
-    ((item['RCV High'] + item['RCV Low']) / 2 * item.Quantity * (item.Depreciation / 100) * projectDetails.project.depreciationRange)).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+  ${((Number(item['RCV High']) + Number(item['RCV Low'])) / 2 * item.Quantity +
+    (projectDetails.project.salesTax / 100 * ((Number(item['RCV High']) + Number(item['RCV Low'])) / 2 * item.Quantity)) -
+    ((Number(item['RCV High']) + Number(item['RCV Low'])) / 2 * item.Quantity * (item.Depreciation / 100) * projectDetails.project.depreciationRange)).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
 </div>
 <div style={styles.bigCell}>
   <input

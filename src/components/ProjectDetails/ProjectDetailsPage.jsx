@@ -15,7 +15,7 @@ const ProjectDetailsPage = () => {
     const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const projectId = urlParams.get('projectId');
-console.log(projectId); // This will log '59'
+// This will log '59'
     const [projectDetails, setProjectDetails] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const API_URL = process.env.REACT_APP_API_URL;

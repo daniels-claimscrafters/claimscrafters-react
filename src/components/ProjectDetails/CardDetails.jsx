@@ -81,8 +81,7 @@ const styles = {
 };
 
 const CardDetails = ({ projectDetails }) => {
-  console.log(projectDetails)
-  console.log('projectId?', projectDetails.project.id)
+  
   const [selectedStatus, setSelectedStatus] = useState(projectDetails.project.status);
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState('');
@@ -103,10 +102,7 @@ const CardDetails = ({ projectDetails }) => {
   
   
   // Log projectDetails and its properties
-  console.log('projectDetails:', projectDetails);
-    console.log('Claim Number:', projectDetails.project.claimNumber);
-    console.log('Insured Name:', projectDetails.project.insuredFirstName);
-    console.log('Carrier:', projectDetails.project.carrier);
+  
     const projectStatusOptions = ['Started', 'In Process', 'Completed', 'Closed'];
   // Render UI using the project details directly
   const handleStatusChange = (event) => {
@@ -119,7 +115,7 @@ const CardDetails = ({ projectDetails }) => {
   const updateProjectStatus = async (newStatus) => {
     try {
       const projectId  = projectDetails.project.id;
-      console.log('sent: ', projectDetails.project.id)
+      
 
 
       const response = await fetch(`${API_URL}/npc/update-status`, {

@@ -124,7 +124,7 @@ const uploadImageToBackend = async (file, userId) => {
         setPopupTextColor('green');
       } else {
         console.error('Failed to upload image.');
-        setPopupMessage('Failed to upload image.');
+        setPopupMessage('Failed to upload image (File too big).');
         setPopupType('error');
         setPopupTextColor('red');
       }

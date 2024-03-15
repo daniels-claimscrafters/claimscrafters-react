@@ -60,7 +60,7 @@ const styles = {
 };
 
 const CardValuation = ({ projectDetails }) => {
-  console.log ('card valuation: ', projectDetails)
+  
 
   // Initialize total
 let suggestedRCVTotal = 0;
@@ -79,8 +79,6 @@ projectDetails.project.spreadsheetData.forEach(item => {
     suggestedRCVTotal += RCVExt;
 });
 
-// Use suggestedRCVTotal for further processing or display
-console.log('Suggested RCV Total:', suggestedRCVTotal);
 
 // Calculate total RCV tax
 const totalRCVTax = suggestedRCVTotal * (projectDetails.project.salesTax / 100);
@@ -105,8 +103,7 @@ projectDetails.project.spreadsheetData.forEach(item => {
   (projectDetails.project.salesTax / 100 * ((RCVHigh + RCVLow) / 2 * quantity)) - 
   (((RCVHigh + RCVLow) / 2 * quantity) * (depreciation / 100) * projectDetails.project.depreciationRange);
 
-  // Log the calculated ACV
-  console.log('ACV:', ACV);
+  
 
   // Add ACV to total
   suggestedACVTotal += ACV;
@@ -121,7 +118,7 @@ const acvWithTaxTotal = suggestedACVTotal + totalACVTax;
 
 let totalDepreciation = 0; // Initialize total depreciation
 
-console.log("yo", projectDetails.project.depreciationRange)
+
 
 // Iterate over each item in the spreadsheet data
 projectDetails.project.spreadsheetData.forEach(item => {

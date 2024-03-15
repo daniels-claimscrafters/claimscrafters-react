@@ -383,7 +383,27 @@ const handleDeleteRow = (rowIndex) => {
         ))}
       </select>
     </div>
-    <div style={styles.inputRow}>
+    
+
+{error && errorMessage && (
+  <div style={styles.errorMessage}>{errorMessage}</div>
+)}
+
+<div style={styles.tableBody}>
+  {tableData.map((row, rowIndex) => (
+    <div key={rowIndex} style={styles.tableRow}>
+      {rowIndex !== 0 && ( // Exclude delete button for the header row
+        <button style={styles.button2} onClick={() => handleDeleteRow(rowIndex)}>Delete</button>
+      )}
+      {rowIndex === 0 && <div key="emptyCell" style={styles.etableCell}></div>} {/* Empty cell for the first row */}
+      {Object.values(row).map((cell, cellIndex) => (
+        <div key={cellIndex} style={styles.tableCell}>{cell}</div>
+      ))}
+    </div>
+  ))}
+</div>
+
+<div style={styles.inputRow}>
   <label style={styles.label} htmlFor="selectedDescription">Description: </label>
   <select
   id="selectedDescription"
@@ -465,25 +485,7 @@ const handleDeleteRow = (rowIndex) => {
 
 </div>
 
-{error && errorMessage && (
-  <div style={styles.errorMessage}>{errorMessage}</div>
-)}
-
-<div style={styles.tableBody}>
-  {tableData.map((row, rowIndex) => (
-    <div key={rowIndex} style={styles.tableRow}>
-      {rowIndex !== 0 && ( // Exclude delete button for the header row
-        <button style={styles.button2} onClick={() => handleDeleteRow(rowIndex)}>Delete</button>
-      )}
-      {rowIndex === 0 && <div key="emptyCell" style={styles.etableCell}></div>} {/* Empty cell for the first row */}
-      {Object.values(row).map((cell, cellIndex) => (
-        <div key={cellIndex} style={styles.tableCell}>{cell}</div>
-      ))}
-    </div>
-  ))}
-</div>
-
-      <div style={{ display: 'flex', marginTop: '20px' }}> {/* Container for buttons */}
+      <div style={{ display: 'flex' }}> {/* Container for buttons */}
       <button
         disabled={startOverDisabled} 
         onClick={handleStartOver}
@@ -562,6 +564,7 @@ const styles = {
   tableBody: {
     overflow: 'auto', // Enable overflow handling
     maxWidth: '90%', // Set the max width to 90%
+    marginBottom: '10px',
   },
   tableRow: {
     display: 'flex',

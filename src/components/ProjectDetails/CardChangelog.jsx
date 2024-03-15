@@ -48,7 +48,7 @@ const CardChangelog = ({ projectDetails }) => {
 
   const projectId = projectDetails.project.id;
   const API_URL = process.env.REACT_APP_API_URL;
-  console.log('id', projectId)
+  
 
   useEffect(() => {
     fetch(`${API_URL}/npc/get-changelog?projectId=${projectId}`, {
