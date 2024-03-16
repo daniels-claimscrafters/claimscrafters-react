@@ -149,7 +149,7 @@ const NPC7 = ({ updateLoadingState, npcData, onInputChange, onPrevious, numberOf
           <TextHeader />
         </div>
         <div>
-          <IconHome />
+          <IconHome onPrevious={onPrevious}/>
         </div>
       </div>
 

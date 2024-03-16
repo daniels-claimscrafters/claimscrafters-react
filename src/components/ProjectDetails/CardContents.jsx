@@ -208,15 +208,16 @@ const CardContents = ({ projectDetails, setProjectDetails }) => {
   };
   
   const handleDepreciationChange = (index, value) => {
-    // Validate if the input is a valid float
+    // Validate if the input is a valid float with optional decimals
     if (/^\d*\.?\d*$/.test(value) || value === '') {
-      // Update the projectDetails state with the new value
-      const updatedProjectDetails = { ...projectDetails };
-      updatedProjectDetails.project.spreadsheetData[index]['Depreciation'] = value;
-      setProjectDetails(updatedProjectDetails);
-      setDataChanged(true);
+        // Update the projectDetails state with the new value
+        const updatedProjectDetails = { ...projectDetails };
+        updatedProjectDetails.project.spreadsheetData[index]['Depreciation'] = value;
+        setProjectDetails(updatedProjectDetails);
+        setDataChanged(true);
     }
-  };
+};
+
 
   // Function to fetch user data
   const fetchUserData = async (token) => {
@@ -406,6 +407,34 @@ const downloadExcel = (data, filename) => {
     document.body.removeChild(a);
 };
 
+// Define a function to calculate total depreciation
+// Define a function to calculate total depreciation
+const calculateDepreciationAmount = (item, projectDetails) => {
+  const rcvTotal = (((Number(item['RCV High']) + Number(item['RCV Low'])) / 2) * item.Quantity +
+  (projectDetails.project.salesTax / 100) * ((Number(item['RCV High']) + Number(item['RCV Low']))));
+  console.log('0 ', item.Depreciation);
+  let depreciationFactor = (item.Depreciation * 100) * projectDetails.project.depreciationRange;
+  console.log('1 ', depreciationFactor);
+  // Ensure that the depreciation factor does not exceed 100
+  depreciationFactor = Math.min(depreciationFactor, 100);
+  console.log('2 ', depreciationFactor);
+  const salesTaxAmount = (projectDetails.project.salesTax / 100 * ((Number(item['RCV High']) + Number(item['RCV Low'])) / 2 * item.Quantity));
+  return (rcvTotal * (depreciationFactor / 100) + salesTaxAmount).toFixed(2);
+};
+
+// Define a function to calculate ACV Total
+const calculateACVTotal = (item, projectDetails) => {
+  const rcvTotal = (((Number(item['RCV High']) + Number(item['RCV Low'])) / 2) * item.Quantity +
+  (projectDetails.project.salesTax / 100) * ((Number(item['RCV High']) + Number(item['RCV Low']))));
+  let depreciationFactor = (item.Depreciation * 100) * projectDetails.project.depreciationRange;
+  // Ensure that the depreciation factor does not exceed 100
+  depreciationFactor = Math.min(depreciationFactor, 100);
+  const depreciationAmount = rcvTotal * (depreciationFactor / 100);
+  //const salesTaxAmount = (projectDetails.project.salesTax / 100 * ((Number(item['RCV High']) + Number(item['RCV Low'])) / 2 * item.Quantity));
+  return (rcvTotal - depreciationAmount).toFixed(2);
+};
+
+
 
   return (
     <div style={styles.Card}>
@@ -528,7 +557,7 @@ const downloadExcel = (data, filename) => {
             <div style={styles.cell}>
             <input
   style={styles.input}
-  value={item.Depreciation % 1 === 0 ? item.Depreciation.toFixed(2) : parseFloat(item.Depreciation).toFixed(2)}
+  value={item.Depreciation}
   onChange={(e) => handleDepreciationChange(index, e.target.value)}
 />
 
@@ -537,13 +566,12 @@ const downloadExcel = (data, filename) => {
               {projectDetails.project.depreciationRange}
             </div>
             <div style={styles.cell}>
-  ${((Number(item['RCV High']) + Number(item['RCV Low'])) / 2 * item.Quantity * (item.Depreciation / 100) * projectDetails.project.depreciationRange).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+    ${calculateDepreciationAmount(item, projectDetails)}
 </div>
 <div style={styles.cell}>
-  ${((Number(item['RCV High']) + Number(item['RCV Low'])) / 2 * item.Quantity +
-    (projectDetails.project.salesTax / 100 * ((Number(item['RCV High']) + Number(item['RCV Low'])) / 2 * item.Quantity)) -
-    ((Number(item['RCV High']) + Number(item['RCV Low'])) / 2 * item.Quantity * (item.Depreciation / 100) * projectDetails.project.depreciationRange)).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+    ${calculateACVTotal(item, projectDetails)}
 </div>
+
 <div style={styles.bigCell}>
   <input
     style={styles.bigInput}
