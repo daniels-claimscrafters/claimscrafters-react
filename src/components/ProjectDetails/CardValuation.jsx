@@ -99,14 +99,20 @@ projectDetails.project.spreadsheetData.forEach(item => {
   
 
   // Calculate ACV for the current item using the provided formula
-  const ACV = ((RCVHigh + RCVLow) / 2 * quantity) +
-  (projectDetails.project.salesTax / 100 * ((RCVHigh + RCVLow) / 2 * quantity)) - 
-  (((RCVHigh + RCVLow) / 2 * quantity) * (depreciation / 100) * projectDetails.project.depreciationRange);
+  const ACV1 = ((RCVHigh + RCVLow) / 2 * quantity) +
+  (projectDetails.project.salesTax / 100 * ((RCVHigh + RCVLow) / 2 * quantity))
 
-  
+  let depreciationFactor = (depreciation * 100) * projectDetails.project.depreciationRange;
+  console.log('1 ', depreciationFactor);
+  // Ensure that the depreciation factor does not exceed 100
+  depreciationFactor = Math.min(depreciationFactor, 100);
+
+  const depreciationAmount = ACV1 * (depreciationFactor / 100);
+
+  let ACV2 = ACV1 - depreciationAmount;  
 
   // Add ACV to total
-  suggestedACVTotal += ACV;
+  suggestedACVTotal += ACV2;
 });
 
 
@@ -129,7 +135,14 @@ projectDetails.project.spreadsheetData.forEach(item => {
     const depreciation = parseFloat(item['Depreciation']);
     
     // Calculate depreciation amount for the current item using the provided formula
-    const depreciationAmount = ((RCVHigh + RCVLow) / 2 * quantity) * (depreciation / 100) * projectDetails.project.depreciationRange;
+    const ACV1 = ((RCVHigh + RCVLow) / 2 * quantity);
+
+    let depreciationFactor = (depreciation * 100) * projectDetails.project.depreciationRange;
+  console.log('1 ', depreciationFactor);
+  // Ensure that the depreciation factor does not exceed 100
+  depreciationFactor = Math.min(depreciationFactor, 100);
+
+  const depreciationAmount = ACV1 * (depreciationFactor / 100);
     
     // Add depreciation amount to total
     totalDepreciation += depreciationAmount;
@@ -166,14 +179,14 @@ switch (projectDetails.project.depreciationRange) {
   </div>
       </div>
       <div style={styles.column}>
-        <div style={styles.headerText}>RC</div>
+        <div style={styles.headerText}>RCV</div>
         <div style={styles.text}>Suggested RCV Total: ${suggestedRCVTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
         <div style={styles.text}>Tax Rate: {projectDetails.project.salesTax}%</div>
         <div style={styles.text}>Total RCV Tax: ${totalRCVTax.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
         <div style={styles.text}>RCV with Tax Total: ${rcvWithTaxTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
       </div>
       <div style={styles.column}>
-        <div style={styles.headerText}>AC</div>
+        <div style={styles.headerText}>ACV</div>
         <div style={styles.text}>Suggested ACV Total: ${suggestedACVTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
         <div style={styles.text}>Tax Rate: {projectDetails.project.salesTax}%</div>
         <div style={styles.text}>Total ACV Tax: ${totalACVTax.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>

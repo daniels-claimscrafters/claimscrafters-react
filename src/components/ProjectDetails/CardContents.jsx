@@ -246,7 +246,7 @@ const CardContents = ({ projectDetails, setProjectDetails }) => {
       setError(false);
       setErrorMessage('');
       const quantityCheck = projectDetails.project.spreadsheetData.some(item => item.Quantity === '' || item.Quantity === '0');
-const depreciationCheck = projectDetails.project.spreadsheetData.some(item => item.Depreciation === '' || item.Depreciation === '0');
+const depreciationCheck = projectDetails.project.spreadsheetData.some(item => item.Depreciation === '');
 const rcvHighCheck = projectDetails.project.spreadsheetData.some(item => item['RCV High'] === '' || item['RCV High'] === '0');
 const rcvLowCheck = projectDetails.project.spreadsheetData.some(item => item['RCV Low'] === '' || item['RCV Low'] === '0');
 const roomCheck = projectDetails.project.spreadsheetData.some(item => item.Room === '');
