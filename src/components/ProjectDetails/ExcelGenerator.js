@@ -37,10 +37,7 @@ const generateSummary = async (projectDetails) => {
         const depreciation = parseFloat(item['Depreciation']);
         
         // Calculate ACV for the current item using the provided formula
-        const ACV = ((RCVHigh + RCVLow) / 2 * quantity) +
-            (projectDetails.project.salesTax / 100 * ((RCVHigh + RCVLow) / 2 * quantity)) - 
-            (((RCVHigh + RCVLow) / 2 * quantity) * (depreciation / 100) * projectDetails.project.depreciationRange);
-        
+        const ACV = ((RCVHigh + RCVLow) / 2 * quantity);
         // Add ACV to total
         suggestedACVTotal += ACV;
     });
@@ -63,7 +60,7 @@ const generateSummary = async (projectDetails) => {
         
         // Calculate depreciation amount for the current item using the provided formula
         const rcvTotal = ((RCVHigh + RCVLow) / 2 * quantity);
-        let depreciationFactor = (item.Depreciation * 100) * projectDetails.project.depreciationRange;
+        let depreciationFactor = (depreciation * 100) * projectDetails.project.depreciationRange;
         depreciationFactor = Math.min(depreciationFactor, 100);
         const depreciationAmount = rcvTotal * (depreciationFactor / 100);
 
@@ -276,12 +273,12 @@ return { modifiedExcelData };
             const RCVLow = parseFloat(item['RCV Low']);
             const RCVAvg = (RCVHigh + RCVLow) / 2;
             const RCVExt = RCVAvg * item.Quantity;
-            const salesTaxAmount = projectDetails.project.salesTax / 100 * RCVExt;
+            const salesTaxAmount = (projectDetails.project.salesTax / 100) * RCVExt;
             const RCVTotal = RCVExt + salesTaxAmount;
             let depreciationFactor = (item.Depreciation * 100) * projectDetails.project.depreciationRange;
             depreciationFactor = Math.min(depreciationFactor, 100);
             const depreciationAmount = RCVExt * (depreciationFactor / 100);
-            const ACVTotal = RCVExt + salesTaxAmount - depreciationAmount;
+            const ACVTotal = (RCVExt - depreciationAmount);
     
             worksheet.getCell(`F${rowNumber}`).value = RCVHigh.toFixed(2); // RCV High
             worksheet.getCell(`G${rowNumber}`).value = RCVLow.toFixed(2); // RCV Low
@@ -352,7 +349,7 @@ workbook.removeWorksheet(1);
             let depreciationFactor = (item.Depreciation * 100) * projectDetails.project.depreciationRange;
             depreciationFactor = Math.min(depreciationFactor, 100);
             const depreciationAmount = RCVExt * (depreciationFactor / 100);
-            const ACVTotal = RCVExt + salesTaxAmount - depreciationAmount;
+            const ACVTotal = RCVExt - depreciationAmount;
 
             worksheet.getCell(`F${rowNumber}`).value = `$${RCVHigh.toFixed(2)}`; // RCV High
             worksheet.getCell(`G${rowNumber}`).value = `$${RCVLow.toFixed(2)}`; // RCV Low

@@ -1,10 +1,12 @@
 // validationUtils.js
 
+// validationUtils.js
+
 export const isValidFirstName = (firstName) => {
   console.log('Checking first name:', firstName);
   // First name validation logic
   // Should contain only letters and have a minimum length of 2
-  const nameRegex = /^[a-zA-Z]+$/;
+  const nameRegex = /^[a-zA-Z']+$/; // Updated regex to include apostrophe
 
   return (
     firstName.trim() !== '' &&
@@ -16,7 +18,7 @@ export const isValidFirstName = (firstName) => {
 export const isValidLastName = (lastName) => {
   // Last name validation logic
   // Should contain only letters and have a minimum length of 2
-  const nameRegex = /^[a-zA-Z]+$/;
+  const nameRegex = /^[a-zA-Z']+$/; // Updated regex to include apostrophe
 
   return (
     lastName.trim() !== '' &&
@@ -24,6 +26,7 @@ export const isValidLastName = (lastName) => {
     nameRegex.test(lastName.trim())
   );
 };
+
 
 export const isValidTitle = (title) => {
   // Title validation logic

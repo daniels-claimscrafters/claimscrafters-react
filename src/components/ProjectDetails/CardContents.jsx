@@ -410,27 +410,25 @@ const downloadExcel = (data, filename) => {
 // Define a function to calculate total depreciation
 // Define a function to calculate total depreciation
 const calculateDepreciationAmount = (item, projectDetails) => {
-  const rcvTotal = (((Number(item['RCV High']) + Number(item['RCV Low'])) / 2) * item.Quantity +
-  (projectDetails.project.salesTax / 100) * ((Number(item['RCV High']) + Number(item['RCV Low']))));
+  const rcvTotal = (((Number(item['RCV High']) + Number(item['RCV Low'])) / 2) * item.Quantity);
   console.log('0 ', item.Depreciation);
   let depreciationFactor = (item.Depreciation * 100) * projectDetails.project.depreciationRange;
   console.log('1 ', depreciationFactor);
   // Ensure that the depreciation factor does not exceed 100
   depreciationFactor = Math.min(depreciationFactor, 100);
   console.log('2 ', depreciationFactor);
-  const salesTaxAmount = (projectDetails.project.salesTax / 100 * ((Number(item['RCV High']) + Number(item['RCV Low'])) / 2 * item.Quantity));
-  return (rcvTotal * (depreciationFactor / 100) + salesTaxAmount).toFixed(2);
+  //const salesTaxAmount = (projectDetails.project.salesTax / 100 * ((Number(item['RCV High']) + Number(item['RCV Low'])) / 2 * item.Quantity));
+  return (rcvTotal * (depreciationFactor / 100)).toFixed(2);
 };
 
 // Define a function to calculate ACV Total
 const calculateACVTotal = (item, projectDetails) => {
-  const rcvTotal = (((Number(item['RCV High']) + Number(item['RCV Low'])) / 2) * item.Quantity +
-  (projectDetails.project.salesTax / 100) * ((Number(item['RCV High']) + Number(item['RCV Low']))));
+  const rcvTotal = (((Number(item['RCV High']) + Number(item['RCV Low'])) / 2) * item.Quantity);
+  //(projectDetails.project.salesTax / 100) * ((Number(item['RCV High']) + Number(item['RCV Low']))));
   let depreciationFactor = (item.Depreciation * 100) * projectDetails.project.depreciationRange;
   // Ensure that the depreciation factor does not exceed 100
   depreciationFactor = Math.min(depreciationFactor, 100);
   const depreciationAmount = rcvTotal * (depreciationFactor / 100);
-  //const salesTaxAmount = (projectDetails.project.salesTax / 100 * ((Number(item['RCV High']) + Number(item['RCV Low'])) / 2 * item.Quantity));
   return (rcvTotal - depreciationAmount).toFixed(2);
 };
 

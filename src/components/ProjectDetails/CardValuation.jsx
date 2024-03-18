@@ -99,8 +99,7 @@ projectDetails.project.spreadsheetData.forEach(item => {
   
 
   // Calculate ACV for the current item using the provided formula
-  const ACV1 = ((RCVHigh + RCVLow) / 2 * quantity) +
-  (projectDetails.project.salesTax / 100 * ((RCVHigh + RCVLow) / 2 * quantity))
+  const ACV1 = ((RCVHigh + RCVLow) / 2 * quantity);
 
   let depreciationFactor = (depreciation * 100) * projectDetails.project.depreciationRange;
   console.log('1 ', depreciationFactor);
@@ -138,11 +137,12 @@ projectDetails.project.spreadsheetData.forEach(item => {
     const ACV1 = ((RCVHigh + RCVLow) / 2 * quantity);
 
     let depreciationFactor = (depreciation * 100) * projectDetails.project.depreciationRange;
-  console.log('1 ', depreciationFactor);
+  
   // Ensure that the depreciation factor does not exceed 100
   depreciationFactor = Math.min(depreciationFactor, 100);
-
+  console.log('1v ', depreciationFactor);
   const depreciationAmount = ACV1 * (depreciationFactor / 100);
+  console.log('2v ', depreciationAmount);
     
     // Add depreciation amount to total
     totalDepreciation += depreciationAmount;
