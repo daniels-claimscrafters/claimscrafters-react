@@ -8,6 +8,7 @@ const styles = {
     lineHeight: '25px',
     textAlign: 'justify',
     padding: '10px',
+    minWidth: '350px',
   },
 };
 

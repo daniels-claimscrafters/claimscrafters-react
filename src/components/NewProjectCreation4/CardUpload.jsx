@@ -60,7 +60,7 @@ const CardUpload = (props) => {
     <div style={styles.Card} onClick={handleClick}>
       <input
         type="file"
-        accept=".xlsx"
+        accept=".xlsx, .xls"
         style={styles.FileInput}
         onChange={handleFileChange}
         ref={fileInputRef}

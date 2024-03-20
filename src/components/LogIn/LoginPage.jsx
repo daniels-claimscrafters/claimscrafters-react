@@ -1,6 +1,6 @@
 // LoginPage.jsx
-
 import React, { useState, useEffect } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import ButtonLogIn from './ButtonLogIn';
@@ -30,7 +30,7 @@ const LogInPage = () => {
   const [authenticated, setAuthenticated] = useState(false);
   const API_URL = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
-  console.log(API_URL);
+  const isSmallScreen = useMediaQuery({ maxWidth: 1250 });
 
   useEffect(() => {
     // Check if the user is authenticated (e.g., by checking the presence of a JWT token in the cookie)
@@ -106,20 +106,22 @@ const LogInPage = () => {
   return (
     <div style={{ display: 'flex' }}>
       {/* Left column with ImageJumbotron */}
-      <div>
-      <motion.div
+      {!isSmallScreen && ( 
+        <div style={{ flexShrink: 0 }}>
+        <motion.div
           initial={{ scale: 0 }} // Initial scale is 0
           animate={{ scale: 1 }} // Animate to scale 1
           transition={{ duration: 1.0 }} // Transition duration
-        ><ImageJumbotron /></motion.div>
-        
-      </div>
+        >
+          <ImageJumbotron />
+        </motion.div>
+        </div>)}
   
       {/* Right column with form */}
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <div style={{ marginLeft: '20px', textAlign: 'center', display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
+        <div style={{ textAlign: 'center', display: 'flex', alignItems: 'center', width: '100%' }}>
           {/* ImageHeader */}
-          <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
+          <div style={{ flex: 1, display: 'flex', justifyContent: 'center', paddingLeft: '70px' }}>
           <motion.div
           initial={{ scale: 0 }} // Initial scale is 0
           animate={{ scale: 1 }} // Animate to scale 1
@@ -127,14 +129,14 @@ const LogInPage = () => {
         ><ImageHeader /></motion.div>
           </div>
           {/* IconHome */}
-          <div>
+          
           <motion.div
           initial={{ scale: 0 }} // Initial scale is 0
           animate={{ scale: 1 }} // Animate to scale 1
           whileHover={{ scale: 1.1 }} // Scale up to 1.1 when hovered
           transition={{ duration: 1.0 }} // Transition duration
         ><IconHome /></motion.div>
-          </div>
+          
         </div>
         <TextTitle />
         <TextSubtitle />

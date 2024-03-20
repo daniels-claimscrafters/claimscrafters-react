@@ -1,6 +1,5 @@
-// ContactUsPage.jsx
-
 import React, { useState, useEffect } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import axios from 'axios';
 import ButtonSendMessage from './ButtonSendMessage';
 import ButtonSignUp from './ButtonSignUp';
@@ -35,9 +34,8 @@ const ContactUsPage = () => {
   const [submitEnabled, setSubmitEnabled] = useState(false);
   const [FailureMessage, setFailureMessage] = useState('');
   const [showCudbPage, setShowCudbPage] = useState(false);
+  const isSmallScreen = useMediaQuery({ maxWidth: 1250 });
   const API_URL = process.env.REACT_APP_API_URL;
-
-  
 
   const handleRecaptchaChange = (value) => {
     setRecaptchaValue(value);
@@ -52,7 +50,7 @@ const ContactUsPage = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0); // Scroll to the top of the page when component mounts
-}, []);
+  }, []);
 
   useEffect(() => {
     // Enable submit button if all fields are filled and there are no validation errors
@@ -132,78 +130,79 @@ const ContactUsPage = () => {
         return;
       }
       const response = await axios.post(`${API_URL}/email/contact`, {
-      name,
-      email,
-      message,
-      recaptchaToken: recaptchaValue, // Include the reCAPTCHA token in the request
-    });
+        name,
+        email,
+        message,
+        recaptchaToken: recaptchaValue, // Include the reCAPTCHA token in the request
+      });
 
-    if (response.status === 200) {
-      setTimeout(() => {
-        setShowCudbPage(true);
-      }, 0);
-      setName('');
-      setEmail('');
-      setMessage('');
-      setRecaptchaValue('');
-    } else {
-      console.error('Form submission failed');
-      setFormSubmitted(true); // Update formSubmitted state to true
-      setFailureMessage('Your message was sent successfully!');
+      if (response.status === 200) {
+        setTimeout(() => {
+          setShowCudbPage(true);
+        }, 0);
+        setName('');
+        setEmail('');
+        setMessage('');
+        setRecaptchaValue('');
+      } else {
+        console.error('Form submission failed');
+        setFormSubmitted(true); // Update formSubmitted state to true
+        setFailureMessage('Your message was sent successfully!');
+      }
+    } catch (error) {
+      console.error('Error during form submission', error);
+      setFormSubmitted(true); // Set formSubmitted to true to trigger rendering of failure message
+      setFailureMessage('An unexpected error occurred. Please try again later.'); // Set failure message
     }
-  } catch (error) {
-    console.error('Error during form submission', error);
-    setFormSubmitted(true); // Set formSubmitted to true to trigger rendering of failure message
-        setFailureMessage('An unexpected error occurred. Please try again later.'); // Set failure message
-  }
-};
+  };
 
   return (
-    <div>
+    <div style={{ minHeight: '100vh', position: 'relative' }}>
       <Header>
         {/* Header content */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
-          <motion.div
-          initial={{ scale: 0 }} // Initial scale is 0
-          animate={{ scale: 1 }} // Animate to scale 1
-          transition={{ duration: 1.0 }} // Transition duration
-        ><ImageLogo /></motion.div>
-            
+            <motion.div
+              initial={{ scale: 0 }} // Initial scale is 0
+              animate={{ scale: 1 }} // Animate to scale 1
+              transition={{ duration: 1.0 }} // Transition duration
+            ><ImageLogo /></motion.div>
+
           </div>
           <div style={{ display: 'flex', alignItems: 'center' }}>
-          <motion.div
-          initial={{ scale: 0 }} // Initial scale is 0
-          animate={{ scale: 1 }} // Animate to scale 1
-          whileHover={{ scale: 1.1 }} // Scale up to 1.1 when hovered
-          transition={{ duration: 1.0 }} // Transition duration
-        ><TextSignIn style={{ marginRight: '10px' }} /></motion.div>
-            
             <motion.div
-          initial={{ scale: 0 }} // Initial scale is 0
-          animate={{ scale: 1 }} // Animate to scale 1
-          whileHover={{ scale: 1.1 }} // Scale up to 1.1 when hovered
-          transition={{ duration: 1.0 }} // Transition duration
-        ><ButtonSignUp /></motion.div>
-            
+              initial={{ scale: 0 }} // Initial scale is 0
+              animate={{ scale: 1 }} // Animate to scale 1
+              whileHover={{ scale: 1.1 }} // Scale up to 1.1 when hovered
+              transition={{ duration: 1.0 }} // Transition duration
+            ><TextSignIn style={{ marginRight: '10px' }} /></motion.div>
+
+            <motion.div
+              initial={{ scale: 0 }} // Initial scale is 0
+              animate={{ scale: 1 }} // Animate to scale 1
+              whileHover={{ scale: 1.1 }} // Scale up to 1.1 when hovered
+              transition={{ duration: 1.0 }} // Transition duration
+            ><ButtonSignUp /></motion.div>
+
           </div>
         </div>
       </Header>
-  
+
       {/* Two columns under Header */}
       <div style={{ display: 'flex' }}>
         {/* Left column with ImageJumbotron */}
-        <div style={{ flex: 1 }}>
-        <motion.div
-          initial={{ scale: 0 }} // Initial scale is 0
-          animate={{ scale: 1 }} // Animate to scale 1
-          transition={{ duration: 1.0 }} // Transition duration
-        ><ImageJumbotron /></motion.div>
-          
-        </div>
-  
+        {!isSmallScreen && (
+          <div style={{ flex: 1 }}>
+            <motion.div
+              initial={{ scale: 0 }} // Initial scale is 0
+              animate={{ scale: 1 }} // Animate to scale 1
+              transition={{ duration: 1.0 }} // Transition duration
+            ><ImageJumbotron /></motion.div>
+
+          </div>)}
+
         {/* Right column with other elements */}
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+        <div style={{ flex: 1, display: 'flex', paddingBottom: '40px', paddingTop: '10px', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
           <TextMainHeader />
           <TextMainBody />
 
@@ -212,79 +211,81 @@ const ContactUsPage = () => {
               {FailureMessage}
             </div>
           )}
-  
+
           <form onSubmit={handleSubmit}>
-  {/* Name Field */}
-  <div>
-    <TextNameField />
-    <InputFieldName value={name} onChange={handleNameChange} onBlur={handleNameBlur} />
-    {validationErrors.name && <div style={{ color: 'red' }}>{validationErrors.name}</div>}
-  </div>
+            {/* Name Field */}
+            <div>
+              <TextNameField />
+              <InputFieldName value={name} onChange={handleNameChange} onBlur={handleNameBlur} />
+              {validationErrors.name && <div style={{ color: 'red' }}>{validationErrors.name}</div>}
+            </div>
 
-  {/* Email Field */}
-  <div>
-    <TextEmailField />
-    <InputFieldEmail value={email} onChange={handleEmailChange} onBlur={handleEmailBlur} />
-    {validationErrors.email && <div style={{ color: 'red' }}>{validationErrors.email}</div>}
-  </div>
+            {/* Email Field */}
+            <div>
+              <TextEmailField />
+              <InputFieldEmail value={email} onChange={handleEmailChange} onBlur={handleEmailBlur} />
+              {validationErrors.email && <div style={{ color: 'red' }}>{validationErrors.email}</div>}
+            </div>
 
-  {/* Message Field */}
-  <div>
-    <TextMessageField />
-    <InputFieldMessage value={message} onChange={handleMessageChange} onBlur={handleMessageBlur} />
-    {validationErrors.message && <div style={{ color: 'red' }}>{validationErrors.message}</div>}
-  </div>
+            {/* Message Field */}
+            <div>
+              <TextMessageField />
+              <InputFieldMessage value={message} onChange={handleMessageChange} onBlur={handleMessageBlur} />
+              {validationErrors.message && <div style={{ color: 'red' }}>{validationErrors.message}</div>}
+            </div>
 
-  {/* reCAPTCHA v3 */}
-  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      {/* ReCAPTCHA */}
-      <ReCAPTCHA
-          sitekey="6LcqgZQpAAAAAPvJIRRCHA5wMhk-npenCAPDjKsN" // Your reCAPTCHA site key
-          onChange={handleRecaptchaChange}
-        />
-    </div>
+            {/* reCAPTCHA v3 */}
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              {/* ReCAPTCHA */}
+              <ReCAPTCHA
+                sitekey="6LcqgZQpAAAAAPvJIRRCHA5wMhk-npenCAPDjKsN" // Your reCAPTCHA site key
+                onChange={handleRecaptchaChange}
+              />
+            </div>
 
 
-  {/* Use ButtonSendMessage as the submit button */}
-  <motion.div
-          initial={{ scale: 0 }} // Initial scale is 0
-          animate={{ scale: 1 }} // Animate to scale 1
-          whileHover={{ scale: 1.1 }} // Scale up to 1.1 when hovered
-          transition={{ duration: 1.0 }} // Transition duration
-        ><ButtonSendMessage type="submit" disabled={!submitEnabled}>Send Message</ButtonSendMessage></motion.div>
-  
-</form>
+            {/* Use ButtonSendMessage as the submit button */}
+            <motion.div
+              initial={{ scale: 0 }} // Initial scale is 0
+              animate={{ scale: 1 }} // Animate to scale 1
+              whileHover={{ scale: 1.1 }} // Scale up to 1.1 when hovered
+              transition={{ duration: 1.0 }} // Transition duration
+            ><ButtonSendMessage type="submit" disabled={!submitEnabled}>Send Message</ButtonSendMessage></motion.div>
+
+          </form>
         </div>
       </div>
-  
+
       {/* Elements under two columns and nested inside CardFooterBackground */}
-      <CardFooterBackground>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <ImageFooterLogo />
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-          <motion.div
-          initial={{ scale: 0 }} // Initial scale is 0
-          animate={{ scale: 1 }} // Animate to scale 1
-          whileHover={{ scale: 1.1 }} // Scale up to 1.1 when hovered
-          transition={{ duration: 1.0 }} // Transition duration
-        ><TextTermsOfUse /></motion.div>
-            
-            <VerticalDividerFooter />
-            <motion.div
-          initial={{ scale: 0 }} // Initial scale is 0
-          animate={{ scale: 1 }} // Animate to scale 1
-          whileHover={{ scale: 1.1 }} // Scale up to 1.1 when hovered
-          transition={{ duration: 1.0 }} // Transition duration
-        ><TextPrivacyPolicy /></motion.div>
-            
+      <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0 }}>
+        <CardFooterBackground>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <ImageFooterLogo />
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <motion.div
+                initial={{ scale: 0 }} // Initial scale is 0
+                animate={{ scale: 1 }} // Animate to scale 1
+                whileHover={{ scale: 1.1 }} // Scale up to 1.1 when hovered
+                transition={{ duration: 1.0 }} // Transition duration
+              ><TextTermsOfUse /></motion.div>
+
+              <VerticalDividerFooter />
+              <motion.div
+                initial={{ scale: 0 }} // Initial scale is 0
+                animate={{ scale: 1 }} // Animate to scale 1
+                whileHover={{ scale: 1.1 }} // Scale up to 1.1 when hovered
+                transition={{ duration: 1.0 }} // Transition duration
+              ><TextPrivacyPolicy /></motion.div>
+
+            </div>
           </div>
-        </div>
-      </CardFooterBackground>
+        </CardFooterBackground>
+      </div>
 
       {showCudbPage && <Popup />}
-      
+
     </div>
-  );  
+  );
 };
 
 export default ContactUsPage;

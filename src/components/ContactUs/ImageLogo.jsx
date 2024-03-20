@@ -6,7 +6,7 @@ const styles = {
     top: '-3px',
     left: '1px',
     width: '140px',
-    height: '118px',
+    height: '110px',
     borderRadius: '8px',
     backgroundImage: 'url(./image.png)',
     backgroundPosition: 'center center',

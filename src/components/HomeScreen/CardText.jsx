@@ -5,10 +5,10 @@ import React from 'react';
 const styles = {
   text: {
     color: '#ffffff',
-    fontSize: '45px',
+    fontSize: '40px',
     fontFamily: 'Work Sans',
     fontWeight: '500',
-    lineHeight: '59px',
+    padding: '10px',
   },
 };
 

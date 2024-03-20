@@ -143,11 +143,9 @@ const CardContents = ({ projectDetails, setProjectDetails }) => {
 
   useEffect(() => {
     // Store the original projectDetails when the component mounts
-    if (!originalProjectDetails && projectDetails) {
-      setOriginalProjectDetails(projectDetails);
-      console.log('Original Project Details set:', projectDetails);
-      
-    }
+    const originalProjectDetailsCopy = JSON.parse(JSON.stringify(projectDetails));
+    setOriginalProjectDetails(originalProjectDetailsCopy);
+    console.log('Original Project Details set:', originalProjectDetailsCopy);
   }, []);
 
   useEffect(() => {
@@ -185,7 +183,7 @@ const CardContents = ({ projectDetails, setProjectDetails }) => {
   };
 
   const handleRCVChange = (index, fieldName, value) => {
-    console.log(value);
+    
     // Validate if the input is a valid integer
     if (/^\d+(\.\d{0,2})?$/.test(value) || value === '') {
       // Update the projectDetails state with the new value
@@ -203,6 +201,8 @@ const CardContents = ({ projectDetails, setProjectDetails }) => {
       const updatedProjectDetails = { ...projectDetails };
       updatedProjectDetails.project.spreadsheetData[index]['Quantity'] = value;
       setProjectDetails(updatedProjectDetails);
+      console.log(originalProjectDetails);
+      console.log(projectDetails);
       setDataChanged(true);
     }
   };
@@ -232,7 +232,6 @@ const CardContents = ({ projectDetails, setProjectDetails }) => {
       if (response.ok) {
         const data = await response.json();
         setUserData(data.user);
-        console.log('Fetched user data:', data.user);
       } else {
         console.error('Failed to fetch user data');
       }
@@ -314,20 +313,15 @@ if (classCheck) {
 console.log('Original Project Details:', originalSpreadsheetData);
 
 const userFirstName = userData.firstName;
-console.log('User First Name:', userFirstName);
 
 const userLastName = userData.lastName;
-console.log('User Last Name:', userLastName);
 
 const userId = userData.id;
-console.log('User ID:', userId);
 
-// Retrieve projectId from props
 const projectId = projectDetails.project.id;
-console.log('Project ID:', projectId);
 
 const updatedProjectDetails = projectDetails.project.spreadsheetData;;
-console.log('Updated Project Details:', updatedProjectDetails);
+
   
       const response = await fetch(`${API_URL}/npc/changelog`, {
         method: 'POST',
@@ -357,7 +351,7 @@ console.log('Updated Project Details:', updatedProjectDetails);
       }
 
       setShowPopup(true);
-      setTimeout(() => window.location.reload(), 1500);
+      //setTimeout(() => window.location.reload(), 1500);
 
     } catch (error) {
       console.error('Error creating changelog entry:', error);
@@ -411,12 +405,12 @@ const downloadExcel = (data, filename) => {
 // Define a function to calculate total depreciation
 const calculateDepreciationAmount = (item, projectDetails) => {
   const rcvTotal = (((Number(item['RCV High']) + Number(item['RCV Low'])) / 2) * item.Quantity);
-  console.log('0 ', item.Depreciation);
+  
   let depreciationFactor = (item.Depreciation * 100) * projectDetails.project.depreciationRange;
-  console.log('1 ', depreciationFactor);
+  
   // Ensure that the depreciation factor does not exceed 100
   depreciationFactor = Math.min(depreciationFactor, 100);
-  console.log('2 ', depreciationFactor);
+  
   //const salesTaxAmount = (projectDetails.project.salesTax / 100 * ((Number(item['RCV High']) + Number(item['RCV Low'])) / 2 * item.Quantity));
   return (rcvTotal * (depreciationFactor / 100)).toFixed(2);
 };

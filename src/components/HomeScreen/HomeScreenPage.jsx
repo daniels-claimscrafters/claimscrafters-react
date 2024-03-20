@@ -1,5 +1,6 @@
 // HomeScreen.jsx
 import React, { useState, useEffect } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import ButtonSignIn from './ButtonSignIn';
 import ButtonTheChallenge from './ButtonTheChallenge';
 import ButtonTheOpportunity from './ButtonTheOpportunity';
@@ -52,6 +53,7 @@ const HomeScreen = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userData, setUserData] = useState(null);
   const API_URL = process.env.REACT_APP_API_URL;
+  const isSmallScreen = useMediaQuery({ maxWidth: 1400 });
 
   // Function to retrieve token from cookie
   const getTokenFromCookie = () => {
@@ -185,7 +187,8 @@ const fetchUserData = async (token) => {
       </Header>
 
       <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-        <div style={{ flexShrink: 0, marginRight: '20px' }}>
+      {!isSmallScreen && ( 
+        <div style={{ flexShrink: 0 }}>
         <motion.div
           initial={{ scale: 0 }} // Initial scale is 0
           animate={{ scale: 1 }} // Animate to scale 1
@@ -193,9 +196,9 @@ const fetchUserData = async (token) => {
         >
           <ImageJumbotron />
         </motion.div>
-        </div>
+        </div>)}
 
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', marginLeft: '20px' }}>
           <TextMainHeader />
           <TextMainBody />
         </div>

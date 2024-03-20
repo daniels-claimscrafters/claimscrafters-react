@@ -6,6 +6,7 @@ const styles = {
     fontSize: '32px',
     fontFamily: 'Work Sans',
     lineHeight: '42px',
+    minWidth: '350px',
   },
 };
 

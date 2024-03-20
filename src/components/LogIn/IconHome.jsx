@@ -6,8 +6,7 @@ const styles = {
     color: '#ffffff',
     fill: '#000000',
     fontSize: '40px',
-    top: '49px',
-    left: '1305px',
+    
     width: '40px',
     height: '40px',
     marginRight: '30px',
