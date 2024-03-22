@@ -22,7 +22,7 @@ const styles = {
 };
 
 const defaultProps = {
-  text: '***********************',
+  text: '',
 };
 
 const InputField = (props) => {

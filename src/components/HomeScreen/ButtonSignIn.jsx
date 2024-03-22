@@ -31,10 +31,14 @@ const defaultProps = {
 const Button = (props) => {
   const navigate = useNavigate();
   const [isHovered, setIsHovered] = useState(false);
+  const [isClicked, setIsClicked] = useState(false);
 
   const handleClick = () => {
-    // Use the navigate function to redirect to the /login route
-    navigate('/login');
+    setIsClicked(true); // Set isClicked to true when the button is clicked
+    setTimeout(() => {
+      setIsClicked(false); // Reset isClicked after 300ms
+      navigate('/login'); // Navigate to the login route after the delay
+    }, 150); // Delay navigation by 300 milliseconds
   };
 
   const handleMouseEnter = () => {
@@ -50,6 +54,7 @@ const Button = (props) => {
       style={{
         ...styles.Button,
         transform: isHovered ? 'scale(1.1)' : 'scale(1)', // Apply scale transform based on hover state
+        backgroundColor: isClicked ? '#1a63ff' : '#2a84ea', // Change background color when clicked
       }} 
       onClick={handleClick}
       onMouseEnter={handleMouseEnter}

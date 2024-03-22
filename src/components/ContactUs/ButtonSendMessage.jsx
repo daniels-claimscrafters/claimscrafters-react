@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const styles = {
   Button: {
@@ -32,8 +32,26 @@ const defaultProps = {
 
 const Button = (props) => {
   const { label, onClick, disabled } = props;
+  const [isClicked, setIsClicked] = useState(false);
 
-  const buttonStyle = disabled ? { ...styles.Button, ...styles.DisabledButton } : styles.Button;
+  const buttonStyle = {
+    ...styles.Button,
+    ...(isClicked && !disabled && { backgroundColor: '#1a63ff' }), // Change background color when clicked and not disabled
+    ...(disabled && styles.DisabledButton), // Apply disabled style if the button is disabled
+  };
+  
+  const handleClick = () => {
+    if (!disabled) {
+      setIsClicked(true); // Set isClicked to true when the button is clicked
+      setTimeout(() => {
+        setIsClicked(false); // Reset isClicked after 150ms
+        // Call the onClick function if provided
+        if (onClick) {
+          onClick();
+        }
+      }, 150); // Delay resetting isClicked by 150 milliseconds
+    }
+  };
 
   return (
     <button style={buttonStyle} onClick={onClick} disabled={disabled}>

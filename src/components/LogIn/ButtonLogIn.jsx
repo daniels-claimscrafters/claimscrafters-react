@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const styles = {
   Button: {
@@ -28,8 +28,23 @@ const defaultProps = {
 };
 
 const Button = (props) => {
+  const [isClicked, setIsClicked] = useState(false);
+
+  const handleClick = () => {
+    setIsClicked(true); // Set isClicked to true when the button is clicked
+    setTimeout(() => {
+      setIsClicked(false); // Reset isClicked after 300ms
+     // Navigate to the login route after the delay
+    }, 150); // Delay navigation by 300 milliseconds
+  };
+
   return (
-    <button style={styles.Button}>
+    <button style={{
+      ...styles.Button,
+      backgroundColor: isClicked ? '#1a63ff' : '#2a84ea', // Change background color when clicked
+    }}
+    onClick={handleClick}
+    >
       {props.label ?? defaultProps.label}
     </button>
   );
