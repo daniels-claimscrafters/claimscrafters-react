@@ -8,8 +8,8 @@ const styles = {
   Card: {
     top: '306px',
     left: '586px',
-    width: '1000px',
-    height: '650px', // Adjust the height as needed
+    width: '100%',
+    height: '89%', // Adjust the height as needed
     backgroundColor: '#1e1f26',
     borderRadius: '20px',
     border: '2px solid #cddef2',
@@ -53,6 +53,9 @@ const CardProjects = ({ projects, filter }) => {
                           })) : [];
 
   console.log('Filtered Projects:', filteredProjects);
+  filteredProjects.sort((a, b) => {
+    return new Date(b.createdAt) - new Date(a.createdAt);
+  });
 
   const searchFilteredProjects = filteredProjects.filter(project => {
     const searchLower = searchQuery.toLowerCase();

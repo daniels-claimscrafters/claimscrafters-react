@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import CardCircle from './CardCircle';
 import CardCircleMain from './CardCircleMain';
 import HorizontalDivider from './HorizontalDivider';
@@ -41,6 +41,22 @@ const NPC3 = (props) => {
   console.log("salesTax:", npcData.salesTax);
   console.log("deprecationRange:", npcData.deprecationRange);
   console.log("isContinueDisabled:", isContinueDisabled);
+
+  const [isSalesTaxPopupOpen, setIsSalesTaxPopupOpen] = useState(false);
+  const [isDepreciationPopupOpen, setIsDepreciationPopupOpen] = useState(false);
+
+  const handleSalesTaxIconClick = () => {
+    setIsSalesTaxPopupOpen(!isSalesTaxPopupOpen);
+    // Close the Depreciation popup if it's open
+    setIsDepreciationPopupOpen(false);
+  };
+  
+  const handleDepreciationIconClick = () => {
+    setIsDepreciationPopupOpen(!isDepreciationPopupOpen);
+    // Close the Sales Tax popup if it's open
+    setIsSalesTaxPopupOpen(false);
+  };
+
     return (
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '10px' }}>
         {/* Row 1 */}
@@ -59,7 +75,7 @@ const NPC3 = (props) => {
         </div>
   
         {/* Row 2 Centered */}
-  <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '100%', marginTop: '10px' }}>
+  <div style={{ marginBottom: '40px', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '100%', marginTop: '10px' }}>
     <HorizontalDivider />
   
     {/* Card Circle 1 */}
@@ -136,43 +152,64 @@ const NPC3 = (props) => {
   </div>
 
   {/* New Section with TextHeader2 and TextSubtitle */}
-  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '50px', marginBottom: '10px' }}>
-        <TextHeader2 />
-        <TextSubheader />
-      </div>
+  
 
       {/* New Middle Section */}
       <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '80%', marginTop: '10px' }}>
         {/* Left Column: Sales Tax */}
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginRight: '10px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginRight: '10px', height: '150px' }}>
           <TextSalesTax />
-          <div style={{ marginBottom: '90px' }}>
-            <InputFieldSalesTax 
-            value={npcData.salesTax}
-            onChange={onInputChange}
+          <div >
+            <InputFieldSalesTax
+              value={npcData.salesTax}
+              onChange={onInputChange}
             />
+            {/* Icon for Sales Tax Popup */}
+            <div onClick={handleSalesTaxIconClick}>
+              {isSalesTaxPopupOpen ? "Close ▲" : "What's this? ▼"}
+            </div>
           </div>
-          <CardSalesTax>
-            <TextCardHeaderSalesTax />
-            <TextCardBodySalesTax />
-          </CardSalesTax>
+          {/* Popup for Sales Tax */}
         </div>
 
         {/* Right Column: Depreciation */}
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginLeft: '10px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginLeft: '10px', height: '150px' }}>
           <TextDepreciation />
           <div style={{ marginBottom: '20px' }}>
-            <DropdownDepreciation 
-            value={npcData.deprecationRange}
-            onChange={onInputChange}
+            <DropdownDepreciation
+              value={npcData.depreciationRange}
+              onChange={onInputChange}
             />
+            {/* Icon for Depreciation Popup */}
+            <div onClick={handleDepreciationIconClick}>
+              {isDepreciationPopupOpen ? "Close ▲" : "What's this? ▼"}
+            </div>
           </div>
-          <CardDepreciation>
-            <TextCardHeaderDepreciation />
-            <TextCardBodyDepreciation />
-          </CardDepreciation>
+          {/* Popup for Depreciation */}
         </div>
       </div>
+
+      <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
+  {/* Render CardSalesTax if isSalesTaxPopupOpen is true */}
+  {isSalesTaxPopupOpen && (
+    <div style={{ display: 'flex', alignItems: 'center' }}>
+      <CardSalesTax>
+        <TextCardHeaderSalesTax />
+        <TextCardBodySalesTax />
+      </CardSalesTax>
+    </div>
+  )}
+  {/* Render CardDepreciation if isDepreciationPopupOpen is true */}
+  {isDepreciationPopupOpen && (
+    <div style={{ display: 'flex', alignItems: 'center' }}>
+      <CardDepreciation>
+        <TextCardHeaderDepreciation />
+        <TextCardBodyDepreciation />
+      </CardDepreciation>
+    </div>
+  )}
+</div>
+
 
       {/* Third Row: Buttons with 10px spacing */}
       <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '80%', marginTop: '20px' }}>

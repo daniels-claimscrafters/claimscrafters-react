@@ -165,6 +165,10 @@ const uploadImageToBackend = async (file, userId) => {
       }
   }, [navigate]);
 
+  const clearToken = () => {
+    document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+  };
+
   // Function to fetch user data
   const fetchUserData = async (token) => {
       try {
@@ -181,9 +185,13 @@ const uploadImageToBackend = async (file, userId) => {
               console.log('ud: ', userData);
           } else {
               console.error('Failed to fetch user data');
+              clearToken();
+        window.location.reload();
           }
       } catch (error) {
           console.error('Error fetching user data:', error);
+          clearToken();
+        window.location.reload();
       }
   };
 
@@ -289,9 +297,9 @@ const handleChange = (fieldName, value) => {
   
     return (
       userData && (
-      <div style={{ display: 'flex' }}>
+      <div style={{ display: 'flex', height: '100vh' }}>
           {/* First Column */}
-          <div style={{ flex: 1, maxWidth: '88px' }}>
+          <div style={{ flex: 1, maxWidth: '88px', height: '100%'  }}>
               <CardSideBar>
                   <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%', marginLeft: '20px' }}>
                       <div>
@@ -304,13 +312,13 @@ const handleChange = (fieldName, value) => {
               </CardSideBar>
           </div>
           {/* Second Column */}
-          <div style={{ flex: 1, maxWidth: '100%' }}>
+          <div style={{ flex: 1, maxWidth: '100%', height: '100%'  }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
                   <TextHeader />
                   <ButtonSave label='Save' onClick={handleSaveButtonClick} disabled={!areAllFieldsFilled()} />
               </div>
               {/* Main Content */}
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginTop: '20px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '85%'  }}>
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                   <ImageProfile userData={userData} />
                   <label htmlFor="file-input" style={styles.customFileInput}>

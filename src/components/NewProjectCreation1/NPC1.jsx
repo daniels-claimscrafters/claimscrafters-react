@@ -68,7 +68,7 @@ const NPC1 = (props) => {
     return allFieldsFilled;
   };
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100vh'  }}>
         {/* Row 1 */}
         <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -162,14 +162,11 @@ const NPC1 = (props) => {
 </div>
 
 {/* New Section with TextHeader2 and TextSubtitle */}
-<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '50px', marginBottom: '10px' }}>
-  <TextHeader2 />
-  <TextSubheader />
-</div>
+
 
 
       {/* Financial Inputs Section */}
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
+      <div style={{ display: 'flex', flexDirection: 'row', marginTop: '20px' }}>
         <div style={{ marginRight: '20px' }}>
           <TextClaimNumber />
           <InputFieldClaimNumber
@@ -235,6 +232,7 @@ const NPC1 = (props) => {
             updateValidationErrors={updateValidationErrors}
             />
           </div>
+          
         </div>
         <div style={{ marginTop: '10px' }}>
           <TextLossPostalCode />

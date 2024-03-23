@@ -44,6 +44,8 @@ const projectId = urlParams.get('projectId');
     }
   }, [navigate]);
 
+  
+
   // Function to fetch user data
   const fetchUserData = async (token) => {
     try {
@@ -116,7 +118,7 @@ const projectId = urlParams.get('projectId');
     
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', width: '100vw', minHeight: '720px', minWidth: '1280px' }}>
             <HeaderBackground>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <ImageHeader />
@@ -125,18 +127,18 @@ const projectId = urlParams.get('projectId');
                 </div>
             </HeaderBackground>
             
-            <div style={{ display: 'flex', flexDirection: 'row' }}>
-                <div style={{ flex: 1, padding: '10px' }}>
+            <div style={{ display: 'flex', flexDirection: 'row', width: '100%', height: '50vh' }}>
+                <div style={{ flex: 1, padding: '10px', width: '80%' }}>
                     {/* Pass projectDetails as props to CardDetails */}
                     <CardDetails projectDetails={projectDetails} />
                     {/* Pass projectDetails as props to CardValuation */}
                     <CardValuation projectDetails={projectDetails} />
                 </div>
-                <div style={{ paddingTop: '10px', paddingLeft: '10px', paddingRight: '10px', }}>
+                <div style={{ paddingTop: '10px', paddingLeft: '10px', paddingRight: '10px', width: '15%'}}>
                     <CardChangelog projectDetails={projectDetails}/>
                 </div>
             </div>
-            <div style={{ display: 'flex', padding: '10px' }}>
+            <div style={{ display: 'flex', padding: '10px', height: '37vh' }}>
                 {/* Pass projectDetails as props to CardContents */}
                 <CardContents 
                     projectDetails={projectDetails} 

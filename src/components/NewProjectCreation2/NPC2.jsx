@@ -154,13 +154,10 @@ const NPC2 = (props) => {
 </div>
 
       {/* New Section with TextHeader2 and TextSubtitle */}
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '50px', marginBottom: '10px' }}>
-        <TextHeader2 />
-        <TextSubheader />
-      </div>
+      
 
       {/* Form Section */}
-      <form style={{ display: 'flex', flexWrap: 'wrap', width: '100%', justifyContent: 'center' }}>
+      <form style={{ display: 'flex', flexWrap: 'wrap', width: '100%', justifyContent: 'center', marginTop: '20px' }}>
         {/* Loss Type and Carrier Information Section */}
         <div style={{ flex: '48%', padding: '10px', display: 'flex', justifyContent: 'center', flexDirection: 'row', alignItems: 'center' }}>
           <div style={{ marginRight: '10px' }}>

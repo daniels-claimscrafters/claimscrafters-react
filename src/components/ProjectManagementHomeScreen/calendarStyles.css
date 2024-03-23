@@ -37,6 +37,13 @@
 .rbc-time-content + .rbc-time-content {
   font-family: 'Manrope', sans-serif; /* Change the font family to Manrope */
 }
+
+.rbc-toolbar {
+  display: flex; /* Use flexbox layout */
+  flex-wrap: nowrap; /* Prevent line wrapping */
+  overflow-x: auto; /* Enable horizontal scrolling when toolbar overflows */
+}
+
 .rbc-event {
   /* Styles for the event container */
   /* For example: */
@@ -60,7 +67,6 @@
 }
 
 .rbc-btn-group {
-  flex: 0 0 auto; /* Prevent button groups from growing or shrinking */
   width: 220px; /* Set the fixed width for the button groups */
 }
 
@@ -68,6 +74,10 @@
   padding-left: 60px;
 }
 
+.rbc-btn-group button {
+  padding: 0.2rem 0.5rem; /* Adjust padding to change button size */
+  font-size: 0.8rem; /* Adjust font size */
+}
 
 .rbc-toolbar .rbc-btn-group:nth-of-type(3) button:nth-of-type(2),
 .rbc-toolbar .rbc-btn-group:nth-of-type(3) button:nth-of-type(3) {
@@ -76,6 +86,7 @@
 
 .rbc-toolbar-label {
   text-align: center;
+  width: 20px;
 }
 
 .rbc-agenda-time-cell {

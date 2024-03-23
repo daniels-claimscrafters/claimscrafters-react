@@ -59,7 +59,7 @@ const NPC5 = ({ npcData, resetParentData, onNext, onPrevious, onColumnsSelected 
         </div>
   
         {/* Row 2 Centered */}
-  <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '100%', marginTop: '10px' }}>
+  <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '100%', marginBottom: '20px' }}>
     <HorizontalDivider />
   
     {/* Card Circle 1 */}
@@ -135,10 +135,7 @@ const NPC5 = ({ npcData, resetParentData, onNext, onPrevious, onColumnsSelected 
     <HorizontalDivider />
   </div>
   {/* New Section with TextHeader2 and TextSubtitle */}
-  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px', marginBottom: '10px' }}>
-        <TextHeader2 />
-        <TextSubheader />
-      </div>
+  
 
       
       <PreviewData
@@ -152,7 +149,7 @@ const NPC5 = ({ npcData, resetParentData, onNext, onPrevious, onColumnsSelected 
     <TextMain />
   </div>
   <CardButton style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '15px' }}>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '5px' }}>
       <TextCardButton text={npcData.numberOfLines.toString()} />
     </div>
   </CardButton>

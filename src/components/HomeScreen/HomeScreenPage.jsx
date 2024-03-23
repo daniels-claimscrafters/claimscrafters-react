@@ -105,11 +105,22 @@ const fetchUserData = async (token) => {
       setUserData(null);
       // Optionally, you can clear the token from cookies or local storage
       clearToken();
+      window.location.reload();
     } else {
       console.error('Failed to fetch user data');
+      setIsAuthenticated(false);
+      setUserData(null);
+      // Optionally, you can clear the token from cookies or local storage
+      clearToken();
+      window.location.reload();
     }
   } catch (error) {
     console.error('Error fetching user data:', error);
+    setIsAuthenticated(false);
+      setUserData(null);
+      // Optionally, you can clear the token from cookies or local storage
+      clearToken();
+      window.location.reload();
   }
 };
 

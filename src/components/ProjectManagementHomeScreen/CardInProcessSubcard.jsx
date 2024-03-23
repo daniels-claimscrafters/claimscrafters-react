@@ -4,8 +4,8 @@ const styles = {
   Card: {
     top: '148px',
     left: '112px',
-    width: '134px',
-    height: '64px',
+    width: '95%',
+    height: '45%',
     backgroundColor: '#cddef2',
     borderRadius: '12px',
   },

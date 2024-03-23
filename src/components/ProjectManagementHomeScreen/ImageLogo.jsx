@@ -6,13 +6,14 @@ import React from 'react';
 
 const styles = {
   ImageContainer: {
-    width: '130px', // Decreased width
-    height: '130px', // Decreased height
+    width: '90%', // Decreased width
+    height: '90%', // Decreased height
     backgroundColor: 'black',
     backgroundPosition: 'center center',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
-    marginLeft: '10px',
+    marginLeft: '5px',
+    marginTop: '5px',
   },
 };
 

@@ -155,11 +155,8 @@ const NPC6 = ({ npcData, onInputChange, onNext, onPrevious, resetParentData }) =
   </div>
 
       {/* Row 3 Centered */}
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', marginTop: '40px' }}>
-        {/* TextHeader2 */}
-        <TextHeader2 />
-        {/* TextSubtitle */}
-        <TextSubtitle />
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+        
         {/* TextBody */}
         <TextBody />
       </div>

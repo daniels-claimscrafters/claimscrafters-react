@@ -1,4 +1,6 @@
-import React from 'react';
+// ButtonSignUp.jsx
+
+import React, { useState } from 'react';
 
 const styles = {
   Button: {
@@ -20,6 +22,9 @@ const styles = {
     outline: 'none',
     marginBottom: '20px',
   },
+  ClickedButton: {
+    backgroundColor: '#1a63ff', // Change the color to whatever you prefer
+  },
 };
 
 const defaultProps = {
@@ -27,14 +32,23 @@ const defaultProps = {
 };
 
 const Button = ({ disabled, label }) => {
+  const [clicked, setClicked] = useState(false);
+
+  const handleClick = () => {
+    setClicked(true);
+    setTimeout(() => {
+      setClicked(false); // Revert back to original style after 500 milliseconds
+    }, 500);
+  };
+
   const buttonStyles = {
     ...styles.Button,
-    backgroundColor: disabled ? '#CCCCCC' : '#2a84ea',
+    backgroundColor: disabled ? '#CCCCCC' : (clicked ? styles.ClickedButton.backgroundColor : styles.Button.backgroundColor),
     cursor: disabled ? 'not-allowed' : 'pointer',
   };
 
   return (
-    <button style={buttonStyles} disabled={disabled}>
+    <button style={buttonStyles} onClick={handleClick} disabled={disabled}>
       {label ?? defaultProps.label}
     </button>
   );

@@ -10,16 +10,16 @@ const styles = {
   Card: {
     top: '136px',
     left: '102px',
-    width: '154px',
-    height: '136px',
+    width: '100%',
+    height: '100%',
     backgroundColor: '#f0f0f0',
     borderRadius: '12px',
-    marginRight: '15px',
-    marginLeft: '15px',
   },
   // Additional styles for the child components
   ChildContainer: {
-    padding: '12px',
+    padding: '7px',
+    height: '100%',
+    paddingTop: '10px',
   },
   IconCompletedContainer: {
     display: 'flex',

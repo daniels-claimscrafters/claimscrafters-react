@@ -41,6 +41,10 @@ const NPCParentComponent = () => {
     }
   }, [navigate]);
 
+  const clearToken = () => {
+    document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+  };
+
   // Function to fetch user data
   const fetchUserData = async (token) => {
     try {
@@ -56,9 +60,13 @@ const NPCParentComponent = () => {
         setUserData(data.user);
       } else {
         console.error('Failed to fetch user data');
+        clearToken();
+        window.location.reload();
       }
     } catch (error) {
       console.error('Error fetching user data:', error);
+      clearToken();
+        window.location.reload();
     }
   };
 

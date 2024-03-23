@@ -8,9 +8,9 @@ const styles = {
     top: '50%', // Set to 50% from the top
     left: '50%', // Set to 50% from the left
     transform: 'translate(-50%, -50%)', // Translate -50% of the width and height to center it,
-    width: '50%',
-    height: '50%',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    width: '70%',
+    height: '10%',
+    backgroundColor: 'rgba(0, 0, 0, 0.7)', // Semi-transparent black color
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -18,7 +18,7 @@ const styles = {
   },
   popup: {
     backgroundColor: '#fff',
-    padding: '100px',
+    padding: '60px',
     borderRadius: '8px',
     boxShadow: '0 0 20px rgba(0, 0, 0, 0.3)',
   },
@@ -65,7 +65,7 @@ const NPCLoadingScreen = () => {
             alt="Loading..."
             style={{ ...styles.image, transform: `rotate(${rotation}deg)` }}
           />
-          <h2 style={styles.title}>Thank you for your purchase. We are currently evaluating your contents with ContentIQ. Depending on the size of your claim, this can take anywhere from a few seconds to 5 minutes. You will recieve a confirmation email once your claim is ready to view. You will be automatically redirected. Thank you for your patience.</h2>
+          <h2 style={styles.title}>Thank you for your purchase. We are currently processing your contents with ContentIQ. Depending on the size of your claim, this can take anywhere from a couple of minutes to an hour. You will recieve a confirmation email once your claim is ready to view. Thank you for your patience. You will be automatically redirected in 10 seconds. </h2>
         </div>
         {/* You can add additional content or animations here */}
       </div>

@@ -6,11 +6,12 @@ const styles = {
   Card: {
     top: '191px',
     left: '610px',
-    height: '40px',
+    height: '7%',
     backgroundColor: '#f0f0f0',
     borderRadius: '24px',
     display: 'flex', // Added display flex
     justifyContent: 'center', // Center align the buttons
+    alignItems: 'center',
     padding: '10px',
     marginBottom: '10px',
   },

@@ -5,7 +5,7 @@ const styles = {
     top: '498px',
     left: '153px',
     width: '1163px',
-    height: '450px',
+    height: '425px',
     backgroundColor: '#ffffff',
     borderRadius: '12px',
     border: '1px solid #030303',

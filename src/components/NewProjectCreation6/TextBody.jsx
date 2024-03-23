@@ -8,9 +8,9 @@ const styles = {
     fontSize: '16px',
     fontFamily: 'Poppins',
     fontWeight: 400,
-    lineHeight: '24px',
+    lineHeight: '22px',
     textAlign: 'justify',
-    maxWidth: '66%',
+    maxWidth: '90%',
   },
 };
 

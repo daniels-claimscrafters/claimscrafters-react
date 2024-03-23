@@ -9,7 +9,8 @@ import moment from 'moment';
 
 const styles = {
   tasksListContainer: {
-    
+    width: '100%',
+    height: '100%',
   },
 };
 

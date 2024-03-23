@@ -67,7 +67,7 @@ const NPC4 = (props) => {
         </div>
   
         {/* Row 2 Centered */}
-  <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '100%', marginTop: '10px' }}>
+  <div style={{ marginBottom: '20px', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '100%', marginTop: '10px' }}>
     <HorizontalDivider />
   
     {/* Card Circle 1 */}
@@ -144,10 +144,6 @@ const NPC4 = (props) => {
   </div>
 
   {/* New Section with TextHeader2 and TextSubtitle */}
-  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '50px', marginBottom: '10px' }}>
-        <TextHeader2 />
-        <TextSubheader />
-      </div>
 
       <CardUpload onFileUpload={handleFileUpload} onClick={() => console.log('CardUpload clicked in NPC4')} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
   <CardSubupload />

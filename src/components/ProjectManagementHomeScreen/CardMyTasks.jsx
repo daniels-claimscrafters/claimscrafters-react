@@ -9,20 +9,19 @@ const styles = {
   Card: {
     top: '699px',
     left: '92px',
-    width: '750px',
+    width: '100%',
     backgroundColor: '#f0f0f0',
     borderRadius: '12px',
     padding: '10px',
     boxSizing: 'border-box',
     display: 'flex',
     flexDirection: 'column',
-    height: '195px'
+    height: '30%'
   },
   header: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: '10px',
     color: '#030303',
     fontSize: '20px',
     fontFamily: 'Poppins',
@@ -43,14 +42,14 @@ const styles = {
     height: '35px',
     borderBottom: '1px solid #ccc',
     display: 'flex',
-    width: '713px',
+    width: '100%',
   },
   row2: {
     backgroundColor: '#f0f0f0',
     height: '35px',
     borderBottom: '1px solid #ccc',
     display: 'flex',
-    
+    width: '100%',
   },
   column: {
     flex: 1, // Each column takes up equal space
@@ -62,7 +61,7 @@ const styles = {
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
     color: '#030303',
-    fontSize: '16px',
+    fontSize: '12px',
     fontFamily: 'Poppins',
   },
   columnContainer: {
@@ -77,7 +76,9 @@ const styles = {
     fontSize: '16px',
     fontFamily: 'Poppins',
     fontWeight: 600,
-    width: '142px'
+    width: '142px',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
   },
   // New style for the icon container
   iconContainer: {

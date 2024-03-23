@@ -20,7 +20,7 @@ const ProjectsList = (projects ) => {
 
     console.log('ProjectsList: ', projects)
   return (
-    <div>
+    <div style={{ height: '90%' }}>
       <CardButtonBackground>
         <ButtonCreateNew />
         <ButtonProjectsAll onClick={() => handleFilterChange('All')} />

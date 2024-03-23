@@ -5,7 +5,7 @@ const styles = {
     top: '3px',
     left: '0px',
     width: '100%',
-    height: '67px',
+    height: '10%',
     backgroundColor: '#1e1f26',
     boxShadow: '0px 1px 12px rgba(3,3,3,0.32)',
   },

@@ -141,8 +141,8 @@ const NPC7 = ({ updateLoadingState, npcData, onInputChange, onPrevious, numberOf
   return (
     <div>
       {/* Header Content */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '10px' }}>
-        <div>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ paddingTop: '10px' }}>
           <ImageLogo />
         </div>
         <div>

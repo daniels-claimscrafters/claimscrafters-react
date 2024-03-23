@@ -6,8 +6,8 @@ const styles = {
   ImageContainer: {
     top: '25px',
     left: '1323px',
-    width: '200px',
-    height: '200px',
+    width: '150px',
+    height: '150px',
     borderRadius: '100000px',
     border: '1px solid #c2c2c2',
     boxSizing: 'border-box',

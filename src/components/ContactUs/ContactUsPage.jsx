@@ -34,7 +34,7 @@ const ContactUsPage = () => {
   const [submitEnabled, setSubmitEnabled] = useState(false);
   const [FailureMessage, setFailureMessage] = useState('');
   const [showCudbPage, setShowCudbPage] = useState(false);
-  const isSmallScreen = useMediaQuery({ maxWidth: 1250 });
+  const isSmallScreen = useMediaQuery({ maxWidth: 1280 });
   const API_URL = process.env.REACT_APP_API_URL;
 
   const handleRecaptchaChange = (value) => {

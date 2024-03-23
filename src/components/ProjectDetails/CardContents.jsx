@@ -11,7 +11,7 @@ const styles = {
     top: '465px',
     left: '41px',
     width: '100%',
-    height: '440px',
+    height: '100%',
     backgroundColor: '#f0f0f0',
     borderRadius: '12px',
     border: '1px solid #030303',
@@ -351,7 +351,7 @@ const updatedProjectDetails = projectDetails.project.spreadsheetData;;
       }
 
       setShowPopup(true);
-      //setTimeout(() => window.location.reload(), 1500);
+      setTimeout(() => window.location.reload(), 1500);
 
     } catch (error) {
       console.error('Error creating changelog entry:', error);

@@ -78,6 +78,10 @@ const PMHSPage = () => {
       fetchUserData(token);
     }
   }, [navigate]);
+  
+  const clearToken = () => {
+    document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+  };
 
   // Function to fetch user data
   const fetchUserData = async (token) => {
@@ -95,9 +99,13 @@ const PMHSPage = () => {
         console.log(userData)
       } else {
         console.error('Failed to fetch user data');
+        clearToken();
+        window.location.reload();
       }
     } catch (error) {
       console.error('Error fetching user data:', error);
+      clearToken();
+      window.location.reload();
     }
   };
 
@@ -209,9 +217,9 @@ useEffect(() => {
   };
 
   return (
-    <div style={{ display: 'flex', height: '100vh' }}>
+    <div style={{ display: 'flex', height: '100vh', minHeight: '600px', minWidth: '1200px' }}>
   {/* Sidebar Section */}
-  <div style={{ flex: '0 0 auto', width: '90px', backgroundColor: '#f0f0f0' }}>
+  <div style={{ flex: '0 0 auto', width: '5%', backgroundColor: '#f0f0f0' }}>
   <CardSideBar>
     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%' }}>
     <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -235,14 +243,15 @@ useEffect(() => {
   </CardSideBar>
   </div>
   {/* Main Content Section */}
-  <div style={{ flex: '1', backgroundColor: '#ffffff' }}>
+  
     {/* Main Content */}
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100%' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100%', width: '95%' }}>
       {/* Top Row */}
-<div style={{ display: 'flex', backgroundColor: '#000000', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%', maxHeight: '130px' }}>
+<div style={{ display: 'flex', backgroundColor: '#000000', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%', height: '15%' }}>
   {/* Left Section: ImageLogo */}
-  <div style={{ paddingBottom: '10px'}}>
+  <div style={{ height: '100%', width: '10%' }}>
   <motion.div
+  style={{ width: '90%', height: '90%' }}
           initial={{ scale: 0 }} // Initial scale is 0
           animate={{ scale: 1 }} // Animate to scale 1
           transition={{ duration: 0.5 }} // Transition duration
@@ -283,11 +292,12 @@ useEffect(() => {
   </div>
 </div>
       {/* Cards and Project Buttons Section */}
-      <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
+      <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '98%', height: '85%' }}>
         {/* Left Section: TasksList */}
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: 'auto', marginLeft: '20px', marginTop: '7px' }}>
-        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center'  }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '33%', height: '100%' }}>
+        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', width: '100%', height: '20%', gap: '5px'  }}>
         <motion.div
+      style={{ width: '33.33%', height: '90%' }}
       initial={{ scale: 0, opacity: 0 }} // Initial scale and opacity
       animate={{ scale: 1, opacity: 1 }} // Animate to scale 1 and opacity 1
       transition={{ delay: 0.1, duration: 0.5 }} // Delay animation by 0.5 seconds
@@ -295,6 +305,7 @@ useEffect(() => {
       <CardInProcess inProcess={inProcess} />
     </motion.div>
     <motion.div
+    style={{ width: '33.33%', height: '90%' }}
       initial={{ scale: 0, opacity: 0 }} // Initial scale and opacity
       animate={{ scale: 1, opacity: 1 }} // Animate to scale 1 and opacity 1
       transition={{ delay: 0.3, duration: 0.5 }} // Delay animation by 0.5 seconds
@@ -302,6 +313,7 @@ useEffect(() => {
       <CardCompleted completed={completed} />
     </motion.div>
     <motion.div
+    style={{ width: '33.33%', height: '90%' }}
       initial={{ scale: 0, opacity: 0 }} // Initial scale and opacity
       animate={{ scale: 1, opacity: 1 }} // Animate to scale 1 and opacity 1
       transition={{ delay: 0.5, duration: 0.5 }} // Delay animation by 0.5 seconds
@@ -316,6 +328,7 @@ useEffect(() => {
           {/* TasksList */}
 
     <motion.div
+      style={{ width: '100%', height: '80%' }}
       initial={{ scale: 0, opacity: 0 }} // Initial scale and opacity
       animate={{ scale: 1, opacity: 1 }} // Animate to scale 1 and opacity 1
       transition={{ delay: 1.0, duration: 0.5 }} // Delay animation by 0.5 seconds
@@ -334,6 +347,7 @@ useEffect(() => {
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100%', width: '66%', marginLeft: '20px' }}>
           {/* ProjectsList */}
           <motion.div
+          style={{ width: '100%', height: '100%' }}
       initial={{ scale: 0, opacity: 0 }} // Initial scale and opacity
       animate={{ scale: 1, opacity: 1 }} // Animate to scale 1 and opacity 1
       transition={{ delay: 1.5, duration: 0.5 }} // Delay animation by 0.5 seconds
@@ -347,7 +361,7 @@ useEffect(() => {
       {/* Render CardTaskParent if showCardTaskParent is true */}
       {showCardTaskParent && <CardTaskParent userData={userData} onClose={toggleCardTaskParent} />}
     </div>
-  </div>
+  
 </div>
   );
 }

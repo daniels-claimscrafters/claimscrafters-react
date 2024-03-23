@@ -6,7 +6,7 @@ const styles = {
     top: '1007px',
     left: '912px',
     width: '427px',
-    height: '60px',
+    height: '45px',
     padding: '0px 8px',
     border: '1px solid #ceced3',
     boxSizing: 'border-box',

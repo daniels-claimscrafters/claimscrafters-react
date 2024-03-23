@@ -3,7 +3,7 @@ import React from 'react';
 const styles = {
   Text: {
     color: '#222222',
-    fontSize: '24px',
+    fontSize: '18px',
     fontFamily: 'Poppins',
     fontWeight: 700,
     lineHeight: '31px',

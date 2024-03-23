@@ -1,3 +1,5 @@
+// ButtonSendMessage.jsx
+
 import React, { useState } from 'react';
 
 const styles = {
@@ -23,6 +25,9 @@ const styles = {
   DisabledButton: {
     backgroundColor: '#999999',
     cursor: 'not-allowed',
+  },
+  ClickedButton: {
+    backgroundColor: '#4CAF50', // Change the color to whatever you prefer
   }
 };
 
@@ -32,29 +37,21 @@ const defaultProps = {
 
 const Button = (props) => {
   const { label, onClick, disabled } = props;
-  const [isClicked, setIsClicked] = useState(false);
+  const [clicked, setClicked] = useState(false);
 
-  const buttonStyle = {
-    ...styles.Button,
-    ...(isClicked && !disabled && { backgroundColor: '#1a63ff' }), // Change background color when clicked and not disabled
-    ...(disabled && styles.DisabledButton), // Apply disabled style if the button is disabled
-  };
-  
   const handleClick = () => {
-    if (!disabled) {
-      setIsClicked(true); // Set isClicked to true when the button is clicked
-      setTimeout(() => {
-        setIsClicked(false); // Reset isClicked after 150ms
-        // Call the onClick function if provided
-        if (onClick) {
-          onClick();
-        }
-      }, 150); // Delay resetting isClicked by 150 milliseconds
-    }
+    setClicked(true);
+    onClick(); // Call the onClick function passed from the parent component
+    setTimeout(() => {
+      setClicked(false); // Revert back to original style after 500 milliseconds
+    }, 500);
   };
+
+  const buttonStyle = disabled ? { ...styles.Button, ...styles.DisabledButton } : 
+    clicked ? { ...styles.Button, ...styles.ClickedButton } : styles.Button;
 
   return (
-    <button style={buttonStyle} onClick={onClick} disabled={disabled}>
+    <button style={buttonStyle} onClick={handleClick} disabled={disabled}>
       {label ?? defaultProps.label}
     </button>
   );

@@ -10,6 +10,8 @@ const styles = {
     textAlign: 'center',
     marginTop: '10px',
     marginBottom: '10px',
+    width: '100%',
+    height: '5%',
   },
 };
 

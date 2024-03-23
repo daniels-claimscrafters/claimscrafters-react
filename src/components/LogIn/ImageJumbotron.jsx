@@ -5,7 +5,7 @@ const styles = {
     top: '0px',
     left: '-6px',
     width: '744px',
-    height: '900px',
+    height: '100%',
     borderRadius: '8px',
     backgroundImage: 'url(./image.png)',
     backgroundPosition: 'center center',

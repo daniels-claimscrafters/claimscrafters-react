@@ -104,11 +104,12 @@ const LogInPage = () => {
   
 
   return (
-    <div style={{ display: 'flex' }}>
+    <div style={{ display: 'flex', height: '100vh' }}>
       {/* Left column with ImageJumbotron */}
       {!isSmallScreen && ( 
-        <div style={{ flexShrink: 0 }}>
+        <div style={{ flexShrink: 0, height: '100%' }}>
         <motion.div
+          style={{ height: '100%' }}
           initial={{ scale: 0 }} // Initial scale is 0
           animate={{ scale: 1 }} // Animate to scale 1
           transition={{ duration: 1.0 }} // Transition duration

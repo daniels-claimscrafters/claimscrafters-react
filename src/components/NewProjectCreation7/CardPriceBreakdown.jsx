@@ -5,14 +5,14 @@ const styles = {
     top: '502px',
     left: '24px',
     width: '682px',
-    height: '371px',
+    height: '300px',
     backgroundColor: '#ffffff',
     borderRadius: '12px',
     border: '1px solid #030303',
     boxSizing: 'border-box',
     boxShadow: '0px 1px 12px rgba(3,3,3,0.08)',
     marginTop: '20px',
-    padding: '20px',
+    padding: '5px',
     fontFamily: 'Poppins',
   },
   Table: {
@@ -23,11 +23,11 @@ const styles = {
   TableHeader: {
     backgroundColor: '#ffffff',
     borderBottom: '1px solid #dddddd',
-    height: '60px'
+    height: '40px'
   },
   TableCell: {
     borderBottom: '1px solid #dddddd',
-    padding: '10px',
+    padding: '7px',
   },
   TableCellLast: {
     
