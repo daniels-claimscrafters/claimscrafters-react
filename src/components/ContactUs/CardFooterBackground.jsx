@@ -5,7 +5,7 @@ const styles = {
     top: '977px',
     left: '0px',
     width: '100%',
-    height: '118px',
+    height: '75px',
     backgroundColor: '#040000',
   },
 };

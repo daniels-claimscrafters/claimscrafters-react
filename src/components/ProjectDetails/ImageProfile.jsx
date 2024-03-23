@@ -10,7 +10,7 @@ const styles = {
     left: '1305px',
     width: '40px',
     height: '40px',
-    marginTop: '10px',
+  
     marginRight: '20px',
     cursor: 'pointer',
   },

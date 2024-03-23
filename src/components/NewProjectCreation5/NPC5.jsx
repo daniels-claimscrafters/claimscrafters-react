@@ -42,7 +42,7 @@ const NPC5 = ({ npcData, resetParentData, onNext, onPrevious, onColumnsSelected 
 
 
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', maxHeight: '100vh' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100vh' }}>
         {/* Row 1 */}
         <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -134,39 +134,35 @@ const NPC5 = ({ npcData, resetParentData, onNext, onPrevious, onColumnsSelected 
   
     <HorizontalDivider />
   </div>
+  <div style={{ height: '80%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
   {/* New Section with TextHeader2 and TextSubtitle */}
-  
+  <PreviewData
+    excelData={npcData.spreadsheetUpload}
+    onColumnsSelected={handleColumnsSelected}
+    resetParentData={resetParentData} 
+  />
 
-      
-      <PreviewData
-        excelData={npcData.spreadsheetUpload}
-        onColumnsSelected={handleColumnsSelected}
-        resetParentData={resetParentData} 
-      />
-
-<div style={{ display: 'flex', flexDirection: 'row', marginTop: '10px' }}> {/* Container for TextMain and CardButton */}
-  <div style={{ display: 'flex', alignItems: 'center', marginRight: '10px' }}> {/* Flex container for TextMain */}
-    <TextMain />
-  </div>
-  <CardButton style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '5px' }}>
-      <TextCardButton text={npcData.numberOfLines.toString()} />
+  <div style={{ display: 'flex', flexDirection: 'row', marginTop: '10px' }}> {/* Container for TextMain and CardButton */}
+    <div style={{ display: 'flex', alignItems: 'center', marginRight: '10px' }}> {/* Flex container for TextMain */}
+      <TextMain />
     </div>
-  </CardButton>
-</div>
-
-
+    <CardButton style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '5px' }}>
+        <TextCardButton text={npcData.numberOfLines.toString()} />
+      </div>
+    </CardButton>
+  </div>
 
   <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '80%', marginTop: '10px' }}>
-        <div style={{ marginRight: '5px' }}>
-          <ButtonBack resetParentData={resetParentData}  onBack={onPrevious} />
-        </div>
-        <div style={{ marginLeft: '5px' }}>
-        <ButtonContinue disabled={isContinueDisabled} label="Continue" onClick={onNext} />
-        </div>
-      </div>
-
+    <div style={{ marginRight: '5px' }}>
+      <ButtonBack resetParentData={resetParentData}  onBack={onPrevious} />
     </div>
+    <div style={{ marginLeft: '5px' }}>
+      <ButtonContinue disabled={isContinueDisabled} label="Continue" onClick={onNext} />
+    </div>
+  </div>
+</div>
+</div>
   );
 };
   

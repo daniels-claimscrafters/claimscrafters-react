@@ -58,7 +58,7 @@ const NPC3 = (props) => {
   };
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '10px' }}>
+        <div style={{ display: 'flex', height: '100vh', flexDirection: 'column', alignItems: 'center', marginTop: '10px' }}>
         {/* Row 1 */}
         <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -154,6 +154,7 @@ const NPC3 = (props) => {
   {/* New Section with TextHeader2 and TextSubtitle */}
   
 
+  <div style={{ height: '80%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
       {/* New Middle Section */}
       <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '80%', marginTop: '10px' }}>
         {/* Left Column: Sales Tax */}
@@ -190,26 +191,25 @@ const NPC3 = (props) => {
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
-  {/* Render CardSalesTax if isSalesTaxPopupOpen is true */}
-  {isSalesTaxPopupOpen && (
-    <div style={{ display: 'flex', alignItems: 'center' }}>
-      <CardSalesTax>
-        <TextCardHeaderSalesTax />
-        <TextCardBodySalesTax />
-      </CardSalesTax>
-    </div>
-  )}
-  {/* Render CardDepreciation if isDepreciationPopupOpen is true */}
-  {isDepreciationPopupOpen && (
-    <div style={{ display: 'flex', alignItems: 'center' }}>
-      <CardDepreciation>
-        <TextCardHeaderDepreciation />
-        <TextCardBodyDepreciation />
-      </CardDepreciation>
-    </div>
-  )}
-</div>
-
+        {/* Render CardSalesTax if isSalesTaxPopupOpen is true */}
+        {isSalesTaxPopupOpen && (
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <CardSalesTax>
+              <TextCardHeaderSalesTax />
+              <TextCardBodySalesTax />
+            </CardSalesTax>
+          </div>
+        )}
+        {/* Render CardDepreciation if isDepreciationPopupOpen is true */}
+        {isDepreciationPopupOpen && (
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <CardDepreciation>
+              <TextCardHeaderDepreciation />
+              <TextCardBodyDepreciation />
+            </CardDepreciation>
+          </div>
+        )}
+      </div>
 
       {/* Third Row: Buttons with 10px spacing */}
       <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '80%', marginTop: '20px' }}>
@@ -217,13 +217,13 @@ const NPC3 = (props) => {
           <ButtonBack label="Back" onClick={onPrevious}/>
         </div>
         <div style={{ marginLeft: '5px' }}>
-        <ButtonContinue label="Continue" onClick={onNext} disabled={isContinueDisabled} />
+          <ButtonContinue label="Continue" onClick={onNext} disabled={isContinueDisabled} />
         </div>
       </div>
 
       {/* Footer Section */}
-
-</div>
+    </div>
+    </div>
   );
 };
   

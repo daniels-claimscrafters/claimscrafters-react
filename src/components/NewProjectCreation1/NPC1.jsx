@@ -166,90 +166,92 @@ const NPC1 = (props) => {
 
 
       {/* Financial Inputs Section */}
-      <div style={{ display: 'flex', flexDirection: 'row', marginTop: '20px' }}>
-        <div style={{ marginRight: '20px' }}>
-          <TextClaimNumber />
-          <InputFieldClaimNumber
-            value={npcData.claimNumber}
-            onChange={onInputChange}
-            updateValidationErrors={updateValidationErrors}
-          />
-        </div>
-        <div>
-          <TextDateOfLoss />
-          <InputFieldDateofLoss
+<div style={{ width: '100%', height: '80vh', alignItems: 'center', justifyContent: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}>
+  {/* Input Fields Section */}
+  <div style={{ display: 'flex', flexDirection: 'column', width: '100%', alignItems: 'center' }}>
+    {/* Claim Number and Date of Loss */}
+    <div style={{ display: 'flex', flexDirection: 'row', marginTop: '20px' }}>
+      <div style={{ marginRight: '20px' }}>
+        <TextClaimNumber />
+        <InputFieldClaimNumber
+          value={npcData.claimNumber}
+          onChange={onInputChange}
+          updateValidationErrors={updateValidationErrors}
+        />
+      </div>
+      <div>
+        <TextDateOfLoss />
+        <InputFieldDateofLoss
           value={npcData.dateOfLoss}
           onChange={onInputChange}
           updateValidationErrors={updateValidationErrors}
-          />
-        </div>
+        />
       </div>
+    </div>
 
-      {/* Insured Information Section */}
-      <div style={{ display: 'flex', flexDirection: 'row', marginTop: '10px' }}>
-        <div style={{ marginRight: '20px' }}>
-          <TextInsuredFirstName />
-          <InputFieldFirstName 
+    {/* Insured Information */}
+    <div style={{ display: 'flex', flexDirection: 'row', marginTop: '10px' }}>
+      <div style={{ marginRight: '20px' }}>
+        <TextInsuredFirstName />
+        <InputFieldFirstName 
           value={npcData.insuredFirstName}
           onChange={onInputChange}
           updateValidationErrors={updateValidationErrors}
-          />
-        </div>
-        <div>
-          <TextInsuredLastName />
-          <InputFieldLastName 
+        />
+      </div>
+      <div>
+        <TextInsuredLastName />
+        <InputFieldLastName 
           value={npcData.insuredLastName}
           onChange={onInputChange}
-          updateValidationErrors={updateValidationErrors}/>
-          
-        </div>
+          updateValidationErrors={updateValidationErrors}
+        />
       </div>
+    </div>
 
-      {/* Loss Information Section */}
-      <div style={{ display: 'flex', flexDirection: 'column', marginTop: '10px', }}>
-        <div style={{ marginBottom: '10px' }}>
-          <TextLossAddress />
-          <InputFieldLossAddress 
+    {/* Loss Information */}
+    <div style={{ display: 'flex', flexDirection: 'column', marginTop: '10px' }}>
+      <div style={{ marginBottom: '10px' }}>
+        <TextLossAddress />
+        <InputFieldLossAddress 
           value={npcData.lossAddress}
           onChange={onInputChange}
           updateValidationErrors={updateValidationErrors}
-          />
-        </div>
-        <div style={{ display: 'flex', flexDirection: 'row' }}>
-          <div style={{ marginRight: '20px' }}>
-            <TextLossCity />
-            <InputFieldLossCity 
+        />
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'row' }}>
+        <div style={{ marginRight: '20px' }}>
+          <TextLossCity />
+          <InputFieldLossCity 
             value={npcData.lossCity}
             onChange={onInputChange}
             updateValidationErrors={updateValidationErrors}
-            />
-          </div>
-          <div>
-            <TextLossState />
-            <DropdownLossState 
+          />
+        </div>
+        <div>
+          <TextLossState />
+          <DropdownLossState 
             value={npcData.lossState}
             onChange={onInputChange}
             updateValidationErrors={updateValidationErrors}
-            />
-          </div>
-          
-        </div>
-        <div style={{ marginTop: '10px' }}>
-          <TextLossPostalCode />
-          <InputFieldLossPostalCode 
-          value={npcData.lossPostalCode}
-          onChange={onInputChange}
-          updateValidationErrors={updateValidationErrors}
           />
         </div>
       </div>
-
-      {/* Additional Information Section */}
-      <div>
-      <ButtonContinue label="Continue" onClick={onNext} disabled={!areAllFieldsFilled()} />
+      <div style={{ marginTop: '10px' }}>
+        <TextLossPostalCode />
+        <InputFieldLossPostalCode 
+          value={npcData.lossPostalCode}
+          onChange={onInputChange}
+          updateValidationErrors={updateValidationErrors}
+        />
       </div>
-      {/* Footer Section */}
     </div>
+  </div>
+
+  {/* Continue Button */}
+  <ButtonContinue label="Continue" onClick={onNext} disabled={!areAllFieldsFilled()} />
+</div>
+</div>
   );
 };
   

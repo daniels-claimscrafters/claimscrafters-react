@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 
 const styles = {
   cardContainer: {
-    width: '80%',
+    width: '88%',
     height: '310px',
     boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
     backgroundColor: '#f1f1f1',

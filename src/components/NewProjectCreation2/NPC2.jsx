@@ -60,7 +60,7 @@ const NPC2 = (props) => {
       return allFieldsFilled;
   };
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100vh' }}>
       {/* Row 1 */}
       <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
         <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -156,6 +156,7 @@ const NPC2 = (props) => {
       {/* New Section with TextHeader2 and TextSubtitle */}
       
 
+      <div style={{ height: '80%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
       {/* Form Section */}
       <form style={{ display: 'flex', flexWrap: 'wrap', width: '100%', justifyContent: 'center', marginTop: '20px' }}>
         {/* Loss Type and Carrier Information Section */}
@@ -163,15 +164,15 @@ const NPC2 = (props) => {
           <div style={{ marginRight: '10px' }}>
             <TextLossType />
             <DropdownLossType 
-            value={npcData.lossType}
-            onChange={onInputChange}
+              value={npcData.lossType}
+              onChange={onInputChange}
             />
           </div>
           <div>
             <TextCarrier />
             <InputFieldCarrier 
-            value={npcData.carrier}
-            onChange={onInputChange}
+              value={npcData.carrier}
+              onChange={onInputChange}
             />
           </div>
         </div>
@@ -181,15 +182,15 @@ const NPC2 = (props) => {
           <div style={{ marginRight: '10px' }}>
             <TextAdjusterFirstName />
             <InputFieldAdjusterFirstName 
-            value={npcData.adjusterFirstName}
-            onChange={onInputChange}
+              value={npcData.adjusterFirstName}
+              onChange={onInputChange}
             />
           </div>
           <div>
             <TextAdjusterLastName />
             <InputFieldAdjusterLastName 
-            value={npcData.adjusterLastName}
-            onChange={onInputChange}
+              value={npcData.adjusterLastName}
+              onChange={onInputChange}
             />
           </div>
         </div>
@@ -199,17 +200,17 @@ const NPC2 = (props) => {
           <div style={{ marginRight: '10px' }}>
             <TextAdjusterPhone />
             <InputFieldAdjusterPhone 
-            value={npcData.adjusterPhone}
-            onChange={onInputChange}
-            updateValidationErrors={updateValidationErrors}
+              value={npcData.adjusterPhone}
+              onChange={onInputChange}
+              updateValidationErrors={updateValidationErrors}
             />
           </div>
           <div>
             <TextAdjusterEmail />
             <InputFieldAdjusterEmail 
-            value={npcData.adjusterEmail}
-            onChange={onInputChange}
-            updateValidationErrors={updateValidationErrors}
+              value={npcData.adjusterEmail}
+              onChange={onInputChange}
+              updateValidationErrors={updateValidationErrors}
             />
           </div>
         </div>
@@ -223,6 +224,7 @@ const NPC2 = (props) => {
       </form>
 
       {/* Footer Section */}
+    </div>
     </div>
   );
 };

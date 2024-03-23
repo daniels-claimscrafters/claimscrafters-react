@@ -139,7 +139,7 @@ const NPC7 = ({ updateLoadingState, npcData, onInputChange, onPrevious, numberOf
   }, [numberOfLines]); 
 
   return (
-    <div>
+    <div style={{ height: '100vh'  }}>
       {/* Header Content */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <div style={{ paddingTop: '10px' }}>
@@ -153,44 +153,44 @@ const NPC7 = ({ updateLoadingState, npcData, onInputChange, onPrevious, numberOf
         </div>
       </div>
 
-      {/* Two Columns */}
-      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
-        <div style={{ display: 'flex', flex: 1, justifyContent: 'center', maxWidth: '80%' }}>
-          {/* Left Side Column */}
-          <div style={{ flex: 1, marginRight: '10px' }}>
-            <TextHeader2 />
-            <CardNumberOfLines>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', height: '100%',  }}>
-                <div>
-                  <TextNumberOfLinesHeader />
-                  <TextNumberOfLinesSubheader />
-                </div>
-                <TextNumberOfLinesNum numberOfLines={npcData.numberOfLines} />
-              </div>
-            </CardNumberOfLines>
-            <CardPricing>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', height: '100%',  }}>
-                <div>
-                  <TextPricingHeader />
-                  <TextPricingSubHeader />
-                </div>
-                <TextPricingNum totalPrice={totalPrice} />
-              </div>
-            </CardPricing>
-            <CardPriceBreakdown />
+      <div style={{ height: '80%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+  {/* Two Columns */}
+  <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+    <div style={{ display: 'flex', flex: 1, justifyContent: 'center', maxWidth: '100%' }}>
+      {/* Left Side Column */}
+      <div style={{ flex: 1, marginRight: '10px' }}>
+        <TextHeader2 />
+        <CardNumberOfLines>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', height: '100%',  }}>
+            <div>
+              <TextNumberOfLinesHeader />
+              <TextNumberOfLinesSubheader />
+            </div>
+            <TextNumberOfLinesNum numberOfLines={npcData.numberOfLines} />
           </div>
-
-          {/* Right Side Column */}
-          <div style={{ flex: 1, marginLeft: '10px' }}>
-          <Elements stripe={stripePromise}>
-        <CheckoutForm handleSubmit={handleSubmit1} npcData={npcData} />
-      </Elements>
-              </div>
-            
+        </CardNumberOfLines>
+        <CardPricing>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', height: '100%',  }}>
+            <div>
+              <TextPricingHeader />
+              <TextPricingSubHeader />
+            </div>
+            <TextPricingNum totalPrice={totalPrice} />
           </div>
-          
-        </div>
+        </CardPricing>
+        <CardPriceBreakdown />
       </div>
+
+      {/* Right Side Column */}
+      <div style={{ flex: 1, marginLeft: '10px' }}>
+        <Elements stripe={stripePromise}>
+          <CheckoutForm handleSubmit={handleSubmit1} npcData={npcData} />
+        </Elements>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
 
   );
 };

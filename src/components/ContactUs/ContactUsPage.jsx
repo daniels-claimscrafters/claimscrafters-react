@@ -202,7 +202,15 @@ const ContactUsPage = () => {
           </div>)}
 
         {/* Right column with other elements */}
-        <div style={{ flex: 1, display: 'flex', paddingBottom: '40px', paddingTop: '10px', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+        <div style={{ 
+  flex: 1, 
+  display: 'flex', 
+  paddingBottom: `${isSmallScreen ? '100px' : '40px'}`, 
+  paddingTop: '10px', 
+  flexDirection: 'column', 
+  justifyContent: 'center', 
+  alignItems: 'center',  
+}}>
           <TextMainHeader />
           <TextMainBody />
 

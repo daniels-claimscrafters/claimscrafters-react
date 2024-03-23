@@ -50,7 +50,7 @@ const NPC4 = (props) => {
     setAnimationKey(prevKey => prevKey + 1);
   };
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '10px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '10px', height: '100vh' }}>
         {/* Row 1 */}
         <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -143,39 +143,40 @@ const NPC4 = (props) => {
     <HorizontalDivider />
   </div>
 
+  <div style={{ height: '80%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
   {/* New Section with TextHeader2 and TextSubtitle */}
+  <CardUpload onFileUpload={handleFileUpload} onClick={() => console.log('CardUpload clicked in NPC4')} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+    <CardSubupload />
 
-      <CardUpload onFileUpload={handleFileUpload} onClick={() => console.log('CardUpload clicked in NPC4')} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-  <CardSubupload />
-
-  {/* Flex container for centering with adjusted vertical position */}
-  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginTop: '20px'}}>
-    <TextInstructions />
-    <ButtonUpload />
-    <motion.div
-        key={animationKey} // Key to trigger animation when it changes
-        initial={{ scale: 0 }} // Initial scale set to 0 (hidden)
-        animate={{ scale: 1 }} // Animate to full scale
-        exit={{ scale: 0 }} // Animate back to scale 0 when component exits
-        transition={{ duration: 0.9 }} // Transition duration
-      >
-        <TextUpload fileName={fileName} />
-      </motion.div>
-  </div>
-</CardUpload>
-
-{/* Third Row: Buttons with 10px spacing */}
-<div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '80%', marginTop: '20px' }}>
-        <div style={{ marginRight: '5px' }}>
-          <ButtonBack label="Back" onClick={onPrevious}/>
-        </div>
-        <div style={{ marginLeft: '5px' }}>
-        <ButtonContinue label="Continue" onClick={onNext} disabled={isContinueDisabled} />
-        </div>
-      </div>
-
-      {/* Footer Section */}
+    {/* Flex container for centering with adjusted vertical position */}
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginTop: '20px'}}>
+      <TextInstructions />
+      <ButtonUpload />
+      <motion.div
+          key={animationKey} // Key to trigger animation when it changes
+          initial={{ scale: 0 }} // Initial scale set to 0 (hidden)
+          animate={{ scale: 1 }} // Animate to full scale
+          exit={{ scale: 0 }} // Animate back to scale 0 when component exits
+          transition={{ duration: 0.9 }} // Transition duration
+        >
+          <TextUpload fileName={fileName} />
+        </motion.div>
     </div>
+  </CardUpload>
+
+  {/* Third Row: Buttons with 10px spacing */}
+  <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '80%', marginTop: '20px' }}>
+    <div style={{ marginRight: '5px' }}>
+      <ButtonBack label="Back" onClick={onPrevious}/>
+    </div>
+    <div style={{ marginLeft: '5px' }}>
+      <ButtonContinue label="Continue" onClick={onNext} disabled={isContinueDisabled} />
+    </div>
+  </div>
+
+  {/* Footer Section */}
+</div>
+</div>
   );
 };
   

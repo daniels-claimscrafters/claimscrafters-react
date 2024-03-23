@@ -9,6 +9,7 @@ import HeaderBackground from './HeaderBackground';
 import CardValuation from './CardValuation';
 import CardDetails from './CardDetails';
 import CardContents from './CardContents';
+import { useMediaQuery } from 'react-responsive';
 
 const ProjectDetailsPage = () => {
     const navigate = useNavigate();
@@ -20,6 +21,8 @@ const projectId = urlParams.get('projectId');
     const [isLoading, setIsLoading] = useState(true);
     const API_URL = process.env.REACT_APP_API_URL;
     const [userData, setUserData] = useState(null);
+
+    const isPageTallEnough = useMediaQuery({ minWidth: 1280, minHeight: 720 });
   // Function to retrieve token from cookie
   const getTokenFromCookie = () => {
     const cookies = document.cookie.split(';');
@@ -118,36 +121,44 @@ const projectId = urlParams.get('projectId');
     
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', width: '100vw', minHeight: '720px', minWidth: '1280px' }}>
-            <HeaderBackground>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <ImageHeader />
-                    <TextHeader />
-                    <ImageProfile />
-                </div>
-            </HeaderBackground>
-            
-            <div style={{ display: 'flex', flexDirection: 'row', width: '100%', height: '50vh' }}>
-                <div style={{ flex: 1, padding: '10px', width: '80%' }}>
-                    {/* Pass projectDetails as props to CardDetails */}
-                    <CardDetails projectDetails={projectDetails} />
-                    {/* Pass projectDetails as props to CardValuation */}
-                    <CardValuation projectDetails={projectDetails} />
-                </div>
-                <div style={{ paddingTop: '10px', paddingLeft: '10px', paddingRight: '10px', width: '15%'}}>
-                    <CardChangelog projectDetails={projectDetails}/>
-                </div>
-            </div>
-            <div style={{ display: 'flex', padding: '10px', height: '37vh' }}>
-                {/* Pass projectDetails as props to CardContents */}
-                <CardContents 
-                    projectDetails={projectDetails} 
-                    setProjectDetails={handleUpdateProjectDetails}
-                    userData={userData}
-                />
-            </div>
+      <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100vh', minWidth: '1280px', minHeight: '720px' }}>
+  <div style={{ height: '10%' }}>
+    <HeaderBackground>
+      <div style={{ display: 'flex', justifyContent: 'space-between', height: '100%' }}>
+        <ImageHeader />
+        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+          <TextHeader />
         </div>
-    );
+        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+          <ImageProfile />
+        </div>
+      </div>
+    </HeaderBackground>
+  </div>
+
+
+          
+  <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '90%' }}>
+  <div style={{ display: 'flex', flexDirection: 'row', width: '100%', height: isPageTallEnough ? '372px' : '57%' }}>
+
+    <div style={{ flex: 3, padding: '10px' }}>
+      <CardDetails projectDetails={projectDetails} />
+      <CardValuation projectDetails={projectDetails} />
+    </div>
+    <div style={{ flex: 1, padding: '10px' }}>
+      <CardChangelog projectDetails={projectDetails} />
+    </div>
+  </div>
+  <div style={{ display: 'flex', paddingLeft: '10px', paddingRight: '10px', height: isPageTallEnough ? '55%' : '40%' }}>
+    <CardContents 
+      projectDetails={projectDetails} 
+      setProjectDetails={handleUpdateProjectDetails}
+      userData={userData}
+    />
+  </div>
+</div>
+</div>
+  );
 };
   
   export default ProjectDetailsPage;
