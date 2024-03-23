@@ -58,6 +58,7 @@ const NPCParentComponent = () => {
       if (response.ok) {
         const data = await response.json();
         setUserData(data.user);
+        console.log('yo ', data.user);
       } else {
         console.error('Failed to fetch user data');
         clearToken();
@@ -74,7 +75,8 @@ const NPCParentComponent = () => {
     if (userData) {
       setNPCData(prevNPCData => ({
         ...prevNPCData,
-        UserId: userData.id
+        UserId: userData.id,
+        UserEmail: userData.email
       }));
     }
   }, [userData]);
@@ -108,6 +110,7 @@ const NPCParentComponent = () => {
     cvv: '',
     price: '',
     UserId: userData.id,
+    UserEmail: userData.email,
   });
 
   const resetParentData = () => {

@@ -12,7 +12,7 @@ const styles = {
 };
 
 const defaultProps = {
-  text: 'Provide Personal Information',
+  text: 'Data Upload',
 };
 
 const Text = (props) => {

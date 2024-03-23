@@ -12,7 +12,7 @@ const styles = {
 };
 
 const defaultProps = {
-  text: 'Payment Details',
+  text: 'Legal Disclaimer',
 };
 
 const Text = (props) => {

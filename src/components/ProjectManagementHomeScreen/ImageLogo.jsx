@@ -7,13 +7,12 @@ import React from 'react';
 const styles = {
   ImageContainer: {
     width: '90%', // Decreased width
-    height: '90%', // Decreased height
+    height: '100%', // Decreased height
     backgroundColor: 'black',
     backgroundPosition: 'center center',
-    backgroundSize: 'cover',
+    backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat',
-    marginLeft: '5px',
-    marginTop: '5px',
+    
   },
 };
 

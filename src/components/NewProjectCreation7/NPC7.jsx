@@ -139,7 +139,7 @@ const NPC7 = ({ updateLoadingState, npcData, onInputChange, onPrevious, numberOf
   }, [numberOfLines]); 
 
   return (
-    <div style={{ height: '100vh'  }}>
+    <div style={{ height: '100vh', minHeight: '720px', minWidth: '1280px'  }}>
       {/* Header Content */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <div style={{ paddingTop: '10px' }}>

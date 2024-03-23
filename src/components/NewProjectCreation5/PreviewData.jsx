@@ -514,7 +514,7 @@ const handleDeleteRow = (rowIndex) => {
 
 const styles = {
   cardContainer: {
-    width: '90%',
+    width: '100%',
     height: '375px',
     margin: '0 auto',
     padding: '15px',

@@ -42,7 +42,7 @@ const NPC5 = ({ npcData, resetParentData, onNext, onPrevious, onColumnsSelected 
 
 
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100vh' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100vh', minHeight: '720px', minWidth: '1280px' }}>
         {/* Row 1 */}
         <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -134,7 +134,7 @@ const NPC5 = ({ npcData, resetParentData, onNext, onPrevious, onColumnsSelected 
   
     <HorizontalDivider />
   </div>
-  <div style={{ height: '80%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+  <div style={{ height: '90%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
   {/* New Section with TextHeader2 and TextSubtitle */}
   <PreviewData
     excelData={npcData.spreadsheetUpload}

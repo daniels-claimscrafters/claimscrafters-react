@@ -251,7 +251,7 @@ useEffect(() => {
   {/* Left Section: ImageLogo */}
   <div style={{ height: '100%', width: '10%' }}>
   <motion.div
-  style={{ width: '90%', height: '90%' }}
+  style={{ width: '100%', height: '100%' }}
           initial={{ scale: 0 }} // Initial scale is 0
           animate={{ scale: 1 }} // Animate to scale 1
           transition={{ duration: 0.5 }} // Transition duration

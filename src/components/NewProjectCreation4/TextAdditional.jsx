@@ -12,7 +12,7 @@ const styles = {
 };
 
 const defaultProps = {
-  text: 'Additional Services',
+  text: 'Column Mapping',
 };
 
 const Text = (props) => {

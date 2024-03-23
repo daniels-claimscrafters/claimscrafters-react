@@ -65,7 +65,7 @@ const NPCLoadingScreen = () => {
             alt="Loading..."
             style={{ ...styles.image, transform: `rotate(${rotation}deg)` }}
           />
-          <h2 style={styles.title}>Thank you for your purchase. We are currently processing your contents with ContentIQ. Depending on the size of your claim, this can take anywhere from a couple of minutes to an hour. You will recieve a confirmation email once your claim is ready to view. Thank you for your patience. You will be automatically redirected in 10 seconds. </h2>
+          <h2 style={styles.title}>Thank you for your purchase. We are currently processing your contents with ContentIQ. Depending on the size of your claim, this can take anywhere from a couple of minutes to an hour. You will receive a confirmation email once your claim is ready to view. Thank you for your patience. You will be automatically redirected in 10 seconds. </h2>
         </div>
         {/* You can add additional content or animations here */}
       </div>
