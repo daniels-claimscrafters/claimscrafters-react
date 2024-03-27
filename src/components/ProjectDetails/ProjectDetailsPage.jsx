@@ -149,7 +149,7 @@ const projectId = urlParams.get('projectId');
       <CardChangelog projectDetails={projectDetails} />
     </div>
   </div>
-  <div style={{ display: 'flex', paddingLeft: '10px', paddingRight: '10px', height: isPageTallEnough ? '55%' : '40%' }}>
+  <div style={{ display: 'flex', paddingLeft: '10px', paddingRight: '10px', height: isPageTallEnough ? '53%' : '40%' }}>
     <CardContents 
       projectDetails={projectDetails} 
       setProjectDetails={handleUpdateProjectDetails}

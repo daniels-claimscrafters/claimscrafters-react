@@ -7,8 +7,8 @@ const styles = {
     fill: '#030303',
     fontSize: '38px',
     paddingBottom: '10px',
-    width: '25px',
-    height: '25px',
+    width: '40px',
+    height: '40px',
     cursor: 'pointer',
   },
 };

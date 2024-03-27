@@ -58,7 +58,7 @@ const NPC3 = (props) => {
   };
 
     return (
-        <div style={{ display: 'flex', height: '100vh', flexDirection: 'column', alignItems: 'center', marginTop: '10px' }}>
+        <div style={{ display: 'flex', height: '100vh', flexDirection: 'column', alignItems: 'center' }}>
         {/* Row 1 */}
         <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -166,7 +166,12 @@ const NPC3 = (props) => {
               onChange={onInputChange}
             />
             {/* Icon for Sales Tax Popup */}
-            <div onClick={handleSalesTaxIconClick}>
+            <div style={{
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    cursor: 'pointer', // Add cursor pointer to indicate clickability
+  }} onClick={handleSalesTaxIconClick}>
               {isSalesTaxPopupOpen ? "Close ▲" : "What's this? ▼"}
             </div>
           </div>
@@ -182,7 +187,12 @@ const NPC3 = (props) => {
               onChange={onInputChange}
             />
             {/* Icon for Depreciation Popup */}
-            <div onClick={handleDepreciationIconClick}>
+            <div style={{
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    cursor: 'pointer', // Add cursor pointer to indicate clickability
+  }}onClick={handleDepreciationIconClick}>
               {isDepreciationPopupOpen ? "Close ▲" : "What's this? ▼"}
             </div>
           </div>

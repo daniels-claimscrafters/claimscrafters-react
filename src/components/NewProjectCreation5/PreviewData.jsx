@@ -584,10 +584,11 @@ const styles = {
     textOverflow: 'ellipsis',
   },
   etableCell: {
+    marginRight: '12px',
     padding: '10px',
     textAlign: 'left',
-    minWidth: '66px', // Fixed width for the table cell
-    maxWidth: '66px',
+    minWidth: '73px', // Fixed width for the table cell
+    maxWidth: '73px',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     fontFamily: 'Poppins',

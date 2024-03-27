@@ -10,7 +10,7 @@ import moment from 'moment';
 const styles = {
   tasksListContainer: {
     width: '100%',
-    height: '100%',
+    height: '98%',
   },
 };
 
@@ -22,22 +22,18 @@ const TasksList = ({ showCardTaskParent, toggleCardTaskParent, tasks }) => {
     }
   
     return tasks.map(task => {
-      // Parse dates with Moment.js and apply the correct timezone offset
-      const startDate = moment.utc(task.start_date).toDate();
-      const endDate = moment.utc(task.due_date).toDate();
-  
       return {
-        id: task.id, // Assuming each task has an ID
-        title: task.subject, // Use task subject as event title
-        start: startDate,
-        end: endDate,
+        id: task.id,
+        title: task.subject,
+        start: task.start_date,
+        end: task.due_date,
         // You can add more properties here as needed
       };
     });
   };
   
   const events = convertTasksToEvents(tasks);
-  console.log('events', events)
+  console.log('events1', events)
   
   return (
     <div style={styles.tasksListContainer}>

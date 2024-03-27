@@ -35,36 +35,45 @@ const styles = {
     border: 'none' // Remove border for the calendar component
   },
   highlightedDate: {
-    backgroundColor: '#023f81', // Customize the color for highlighted date cells
+    backgroundColor: '#2a84ea', // Customize the color for highlighted date cells
   }
 
 };
 
 const CardActivityTracker = ({ events }) => {
   const [date, setDate] = useState(new Date());
-
-  console.log(events);
+  console.log('Events2.1:', events);
+  
 
   const onChange = (date) => {
     setDate(date);
   };
 
   useEffect(() => {
-    console.log('Events:', events);
-  }, [events]);
+    console.log('Events2:', events);
+  }, []);
 
   const eventDates = events.map(event => moment(event.start).format('YYYY-MM-DD'));
 
   const dayPropGetter = date => {
     const dateString = moment(date).format('YYYY-MM-DD');
-    if (eventDates.includes(dateString)) {
-      return {
-        className: 'custom-date-cell highlighted-cell',
-        style: styles.highlightedDate
-      };
+    // Loop through all events and check if the current date is within any event's range
+    for (const event of events) {
+      const eventStartDate = moment(event.start).startOf('day'); // Start date of the event
+      const eventEndDate = moment(event.end).startOf('day'); // End date of the event
+      if (moment(dateString).isBetween(eventStartDate, eventEndDate, null, '[]')) {
+        return {
+          className: 'custom-date-cell highlighted-cell', // Apply custom CSS class
+          style: styles.highlightedDate // Apply custom styles
+        };
+      }
     }
     return {};
   };
+
+  console.log('Events2.5:', events);
+
+  
 
   return (
     <div style={styles.Card}>
@@ -74,7 +83,7 @@ const CardActivityTracker = ({ events }) => {
           events={events}
           startAccessor="start"
           endAccessor="end"
-          onSelectDate={setDate}
+          
           style={styles.calendar}
           dayPropGetter={dayPropGetter}
         />

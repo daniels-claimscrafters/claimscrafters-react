@@ -11,6 +11,7 @@ const styles = {
     backgroundPosition: 'center center',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
+    paddingTop: '20px',
   },
 };
 

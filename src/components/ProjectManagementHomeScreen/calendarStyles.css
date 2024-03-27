@@ -14,6 +14,8 @@
     width: 100%;
     padding: 3px;
   }
+
+  
   
   /* Custom CSS to change font to Manrope for everything in React Big Calendar */
 .rbc-calendar,
@@ -37,7 +39,9 @@
 .rbc-time-content + .rbc-time-content {
   font-family: 'Manrope', sans-serif; /* Change the font family to Manrope */
 }
-
+.rbc-events-container {
+  background-color: white; /* Set background color to white */
+}
 .rbc-toolbar {
   display: flex; /* Use flexbox layout */
   flex-wrap: nowrap; /* Prevent line wrapping */
@@ -90,6 +94,14 @@
   width: 20px;
 }
 
-.rbc-agenda-time-cell {
-  display: none;
+.rbc-events-container {
+  margin-right: 0 !important; /* Set margin-right to none */
+}
+
+.rbc-timeslot-group {
+  background-color: transparent !important; /* Set background color to transparent */
+}
+
+.rbc-button-link {
+  pointer-events: none;
 }

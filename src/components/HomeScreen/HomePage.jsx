@@ -201,8 +201,8 @@ const fetchUserData = async (token) => {
                 <div className="row">
                   <div className="col-md-6">
                     <div className="detail-box">
-                      <h1>
-                      ContentsIQ
+                    <h1 style={{ fontSize: '24px' }}> {/* Adjust the font size as needed */}
+                      ContentsIQ: AI-Powered Precision in Residential Contents Valuations for Modern Insurance
                       </h1>
                       <p>
                       Discover the future of insured residential contents
@@ -224,8 +224,8 @@ excellence.
                     </div>
                   </div>
                   <div className="col-md-6">
-                    <div className="img-box">
-                      <img src="slider-img.png" alt="" />
+                  <div className="img-box" >
+                      <img style={{ borderRadius: '10px', animation: 'none' }} src="DALLE.png" alt="" />
                     </div>
                   </div>
                 </div>

@@ -23,7 +23,7 @@ const styles = {
   fieldContainer: {
     display: 'flex',
     alignItems: 'center',
-    marginBottom: '10px',
+    marginBottom: '2px',
   },
   secondColumn: {
     borderRight: '2px solid #c2c2c2', // Add a border to create the divider effect
@@ -177,7 +177,7 @@ const CardDetails = ({ projectDetails }) => {
   
   return (
     <div style={styles.cardContainer}>
-      <div style={{ flex: '0 0 100%', marginBottom: '10px', marginTop: '5px' }}>
+      <div style={{ flex: '0 0 100%', maxHeight: '100%' }}>
         <div style={styles.fieldContainer}>
           <label style={styles.label}>Claim Number:</label>
           <input style={styles.firstInput} type="text" value={projectDetails.project.claimNumber} readOnly />
