@@ -598,7 +598,8 @@ const styles = {
   label: {
     fontSize: '20px',
     fontFamily: 'Poppins',
-    marginRight: '5px'
+    marginRight: '5px',
+    marginBottom: '0px'
   },
   button1: {
     cursor: 'pointer',

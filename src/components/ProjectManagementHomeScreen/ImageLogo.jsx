@@ -7,7 +7,7 @@ import React from 'react';
 const styles = {
   ImageContainer: {
     width: '90%', // Decreased width
-    height: '100%', // Decreased height
+    height: '95%', // Decreased height
     backgroundColor: 'black',
     backgroundPosition: 'center center',
     backgroundSize: 'contain',

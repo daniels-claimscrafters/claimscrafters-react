@@ -2,10 +2,9 @@ import React from 'react';
 
 const styles = {
   ImageContainer: {
-    top: '13px',
-    left: '25px',
-    width: '91px',
-    height: '79px',
+    
+    width: '100px',
+    height: '100px',
     borderRadius: '8px',
     backgroundImage: 'url(./image.png)',
     backgroundPosition: 'center center',

@@ -219,7 +219,7 @@ const NPC1 = (props) => {
           updateValidationErrors={updateValidationErrors}
         />
       </div>
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
+      <div style={{ display: 'flex', flexDirection: 'row', marginBottom: '30px' }}>
         <div style={{ marginRight: '20px' }}>
           <TextLossCity />
           <InputFieldLossCity 
@@ -228,7 +228,7 @@ const NPC1 = (props) => {
             updateValidationErrors={updateValidationErrors}
           />
         </div>
-        <div>
+        <div style={{ marginRight: '20px' }}>
           <TextLossState />
           <DropdownLossState 
             value={npcData.lossState}
@@ -236,8 +236,7 @@ const NPC1 = (props) => {
             updateValidationErrors={updateValidationErrors}
           />
         </div>
-      </div>
-      <div style={{ marginTop: '10px' }}>
+        <div>
         <TextLossPostalCode />
         <InputFieldLossPostalCode 
           value={npcData.lossPostalCode}
@@ -245,6 +244,8 @@ const NPC1 = (props) => {
           updateValidationErrors={updateValidationErrors}
         />
       </div>
+      </div>
+      
     </div>
   </div>
 

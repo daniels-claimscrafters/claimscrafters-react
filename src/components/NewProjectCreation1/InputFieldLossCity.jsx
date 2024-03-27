@@ -5,7 +5,7 @@ const styles = {
   Input: {
     top: '1007px',
     left: '80px',
-    width: '803px',
+    width: '500px',
     height: '45px',
     padding: '0px 8px',
     border: '1px solid #ceced3',

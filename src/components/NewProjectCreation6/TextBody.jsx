@@ -8,7 +8,7 @@ const styles = {
     fontSize: '16px',
     fontFamily: 'Poppins',
     fontWeight: 400,
-    lineHeight: '22px',
+    lineHeight: '21px',
     textAlign: 'justify',
     maxWidth: '90%',
   },

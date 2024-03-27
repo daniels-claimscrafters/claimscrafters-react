@@ -61,6 +61,7 @@
   .image-below-button {
     width: 40%; /* Adjust as needed */
     margin: 10px auto; /* Center horizontally, adjust as needed */
+    margin-bottom: 0;
     display: block; /* Ensure it's displayed as a block-level element */
   }
   
