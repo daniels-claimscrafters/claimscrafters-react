@@ -219,7 +219,7 @@ useEffect(() => {
   return (
     <div style={{ display: 'flex', height: '100vh', minHeight: '600px', minWidth: '1200px' }}>
   {/* Sidebar Section */}
-  <div style={{ flex: '0 0 auto', width: '5%', backgroundColor: '#f0f0f0' }}>
+  <div style={{ flex: '0 0 auto', width: '2%', backgroundColor: '#f0f0f0' }}>
   <CardSideBar>
     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%' }}>
     <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -245,7 +245,7 @@ useEffect(() => {
   {/* Main Content Section */}
   
     {/* Main Content */}
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100%', width: '95%' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100%', width: '98%' }}>
       {/* Top Row */}
 <div style={{ display: 'flex', backgroundColor: '#000000', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%', height: '15%' }}>
   {/* Left Section: ImageLogo */}

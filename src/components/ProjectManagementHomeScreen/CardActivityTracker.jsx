@@ -33,7 +33,11 @@ const styles = {
   },
   calendar: {
     border: 'none' // Remove border for the calendar component
+  },
+  highlightedDate: {
+    backgroundColor: '#023f81', // Customize the color for highlighted date cells
   }
+
 };
 
 const CardActivityTracker = ({ events }) => {
@@ -49,25 +53,31 @@ const CardActivityTracker = ({ events }) => {
     console.log('Events:', events);
   }, [events]);
 
+  const eventDates = events.map(event => moment(event.start).format('YYYY-MM-DD'));
+
+  const dayPropGetter = date => {
+    const dateString = moment(date).format('YYYY-MM-DD');
+    if (eventDates.includes(dateString)) {
+      return {
+        className: 'custom-date-cell highlighted-cell',
+        style: styles.highlightedDate
+      };
+    }
+    return {};
+  };
+
   return (
     <div style={styles.Card}>
       <div className="rbc-calendar" style={styles.calendarContainer}>
         <Calendar
           localizer={localizer}
-          events={events.map(event => {
-            console.log('Event:', event); // Log each event before passing it
-            return {
-              ...event,
-              className: 'custom-event' // Add a className to each event
-            };
-          })}
+          events={events}
           startAccessor="start"
           endAccessor="end"
-          onChange={onChange}
+          onSelectDate={setDate}
           style={styles.calendar}
-          dayPropGetter={() => ({ className: 'custom-date-cell' })}
+          dayPropGetter={dayPropGetter}
         />
-        
       </div>
     </div>
   );

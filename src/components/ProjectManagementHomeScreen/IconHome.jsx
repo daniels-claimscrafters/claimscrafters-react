@@ -6,10 +6,8 @@ const styles = {
     color: '#030303',
     fill: '#030303',
     fontSize: '40px',
-    top: '25px',
-    left: '14px',
-    width: '50px',
-    height: '50px',
+    width: '250px',
+    height: '25px',
     marginTop: '20px'
   },
 };

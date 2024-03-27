@@ -1,7 +1,7 @@
 //App.js
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import HomeScreenPage from './components/HomeScreen/HomeScreenPage';
+import HomeScreenPage from './components/HomeScreen/HomePage';
 import LoginPage from './components/LogIn/LoginPage';
 import SignupPage from './components/SignUp/SignupPage';
 import PMHSPage from './components/ProjectManagementHomeScreen/PMHSPage';
@@ -22,9 +22,9 @@ import NPCParentComponent from './components/NPCParentComponent';
 import ProjectDetailsPage from './components/ProjectDetails/ProjectDetailsPage';
 import EditProfilePage from './components/EditProfile/EditProfilePage';
 
-
 const App = () => {
   return (
+    
     <Router>
       <Routes>
         <Route path="/" element={<HomeScreenPage />} />

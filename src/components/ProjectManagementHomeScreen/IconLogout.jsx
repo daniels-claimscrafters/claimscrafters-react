@@ -6,10 +6,9 @@ const styles = {
     color: '#030303',
     fill: '#030303',
     fontSize: '38px',
-    top: '813px',
-    left: '10px',
-    width: '48px',
-    height: '67px',
+    paddingBottom: '10px',
+    width: '25px',
+    height: '25px',
     cursor: 'pointer',
   },
 };

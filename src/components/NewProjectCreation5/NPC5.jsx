@@ -59,7 +59,7 @@ const NPC5 = ({ npcData, resetParentData, onNext, onPrevious, onColumnsSelected 
         </div>
   
         {/* Row 2 Centered */}
-  <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '100%', marginBottom: '20px' }}>
+  <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
     <HorizontalDivider />
   
     {/* Card Circle 1 */}
