@@ -212,16 +212,16 @@ const CardContents = ({ projectDetails, setProjectDetails }) => {
     }
   };
   
-  const handleDepreciationChange = (index, value) => {
-    // Validate if the input is a valid float with optional decimals
-    if (/^\d*\.?\d*$/.test(value) || value === '') {
-        // Update the projectDetails state with the new value
-        const updatedProjectDetails = { ...projectDetails };
-        updatedProjectDetails.project.spreadsheetData[index]['Depreciation'] = value;
-        setProjectDetails(updatedProjectDetails);
-        setDataChanged(true);
-    }
-};
+  const handleDepreciationInputChange = (index, value) => {
+    // Update the display value directly, without validation
+    const updatedProjectDetails = { ...projectDetails };
+    updatedProjectDetails.project.spreadsheetData[index]['DepreciationDisplay'] = value;
+    setProjectDetails(updatedProjectDetails);
+    setDataChanged(true);
+  };
+  
+  
+  
 
 
   // Function to fetch user data
@@ -250,7 +250,7 @@ const CardContents = ({ projectDetails, setProjectDetails }) => {
       setError(false);
       setErrorMessage('');
       const quantityCheck = projectDetails.project.spreadsheetData.some(item => item.Quantity === '' || item.Quantity === '0');
-const depreciationCheck = projectDetails.project.spreadsheetData.some(item => item.Depreciation === '');
+      const depreciationCheck = projectDetails.project.spreadsheetData.some(item => !/^\d{1,3}\.\d{2}$/.test(item.DepreciationDisplay || (item.Depreciation * 100).toFixed(2)));
 const rcvHighCheck = projectDetails.project.spreadsheetData.some(item => item['RCV High'] === '' || item['RCV High'] === '0');
 const rcvLowCheck = projectDetails.project.spreadsheetData.some(item => item['RCV Low'] === '' || item['RCV Low'] === '0');
 const roomCheck = projectDetails.project.spreadsheetData.some(item => item.Room === '');
@@ -267,7 +267,7 @@ if (quantityCheck) {
 
 if (depreciationCheck) {
   setError(true);
-  setErrorMessage('Depreciation column cannot be 0 or empty');
+  setErrorMessage('Depreciation must be in xx.xx or xxx.xx format');
   return;
 }
 
@@ -555,9 +555,11 @@ const calculateACVTotal = (item, projectDetails) => {
             <div style={styles.cell}>
             <input
   style={styles.input}
-  value={item.Depreciation}
-  onChange={(e) => handleDepreciationChange(index, e.target.value)}
+  type="text"
+  value={item.DepreciationDisplay || (item.Depreciation * 100).toFixed(2)}
+  onChange={(e) => handleDepreciationInputChange(index, e.target.value)}
 />
+<span>%</span>
 
 </div>
             <div style={styles.cell}>

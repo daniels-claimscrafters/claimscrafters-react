@@ -144,7 +144,7 @@ const projectId = urlParams.get('projectId');
                     <CardDetails projectDetails={projectDetails} />
                     <CardValuation projectDetails={projectDetails} />
                 </div>
-                <div style={{ flex: 1, padding: '10px' }}>
+                <div style={{ flex: 1, padding: '10px', maxHeight: '372px' }}>
                     <CardChangelog projectDetails={projectDetails} />
                 </div>
             </div>
