@@ -9,6 +9,7 @@ const styles = {
     lineHeight: '32px',
     paddingTop: '5px',
     paddingBottom: '5px',
+    marginBottom: '10px',
     textAlign: 'center',
     height: '5%',
   },

@@ -11,7 +11,7 @@ const styles = {
     top: '465px',
     left: '41px',
     width: '100%',
-    height: '95%',
+    maxHeight: '95%',
     backgroundColor: '#f0f0f0',
     borderRadius: '12px',
     border: '1px solid #030303',
@@ -125,6 +125,11 @@ const styles = {
     backgroundColor: '#f0f0f0', // Background color for options
     color: '#030303', // Text color for options
     textAlign: 'center',
+  },
+  spreadsheetContainer: {
+    overflow: 'auto',
+    height: '100%', // Adjust as needed
+    borderBottom: '1px solid #ccc',
   },
 };
 
@@ -461,6 +466,7 @@ const calculateACVTotal = (item, projectDetails) => {
     </div>
   </div>
 </div>
+<div style={{ ...styles.spreadsheetContainer }}>
       <div style={styles.spreadsheet}>
         <div style={styles.row}>
           <div style={styles.cell}>Line</div>
@@ -580,6 +586,7 @@ const calculateACVTotal = (item, projectDetails) => {
 </div>
           </div>
         ))}
+      </div>
       </div>
       {showPopup && <Popup message={popupMessage} type={popupType} textColor={popupTextColor}/>}
     </div>

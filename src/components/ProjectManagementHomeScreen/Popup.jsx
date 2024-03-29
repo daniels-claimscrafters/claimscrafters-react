@@ -32,9 +32,11 @@ const Popup = ({ message, type, textColor, }) => {
         >
 
 
+    
     <div style={popupStyle}>
-      <p>{message}</p>
-    </div>
+  <p style={{ marginBottom: '0' }}>{message}</p>
+</div>
+    
 
 </motion.div>
 </div>

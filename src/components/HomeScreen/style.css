@@ -258,7 +258,11 @@ a:focus {
       -ms-flex-align: center;
           align-items: center;
   position: relative;
-  padding: 45px 0 145px 0;
+  padding: 15px 0 145px 0;
+}
+
+.slider_section {
+  padding-top: 0 !important;
 }
 
 .slider_section .row {
@@ -473,6 +477,12 @@ a:focus {
   max-width: 100%;
 }
 
+.image_container img {
+  max-width: 300px; /* Adjust the width as needed */
+  height: auto; /* This ensures the image maintains its aspect ratio */
+}
+
+
 .about_section .detail-box h3 {
   font-weight: bold;
 }
@@ -495,6 +505,16 @@ a:focus {
 
 .about_section .detail-box a:hover {
   background-color: #007fa4;
+}
+
+.about_section.layout_padding {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.why_section.layout_padding {
+  padding-top: 10px;
+  padding-bottom: 40px;
 }
 
 .why_section .box {
@@ -750,6 +770,15 @@ a:focus {
   background-color: #00204a;
   color: #ffffff;
   padding: 45px 0 15px 0;
+}
+
+.info_section.layout_padding2 {
+  padding-top: 20px !important;
+  padding-bottom: 0px !important;
+}
+
+.col-md-6 {
+  margin-bottom: 0 !important;
 }
 
 .info_section h4 {

@@ -34,7 +34,7 @@ const Icon = (props) => {
   const handleClick = () => {
     console.log('Clicked!');
     // Use the navigate function to redirect to the /homescreen route
-    navigate('/');
+    navigate('/pmhs');
   };
 
   const IconToRender = props.IconComponent ? props.IconComponent : defaultProps.IconComponent;

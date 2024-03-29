@@ -22,7 +22,7 @@ const projectId = urlParams.get('projectId');
     const API_URL = process.env.REACT_APP_API_URL;
     const [userData, setUserData] = useState(null);
 
-    const isPageTallEnough = useMediaQuery({ minWidth: 1280, minHeight: 720 });
+    const isPageTallEnough = useMediaQuery({ minHeight: 750 });
   // Function to retrieve token from cookie
   const getTokenFromCookie = () => {
     const cookies = document.cookie.split(';');
@@ -139,24 +139,23 @@ const projectId = urlParams.get('projectId');
 
           
   <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '90%' }}>
-  <div style={{ display: 'flex', flexDirection: 'row', width: '100%', height: isPageTallEnough ? '372px' : '57%' }}>
-
-    <div style={{ flex: 3, padding: '10px' }}>
-      <CardDetails projectDetails={projectDetails} />
-      <CardValuation projectDetails={projectDetails} />
-    </div>
-    <div style={{ flex: 1, padding: '10px' }}>
-      <CardChangelog projectDetails={projectDetails} />
-    </div>
-  </div>
-  <div style={{ display: 'flex', paddingLeft: '10px', paddingRight: '10px', height: isPageTallEnough ? '53%' : '40%' }}>
-    <CardContents 
-      projectDetails={projectDetails} 
-      setProjectDetails={handleUpdateProjectDetails}
-      userData={userData}
-    />
-  </div>
-</div>
+            <div style={{ display: 'flex', flexDirection: 'row', width: '100%', height: 'auto' }}>
+                <div style={{ flex: 3, padding: '10px' }}>
+                    <CardDetails projectDetails={projectDetails} />
+                    <CardValuation projectDetails={projectDetails} />
+                </div>
+                <div style={{ flex: 1, padding: '10px' }}>
+                    <CardChangelog projectDetails={projectDetails} />
+                </div>
+            </div>
+            <div style={{ display: 'flex', paddingLeft: '10px', paddingRight: '10px', flex: '1' }}>
+                <CardContents 
+                    projectDetails={projectDetails} 
+                    setProjectDetails={handleUpdateProjectDetails}
+                    userData={userData}
+                />
+            </div>
+        </div>
 </div>
   );
 };

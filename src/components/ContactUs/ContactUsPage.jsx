@@ -157,10 +157,10 @@ const ContactUsPage = () => {
   };
 
   return (
-    <div style={{ minHeight: '100vh', position: 'relative' }}>
+    <div style={{ height: '100vh', position: 'relative', minHeight: '720px', minWidth: '1280px' }}>
       <Header>
         {/* Header content */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '100%' }}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <motion.div
               initial={{ scale: 0 }} // Initial scale is 0
@@ -189,11 +189,12 @@ const ContactUsPage = () => {
       </Header>
 
       {/* Two columns under Header */}
-      <div style={{ display: 'flex' }}>
+      <div style={{ display: 'flex', height: '85%' }}>
         {/* Left column with ImageJumbotron */}
         {!isSmallScreen && (
           <div style={{ flex: 1 }}>
             <motion.div
+            style={{ height: '100%' }}
               initial={{ scale: 0 }} // Initial scale is 0
               animate={{ scale: 1 }} // Animate to scale 1
               transition={{ duration: 1.0 }} // Transition duration
@@ -205,14 +206,22 @@ const ContactUsPage = () => {
         <div style={{ 
   flex: 1, 
   display: 'flex', 
-  paddingBottom: `${isSmallScreen ? '100px' : '40px'}`, 
-  paddingTop: '10px', 
+  
   flexDirection: 'column', 
   justifyContent: 'center', 
-  alignItems: 'center',  
+  alignItems: 'center',
+  height: '100%',
+  paddingBottom: '80px'
 }}>
-          <TextMainHeader />
-          <TextMainBody />
+          {isSmallScreen ? (
+            <p style={{ fontSize: '24px', marginBottom: '0px', fontFamily: 'Poppins', fontWeight: 600 }}>Contact Us</p>
+          ) : (
+            <>
+              <TextMainHeader />
+              <TextMainBody />
+              {/* Add similar conditional rendering for other components */}
+            </>
+          )}
 
           {formSubmitted && (
             <div style={{ color: 'red', marginBottom: '10px' }}>

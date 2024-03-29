@@ -104,7 +104,7 @@ const fetchUserData = async (token) => {
       <header className="header_section">
         <div className="container-fluid">
           <nav className="navbar navbar-expand-lg custom_nav-container">
-          <a className="navbar-brand" href="index.html">
+          <a className="navbar-brand" href="">
         
         <img
           src="ClaimsCrafters.png"
@@ -335,19 +335,19 @@ wait times.
       </section>
       {/* End service section */}
 
-      {/* About section */}
       <section className="about_section layout_padding">
-        <div className="container">
-          <div className="heading_container heading_center">
-            <h2>
-            The ContentsIQ’s Valuation Process – <span>From Days to Minutes</span>
-            </h2>
-            
-          </div>
-          
-        </div>
-      </section>
-      {/* End about section */}
+  <div className="container">
+    <div className="heading_container heading_center">
+    <div className="image_container">
+  <img src="ContentsIQ.png" alt="Image description" style={{ marginBottom: '20px' }} />
+</div>
+
+      <h2>
+        The ContentsIQ’s Valuation Process – <span>From Days to Minutes</span>
+      </h2>
+    </div>
+  </div>
+</section>
       
     <section className="why_section layout_padding">
       <div className="container">

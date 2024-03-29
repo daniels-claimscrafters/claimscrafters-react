@@ -149,7 +149,7 @@ const NPC4 = (props) => {
     <CardSubupload />
 
     {/* Flex container for centering with adjusted vertical position */}
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginTop: '20px'}}>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginTop: '10px'}}>
       <TextInstructions />
       <ButtonUpload />
       <motion.div
