@@ -12,7 +12,7 @@ const styles = {
 };
 
 const defaultProps = {
-  text: 'Explore the future of AI-powered contents valuations or need help with something.  Feel free to get in touch.',
+  text: 'Need help with something? Feel free to get in touch.',
 };
 
 const Text = (props) => {

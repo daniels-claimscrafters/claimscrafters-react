@@ -15,6 +15,7 @@ import ImageProfile from './ImageProfile';
 import TextUsername from './TextUsername';
 import TextGetStarted from './TextGetStarted';
 import ButtonSignIn from './ButtonSignIn';
+import IconLogout from './IconLogout';
 
 
 
@@ -92,6 +93,14 @@ const fetchUserData = async (token) => {
       window.location.reload();
   }
 };
+
+const handleLogout = () => {
+  // Clear the authentication token from cookie
+  document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+  // Redirect user to login page
+  window.location.reload();
+};
+
   return (
     <div className="hero_area">
       <div className="hero_bg_box">
@@ -156,6 +165,12 @@ const fetchUserData = async (token) => {
         ><TextUsername userData={userData} /></motion.div>
             </div>
           </div>
+          <motion.div
+          initial={{ scale: 0 }} // Initial scale is 0
+          animate={{ scale: 1 }} // Animate to scale 1
+          whileHover={{ scale: 1.1 }}
+          transition={{ duration: 1.0 }} // Transition duration
+        ><IconLogout onClick={handleLogout}/></motion.div>
   </>
         ) : (
           // Render sign-in button if not authenticated

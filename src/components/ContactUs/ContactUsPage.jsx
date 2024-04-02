@@ -34,7 +34,7 @@ const ContactUsPage = () => {
   const [submitEnabled, setSubmitEnabled] = useState(false);
   const [FailureMessage, setFailureMessage] = useState('');
   const [showCudbPage, setShowCudbPage] = useState(false);
-  const isSmallScreen = useMediaQuery({ maxWidth: 1280 });
+  const isSmallScreen = useMediaQuery({ maxWidth: 1280, maxHeight: 850 });
   const API_URL = process.env.REACT_APP_API_URL;
 
   const handleRecaptchaChange = (value) => {
@@ -157,7 +157,7 @@ const ContactUsPage = () => {
   };
 
   return (
-    <div style={{ height: '100vh', position: 'relative', minHeight: '720px', minWidth: '1280px' }}>
+    <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', minHeight: '720px', minWidth: '1280px' }}>
       <Header>
         {/* Header content */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '100%' }}>
@@ -188,116 +188,78 @@ const ContactUsPage = () => {
         </div>
       </Header>
 
-      {/* Two columns under Header */}
       <div style={{ display: 'flex', height: '85%' }}>
-        {/* Left column with ImageJumbotron */}
-        {!isSmallScreen && (
-          <div style={{ flex: 1 }}>
-            <motion.div
-            style={{ height: '100%' }}
-              initial={{ scale: 0 }} // Initial scale is 0
-              animate={{ scale: 1 }} // Animate to scale 1
-              transition={{ duration: 1.0 }} // Transition duration
-            ><ImageJumbotron /></motion.div>
+  {/* Left column with ImageJumbotron */}
+  <div style={{ flex: 1 }}>
+    <motion.div
+      style={{ height: '100%' }}
+      initial={{ scale: 0 }} // Initial scale is 0
+      animate={{ scale: 1 }} // Animate to scale 1
+      transition={{ duration: 1.0 }} // Transition duration
+    >
+      <ImageJumbotron />
+    </motion.div>
+  </div>
 
-          </div>)}
-
-        {/* Right column with other elements */}
-        <div style={{ 
-  flex: 1, 
-  display: 'flex', 
-  
-  flexDirection: 'column', 
-  justifyContent: 'center', 
-  alignItems: 'center',
-  height: '100%',
-  paddingBottom: '80px'
-}}>
-          {isSmallScreen ? (
-            <p style={{ fontSize: '24px', marginBottom: '0px', fontFamily: 'Poppins', fontWeight: 600 }}>Contact Us</p>
-          ) : (
-            <>
-              <TextMainHeader />
-              <TextMainBody />
-              {/* Add similar conditional rendering for other components */}
-            </>
-          )}
-
-          {formSubmitted && (
-            <div style={{ color: 'red', marginBottom: '10px' }}>
-              {FailureMessage}
-            </div>
-          )}
-
-          <form onSubmit={handleSubmit}>
-            {/* Name Field */}
-            <div>
-              <TextNameField />
-              <InputFieldName value={name} onChange={handleNameChange} onBlur={handleNameBlur} />
-              {validationErrors.name && <div style={{ color: 'red' }}>{validationErrors.name}</div>}
-            </div>
-
-            {/* Email Field */}
-            <div>
-              <TextEmailField />
-              <InputFieldEmail value={email} onChange={handleEmailChange} onBlur={handleEmailBlur} />
-              {validationErrors.email && <div style={{ color: 'red' }}>{validationErrors.email}</div>}
-            </div>
-
-            {/* Message Field */}
-            <div>
-              <TextMessageField />
-              <InputFieldMessage value={message} onChange={handleMessageChange} onBlur={handleMessageBlur} />
-              {validationErrors.message && <div style={{ color: 'red' }}>{validationErrors.message}</div>}
-            </div>
-
-            {/* reCAPTCHA v3 */}
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              {/* ReCAPTCHA */}
-              <ReCAPTCHA
-                sitekey="6LcqgZQpAAAAAPvJIRRCHA5wMhk-npenCAPDjKsN" // Your reCAPTCHA site key
-                onChange={handleRecaptchaChange}
-              />
-            </div>
-
-
-            {/* Use ButtonSendMessage as the submit button */}
-            <motion.div
-              initial={{ scale: 0 }} // Initial scale is 0
-              animate={{ scale: 1 }} // Animate to scale 1
-              whileHover={{ scale: 1.1 }} // Scale up to 1.1 when hovered
-              transition={{ duration: 1.0 }} // Transition duration
-            ><ButtonSendMessage type="submit" disabled={!submitEnabled}>Send Message</ButtonSendMessage></motion.div>
-
-          </form>
-        </div>
+  {/* Right column with other elements */}
+  <div style={{ 
+    flex: 1, 
+    display: 'flex', 
+    flexDirection: 'column', 
+    justifyContent: 'center', 
+    alignItems: 'center',
+    height: '100%',
+  }}>
+    
+    <TextMainHeader />
+    <TextMainBody />
+    {/* Add similar rendering for other components */}
+    {formSubmitted && (
+      <div style={{ color: 'red', marginBottom: '10px' }}>
+        {FailureMessage}
       </div>
+    )}
+    <form onSubmit={handleSubmit}>
+      {/* Name Field */}
+      <div>
+        <TextNameField />
+        <InputFieldName value={name} onChange={handleNameChange} onBlur={handleNameBlur} />
+        {validationErrors.name && <div style={{ color: 'red' }}>{validationErrors.name}</div>}
+      </div>
+      {/* Email Field */}
+      <div>
+        <TextEmailField />
+        <InputFieldEmail value={email} onChange={handleEmailChange} onBlur={handleEmailBlur} />
+        {validationErrors.email && <div style={{ color: 'red' }}>{validationErrors.email}</div>}
+      </div>
+      {/* Message Field */}
+      <div>
+        <TextMessageField />
+        <InputFieldMessage value={message} onChange={handleMessageChange} onBlur={handleMessageBlur} />
+        {validationErrors.message && <div style={{ color: 'red' }}>{validationErrors.message}</div>}
+      </div>
+      {/* reCAPTCHA v3 */}
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <ReCAPTCHA
+          sitekey="6LcqgZQpAAAAAPvJIRRCHA5wMhk-npenCAPDjKsN" // Your reCAPTCHA site key
+          onChange={handleRecaptchaChange}
+        />
+      </div>
+      {/* Use ButtonSendMessage as the submit button */}
+      <motion.div
+        initial={{ scale: 0 }} // Initial scale is 0
+        animate={{ scale: 1 }} // Animate to scale 1
+        whileHover={{ scale: 1.1 }} // Scale up to 1.1 when hovered
+        transition={{ duration: 1.0 }} // Transition duration
+      >
+        <ButtonSendMessage type="submit" disabled={!submitEnabled}>Send Message</ButtonSendMessage>
+      </motion.div>
+    </form>
+  </div>
+</div>
 
       {/* Elements under two columns and nested inside CardFooterBackground */}
-      <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0 }}>
-        <CardFooterBackground>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <ImageFooterLogo />
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <motion.div
-                initial={{ scale: 0 }} // Initial scale is 0
-                animate={{ scale: 1 }} // Animate to scale 1
-                whileHover={{ scale: 1.1 }} // Scale up to 1.1 when hovered
-                transition={{ duration: 1.0 }} // Transition duration
-              ><TextTermsOfUse /></motion.div>
-
-              <VerticalDividerFooter />
-              <motion.div
-                initial={{ scale: 0 }} // Initial scale is 0
-                animate={{ scale: 1 }} // Animate to scale 1
-                whileHover={{ scale: 1.1 }} // Scale up to 1.1 when hovered
-                transition={{ duration: 1.0 }} // Transition duration
-              ><TextPrivacyPolicy /></motion.div>
-
-            </div>
-          </div>
-        </CardFooterBackground>
-      </div>
+      
 
       {showCudbPage && <Popup />}
 

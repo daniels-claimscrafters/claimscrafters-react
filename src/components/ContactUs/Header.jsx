@@ -4,7 +4,7 @@ const styles = {
   Header: {
     top: '0px',
     left: '34px',
-    width: '100%',
+    width: '100vw',
     height: '15%',
     backgroundColor: '#030303',
   },

@@ -280,7 +280,7 @@ const NPCParentComponent = () => {
   };
 
   return (
-    <div>
+    <div style={{ minHeight: '720px', minWidth: '1280px' }}>
       {step === 1 && (
         <NPC1
           npcData={npcData}

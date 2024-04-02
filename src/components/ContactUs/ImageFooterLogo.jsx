@@ -2,8 +2,7 @@ import React from 'react';
 
 const styles = {
   ImageContainer: {
-    top: '1776px',
-    left: '0px',
+    
     width: '100px',
     height: '75px',
     borderRadius: '8px',
@@ -11,7 +10,7 @@ const styles = {
     backgroundPosition: 'center center',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
-    paddingTop: '20px',
+   
   },
 };
 
