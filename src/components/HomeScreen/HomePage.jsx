@@ -241,7 +241,7 @@ excellence.
                   <div className="col-md-6">
                   <div className="img-box" >
                 <video controls style={{ borderRadius: '10px', width: '100%' }}>
-                  <source src="AboutContentsIQ.mp4" type="video/mp4" />
+                  <source src="/AboutContentsIQ.mp4" type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
                     </div>
