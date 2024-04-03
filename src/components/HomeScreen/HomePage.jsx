@@ -240,7 +240,10 @@ excellence.
                   </div>
                   <div className="col-md-6">
                   <div className="img-box" >
-                      <img style={{ borderRadius: '10px', animation: 'none' }} src="DALLE.png" alt="" />
+                <video controls style={{ borderRadius: '10px', width: '100%' }}>
+                  <source src="AboutContentsIQ.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
                     </div>
                   </div>
                 </div>
@@ -429,6 +432,8 @@ email.             </p>
         
       </div>
     </section>
+
+    
     
     <section className="info_section layout_padding2">
       <div className="container">

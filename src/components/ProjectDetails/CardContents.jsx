@@ -8,8 +8,7 @@ import { generateSummary, generateDetail, generateRawData } from './ExcelGenerat
 
 const styles = {
   Card: {
-    top: '465px',
-    left: '41px',
+    
     width: '100%',
     maxHeight: '95%',
     backgroundColor: '#f0f0f0',
@@ -50,7 +49,7 @@ const styles = {
   },
   spreadsheet: {
     
-    height: '385px',
+    height: '100%',
     overflow: 'auto', // Add overflow to allow scrolling if content exceeds height
   },
   row: {
@@ -128,7 +127,7 @@ const styles = {
   },
   spreadsheetContainer: {
     overflow: 'auto',
-    height: '100%', // Adjust as needed
+    height: '87%', // Adjust as needed
     borderBottom: '1px solid #ccc',
   },
 };
