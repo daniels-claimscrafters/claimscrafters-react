@@ -82,15 +82,17 @@ const CardChangelog = ({ projectDetails }) => {
           {entries.slice().reverse().map((entry, index) => (
             <li key={entry.id} style={{ ...styles.entryItem, backgroundColor: index % 2 === 0 ? '#cddef2' : '#f1f1f1' }}>
               {/* Split the entry text into different parts */}
-              {entry.entry.split(/(User ID: \d+)/).map((part, index) => {
+              {entry.entry.split(/(User ID: \d+|DepreciationDisplay)/).map((part, index) => {
                 let textStyle = {}; // Define an empty object to hold the style for this part
                 // Apply blue color to the user information part
                 if (/User ID: \d+/.test(part)) {
                   textStyle.color = 'blue';
-                } else {
-                  // Default color for other parts
-                  textStyle.color = 'inherit';
+                } else if (part === 'DepreciationDisplay') {
+                  part = 'Depreciation';
                 }
+                // Default color for other parts
+                textStyle.color = 'inherit';
+                
                 // Render the part with the applied style
                 return <span key={index} style={textStyle}>{part}</span>;
               })}
@@ -100,6 +102,7 @@ const CardChangelog = ({ projectDetails }) => {
       </div>
     </div>
   );
+  
   
   
 };
