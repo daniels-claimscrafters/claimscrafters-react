@@ -48,7 +48,7 @@ const generateSummary = async (projectDetails) => {
     // Calculate ACV with tax total by adding total ACV and total ACV tax
     const acvWithTaxTotal = suggestedACVTotal + totalACVTax;
 
-    let totalDepreciation = 0; // Initialize total depreciation
+    let totalDepreciation = 0 + totalRCVTax; // Initialize total depreciation
 
     // Iterate over each item in the spreadsheet data
     projectDetails.project.spreadsheetData.forEach(item => {

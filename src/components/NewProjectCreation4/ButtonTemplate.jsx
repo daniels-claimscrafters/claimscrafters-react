@@ -9,7 +9,7 @@ const styles = {
     cursor: 'pointer',
     top: '825px',
     left: '588px',
-    width: '175px',
+    width: '350px',
     height: '36px',
     padding: '0px 8px',
     border: '0',
@@ -26,7 +26,7 @@ const styles = {
 };
 
 const defaultProps = {
-  label: 'Download Template',
+  label: 'Download Contents IQ Inventory Template',
 };
 
 const Button = (props) => {

@@ -119,9 +119,9 @@ projectDetails.project.spreadsheetData.forEach(item => {
 const totalACVTax = suggestedACVTotal * (projectDetails.project.salesTax / 100);
 
 // Calculate ACV with tax total by adding total ACV and total ACV tax
-const acvWithTaxTotal = suggestedACVTotal + totalRCVTax;
+const acvWithTaxTotal = suggestedACVTotal ;
 
-let totalDepreciation = 0; // Initialize total depreciation
+let totalDepreciation = 0 + totalRCVTax; // Initialize total depreciation
 
 
 
@@ -141,7 +141,7 @@ projectDetails.project.spreadsheetData.forEach(item => {
   // Ensure that the depreciation factor does not exceed 100
   depreciationFactor = Math.min(depreciationFactor, 100);
   
-  const depreciationAmount = ACV1 * (depreciationFactor / 100);
+  const depreciationAmount = (ACV1 * (depreciationFactor / 100));
   
     
     // Add depreciation amount to total
