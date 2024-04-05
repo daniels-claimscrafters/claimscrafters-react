@@ -106,15 +106,15 @@ const worksheet = workbook.worksheets[0];
 
 
           // Get the cell E18 and set its value to suggestedRCVTotal
-    const cellE18 = worksheet.getCell('E18');
-    cellE18.value = suggestedRCVTotal;
+    const cellD18 = worksheet.getCell('D18');
+    cellD18.value = suggestedRCVTotal;
 
     // Get the cell E19 and set its value to totalRCVTax
-    const cellE19 = worksheet.getCell('E19');
-    cellE19.value = totalRCVTax;
+    const cellD19 = worksheet.getCell('D19');
+    cellD19.value = totalRCVTax;
 
-    const cellJ21 = worksheet.getCell('J21');
-    cellJ21.value = totalDepreciation;
+    const cellI21 = worksheet.getCell('I21');
+    cellI21.value = totalDepreciation;
 
     
 

@@ -13,7 +13,8 @@ const styles = {
     width: '100%',
     height: '100%',
     backgroundColor: '#f0f0f0',
-    borderRadius: '12px',
+    borderRadius: '16px',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
   },
   // Additional styles for the child components
   ChildContainer: {

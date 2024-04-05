@@ -295,7 +295,7 @@ useEffect(() => {
       <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '98%', height: '85%' }}>
         {/* Left Section: TasksList */}
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '33%', height: '100%' }}>
-        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', width: '100%', height: '20%', gap: '5px'  }}>
+        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', width: '100%', height: '20%', gap: '10px'  }}>
         <motion.div
       style={{ width: '33.33%', height: '90%' }}
       initial={{ scale: 0, opacity: 0 }} // Initial scale and opacity

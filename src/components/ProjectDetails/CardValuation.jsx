@@ -17,12 +17,12 @@ const styles = {
   },
   column: {
     flex: '1',
-    marginRight: '10px', // Add margin right for space between columns
+    marginRight: '40px', // Add margin right for space between columns
     marginTop: '10px',
   },
   firstColumn: {
     flex: '1',
-    marginRight: '40px', // Add margin right for space between columns
+    marginRight: '60px', // Add margin right for space between columns
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -49,9 +49,9 @@ const styles = {
   text: {
     marginBottom: '5px',
     color: '#030303',
-    fontSize: '18px',
+    fontSize: '16px',
     fontFamily: 'Poppins',
-    fontWeight: 600,
+    fontWeight: 500,
     lineHeight: '23px',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -189,7 +189,7 @@ return (
       <div style={styles.headerText}>ACV</div>
       <div style={styles.text}>RCV with Tax Total: ${rcvWithTaxTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
       <div style={styles.text}>Total Depreciation: (${totalDepreciation.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })})</div>
-      <hr style={{ backgroundColor: 'black', height: '1px', width: '90%', margin: '5px 0' }} align="left" /> {/* Updated line here */}
+      <hr style={{ backgroundColor: 'black', height: '1px', width: '100%', margin: '5px 0' }} align="left" /> {/* Updated line here */}
       <div style={styles.text}>ACV Total: ${acvWithTaxTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
     </div>
     <div style={styles.column}>

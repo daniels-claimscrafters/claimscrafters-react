@@ -16,11 +16,11 @@ const styles = {
     left: '96px',
     width: '100%',
     height: '55%',
-    backgroundColor: '#fafafa',
+    backgroundColor: '#f0f0f0',
     borderRadius: '16px',
-    border: '1px solid #3164f4',
+    
     boxSizing: 'border-box',
-    boxShadow: '2px 2px 0px #3164f4',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
     marginBottom: '20px'
   },
   calendarContainer: {
@@ -29,7 +29,7 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     border: 'none', // Remove border for the entire calendar
-    padding: '2px',
+    padding: '3px',
   },
   calendar: {
     border: 'none' // Remove border for the calendar component

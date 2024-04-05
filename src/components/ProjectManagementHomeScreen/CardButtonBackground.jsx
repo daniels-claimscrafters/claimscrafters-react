@@ -9,6 +9,8 @@ const styles = {
     height: '7%',
     backgroundColor: '#f0f0f0',
     borderRadius: '24px',
+    
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
     display: 'flex', // Added display flex
     justifyContent: 'center', // Center align the buttons
     alignItems: 'center',
