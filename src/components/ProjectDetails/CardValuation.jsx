@@ -119,7 +119,7 @@ projectDetails.project.spreadsheetData.forEach(item => {
 const totalACVTax = suggestedACVTotal * (projectDetails.project.salesTax / 100);
 
 // Calculate ACV with tax total by adding total ACV and total ACV tax
-const acvWithTaxTotal = suggestedACVTotal + totalACVTax;
+const acvWithTaxTotal = suggestedACVTotal + totalRCVTax;
 
 let totalDepreciation = 0; // Initialize total depreciation
 
@@ -169,36 +169,37 @@ switch (projectDetails.project.depreciationRange) {
 }
 
 
-  return (
-    <div style={styles.Card}>
-      <div style={styles.firstColumn}>
+return (
+  <div style={styles.Card}>
+    <div style={styles.firstColumn}>
       <div style={styles.innerCard}>
-    Number Of Items:
-    <br />
-    {projectDetails.project.numberOfLines}
-  </div>
-      </div>
-      <div style={styles.column}>
-        <div style={styles.headerText}>RCV</div>
-        <div style={styles.text}>Suggested RCV Total: ${suggestedRCVTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
-        <div style={styles.text}>Tax Rate: {projectDetails.project.salesTax}%</div>
-        <div style={styles.text}>Total RCV Tax: ${totalRCVTax.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
-        <div style={styles.text}>RCV with Tax Total: ${rcvWithTaxTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
-      </div>
-      <div style={styles.column}>
-        <div style={styles.headerText}>ACV</div>
-        <div style={styles.text}>Suggested ACV Total: ${suggestedACVTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
-        <div style={styles.text}>Tax Rate: {projectDetails.project.salesTax}%</div>
-        <div style={styles.text}>Total ACV Tax: ${totalACVTax.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
-        <div style={styles.text}>ACV with Tax Total: ${acvWithTaxTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
-      </div>
-      <div style={styles.column}>
-        <div style={styles.headerText}>&nbsp;</div>
-        <div style={styles.text}>Depreciating Years: {depreciationRange}</div>
-        <div style={styles.text}>Total Depreciation: ${totalDepreciation.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+        Number Of Items:
+        <br />
+        {projectDetails.project.numberOfLines}
       </div>
     </div>
-  );
+    <div style={styles.column}>
+      <div style={styles.headerText}>RCV</div>
+      <div style={styles.text}>Suggested RCV Total: ${suggestedRCVTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+      <div style={styles.text}>Tax Rate: {projectDetails.project.salesTax}%</div>
+      <div style={styles.text}>Total RCV Tax: ${totalRCVTax.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+      <div style={styles.text}>RCV with Tax Total: ${rcvWithTaxTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+    </div>
+    <div style={styles.column}>
+      <div style={styles.headerText}>ACV</div>
+      <div style={styles.text}>RCV with Tax Total: ${rcvWithTaxTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+      <div style={styles.text}>Total Depreciation: (${totalDepreciation.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })})</div>
+      <hr style={{ backgroundColor: 'black', height: '1px', width: '90%', margin: '5px 0' }} align="left" /> {/* Updated line here */}
+      <div style={styles.text}>ACV Total: ${acvWithTaxTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+    </div>
+    <div style={styles.column}>
+      <div style={styles.headerText}>&nbsp;</div>
+      <div style={styles.text}>Depreciating Years: {depreciationRange}</div>
+      <div style={styles.text}>Total Depreciation: ${totalDepreciation.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+    </div>
+  </div>
+);
+
 };
 
 export default CardValuation;

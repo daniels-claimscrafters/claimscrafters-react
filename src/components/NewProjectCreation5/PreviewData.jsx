@@ -404,6 +404,41 @@ const handleDeleteRow = (rowIndex) => {
 </div>
 
 <div style={styles.inputRow}>
+<label style={styles.label} htmlFor="selectedRoom">Room: </label>
+  <select 
+  id="selectedRoom" 
+  style={styles.inputField} 
+  value={selectRoomText} 
+  onChange={(e) => {
+    setSelectRoomText(e.target.value); // Update the select field text
+    handleColumnSelection('room', e.target.value); // Handle the column selection
+  }}
+>
+<option value="" disabled selected hidden>(Optional)</option>
+  {columnNames.map((columnName, index) => (
+    <option key={index} value={columnName}>
+      {columnName}
+    </option>
+  ))}
+</select>
+<label style={styles.label} htmlFor="selectedItem">Item: </label>
+  <select 
+  id="selectedItem" 
+  style={styles.inputField} 
+  value={selectItemText} 
+  onChange={(e) => {
+    setSelectItemText(e.target.value); // Update the select field text
+    handleColumnSelection('item', e.target.value); // Handle the column selection
+  }}
+>
+<option value="" disabled selected hidden>(Optional)</option>
+  {columnNames.map((columnName, index) => (
+    <option key={index} value={columnName}>
+      {columnName}
+    </option>
+  ))}
+</select>
+
   <label style={styles.label} htmlFor="selectedDescription">Description: </label>
   <select
   id="selectedDescription"
@@ -440,41 +475,9 @@ const handleDeleteRow = (rowIndex) => {
   ))}
 </select>
   
-  <label style={styles.label} htmlFor="selectedRoom">Room: </label>
-  <select 
-  id="selectedRoom" 
-  style={styles.inputField} 
-  value={selectRoomText} 
-  onChange={(e) => {
-    setSelectRoomText(e.target.value); // Update the select field text
-    handleColumnSelection('room', e.target.value); // Handle the column selection
-  }}
->
-<option value="" disabled selected hidden>(Optional)</option>
-  {columnNames.map((columnName, index) => (
-    <option key={index} value={columnName}>
-      {columnName}
-    </option>
-  ))}
-</select>
   
-  <label style={styles.label} htmlFor="selectedItem">Item: </label>
-  <select 
-  id="selectedItem" 
-  style={styles.inputField} 
-  value={selectItemText} 
-  onChange={(e) => {
-    setSelectItemText(e.target.value); // Update the select field text
-    handleColumnSelection('item', e.target.value); // Handle the column selection
-  }}
->
-<option value="" disabled selected hidden>(Optional)</option>
-  {columnNames.map((columnName, index) => (
-    <option key={index} value={columnName}>
-      {columnName}
-    </option>
-  ))}
-</select>
+  
+  
 
 <button style={{
     ...styles.button1,

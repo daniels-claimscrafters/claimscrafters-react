@@ -415,8 +415,8 @@ const calculateDepreciationAmount = (item, projectDetails) => {
   // Ensure that the depreciation factor does not exceed 100
   depreciationFactor = Math.min(depreciationFactor, 100);
   
-  //const salesTaxAmount = (projectDetails.project.salesTax / 100 * ((Number(item['RCV High']) + Number(item['RCV Low'])) / 2 * item.Quantity));
-  return (rcvTotal * (depreciationFactor / 100)).toFixed(2);
+  const salesTaxAmount = (projectDetails.project.salesTax / 100 * ((Number(item['RCV High']) + Number(item['RCV Low'])) / 2 * item.Quantity));
+  return ((rcvTotal * (depreciationFactor / 100)) + salesTaxAmount).toFixed(2);
 };
 
 // Define a function to calculate ACV Total

@@ -29,6 +29,7 @@ import ButtonBack from './ButtonBack';
 import ButtonContinue from './ButtonContinue';
 import CardUpload from './CardUpload';
 import CardSubupload from './CardSubupload';
+import ButtonTemplate from './ButtonTemplate';
 import { motion } from "framer-motion";
 
 const NPC4 = (props) => {
@@ -67,7 +68,7 @@ const NPC4 = (props) => {
         </div>
   
         {/* Row 2 Centered */}
-  <div style={{ marginBottom: '20px', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '100%', marginTop: '10px' }}>
+  <div style={{ marginBottom: '10px', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '100%', marginTop: '10px' }}>
     <HorizontalDivider />
   
     {/* Card Circle 1 */}
@@ -145,6 +146,7 @@ const NPC4 = (props) => {
 
   <div style={{ height: '80%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
   {/* New Section with TextHeader2 and TextSubtitle */}
+  <ButtonTemplate />
   <CardUpload onFileUpload={handleFileUpload} onClick={() => console.log('CardUpload clicked in NPC4')} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
     <CardSubupload />
 

@@ -286,11 +286,11 @@ return { modifiedExcelData };
             worksheet.getCell(`I${rowNumber}`).value = parseFloat(RCVExt.toFixed(2)); // RCV (ext) as integer
 
             worksheet.getCell(`J${rowNumber}`).value = `${projectDetails.project.salesTax}%`; // Sales Tax
-            worksheet.getCell(`K${rowNumber}`).value = parseInt(salesTaxAmount.toFixed(2)); // Sales Tax Amount as integer
+            worksheet.getCell(`K${rowNumber}`).value = parseFloat(salesTaxAmount.toFixed(2)); // Sales Tax Amount as integer
             worksheet.getCell(`L${rowNumber}`).value = RCVTotal.toFixed(2); // RCV Total
             worksheet.getCell(`M${rowNumber}`).value = item.Depreciation; // Depreciation
             worksheet.getCell(`N${rowNumber}`).value = projectDetails.project.depreciationRange; // Dep Years
-            worksheet.getCell(`O${rowNumber}`).value = parseInt(depreciationAmount.toFixed(2)); // Dep Amount
+            worksheet.getCell(`O${rowNumber}`).value = parseFloat(depreciationAmount.toFixed(2)); // Dep Amount
             worksheet.getCell(`P${rowNumber}`).value = ACVTotal.toFixed(2); // ACV Total
             worksheet.getCell(`Q${rowNumber}`).value = item.Subclass;
             worksheet.getCell(`R${rowNumber}`).value = item.Class;
