@@ -8,7 +8,7 @@ const styles = {
     fontSize: '38px',
     top: '813px',
     left: '10px',
-    width: '48px',
+    width: '30px',
     height: '67px',
     cursor: 'pointer',
   },

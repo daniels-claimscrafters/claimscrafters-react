@@ -8,9 +8,9 @@ const styles = {
     fontSize: '40px',
     top: '42px',
     left: '1325px',
-    width: '40px',
+    width: '30px',
     height: '40px',
-    marginRight: '20px',
+    
     marginTop: '10px',
   },
 };
