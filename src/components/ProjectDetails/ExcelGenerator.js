@@ -290,7 +290,7 @@ return { modifiedExcelData };
             worksheet.getCell(`L${rowNumber}`).value = RCVTotal.toFixed(2); // RCV Total
             worksheet.getCell(`M${rowNumber}`).value = item.Depreciation; // Depreciation
             worksheet.getCell(`N${rowNumber}`).value = projectDetails.project.depreciationRange; // Dep Years
-            worksheet.getCell(`O${rowNumber}`).value = parseFloat(depreciationAmount.toFixed(2)); // Dep Amount
+            worksheet.getCell(`O${rowNumber}`).value = parseFloat((depreciationAmount + salesTaxAmount).toFixed(2)); // Dep Amount
             worksheet.getCell(`P${rowNumber}`).value = ACVTotal.toFixed(2); // ACV Total
             worksheet.getCell(`Q${rowNumber}`).value = item.Subclass;
             worksheet.getCell(`R${rowNumber}`).value = item.Class;
@@ -361,7 +361,7 @@ workbook.removeWorksheet(1);
             worksheet.getCell(`L${rowNumber}`).value = `$${RCVTotal.toFixed(2)}`; // RCV Total
             worksheet.getCell(`M${rowNumber}`).value = item.Depreciation * 100;
             worksheet.getCell(`N${rowNumber}`).value = projectDetails.project.depreciationRange; // Dep Years
-            worksheet.getCell(`O${rowNumber}`).value = `$${depreciationAmount.toFixed(2)}`; // Dep Amount
+            worksheet.getCell(`O${rowNumber}`).value = `$${(depreciationAmount + salesTaxAmount).toFixed(2)}`; // Dep Amount
             worksheet.getCell(`P${rowNumber}`).value = `$${ACVTotal.toFixed(2)}`; // ACV Total
             worksheet.getCell(`Q${rowNumber}`).value = item.Subclass;
             worksheet.getCell(`R${rowNumber}`).value = item.Class;
