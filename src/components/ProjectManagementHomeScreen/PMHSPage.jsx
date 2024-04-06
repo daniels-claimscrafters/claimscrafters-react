@@ -217,7 +217,7 @@ useEffect(() => {
   };
 
   return (
-    <div style={{ display: 'flex', height: '100vh', minHeight: '600px', minWidth: '1200px' }}>
+    <div style={{ display: 'flex', height: '100vh',  }}>
   {/* Sidebar Section */}
   <div style={{ flex: '0 0 auto', width: '3%', backgroundColor: '#f0f0f0' }}>
   <CardSideBar>

@@ -121,7 +121,7 @@ const projectId = urlParams.get('projectId');
     
 
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100vh', minWidth: '1280px', minHeight: '720px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100vh',  }}>
   <div style={{ height: '10%' }}>
     <HeaderBackground>
       <div style={{ display: 'flex', justifyContent: 'space-between', height: '100%' }}>
