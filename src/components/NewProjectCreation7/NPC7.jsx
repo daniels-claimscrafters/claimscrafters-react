@@ -1,3 +1,5 @@
+// NPC7.jsx
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CardNumberOfLines from './CardNumberOfLines';
@@ -32,7 +34,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import CheckoutForm from './CheckoutForm';
 
-const stripePromise = loadStripe('pk_test_51NiiAZCjhYpSpOvRGjQmKbqADIMOaR1nvbnfy4UNdQ7d39Y9hkuMth2JT7WicwuuxcYDHLfCjBmJ7X5HYDLNMw2B00OpdnRxnO');
+const stripePromise = loadStripe('pk_live_51NiiAZCjhYpSpOvRYHdj3qEdhntOpSOBOJNDfpWPCtkt0LaQeFFTrOLiST84qs0I4lB4x0KoXXiYYj86G41Jsrpb00rO4mbdbE');
 
 const NPC7 = ({ updateLoadingState, npcData, onInputChange, onPrevious, numberOfLines, onSubmit }) => {
   // Define state variables to hold the total price and credit card information
