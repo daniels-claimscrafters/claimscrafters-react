@@ -57,7 +57,7 @@ const styles = {
     
     fontFamily: 'Poppins',
     fontWeight: 500,
-    lineHeight: '20px',
+    lineHeight: '23px',
     
     whiteSpace: 'nowrap',
   },

@@ -12,15 +12,20 @@ const styles = {
     left: '102px',
     width: '100%',
     height: '100%',
-    backgroundColor: '#f0f0f0',
-    borderRadius: '16px',
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+    backgroundColor: '#27293D',
+    borderRadius: '4px',
+    boxShadow: '0 4px 8px rgba(255, 255, 255, 0.2)',
   },
   // Additional styles for the child components
   ChildContainer: {
     padding: '7px',
     height: '100%',
     paddingTop: '10px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: '5px'
   },
   IconInProcessContainer: {
     display: 'flex',

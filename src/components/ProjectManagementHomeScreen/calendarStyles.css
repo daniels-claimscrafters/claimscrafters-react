@@ -104,4 +104,9 @@
 
 .rbc-button-link {
   pointer-events: none;
+  color: white;
+}
+
+.rbc-off-range-bg {
+  background-color: rgb(154, 154, 154) !important;
 }

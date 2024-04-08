@@ -7,14 +7,14 @@ const styles = {
     top: '191px',
     left: '610px',
     height: '7%',
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#555555',
     borderRadius: '24px',
     
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
     display: 'flex', // Added display flex
     justifyContent: 'center', // Center align the buttons
     alignItems: 'center',
-    padding: '10px',
+    padding: '25px',
     marginBottom: '10px',
   },
   Button: {

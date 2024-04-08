@@ -6,9 +6,8 @@ const styles = {
     fontSize: '2.5em',
     fontFamily: 'Poppins',
     fontWeight: 700,
-    lineHeight: '56px',
+    lineHeight: '20px',
     textAlign: 'center',
-    
   },
 };
 

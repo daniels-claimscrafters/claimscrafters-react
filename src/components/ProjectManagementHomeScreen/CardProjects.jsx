@@ -77,7 +77,7 @@ const CardProjects = ({ projects, filter }) => {
         placeholder="Search projects..."
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        style={{ display: 'block' ,margin : '0 auto', padding: '10px', width: '95%', borderRadius: '12px', color: '#1d1d1f', fontSize: '14px', fontFamily: 'Poppins', outline: 'none', backgroundColor: 'rgba(255,255,255,0.87)', border: '1px solid #ceced3' }}
+        style={{ display: 'block' ,margin : '0 auto', padding: '10px', width: '95%', borderRadius: '12px', color: '#1d1d1f', fontSize: '14px', fontFamily: 'Poppins', outline: 'none', backgroundColor: '#cddef2', border: '1px solid #ceced3' }}
       />
 
       <table style={styles.table}>

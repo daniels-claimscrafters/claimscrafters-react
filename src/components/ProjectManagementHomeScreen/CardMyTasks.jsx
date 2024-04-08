@@ -10,14 +10,14 @@ const styles = {
     top: '699px',
     left: '92px',
     width: '100%',
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#555555',
     borderRadius: '16px',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
     padding: '10px',
     boxSizing: 'border-box',
     display: 'flex',
     flexDirection: 'column',
-    height: '30%'
+    height: '32%'
   },
   header: {
     display: 'flex',
@@ -39,14 +39,14 @@ const styles = {
     fontSize: '24px',
   },
   row1: {
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#555555',
     height: '35px',
     borderBottom: '1px solid #ccc',
     display: 'flex',
     width: '100%',
   },
   row2: {
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#555555',
     height: '35px',
     borderBottom: '1px solid #ccc',
     display: 'flex',

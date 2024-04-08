@@ -3,17 +3,16 @@ import axios from 'axios';
 
 const styles = {
   ImageContainer: {
-    top: '25px',
-    left: '1323px',
-    width: '60px',
-    height: '60px',
-    borderRadius: '100000px',
+    
+    width: '80%',
+    height: '80%',
+    borderRadius: '50%',
     border: '1px solid #c2c2c2',
     boxSizing: 'border-box',
     backgroundPosition: 'center center',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
-    marginTop: '5px',
+    
   },
 };
 

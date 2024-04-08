@@ -16,7 +16,7 @@ const styles = {
     left: '96px',
     width: '100%',
     height: '55%',
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#555555',
     borderRadius: '16px',
     
     boxSizing: 'border-box',

@@ -4,9 +4,9 @@ const styles = {
   Card: {
     top: '148px',
     left: '440px',
-    width: '95%',
+    width: '80%',
     height: '45%',
-    backgroundColor: '#cddef2',
+    backgroundColor: 'rgb(51, 88, 244)',
     borderRadius: '12px',
   },
 };

@@ -217,9 +217,9 @@ useEffect(() => {
   };
 
   return (
-    <div style={{ display: 'flex', height: '100vh',  }}>
+    <div style={{ display: 'flex', height: '100vh', width: '100vw', backgroundColor: '#1e1e2f' }}>
   {/* Sidebar Section */}
-  <div style={{ flex: '0 0 auto', width: '3%', backgroundColor: '#f0f0f0' }}>
+  <div style={{ display: 'flex', width: '3%', backgroundColor: '#f0f0f0' }}>
   <CardSideBar>
     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%' }}>
     <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -247,7 +247,7 @@ useEffect(() => {
     {/* Main Content */}
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100%', width: '97%' }}>
       {/* Top Row */}
-<div style={{ display: 'flex', backgroundColor: '#000000', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%', height: '15%' }}>
+<div style={{ display: 'flex', flexDirection: 'row', fontSize: '0.7vw', alignItems: 'center', justifyContent: 'space-between', width: '100%', height: '10%', backgroundColor: 'black' }}>
   {/* Left Section: ImageLogo */}
   <div style={{ height: '100%', width: '10%' }}>
   <motion.div
@@ -258,8 +258,8 @@ useEffect(() => {
         ><ImageLogo /></motion.div>
   </div>
   {/* Middle Section: TextHeader and TextSubtitle */}
-  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
+    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', fontSize: '1.5vw', }}>
       {/* TextHeader */}
       <TextHeader />
       {/* Add any other components you want to place to the right */}
@@ -271,7 +271,7 @@ useEffect(() => {
     </div>
   </div>
   {/* Right Section: ImageProfile, TextUsername, and IconLogout */}
-  <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end' }}>
+  <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', padding: '10px', justifyContent: 'flex-end', height: '100%' }}>
     {/* ImageProfile and TextUsername */}
     <motion.div
           initial={{ scale: 0 }} // Initial scale is 0
@@ -280,7 +280,7 @@ useEffect(() => {
           transition={{ duration: 0.5 }} // Transition duration
         ><MenuIcon /></motion.div>
     
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginRight: '30px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginRight: '30px', height: '100%' }}>
       
       {/* ImageProfile */}
       <ImageProfile userData={userData} />
@@ -292,7 +292,7 @@ useEffect(() => {
   </div>
 </div>
       {/* Cards and Project Buttons Section */}
-      <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '98%', height: '85%' }}>
+      <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '98%', height: '90%' }}>
         {/* Left Section: TasksList */}
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '33%', height: '100%' }}>
         <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', width: '100%', height: '20%', gap: '10px'  }}>

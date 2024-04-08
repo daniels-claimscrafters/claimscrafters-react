@@ -313,7 +313,7 @@ const SignupPage = () => {
       <form onSubmit={handleSubmit}>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100vw', height: '100vh', padding: '50px' }}>
       
-      <div style={{ width: '90%', display: 'flex', flexDirection: 'column', alignItems: 'center', height: '15%', justifyContent: 'center' }}>
+      <div style={{ width: '90%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20%', height: '15%', justifyContent: 'center', fontSize: '1.0vw' }}>
   <TextHeader/>
   <TextSubtitle/>
 </div>
@@ -434,7 +434,7 @@ const SignupPage = () => {
     {validationErrors.confirmPassword && (
       <div style={{ color: 'red', marginBottom: '5px' }}>{validationErrors.confirmPassword}</div>
     )}
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', paddingTop: '5px' }}>
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', paddingTop: '5px', whiteSpace: 'nowrap', fontSize: '1.0vw', }}>
     <Checkbox onChange={handleCheckboxChange} />
     <TextBySigning />
     <motion.div
@@ -452,7 +452,7 @@ const SignupPage = () => {
   </div>
   
   {/* Fourth Row */}
-  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', width: '100%', height: '33%' }}>
+  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', width: '100%', height: '33%', paddingTop: '30px' }}>
     {/* Remaining Content */}
     {errorMessage && <div style={{ color: 'red', marginBottom: '2px' }}>{errorMessage}</div>}
     <motion.div
@@ -460,11 +460,11 @@ const SignupPage = () => {
       animate={{ scale: 1 }}
       whileHover={{ scale: 1.1 }}
       transition={{ duration: 1.0 }}
-      style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}}
+      style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', height: '70%'}}
     >
       <ButtonSignup disabled={!isFormComplete()} />
     </motion.div>
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}></div>
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', paddingTop: '10px' }}></div>
     <div style={{ display: 'flex' }}>
       <TextAlreadyHave />
       <motion.div
