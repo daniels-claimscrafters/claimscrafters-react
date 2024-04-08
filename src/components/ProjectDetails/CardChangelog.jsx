@@ -4,13 +4,13 @@ import React, { useState, useEffect } from 'react';
 
 const styles = {
   cardContainer: {
-    width: '99%',
+    width: '100%',
     height: '100%',
     boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
     backgroundColor: '#f1f1f1',
     borderRadius: '26px',
     border: '1px solid #505050',
-    padding: '20px',
+    padding: '10px',
     overflow: 'hidden',
     display: 'flex',
     flexDirection: 'column', // Align children vertically

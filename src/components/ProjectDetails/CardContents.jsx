@@ -10,9 +10,9 @@ const styles = {
   Card: {
     
     width: '100%',
-    maxHeight: '95%',
+    maxHeight: '100%',
     backgroundColor: '#f0f0f0',
-    borderRadius: '12px',
+    borderRadius: '26px',
     border: '1px solid #030303',
     boxSizing: 'border-box',
     overflowY: 'hidden',

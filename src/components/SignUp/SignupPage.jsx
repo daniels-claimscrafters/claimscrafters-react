@@ -436,20 +436,20 @@ const SignupPage = () => {
     )}
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', paddingTop: '5px' }}>
     <Checkbox onChange={handleCheckboxChange} />
-    <TextBySigning style={{ fontSize: '1.5vw', margin: '0 0.2em' }} />
+    <TextBySigning />
     <motion.div
       whileHover={{ textDecoration: 'underline' }}
     >
-      <TextTOU style={{ fontSize: '1.5vw', margin: '0 0.2em' }} />
+      <TextTOU />
     </motion.div>
-    <TextAnd style={{ fontSize: '1.5vw', margin: '0 0.2em' }} />
+    <TextAnd />
     <motion.div
       whileHover={{ textDecoration: 'underline' }}
     >
-      <TextPrivacy style={{ fontSize: '1.5vw', margin: '0 0.2em' }} />
+      <TextPrivacy />
     </motion.div>
   </div>
-</div>
+  </div>
   
   {/* Fourth Row */}
   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', width: '100%', height: '33%' }}>

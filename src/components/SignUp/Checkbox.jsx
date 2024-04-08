@@ -9,7 +9,7 @@ const styles = {
     alignItems: 'center',
     overflow: 'hidden',
     width: '20px',
-    height: '20px',
+    height: '100%',
     pointerEvents: 'auto',
     color: 'rgba(42, 132, 234, 1)',
     backgroundColor: 'rgba(255, 255, 255, 1)',

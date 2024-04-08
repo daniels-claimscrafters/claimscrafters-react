@@ -3,35 +3,39 @@ import React from 'react';
 
 const styles = {
   Card: {
-    top: '280px',
-    left: '231px',
+    marginTop: '5px',
     width: '100%',
-    height: '170px', // Keeping the original height
+    height: '50%', // Keeping the original height
     backgroundColor: '#f0f0f0',
-    borderRadius: '12px',
+    borderRadius: '26px',
     border: '1px solid #030303',
     boxSizing: 'border-box',
-    marginTop: '20px',
+    gap: '20px',
     display: 'flex',
     flexDirection: 'row',
+    fontSize: '1.0vw',
+    justifyContent: 'center',
+    alignItems: 'center',
+    overflow: 'auto',
   },
   column: {
-    flex: '1',
-    marginRight: '40px', // Add margin right for space between columns
-    marginTop: '10px',
+    width: '25%',
+    height: '100%',
+    paddingTop: '10px'
   },
   firstColumn: {
-    flex: '1',
-    marginRight: '60px', // Add margin right for space between columns
+    width: '25%',
+     // Add margin right for space between columns
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    height: '100%',
   },
   innerCard: {
     width: '100%', // Adjust width of the inner card as needed
     height: '100%', // Adjust height of the inner card as needed
     backgroundColor: '#cddef2',
-    borderRadius: '12px',
+    borderRadius: '26px',
     border: '1px solid #030303',
     display: 'flex',
     justifyContent: 'center',
@@ -40,6 +44,7 @@ const styles = {
     fontSize: '20px',
     fontFamily: 'Poppins',
     fontWeight: 600,
+    padding: '5px'
   },
   headerText: {
     fontWeight: 'bold',
@@ -49,12 +54,11 @@ const styles = {
   text: {
     marginBottom: '5px',
     color: '#030303',
-    fontSize: '16px',
+    
     fontFamily: 'Poppins',
     fontWeight: 500,
-    lineHeight: '23px',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
+    lineHeight: '20px',
+    
     whiteSpace: 'nowrap',
   },
 };

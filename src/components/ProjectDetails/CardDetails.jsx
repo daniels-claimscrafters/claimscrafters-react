@@ -5,20 +5,18 @@ import Popup from './Popup';
 
 const styles = {
   cardContainer: {
-    top: '82px',
-    left: '39px',
+    
     width: '100%',
-    height: '160px',
+    height: '50%',
     backgroundColor: '#f1f1f1',
     borderRadius: '26px',
     border: '1px solid #505050',
     boxSizing: 'border-box',
-    padding: '5px',
-    paddingTop: '6px',
-    paddingLeft: '20px',
-    display: 'grid',
-    gridTemplateColumns: '1fr 1fr 1fr',
-    gap: '10px',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '10px',
+    display: 'flex',
+    fontSize: '0.9vw',
   },
   fieldContainer: {
     display: 'flex',
@@ -35,8 +33,8 @@ const styles = {
     fontWeight: 700,
     fontFamily: 'Poppins, sans-serif',
     color: '#222222',
-    width: '80px', // Adjust label width as needed
-    fontSize: '14px',
+    width: '20%', // Adjust label width as needed
+    
     display: 'flex',
     alignItems: 'center',
   },
@@ -50,7 +48,7 @@ const styles = {
     border: '1px solid #ceced3',
     color: '#030303',
     outline: 'none',
-    maxWidth: '50%', // Adjust input width as needed
+    maxWidth: '70%', // Adjust input width as needed
   },
   addressInput: {
     flex: '1',
@@ -61,7 +59,7 @@ const styles = {
     border: '1px solid #ceced3',
     color: '#030303',
     outline: 'none',
-    maxWidth: '65%', // Adjust input width as needed
+    maxWidth: '70%', // Adjust input width as needed
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -76,7 +74,7 @@ const styles = {
     color: '#ffffff',
     textTransform: 'capitalize',
     outline: 'none',
-    maxWidth: '50%', // Adjust input width as needed
+    maxWidth: '70%', // Adjust input width as needed
     backgroundColor: '#030303',
   },
   dropdownInput: {
@@ -90,7 +88,7 @@ const styles = {
     borderRadius: '12px',
     textTransform: 'capitalize',
     outline: 'none',
-    maxWidth: '50%', // Adjust input width as needed
+    maxWidth: '70%', // Adjust input width as needed
     color: '#030303',
   },
 };
@@ -177,7 +175,7 @@ const CardDetails = ({ projectDetails }) => {
   
   return (
     <div style={styles.cardContainer}>
-      <div style={{ flex: '0 0 100%', maxHeight: '100%' }}>
+      <div style={{ display: 'flex', height: '100%', width: '33%', flexDirection: 'column', justifyContent: 'center' }}>
         <div style={styles.fieldContainer}>
           <label style={styles.label}>Claim Number:</label>
           <input style={styles.firstInput} type="text" value={projectDetails.project.claimNumber} readOnly />
@@ -191,7 +189,7 @@ const CardDetails = ({ projectDetails }) => {
           <input style={styles.input} type="text" value={projectDetails.project.carrier} readOnly />
         </div>
       </div>
-      <div style={{ flex: '0 0 100%', marginBottom: '10px', marginTop: '20px', ...styles.secondColumn }}>
+      <div style={{ display: 'flex', height: '100%', width: '33%', flexDirection: 'column', justifyContent: 'center' }}>
       <div style={styles.fieldContainer}>
         <label style={styles.label}>Project Status:</label>
         <select style={styles.dropdownInput} value={selectedStatus} onChange={handleStatusChange}>
@@ -205,7 +203,7 @@ const CardDetails = ({ projectDetails }) => {
           <input style={styles.addressInput} type="text" value={formatAddress(projectDetails.project.lossAddress, projectDetails.project.lossCity, projectDetails.project.lossState, projectDetails.project.lossPostalCode)} readOnly />
         </div>
       </div>
-      <div style={{ flex: '0 0 100%', marginBottom: '10px' }}>
+      <div style={{ display: 'flex', height: '100%', width: '33%', flexDirection: 'column', justifyContent: 'center' }}>
         <div style={styles.fieldContainer}>
           <label style={styles.label}>Adjuster Name:</label>
           <input style={styles.input} type="text" value={formatAdjusterName(projectDetails.project.adjusterFirstName, projectDetails.project.adjusterLastName)} readOnly />

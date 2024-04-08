@@ -121,7 +121,7 @@ const projectId = urlParams.get('projectId');
     
 
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100vh',  }}>
+      <div style={{ display: 'flex', flexDirection: 'column', width: '100vw', height: '100vh',  }}>
   <div style={{ height: '10%' }}>
     <HeaderBackground>
       <div style={{ display: 'flex', justifyContent: 'space-between', height: '100%' }}>
@@ -138,17 +138,17 @@ const projectId = urlParams.get('projectId');
 
 
           
-  <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '90%' }}>
-            <div style={{ display: 'flex', flexDirection: 'row', width: '100%', height: 'auto' }}>
-                <div style={{ flex: 3, padding: '10px' }}>
+  <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '90%', padding: '5px' }}>
+            <div style={{ display: 'flex', flexDirection: 'row', width: '100%', height: '50%', padding: '5px' }}>
+                <div style={{ flex: 3 }}>
                     <CardDetails projectDetails={projectDetails} />
                     <CardValuation projectDetails={projectDetails} />
                 </div>
-                <div style={{ flex: 1, padding: '10px', maxHeight: '372px' }}>
+                <div style={{ flex: 1, paddingLeft: '5px', height: '100%' }}>
                     <CardChangelog projectDetails={projectDetails} />
                 </div>
             </div>
-            <div style={{ display: 'flex', paddingLeft: '10px', paddingRight: '10px', flex: '1', height: '40%' }}>
+            <div style={{ display: 'flex', flex: '1', height: '50%', paddingTop: '5px' }}>
                 <CardContents 
                     projectDetails={projectDetails} 
                     setProjectDetails={handleUpdateProjectDetails}
