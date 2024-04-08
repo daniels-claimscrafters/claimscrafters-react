@@ -27,7 +27,6 @@ const styles = {
   entryContainer: {
     flex: '1',
     overflowY: 'auto',
-    backgroundColor: '#cddef2',
   },
   entryList: {
     padding: '0',
