@@ -376,6 +376,7 @@ a:focus {
 
 .service_section {
   position: relative;
+  padding-top: 145px !important;
 }
 
 .service_section .box {

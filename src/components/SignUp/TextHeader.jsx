@@ -3,12 +3,12 @@ import React from 'react';
 const styles = {
   Text: {
     color: '#080a0b',
-    fontSize: '48px',
+    fontSize: '2.5em',
     fontFamily: 'Poppins',
     fontWeight: 700,
     lineHeight: '56px',
     textAlign: 'center',
-    marginBottom: '10px',
+    
   },
 };
 

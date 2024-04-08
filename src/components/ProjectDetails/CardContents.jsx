@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Popup from './Popup';
-import { generateSummary, generateDetail, generateRawData } from './ExcelGenerator';
+import { generateSummary, generateDetail, generateRawData, generateAll } from './ExcelGenerator';
 
 
 const styles = {
@@ -212,9 +212,17 @@ const CardContents = ({ projectDetails, setProjectDetails }) => {
   };
   
   const handleDepreciationInputChange = (index, value) => {
-    // Update the display value directly, without validation
+    // Update the display value directly
     const updatedProjectDetails = { ...projectDetails };
     updatedProjectDetails.project.spreadsheetData[index]['DepreciationDisplay'] = value;
+    console.log('1: ', updatedProjectDetails.project.spreadsheetData[index]['DepreciationDisplay'])
+    
+    // Update the actual depreciation value based on the user's input
+    const newDepreciation = parseFloat(value) / 100; // Convert the input value to a decimal fraction
+    updatedProjectDetails.project.spreadsheetData[index]['Depreciation'] = newDepreciation;
+    console.log('2: ', updatedProjectDetails.project.spreadsheetData[index]['Depreciation'])
+  
+    // Update state
     setProjectDetails(updatedProjectDetails);
     setDataChanged(true);
   };
@@ -249,6 +257,7 @@ const CardContents = ({ projectDetails, setProjectDetails }) => {
       setError(false);
       setErrorMessage('');
       const quantityCheck = projectDetails.project.spreadsheetData.some(item => item.Quantity === '' || item.Quantity === '0');
+      
       const depreciationCheck = projectDetails.project.spreadsheetData.some(item => !/^\d{1,3}\.\d{2}$/.test(item.DepreciationDisplay || (item.Depreciation * 100).toFixed(2)));
 const rcvHighCheck = projectDetails.project.spreadsheetData.some(item => item['RCV High'] === '' || item['RCV High'] === '0');
 const rcvLowCheck = projectDetails.project.spreadsheetData.some(item => item['RCV Low'] === '' || item['RCV Low'] === '0');
@@ -257,6 +266,8 @@ const itemCheck = projectDetails.project.spreadsheetData.some(item => item.Item 
 const descriptionCheck = projectDetails.project.spreadsheetData.some(item => item.Description === ''); // Corrected from Item to Description
 const subclassCheck = projectDetails.project.spreadsheetData.some(item => item.Subclass === '');
 const classCheck = projectDetails.project.spreadsheetData.some(item => item.Class === '');
+
+
 
 if (quantityCheck) {
   setError(true);
@@ -382,7 +393,11 @@ const updatedProjectDetails = projectDetails.project.spreadsheetData;;
             const { modifiedExcelData: rawData } = await generateRawData(projectDetails);
             modifiedExcelData = rawData;
             fileName = 'RawData.xlsx';
-        } else {
+        } else if (selectedOption === "option4") {
+          const { modifiedExcelData: allData } = await generateAll(projectDetails);
+          modifiedExcelData = allData;
+          fileName = 'AllData.xlsx';
+      } else {
             throw new Error("Invalid option selected");
         }
         // Trigger file download for modified Excel data
@@ -461,6 +476,7 @@ const calculateACVTotal = (item, projectDetails) => {
   <option value="option1" style={styles.dropdownOption}>Summary</option>
   <option value="option2" style={styles.dropdownOption}>Details</option>
   <option value="option3" style={styles.dropdownOption}>Raw Data</option>
+  
 </select>
     </div>
   </div>
@@ -555,7 +571,7 @@ const calculateACVTotal = (item, projectDetails) => {
             <input
   style={styles.input}
   type="text"
-  value={item.DepreciationDisplay || (item.Depreciation * 100).toFixed(2)}
+  value={item.DepreciationDisplay === undefined ? (item.Depreciation * 100).toFixed(2) : item.DepreciationDisplay}
   onChange={(e) => handleDepreciationInputChange(index, e.target.value)}
 />
 <span>%</span>

@@ -2,14 +2,13 @@ import React from 'react';
 
 const styles = {
   ImageContainer: {
-    top: '546px',
-    left: '269px',
-    width: '408px',
-    height: '308px',
+    
+    width: '100%',
+    height: '100%',
     borderRadius: '8px',
     backgroundImage: 'url(./image.png)',
     backgroundPosition: 'center center',
-    backgroundSize: 'cover',
+    backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat',
   },
 };

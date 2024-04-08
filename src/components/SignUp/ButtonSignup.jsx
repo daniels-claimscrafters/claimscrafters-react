@@ -7,7 +7,7 @@ const styles = {
     cursor: 'pointer',
     top: '766px',
     left: '765px',
-    width: '468px',
+    width: '90%',
     height: '48px',
     padding: '0px 8px',
     border: '0',
@@ -20,7 +20,7 @@ const styles = {
     fontWeight: 700,
     lineHeight: '22px',
     outline: 'none',
-    marginBottom: '20px',
+    
   },
   ClickedButton: {
     backgroundColor: '#1a63ff', // Change the color to whatever you prefer

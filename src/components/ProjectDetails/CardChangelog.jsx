@@ -79,25 +79,28 @@ const CardChangelog = ({ projectDetails }) => {
       <h1 style={styles.header}>Changelog Entries</h1>
       <div style={styles.entryContainer}>
         <ul style={styles.entryList}>
-          {entries.slice().reverse().map((entry, index) => (
-            <li key={entry.id} style={{ ...styles.entryItem, backgroundColor: index % 2 === 0 ? '#cddef2' : '#f1f1f1' }}>
-              {/* Split the entry text into different parts */}
-              {entry.entry.split(/(User ID: \d+|DepreciationDisplay)/).map((part, index) => {
-                let textStyle = {}; // Define an empty object to hold the style for this part
-                // Apply blue color to the user information part
-                if (/User ID: \d+/.test(part)) {
-                  textStyle.color = 'blue';
-                } else if (part === 'DepreciationDisplay') {
-                  part = 'Depreciation';
-                }
-                // Default color for other parts
-                textStyle.color = 'inherit';
-                
-                // Render the part with the applied style
-                return <span key={index} style={textStyle}>{part}</span>;
-              })}
-            </li>
-          ))}
+        {entries.slice().reverse().map((entry, index) => (
+  // Check if the entry contains the word "Depreciation" among other words
+  !/\bDepreciation\b/.test(entry.entry) && (
+    <li key={entry.id} style={{ ...styles.entryItem }}>
+      {/* Split the entry text into different parts */}
+      {entry.entry.split(/(User ID: \d+|DepreciationDisplay)/).map((part, index) => {
+        let textStyle = {}; // Define an empty object to hold the style for this part
+        // Apply blue color to the user information part
+        if (/User ID: \d+/.test(part)) {
+          textStyle.color = 'blue';
+        } else if (part === 'DepreciationDisplay') {
+          part = 'Depreciation';
+        }
+        // Default color for other parts
+        textStyle.color = 'inherit';
+        
+        // Render the part with the applied style
+        return <span key={index} style={textStyle}>{part}</span>;
+      })}
+    </li>
+  )
+))}
         </ul>
       </div>
     </div>

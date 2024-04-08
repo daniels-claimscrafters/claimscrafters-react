@@ -4,8 +4,8 @@ const styles = {
   Input: {
     top: '650px',
     left: '759px',
-    width: '468px',
-    height: '48px',
+    width: '100%',
+    height: '50%',
     padding: '0px 8px',
     border: '1px solid #ceced3',
     boxSizing: 'border-box',

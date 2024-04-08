@@ -311,15 +311,15 @@ const SignupPage = () => {
 
     return (
       <form onSubmit={handleSubmit}>
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100vw', height: '100vh' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100vw', height: '100vh', padding: '50px' }}>
       
-      <div>
-        <TextHeader/>
-        <TextSubtitle/>
-      </div>
+      <div style={{ width: '90%', display: 'flex', flexDirection: 'column', alignItems: 'center', height: '15%', justifyContent: 'center' }}>
+  <TextHeader/>
+  <TextSubtitle/>
+</div>
       {/* First row */}
-      <div style={{ display: 'flex', marginBottom: '20px' }}>
-        <div style={{ marginRight: '10px' }}>
+      <div style={{ display: 'flex', width: '90%', alignItems: 'center', height: '15%' }}>
+        <div style={{ marginRight: '10px', width: '50%', height: '100%' }}>
           <TextFirstName/>
           <InputFieldFirstName
             value={formData.firstName}
@@ -331,7 +331,7 @@ const SignupPage = () => {
       )}
 
         </div>
-        <div style={{ marginLeft: '10px' }}>
+        <div style={{ marginLeft: '10px', width: '50%', height: '100%' }}>
         <TextLastName/>
           <InputFieldLastName
             value={formData.lastName}
@@ -345,8 +345,8 @@ const SignupPage = () => {
       </div>
 
       {/* Second row */}
-      <div style={{ display: 'flex', marginBottom: '20px' }}>
-        <div style={{ marginRight: '10px' }}>
+      <div style={{ display: 'flex', width: '90%', height: '15%', alignItems: 'center' }}>
+        <div style={{ marginRight: '10px', width: '50%', height: '100%' }}>
           <TextTitle/>
           <InputFieldTitle
             value={formData.title}
@@ -357,7 +357,7 @@ const SignupPage = () => {
         <div style={{ color: 'red' }}>{validationErrors.title}</div>
       )}
         </div>
-        <div style={{ marginLeft: '10px' }}>
+        <div style={{ marginLeft: '10px', width: '50%', height: '100%' }}>
         <TextCompany/>
           <InputFieldCompany
             value={formData.company}
@@ -371,8 +371,8 @@ const SignupPage = () => {
       </div>
 
       {/* Third row */}
-      <div style={{ display: 'flex', marginBottom: '20px' }}>
-      <div style={{ marginRight: '10px' }}>
+      <div style={{ display: 'flex', width: '90%', height: '15%', alignItems: 'center' }}>
+      <div style={{ marginRight: '10px', width: '50%', height: '100%' }}>
       <TextPhone/>
           <InputFieldPhone
             value={formData.phone}
@@ -383,7 +383,7 @@ const SignupPage = () => {
         <div style={{ color: 'red' }}>{validationErrors.phone}</div>
       )}
         </div>
-        <div style={{ marginLeft: '10px' }}>
+        <div style={{ marginLeft: '10px', width: '50%', height: '100%' }}>
         <TextEmail/>
           <InputFieldEmail
             value={formData.email}
@@ -397,85 +397,85 @@ const SignupPage = () => {
       </div>
 
       {/* Fourth row */}
-      <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
-      <div style={{ display: 'flex', justifyContent: 'center', marginRight: '10px', width: '468px' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', height: '40%', width: '90%' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', marginRight: '10px', width: '50%' }}>
           {/* First column */}
           <motion.div
           initial={{ scale: 0 }} // Initial scale is 0
           animate={{ scale: 1 }} // Animate to scale 1
           transition={{ duration: 1.0 }} // Transition duration
+          style={{ width: '100%', display: 'flex', justifyContent: 'center',  }}
         ><ImageLogo/></motion.div>
         </div>
         
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginLeft: '10px'  }}>
-        <div style={{ display: 'flex', alignItems: 'flex-end', width: '468px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginLeft: '10px', width: '50%' }}>
+  {/* First Row */}
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', width: '100%', height: '33%' }}>
     <TextCreateAPassword />
+    <InputFieldCAP
+      value={formData.createPassword}
+      onChange={(e) => handleChange('createPassword', e.target.value)}
+      onBlur={handleCreatePasswordBlur}
+      type="password"
+    />
+    {validationErrors.createPassword && (
+      <div style={{ color: 'red', maxWidth: '468px' }}>{validationErrors.createPassword}</div>
+    )}
   </div>
-  <div style={{ marginBottom: '30px' }}>
-        <InputFieldCAP
-            value={formData.createPassword}
-            onChange={(e) => handleChange('createPassword', e.target.value)}
-            onBlur={handleCreatePasswordBlur}
-            type="password"
-          />
-          {validationErrors.createPassword && (
-        <div style={{ color: 'red', maxWidth: '468px' }}>{validationErrors.createPassword}</div>
-      )}
-    </div>
-      <div style={{ display: 'flex', alignItems: 'flex-end', width: '468px' }}>
+  {/* Second Row */}
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', width: '100%', height: '33%' }}>
     <TextConfirmPassword />
+    <InputFieldCP
+      value={formData.confirmPassword}
+      onChange={(e) => handleChange('confirmPassword', e.target.value)}
+      onBlur={handleConfirmPasswordBlur}
+      type="password"
+    />
+    {validationErrors.confirmPassword && (
+      <div style={{ color: 'red', marginBottom: '5px' }}>{validationErrors.confirmPassword}</div>
+    )}
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', paddingTop: '5px' }}>
+    <Checkbox onChange={handleCheckboxChange} />
+    <TextBySigning style={{ fontSize: '1.5vw', margin: '0 0.2em' }} />
+    <motion.div
+      whileHover={{ textDecoration: 'underline' }}
+    >
+      <TextTOU style={{ fontSize: '1.5vw', margin: '0 0.2em' }} />
+    </motion.div>
+    <TextAnd style={{ fontSize: '1.5vw', margin: '0 0.2em' }} />
+    <motion.div
+      whileHover={{ textDecoration: 'underline' }}
+    >
+      <TextPrivacy style={{ fontSize: '1.5vw', margin: '0 0.2em' }} />
+    </motion.div>
   </div>
-  <div>
-    <div style={{ marginBottom: '15px' }}>
-          <InputFieldCP
-            value={formData.confirmPassword}
-            onChange={(e) => handleChange('confirmPassword', e.target.value)}
-            onBlur={handleConfirmPasswordBlur}
-            type="password"
-          />
-          {validationErrors.confirmPassword && (
-        <div style={{ color: 'red', marginBottom: '5px' }}>{validationErrors.confirmPassword}</div>
-        
-      )}
-      </div>
-      </div>
-          <div style={{ display: 'flex', marginBottom: '30px'}}>
-            <Checkbox onChange={handleCheckboxChange} />
-            <TextBySigning/>
-            <motion.div
-  whileHover={{ textDecoration: 'underline' }} // Add underline on hover
->
-<TextTOU/>
-</motion.div>
-            
-            <TextAnd/>
-            <motion.div
-  whileHover={{ textDecoration: 'underline' }} // Add underline on hover
->
-<TextPrivacy/>
-</motion.div>
-            
-          </div>
-          {errorMessage && <div style={{ color: 'red', marginBottom: '2px' }}>{errorMessage}</div>}
+</div>
+  
+  {/* Fourth Row */}
+  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', width: '100%', height: '33%' }}>
+    {/* Remaining Content */}
+    {errorMessage && <div style={{ color: 'red', marginBottom: '2px' }}>{errorMessage}</div>}
+    <motion.div
+      initial={{ scale: 0 }}
+      animate={{ scale: 1 }}
+      whileHover={{ scale: 1.1 }}
+      transition={{ duration: 1.0 }}
+      style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}}
+    >
+      <ButtonSignup disabled={!isFormComplete()} />
+    </motion.div>
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}></div>
+    <div style={{ display: 'flex' }}>
+      <TextAlreadyHave />
+      <motion.div
+        whileHover={{ textDecoration: 'underline' }}
+      >
+        <TextLogIn />
+      </motion.div>
+    </div>
+  </div>
+</div>
 
-          <motion.div
-          initial={{ scale: 0 }} // Initial scale is 0
-          animate={{ scale: 1 }} // Animate to scale 1
-          whileHover={{ scale: 1.1 }} // Scale up to 1.1 when hovered
-          transition={{ duration: 1.0 }} // Transition duration
-        ><ButtonSignup disabled={!isFormComplete()} /></motion.div>
-           
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}></div>
-          <div style={{ display: 'flex' }}>
-            <TextAlreadyHave/>
-            <motion.div
-  whileHover={{ textDecoration: 'underline' }} // Add underline on hover
->
-<TextLogIn/>
-</motion.div>
-            
-          </div>
-        </div>
       </div>
       {showEvdbPage && <Popup />}
     </div>

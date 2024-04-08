@@ -94,6 +94,7 @@ console.log('workbook2', workbook);
 console.log('2');
 
 // Remove the second and third worksheets
+workbook.removeWorksheet(4);
 workbook.removeWorksheet(3);
 workbook.removeWorksheet(2); // After the second one is removed, the next one will take its position as index 2
 
@@ -251,7 +252,8 @@ return { modifiedExcelData };
         await workbook.xlsx.load(arrayBuffer);
         console.log('workbook2', workbook);
         console.log('2');
-    
+        
+        workbook.removeWorksheet(4);
         workbook.removeWorksheet(3);
         workbook.removeWorksheet(1);
     
@@ -323,7 +325,8 @@ const generateRawData = async (projectDetails) => {
 
         // Load the workbook from the array buffer
         await workbook.xlsx.load(arrayBuffer);
-
+        
+        workbook.removeWorksheet(4);
         workbook.removeWorksheet(2);
 workbook.removeWorksheet(1);
 
@@ -378,6 +381,200 @@ workbook.removeWorksheet(1);
     }
 };
 
-export { generateSummary, generateDetail, generateRawData };
+const generateAll = async (projectDetails) => {
+    try {
+        const headers = {
+            'ngrok-skip-browser-warning': '69420'
+        };
+
+        // Fetch the Excel template file
+        const response = await axios.get(`${API_URL}/npc/get-excel`, {
+            headers: headers,
+            responseType: 'arraybuffer'
+        });
+
+        const arrayBuffer = response.data;
+
+        // Create a new workbook
+        const workbook = new ExcelJS.Workbook();
+        await workbook.xlsx.load(arrayBuffer);
+
+        // Generate Summary
+        const summaryWorksheet = workbook.getWorksheet(1);
+        await generateSummaryWorksheet(summaryWorksheet, projectDetails);
+
+        // Generate Detail
+        const detailWorksheet = workbook.getWorksheet(2);
+        await generateDetailWorksheet(detailWorksheet, projectDetails);
+
+        // Generate Raw Data
+        const rawDataWorksheet = workbook.getWorksheet(3);
+        await generateRawDataWorksheet(rawDataWorksheet, projectDetails);
+
+        // Write the modified Excel data to a buffer
+        const modifiedExcelData = await workbook.xlsx.writeBuffer();
+
+        return { modifiedExcelData };
+    } catch (error) {
+        console.error('Error generating all data:', error);
+        throw error;
+    }
+};
+
+const generateSummaryWorksheet = async (worksheet, projectDetails) => {
+    let suggestedRCVTotal = 0;
+
+    // Iterate through each item in spreadsheetData
+    projectDetails.project.spreadsheetData.forEach(item => {
+        // Parse RCV High, RCV Low, and Quantity from the current item
+        const RCVHigh = parseFloat(item['RCV High']);
+        const RCVLow = parseFloat(item['RCV Low']);
+        const quantity = parseFloat(item['Quantity']);
+        
+        // Calculate RCV (ext) for the current item using the provided formula
+        const RCVExt = (RCVHigh + RCVLow) / 2 * quantity;
+        
+        // Add RCV (ext) to total
+        suggestedRCVTotal += RCVExt;
+    });
+
+    // Calculate total RCV tax
+    const totalRCVTax = suggestedRCVTotal * (projectDetails.project.salesTax / 100);
+
+    // Calculate RCV with tax total
+    const rcvWithTaxTotal = suggestedRCVTotal + totalRCVTax;
+
+    // Calculate total ACV
+    let suggestedACVTotal = 0;
+    projectDetails.project.spreadsheetData.forEach(item => {
+        const RCVHigh = parseFloat(item['RCV High']);
+        const RCVLow = parseFloat(item['RCV Low']);
+        const quantity = parseFloat(item['Quantity']);
+        
+        // Calculate ACV for the current item using the provided formula
+        const ACV = ((RCVHigh + RCVLow) / 2 * quantity);
+        // Add ACV to total
+        suggestedACVTotal += ACV;
+    });
+
+    // Calculate total ACV tax by multiplying total ACV by the sales tax rate
+    const totalACVTax = suggestedACVTotal * (projectDetails.project.salesTax / 100);
+
+    // Calculate ACV with tax total by adding total ACV and total ACV tax
+    const acvWithTaxTotal = suggestedACVTotal + totalACVTax;
+
+    let totalDepreciation = 0 + totalRCVTax; // Initialize total depreciation
+
+    // Iterate over each item in the spreadsheet data
+    projectDetails.project.spreadsheetData.forEach(item => {
+        const RCVHigh = parseFloat(item['RCV High']);
+        const RCVLow = parseFloat(item['RCV Low']);
+        const quantity = parseFloat(item['Quantity']);
+        const depreciation = parseFloat(item['Depreciation']);
+        
+        // Calculate depreciation amount for the current item using the provided formula
+        const rcvTotal = ((RCVHigh + RCVLow) / 2 * quantity);
+        let depreciationFactor = (depreciation * 100) * projectDetails.project.depreciationRange;
+        depreciationFactor = Math.min(depreciationFactor, 100);
+        const depreciationAmount = rcvTotal * (depreciationFactor / 100);
+        
+        // Add depreciation amount to total
+        totalDepreciation += depreciationAmount;
+    });
+
+    // Get the cell references and set their values accordingly
+    const cellD18 = worksheet.getCell('D18');
+    cellD18.value = suggestedRCVTotal;
+
+    const cellD19 = worksheet.getCell('D19');
+    cellD19.value = totalRCVTax;
+
+    const cellI21 = worksheet.getCell('I21');
+    cellI21.value = totalDepreciation;
+
+    // Update other cells as needed...
+
+};
+
+const generateDetailWorksheet = async (worksheet, projectDetails) => {
+    // Iterate over projectDetails and replace cells starting from A13
+    projectDetails.project.spreadsheetData.forEach((item, index) => {
+        const rowNumber = index + 13; // Start from row 13
+    
+        // Set values for each cell in the row
+        worksheet.getCell(`A${rowNumber}`).value = index + 1; // Auto-incrementing Line number
+        worksheet.getCell(`B${rowNumber}`).value = item.Room;
+        worksheet.getCell(`C${rowNumber}`).value = item.Item;
+        worksheet.getCell(`D${rowNumber}`).value = item.Description;
+        worksheet.getCell(`E${rowNumber}`).value = item.Quantity;
+
+        const RCVHigh = parseFloat(item['RCV High']);
+        const RCVLow = parseFloat(item['RCV Low']);
+        const RCVAvg = (RCVHigh + RCVLow) / 2;
+        const RCVExt = RCVAvg * item.Quantity;
+        const salesTaxAmount = (projectDetails.project.salesTax / 100) * RCVExt;
+        const RCVTotal = RCVExt + salesTaxAmount;
+        let depreciationFactor = (item.Depreciation * 100) * projectDetails.project.depreciationRange;
+        depreciationFactor = Math.min(depreciationFactor, 100);
+        const depreciationAmount = RCVExt * (depreciationFactor / 100);
+        const ACVTotal = (RCVExt - depreciationAmount);
+
+        worksheet.getCell(`F${rowNumber}`).value = RCVHigh.toFixed(2); // RCV High
+        worksheet.getCell(`G${rowNumber}`).value = RCVLow.toFixed(2); // RCV Low
+        worksheet.getCell(`H${rowNumber}`).value = RCVAvg.toFixed(2); // RCV Avg (ea)
+        worksheet.getCell(`I${rowNumber}`).value = parseFloat(RCVExt.toFixed(2)); // RCV (ext) as integer
+        worksheet.getCell(`J${rowNumber}`).value = `${projectDetails.project.salesTax}%`; // Sales Tax
+        worksheet.getCell(`K${rowNumber}`).value = parseFloat(salesTaxAmount.toFixed(2)); // Sales Tax Amount as integer
+        worksheet.getCell(`L${rowNumber}`).value = RCVTotal.toFixed(2); // RCV Total
+        worksheet.getCell(`M${rowNumber}`).value = item.Depreciation; // Depreciation
+        worksheet.getCell(`N${rowNumber}`).value = projectDetails.project.depreciationRange; // Dep Years
+        worksheet.getCell(`O${rowNumber}`).value = parseFloat((depreciationAmount + salesTaxAmount).toFixed(2)); // Dep Amount
+        worksheet.getCell(`P${rowNumber}`).value = ACVTotal.toFixed(2); // ACV Total
+        worksheet.getCell(`Q${rowNumber}`).value = item.Subclass;
+        worksheet.getCell(`R${rowNumber}`).value = item.Class;
+    });
+};
+
+
+const generateRawDataWorksheet = async (worksheet, projectDetails) => {
+    // Iterate over projectDetails and replace cells starting from A2
+    projectDetails.project.spreadsheetData.forEach((item, index) => {
+        const rowNumber = index + 2; // Start from row 2
+
+        // Set values for each cell in the row
+        worksheet.getCell(`A${rowNumber}`).value = index + 1; // Auto-incrementing Line number
+        worksheet.getCell(`B${rowNumber}`).value = item.Room;
+        worksheet.getCell(`C${rowNumber}`).value = item.Item;
+        worksheet.getCell(`D${rowNumber}`).value = item.Description;
+        worksheet.getCell(`E${rowNumber}`).value = item.Quantity;
+
+        const RCVHigh = parseFloat(item['RCV High']);
+        const RCVLow = parseFloat(item['RCV Low']);
+        const RCVAvg = (RCVHigh + RCVLow) / 2;
+        const RCVExt = RCVAvg * item.Quantity;
+        const salesTaxAmount = projectDetails.project.salesTax / 100 * RCVExt;
+        const RCVTotal = RCVExt + salesTaxAmount;
+        let depreciationFactor = (item.Depreciation * 100) * projectDetails.project.depreciationRange;
+        depreciationFactor = Math.min(depreciationFactor, 100);
+        const depreciationAmount = RCVExt * (depreciationFactor / 100);
+        const ACVTotal = RCVExt - depreciationAmount;
+
+        worksheet.getCell(`F${rowNumber}`).value = `$${RCVHigh.toFixed(2)}`; // RCV High
+        worksheet.getCell(`G${rowNumber}`).value = `$${RCVLow.toFixed(2)}`; // RCV Low
+        worksheet.getCell(`H${rowNumber}`).value = `$${RCVAvg.toFixed(2)}`; // RCV Avg (ea)
+        worksheet.getCell(`I${rowNumber}`).value = `$${RCVExt.toFixed(2)}`; // RCV (ext)
+        worksheet.getCell(`J${rowNumber}`).value = `${projectDetails.project.salesTax}%`; // Sales Tax
+        worksheet.getCell(`K${rowNumber}`).value = `$${salesTaxAmount.toFixed(2)}`; // Sales Tax Amount
+        worksheet.getCell(`L${rowNumber}`).value = `$${RCVTotal.toFixed(2)}`; // RCV Total
+        worksheet.getCell(`M${rowNumber}`).value = item.Depreciation * 100;
+        worksheet.getCell(`N${rowNumber}`).value = projectDetails.project.depreciationRange; // Dep Years
+        worksheet.getCell(`O${rowNumber}`).value = `$${(depreciationAmount + salesTaxAmount).toFixed(2)}`; // Dep Amount
+        worksheet.getCell(`P${rowNumber}`).value = `$${ACVTotal.toFixed(2)}`; // ACV Total
+        worksheet.getCell(`Q${rowNumber}`).value = item.Subclass;
+        worksheet.getCell(`R${rowNumber}`).value = item.Class;
+    });
+};
+
+export { generateSummary, generateDetail, generateRawData, generateAll };
 
     

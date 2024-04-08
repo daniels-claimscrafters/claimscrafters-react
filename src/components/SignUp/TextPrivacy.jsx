@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 const styles = {
   Text: {
     color: '#2a84ea',
-    fontSize: '14px',
+    fontSize: '0.9em',
     fontFamily: 'Poppins',
     fontWeight: 500,
     lineHeight: '18px',
