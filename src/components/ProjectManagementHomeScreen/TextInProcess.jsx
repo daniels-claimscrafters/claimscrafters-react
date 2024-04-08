@@ -2,7 +2,7 @@ import React from 'react';
 
 const styles = {
   Text: {
-    color: 'rgb(154, 154, 154)',
+    color: 'black',
     fontSize: '14px',
     fontFamily: 'Poppins',
     fontWeight: 600,

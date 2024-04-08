@@ -7,7 +7,7 @@ const styles = {
     top: '191px',
     left: '610px',
     height: '7%',
-    backgroundColor: '#555555',
+    backgroundColor: '#f0f0f0',
     borderRadius: '24px',
     
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',

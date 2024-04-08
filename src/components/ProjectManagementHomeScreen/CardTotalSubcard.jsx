@@ -6,7 +6,7 @@ const styles = {
     left: '440px',
     width: '80%',
     height: '45%',
-    backgroundColor: 'rgb(51, 88, 244)',
+    backgroundColor: '#cddef2',
     borderRadius: '12px',
   },
 };
