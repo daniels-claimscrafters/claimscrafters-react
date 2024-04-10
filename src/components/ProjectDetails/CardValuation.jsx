@@ -21,7 +21,7 @@ const styles = {
   column: {
     width: '25%',
     height: '100%',
-    paddingTop: '10px'
+    paddingTop: '10px',
   },
   firstColumn: {
     width: '25%',
@@ -52,7 +52,7 @@ const styles = {
     textAlign: 'center',
   },
   text: {
-    marginBottom: '5px',
+    
     color: '#030303',
     
     fontFamily: 'Poppins',

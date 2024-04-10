@@ -48,7 +48,7 @@ const styles = {
     marginRight: '10px', // Add space between icon and button
   },
   spreadsheet: {
-    
+    paddingBottom: '15px',
     height: '100%',
     overflow: 'auto', // Add overflow to allow scrolling if content exceeds height
   },
@@ -129,6 +129,7 @@ const styles = {
     overflow: 'auto',
     height: '87%', // Adjust as needed
     borderBottom: '1px solid #ccc',
+    paddingBottom: '15px'
   },
 };
 
