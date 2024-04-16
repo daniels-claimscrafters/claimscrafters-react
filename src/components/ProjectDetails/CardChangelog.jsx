@@ -41,6 +41,19 @@ const styles = {
     fontFamily: 'Poppins',
     fontWeight: 600,
   },
+  button: {
+    cursor: 'pointer',
+    borderRadius: '12px',
+    backgroundColor: '#2a84ea',
+    color: '#ffffff',
+    fontSize: '15px',
+    fontFamily: 'Poppins',
+    fontWeight: 700,
+    border: '0',
+    width: '155px',
+    height: '30px',
+    
+  },
 };
 
 const CardChangelog = ({ projectDetails }) => {
@@ -74,9 +87,39 @@ const CardChangelog = ({ projectDetails }) => {
       });
   }, []); 
 
+  // Function to handle download
+  const handleDownload = () => {
+    // Convert entries to a string format
+    const downloadData = entries.map(entry => {
+      // Replace "DepreciationDisplay" with "Depreciation"
+      const modifiedEntry = entry.entry.replace(/DepreciationDisplay/g, 'Depreciation');
+      return modifiedEntry;
+    }).join('\n');
+    
+    // Create a Blob from the data
+    const blob = new Blob([downloadData], { type: 'text/plain' });
+    
+    // Create a temporary URL for the Blob
+    const url = URL.createObjectURL(blob);
+    
+    // Create a temporary anchor element to trigger the download
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'changelog.txt'; // Set the filename and extension
+    document.body.appendChild(a);
+    
+    // Trigger the download
+    a.click();
+    
+    // Clean up
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div style={styles.cardContainer}>
       <h1 style={styles.header}>Changelog Entries</h1>
+      <button style={styles.button} onClick={handleDownload}>Download Entries</button>
       <div style={styles.entryContainer}>
         <ul style={styles.entryList}>
         {entries.slice().reverse().map((entry, index) => (

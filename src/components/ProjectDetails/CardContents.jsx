@@ -188,9 +188,8 @@ const CardContents = ({ projectDetails, setProjectDetails }) => {
   };
 
   const handleRCVChange = (index, fieldName, value) => {
-    
-    // Validate if the input is a valid integer
-    if (/^\d+(\.\d{0,2})?$/.test(value) || value === '') {
+    // Validate if the input is a valid number with up to two decimal places
+    if (/^(?:\d+)?(?:\.\d{0,2})?$/.test(value) || value === '') {
       // Update the projectDetails state with the new value
       const updatedProjectDetails = { ...projectDetails };
       updatedProjectDetails.project.spreadsheetData[index][fieldName] = value;
