@@ -1,24 +1,21 @@
-import React from 'react';
+import React from "react";
 
 const styles = {
   Card: {
-    top: '656px',
-    left: '80px',
-    width: '468px',
-    height: '144px',
-    backgroundColor: '#080a0b',
-    borderRadius: '12px',
-    border: '1px solid #3164f4',
-    boxSizing: 'border-box',
+    top: "650px",
+    left: "716px",
+    margin: "auto",
+    width: "60%",
+    padding: "10px",
+    backgroundColor: "#080a0b",
+    borderRadius: "12px",
+    border: "1px solid #3164f4",
+    boxSizing: "border-box",
   },
 };
 
 const Card = (props) => {
-  return (
-    <div style={styles.Card}>
-      {props.children}
-    </div>
-  );
+  return <div style={styles.Card}>{props.children}</div>;
 };
 
 export default Card;
