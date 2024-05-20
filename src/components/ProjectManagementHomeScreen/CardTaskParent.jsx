@@ -65,6 +65,7 @@ const styles = {
     color: "#030303",
     fontSize: "18px",
     fontFamily: "Poppins",
+    backgroundColor: "white",
   },
   bigTextField: {
     width: "90%",
@@ -72,7 +73,7 @@ const styles = {
     padding: "8px",
     borderRadius: "4px",
     border: "1px solid #ccc",
-    backgroundColor: "#cddef2",
+    backgroundColor: "white",
     resize: "none",
   },
   iconContainer: {
