@@ -55,7 +55,6 @@ const CardChangelog = ({ projectDetails }) => {
         }
       })
       .then((data) => {
-        console.log(data);
         setEntries(data.entries); // Set the entries state with the fetched data
       })
       .catch((error) => {

@@ -77,6 +77,8 @@ const CardValuation = ({ projectDetails }) => {
     // Calculate RCV (ext) for the current item using the provided formula
     const RCVExt = ((parseFloat(RCVHigh) + parseFloat(RCVLow)) / 2) * quantity;
 
+    
+    
     // Add RCV (ext) to total
     suggestedRCVTotal += RCVExt;
   });
@@ -111,7 +113,7 @@ const CardValuation = ({ projectDetails }) => {
   totalRCVTax = roundToTwoDecimalPlaces(totalRCVTax);
 
   // Output the total RCV tax
-  console.log(totalRCVTax);
+  
 
   // Function to round a number to two decimal places
   function roundToTwoDecimalPlaces(number) {
@@ -131,18 +133,20 @@ const CardValuation = ({ projectDetails }) => {
     const quantity = parseFloat(item["Quantity"]);
     const depreciation = parseFloat(item["Depreciation"]);
 
-    // Calculate ACV for the current item using the provided formula
-    const ACV1 = ((RCVHigh + RCVLow) / 2) * quantity;
+   // Calculate depreciation amount for the current item using the provided formula
+  const ACV1 = ((RCVHigh + RCVLow) / 2) * quantity;
 
-    let depreciationFactor =
-      depreciation * 100 * projectDetails.project.depreciationRange;
+  let depreciationFactor = depreciation * 100 * projectDetails.project.depreciationRange;
 
-    // Ensure that the depreciation factor does not exceed 100
-    depreciationFactor = Math.min(depreciationFactor, 100);
+  // Ensure that the depreciation factor does not exceed 100
+  depreciationFactor = Math.min(depreciationFactor, 100);
 
-    const depreciationAmount = ACV1 * (depreciationFactor / 100);
+  const depreciationAmount = ACV1 * (depreciationFactor / 100);
 
-    let ACV2 = ACV1 - depreciationAmount;
+  // Convert the depreciation amount to a string with 2 decimal places
+  const formattedDepreciationAmount = parseFloat(depreciationAmount.toFixed(2));
+
+    let ACV2 = ACV1 - formattedDepreciationAmount;
 
     // Add ACV to total
     suggestedACVTotal += ACV2;
@@ -158,27 +162,31 @@ const CardValuation = ({ projectDetails }) => {
   let totalDepreciation = 0 + totalRCVTax; // Initialize total depreciation
 
   // Iterate over each item in the spreadsheet data
-  projectDetails.project.spreadsheetData.forEach((item) => {
-    // Parse RCV High, Quantity, and Depreciation from the current item
-    const RCVHigh = parseFloat(item["RCV High"]);
-    const RCVLow = parseFloat(item["RCV Low"]);
-    const quantity = parseFloat(item["Quantity"]);
-    const depreciation = parseFloat(item["Depreciation"]);
+projectDetails.project.spreadsheetData.forEach((item) => {
+  // Parse RCV High, Quantity, and Depreciation from the current item
+  const RCVHigh = parseFloat(item["RCV High"]);
+  const RCVLow = parseFloat(item["RCV Low"]);
+  const quantity = parseFloat(item["Quantity"]);
+  const depreciation = parseFloat(item["Depreciation"]);
 
-    // Calculate depreciation amount for the current item using the provided formula
-    const ACV1 = ((RCVHigh + RCVLow) / 2) * quantity;
+  // Calculate depreciation amount for the current item using the provided formula
+  const ACV1 = ((RCVHigh + RCVLow) / 2) * quantity;
 
-    let depreciationFactor =
-      depreciation * 100 * projectDetails.project.depreciationRange;
+  let depreciationFactor = depreciation * 100 * projectDetails.project.depreciationRange;
 
-    // Ensure that the depreciation factor does not exceed 100
-    depreciationFactor = Math.min(depreciationFactor, 100);
+  // Ensure that the depreciation factor does not exceed 100
+  depreciationFactor = Math.min(depreciationFactor, 100);
 
-    const depreciationAmount = ACV1 * (depreciationFactor / 100);
+  const depreciationAmount = ACV1 * (depreciationFactor / 100);
 
-    // Add depreciation amount to total
-    totalDepreciation += depreciationAmount;
-  });
+  // Convert the depreciation amount to a string with 2 decimal places
+  const formattedDepreciationAmount = parseFloat(depreciationAmount.toFixed(2));
+
+  console.log(formattedDepreciationAmount);
+
+  // Add formatted depreciation amount to total
+  totalDepreciation += formattedDepreciationAmount;
+});
 
   // Now you have the total depreciation amount
   let depreciationRange;
@@ -203,8 +211,7 @@ const CardValuation = ({ projectDetails }) => {
   return (
     <div className="cardValuation">
       <div className="numItem">
-        Number Of Items: 
-        {projectDetails.project.numberOfLines}
+        Number Of Items: {projectDetails.project.numberOfLines}
       </div>
       <div className="calcProject">
         <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
