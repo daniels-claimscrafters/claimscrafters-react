@@ -4,67 +4,28 @@ import axios from 'axios';
 const API_URL = process.env.REACT_APP_API_URL;
 
 const generateSummary = async (projectDetails) => {
-    // let suggestedRCVTotal = 0;
-
-    // // Iterate through each item in spreadsheetData
-    // projectDetails.project.spreadsheetData.forEach(item => {
-    //     // Parse RCV High, RCV Low, and Quantity from the current item
-    //     const RCVHigh = parseFloat(item['RCV High']);
-    //     const RCVLow = parseFloat(item['RCV Low']);
-    //     const quantity = parseFloat(item['Quantity']);
-        
-    //     // Calculate RCV (ext) for the current item using the provided formula
-    //     const RCVExt = (RCVHigh + RCVLow) / 2 * quantity;
-        
-    //     // Add RCV (ext) to total
-    //     suggestedRCVTotal += RCVExt;
-    // });
-
     let suggestedRCVTotal = 0;
 
     // Iterate through each item in spreadsheetData
-    projectDetails.project.spreadsheetData.forEach((item) => {
-      // Parse RCV High, RCV Low, and Quantity from the current item
-      const RCVHigh = parseFloat(item["RCV High"]).toFixed(2);
-      const RCVLow = parseFloat(item["RCV Low"]).toFixed(2);
-      const quantity = parseFloat(item["Quantity"]);
-
-      // Calculate RCV (ext) for the current item using the provided formula
-      const RCVExt = ((parseFloat(RCVHigh) + parseFloat(RCVLow)) / 2) * quantity;
-      console.log("RCVExt "+ RCVExt);
-      
-      
-      // Add RCV (ext) to total
-      suggestedRCVTotal += RCVExt;
-    });
-
-    console.log("suggestedRCVTotal "+suggestedRCVTotal);
-    console.log("AIdych");
-    let totalRCVTax = 0;
-
     projectDetails.project.spreadsheetData.forEach(item => {
+        // Parse RCV High, RCV Low, and Quantity from the current item
         const RCVHigh = parseFloat(item['RCV High']);
         const RCVLow = parseFloat(item['RCV Low']);
         const quantity = parseFloat(item['Quantity']);
-    
-        const RCVExt = ((RCVHigh + RCVLow) / 2) * quantity;
-        const roundedRCVExt = parseFloat(RCVExt.toFixed(2)); // Round each RCVExt
-    
-        const RCVTax = roundedRCVExt * (projectDetails.project.salesTax / 100);
-        totalRCVTax += RCVTax;
+        
+        // Calculate RCV (ext) for the current item using the provided formula
+        const RCVExt = (RCVHigh + RCVLow) / 2 * quantity;
+        
+        // Add RCV (ext) to total
+        suggestedRCVTotal += RCVExt;
     });
-    
-    totalRCVTax = parseFloat(totalRCVTax.toFixed(2)); // Round the total RCV tax
-    
-
 
     // Calculate total RCV tax
-    // const totalRCVTax = suggestedRCVTotal * (projectDetails.project.salesTax / 100);
+    const totalRCVTax = suggestedRCVTotal * (projectDetails.project.salesTax / 100);
 
     // Calculate RCV with tax total
-    // const rcvWithTaxTotal = suggestedRCVTotal + totalRCVTax;
     const rcvWithTaxTotal = suggestedRCVTotal + totalRCVTax;
-    
+
     let suggestedACVTotal = 0; // Initialize total ACV
 
     // Iterate over each item in the spreadsheet data
@@ -131,8 +92,6 @@ console.log('workbook', workbook);
 await workbook.xlsx.load(arrayBuffer);
 console.log('workbook2', workbook);
 console.log('2');
-console.log("suggestedRCVTotal "+suggestedRCVTotal);
-
 
 // Remove the second and third worksheets
 workbook.removeWorksheet(4);
@@ -293,8 +252,7 @@ return { modifiedExcelData };
         await workbook.xlsx.load(arrayBuffer);
         console.log('workbook2', workbook);
         console.log('2');
-        console.log("suggestedRCVTotal "+suggestedRCVTotal);
-
+        
         workbook.removeWorksheet(4);
         workbook.removeWorksheet(3);
         workbook.removeWorksheet(1);
@@ -467,49 +425,24 @@ const generateSummaryWorksheet = async (worksheet, projectDetails) => {
     let suggestedRCVTotal = 0;
 
     // Iterate through each item in spreadsheetData
-    projectDetails.project.spreadsheetData.forEach((item) => {
+    projectDetails.project.spreadsheetData.forEach(item => {
         // Parse RCV High, RCV Low, and Quantity from the current item
-        const RCVHigh = parseFloat(item["RCV High"]).toFixed(2);
-        const RCVLow = parseFloat(item["RCV Low"]).toFixed(2);
-        const quantity = parseFloat(item["Quantity"]);
-  
-        // Calculate RCV (ext) for the current item using the provided formula
-        const RCVExt = ((parseFloat(RCVHigh) + parseFloat(RCVLow)) / 2) * quantity;
-        console.log("RCVExt "+ RCVExt);
+        const RCVHigh = parseFloat(item['RCV High']);
+        const RCVLow = parseFloat(item['RCV Low']);
+        const quantity = parseFloat(item['Quantity']);
         
+        // Calculate RCV (ext) for the current item using the provided formula
+        const RCVExt = (RCVHigh + RCVLow) / 2 * quantity;
         
         // Add RCV (ext) to total
         suggestedRCVTotal += RCVExt;
-      });
+    });
 
+    // Calculate total RCV tax
+    const totalRCVTax = suggestedRCVTotal * (projectDetails.project.salesTax / 100);
 
-      console.log("suggestedRCVTotal "+suggestedRCVTotal);
-      console.log("AIdych");
-      let totalRCVTax = 0;
-  
-      projectDetails.project.spreadsheetData.forEach(item => {
-          const RCVHigh = parseFloat(item['RCV High']);
-          const RCVLow = parseFloat(item['RCV Low']);
-          const quantity = parseFloat(item['Quantity']);
-      
-          const RCVExt = ((RCVHigh + RCVLow) / 2) * quantity;
-          const roundedRCVExt = parseFloat(RCVExt.toFixed(2)); // Round each RCVExt
-      
-          const RCVTax = roundedRCVExt * (projectDetails.project.salesTax / 100);
-          totalRCVTax += RCVTax;
-      });
-      
-      totalRCVTax = parseFloat(totalRCVTax.toFixed(2)); // Round the total RCV tax
-      
-  
-      const rcvWithTaxTotal = suggestedRCVTotal + totalRCVTax;
-
-
-    // // Calculate total RCV tax
-    // const totalRCVTax = suggestedRCVTotal * (projectDetails.project.salesTax / 100);
-
-    // // Calculate RCV with tax total
-    // const rcvWithTaxTotal = suggestedRCVTotal + totalRCVTax;
+    // Calculate RCV with tax total
+    const rcvWithTaxTotal = suggestedRCVTotal + totalRCVTax;
 
     // Calculate total ACV
     let suggestedACVTotal = 0;
@@ -575,32 +508,35 @@ const generateDetailWorksheet = async (worksheet, projectDetails) => {
         worksheet.getCell(`D${rowNumber}`).value = item.Description;
         worksheet.getCell(`E${rowNumber}`).value = item.Quantity;
 
-        const RCVHigh = parseFloat(item['RCV High']);
-        const RCVLow = parseFloat(item['RCV Low']);
-        const RCVAvg = (RCVHigh + RCVLow) / 2;
-        const RCVExt = RCVAvg * item.Quantity;
-        const salesTaxAmount = (projectDetails.project.salesTax / 100) * RCVExt;
-        const RCVTotal = RCVExt + salesTaxAmount;
+        const RCVHigh = parseFloat(item['RCV High']).toFixed(2);
+        const RCVLow = parseFloat(item['RCV Low']).toFixed(2);
+        const RCVAvg = ((parseFloat(RCVHigh) + parseFloat(RCVLow)) / 2).toFixed(2);
+        // const RCVExt = (parseFloat(RCVAvg) * item.Quantity).toFixed(2);
+        const RCVExt = ((parseFloat(RCVHigh) + parseFloat(RCVLow)) / 2) * item.Quantity;
+
+        const salesTaxAmount = ((projectDetails.project.salesTax / 100) * parseFloat(RCVExt)).toFixed(2);
+        const RCVTotal = (parseFloat(RCVExt) + parseFloat(salesTaxAmount)).toFixed(2);
         let depreciationFactor = (item.Depreciation * 100) * projectDetails.project.depreciationRange;
         depreciationFactor = Math.min(depreciationFactor, 100);
-        const depreciationAmount = RCVExt * (depreciationFactor / 100);
-        const ACVTotal = (RCVExt - depreciationAmount);
+        const depreciationAmount = (parseFloat(RCVExt) * (depreciationFactor / 100)).toFixed(2);
+        const ACVTotal = (parseFloat(RCVExt) - parseFloat(depreciationAmount)).toFixed(2);
 
-        worksheet.getCell(`F${rowNumber}`).value = RCVHigh.toFixed(2); // RCV High
-        worksheet.getCell(`G${rowNumber}`).value = RCVLow.toFixed(2); // RCV Low
-        worksheet.getCell(`H${rowNumber}`).value = RCVAvg.toFixed(2); // RCV Avg (ea)
-        worksheet.getCell(`I${rowNumber}`).value = parseFloat(RCVExt.toFixed(2)); // RCV (ext) as integer
+        worksheet.getCell(`F${rowNumber}`).value = RCVHigh; // RCV High
+        worksheet.getCell(`G${rowNumber}`).value = RCVLow; // RCV Low
+        worksheet.getCell(`H${rowNumber}`).value = RCVAvg; // RCV Avg (ea)
+        worksheet.getCell(`I${rowNumber}`).value = parseFloat(RCVExt); // RCV (ext) as integer
         worksheet.getCell(`J${rowNumber}`).value = `${projectDetails.project.salesTax}%`; // Sales Tax
-        worksheet.getCell(`K${rowNumber}`).value = parseFloat(salesTaxAmount.toFixed(2)); // Sales Tax Amount as integer
-        worksheet.getCell(`L${rowNumber}`).value = RCVTotal.toFixed(2); // RCV Total
+        worksheet.getCell(`K${rowNumber}`).value = parseFloat(salesTaxAmount); // Sales Tax Amount as integer
+        worksheet.getCell(`L${rowNumber}`).value = parseFloat(RCVTotal); // RCV Total
         worksheet.getCell(`M${rowNumber}`).value = item.Depreciation; // Depreciation
         worksheet.getCell(`N${rowNumber}`).value = projectDetails.project.depreciationRange; // Dep Years
-        worksheet.getCell(`O${rowNumber}`).value = parseFloat((depreciationAmount + salesTaxAmount).toFixed(2)); // Dep Amount
-        worksheet.getCell(`P${rowNumber}`).value = ACVTotal.toFixed(2); // ACV Total
+        worksheet.getCell(`O${rowNumber}`).value = parseFloat((parseFloat(depreciationAmount) + parseFloat(salesTaxAmount)).toFixed(2)); // Dep Amount
+        worksheet.getCell(`P${rowNumber}`).value = parseFloat(ACVTotal); // ACV Total
         worksheet.getCell(`Q${rowNumber}`).value = item.Subclass;
         worksheet.getCell(`R${rowNumber}`).value = item.Class;
     });
 };
+
 
 
 const generateRawDataWorksheet = async (worksheet, projectDetails) => {

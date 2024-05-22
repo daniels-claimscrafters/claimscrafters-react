@@ -75,9 +75,9 @@ const CardValuation = ({ projectDetails }) => {
     const quantity = parseFloat(item["Quantity"]);
 
     // Calculate RCV (ext) for the current item using the provided formula
-    const RCVExt = ((parseFloat(RCVHigh) + parseFloat(RCVLow)) / 2) * quantity;
-
-    
+    let RCVExt = (((parseFloat(RCVHigh) + parseFloat(RCVLow)) / 2) * quantity).toFixed(2);
+    // console.log("RCVExt "+RCVExt);
+    RCVExt = parseFloat(RCVExt);
     
     // Add RCV (ext) to total
     suggestedRCVTotal += RCVExt;
@@ -134,8 +134,8 @@ const CardValuation = ({ projectDetails }) => {
     const depreciation = parseFloat(item["Depreciation"]);
 
    // Calculate depreciation amount for the current item using the provided formula
-  const ACV1 = ((RCVHigh + RCVLow) / 2) * quantity;
-
+  const ACV1 = parseFloat((((RCVHigh + RCVLow) / 2) * quantity).toFixed(2));
+    
   let depreciationFactor = depreciation * 100 * projectDetails.project.depreciationRange;
 
   // Ensure that the depreciation factor does not exceed 100
@@ -170,8 +170,8 @@ projectDetails.project.spreadsheetData.forEach((item) => {
   const depreciation = parseFloat(item["Depreciation"]);
 
   // Calculate depreciation amount for the current item using the provided formula
-  const ACV1 = ((RCVHigh + RCVLow) / 2) * quantity;
-
+  let ACV1 = (((RCVHigh + RCVLow) / 2) * quantity).toFixed(2);
+  ACV1 = parseFloat(ACV1);
   let depreciationFactor = depreciation * 100 * projectDetails.project.depreciationRange;
 
   // Ensure that the depreciation factor does not exceed 100
@@ -182,11 +182,13 @@ projectDetails.project.spreadsheetData.forEach((item) => {
   // Convert the depreciation amount to a string with 2 decimal places
   const formattedDepreciationAmount = parseFloat(depreciationAmount.toFixed(2));
 
-  console.log(formattedDepreciationAmount);
+  // console.log(formattedDepreciationAmount);
 
   // Add formatted depreciation amount to total
   totalDepreciation += formattedDepreciationAmount;
 });
+
+// console.log("totalDepreciation "+ totalDepreciation);
 
   // Now you have the total depreciation amount
   let depreciationRange;
