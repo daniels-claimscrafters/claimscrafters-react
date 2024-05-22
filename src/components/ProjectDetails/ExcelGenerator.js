@@ -293,7 +293,8 @@ return { modifiedExcelData };
         await workbook.xlsx.load(arrayBuffer);
         console.log('workbook2', workbook);
         console.log('2');
-        
+        console.log("suggestedRCVTotal "+suggestedRCVTotal);
+
         workbook.removeWorksheet(4);
         workbook.removeWorksheet(3);
         workbook.removeWorksheet(1);
@@ -466,24 +467,49 @@ const generateSummaryWorksheet = async (worksheet, projectDetails) => {
     let suggestedRCVTotal = 0;
 
     // Iterate through each item in spreadsheetData
-    projectDetails.project.spreadsheetData.forEach(item => {
+    projectDetails.project.spreadsheetData.forEach((item) => {
         // Parse RCV High, RCV Low, and Quantity from the current item
-        const RCVHigh = parseFloat(item['RCV High']);
-        const RCVLow = parseFloat(item['RCV Low']);
-        const quantity = parseFloat(item['Quantity']);
-        
+        const RCVHigh = parseFloat(item["RCV High"]).toFixed(2);
+        const RCVLow = parseFloat(item["RCV Low"]).toFixed(2);
+        const quantity = parseFloat(item["Quantity"]);
+  
         // Calculate RCV (ext) for the current item using the provided formula
-        const RCVExt = (RCVHigh + RCVLow) / 2 * quantity;
+        const RCVExt = ((parseFloat(RCVHigh) + parseFloat(RCVLow)) / 2) * quantity;
+        console.log("RCVExt "+ RCVExt);
+        
         
         // Add RCV (ext) to total
         suggestedRCVTotal += RCVExt;
-    });
+      });
 
-    // Calculate total RCV tax
-    const totalRCVTax = suggestedRCVTotal * (projectDetails.project.salesTax / 100);
 
-    // Calculate RCV with tax total
-    const rcvWithTaxTotal = suggestedRCVTotal + totalRCVTax;
+      console.log("suggestedRCVTotal "+suggestedRCVTotal);
+      console.log("AIdych");
+      let totalRCVTax = 0;
+  
+      projectDetails.project.spreadsheetData.forEach(item => {
+          const RCVHigh = parseFloat(item['RCV High']);
+          const RCVLow = parseFloat(item['RCV Low']);
+          const quantity = parseFloat(item['Quantity']);
+      
+          const RCVExt = ((RCVHigh + RCVLow) / 2) * quantity;
+          const roundedRCVExt = parseFloat(RCVExt.toFixed(2)); // Round each RCVExt
+      
+          const RCVTax = roundedRCVExt * (projectDetails.project.salesTax / 100);
+          totalRCVTax += RCVTax;
+      });
+      
+      totalRCVTax = parseFloat(totalRCVTax.toFixed(2)); // Round the total RCV tax
+      
+  
+      const rcvWithTaxTotal = suggestedRCVTotal + totalRCVTax;
+
+
+    // // Calculate total RCV tax
+    // const totalRCVTax = suggestedRCVTotal * (projectDetails.project.salesTax / 100);
+
+    // // Calculate RCV with tax total
+    // const rcvWithTaxTotal = suggestedRCVTotal + totalRCVTax;
 
     // Calculate total ACV
     let suggestedACVTotal = 0;
