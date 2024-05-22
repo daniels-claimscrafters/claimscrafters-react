@@ -22,17 +22,21 @@ const generateSummary = async (projectDetails) => {
 
     let suggestedRCVTotal = 0;
 
-    projectDetails.project.spreadsheetData.forEach(item => {
-        const RCVHigh = parseFloat(item['RCV High']);
-        const RCVLow = parseFloat(item['RCV Low']);
-        const quantity = parseFloat(item['Quantity']);
-    
-        const RCVExt = ((RCVHigh + RCVLow) / 2) * quantity;
-        suggestedRCVTotal += RCVExt;
+    // Iterate through each item in spreadsheetData
+    projectDetails.project.spreadsheetData.forEach((item) => {
+      // Parse RCV High, RCV Low, and Quantity from the current item
+      const RCVHigh = parseFloat(item["RCV High"]).toFixed(2);
+      const RCVLow = parseFloat(item["RCV Low"]).toFixed(2);
+      const quantity = parseFloat(item["Quantity"]);
+  
+      // Calculate RCV (ext) for the current item using the provided formula
+      const RCVExt = ((parseFloat(RCVHigh) + parseFloat(RCVLow)) / 2) * quantity;
+  
+      
+      
+      // Add RCV (ext) to total
+      suggestedRCVTotal += RCVExt;
     });
-    
-    suggestedRCVTotal = parseFloat(suggestedRCVTotal.toFixed(2)); // Round the total after summing all RCVExt
-    
 
     let totalRCVTax = 0;
 
