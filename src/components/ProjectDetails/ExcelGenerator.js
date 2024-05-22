@@ -131,6 +131,8 @@ console.log('workbook', workbook);
 await workbook.xlsx.load(arrayBuffer);
 console.log('workbook2', workbook);
 console.log('2');
+console.log("suggestedRCVTotal "+suggestedRCVTotal);
+
 
 // Remove the second and third worksheets
 workbook.removeWorksheet(4);
