@@ -4,28 +4,59 @@ import axios from 'axios';
 const API_URL = process.env.REACT_APP_API_URL;
 
 const generateSummary = async (projectDetails) => {
+    // let suggestedRCVTotal = 0;
+
+    // // Iterate through each item in spreadsheetData
+    // projectDetails.project.spreadsheetData.forEach(item => {
+    //     // Parse RCV High, RCV Low, and Quantity from the current item
+    //     const RCVHigh = parseFloat(item['RCV High']);
+    //     const RCVLow = parseFloat(item['RCV Low']);
+    //     const quantity = parseFloat(item['Quantity']);
+        
+    //     // Calculate RCV (ext) for the current item using the provided formula
+    //     const RCVExt = (RCVHigh + RCVLow) / 2 * quantity;
+        
+    //     // Add RCV (ext) to total
+    //     suggestedRCVTotal += RCVExt;
+    // });
+
     let suggestedRCVTotal = 0;
 
-    // Iterate through each item in spreadsheetData
     projectDetails.project.spreadsheetData.forEach(item => {
-        // Parse RCV High, RCV Low, and Quantity from the current item
         const RCVHigh = parseFloat(item['RCV High']);
         const RCVLow = parseFloat(item['RCV Low']);
         const quantity = parseFloat(item['Quantity']);
-        
-        // Calculate RCV (ext) for the current item using the provided formula
-        const RCVExt = (RCVHigh + RCVLow) / 2 * quantity;
-        
-        // Add RCV (ext) to total
-        suggestedRCVTotal += RCVExt;
+
+        const RCVExt = ((RCVHigh + RCVLow) / 2) * quantity;
+        suggestedRCVTotal += parseFloat(RCVExt.toFixed(2));
     });
 
+    let totalRCVTax = 0;
+
+    projectDetails.project.spreadsheetData.forEach(item => {
+        const RCVHigh = parseFloat(item['RCV High']);
+        const RCVLow = parseFloat(item['RCV Low']);
+        const quantity = parseFloat(item['Quantity']);
+
+        const RCVExt = ((RCVHigh + RCVLow) / 2) * quantity;
+        const roundedRCVExt = parseFloat(RCVExt.toFixed(2));
+
+        const RCVTax = roundedRCVExt * (projectDetails.project.salesTax / 100);
+        const roundedRCVTax = parseFloat(RCVTax.toFixed(2));
+
+        totalRCVTax += roundedRCVTax;
+    });
+
+    totalRCVTax = Math.round(totalRCVTax * 100) / 100;
+
+
     // Calculate total RCV tax
-    const totalRCVTax = suggestedRCVTotal * (projectDetails.project.salesTax / 100);
+    // const totalRCVTax = suggestedRCVTotal * (projectDetails.project.salesTax / 100);
 
     // Calculate RCV with tax total
+    // const rcvWithTaxTotal = suggestedRCVTotal + totalRCVTax;
     const rcvWithTaxTotal = suggestedRCVTotal + totalRCVTax;
-
+    
     let suggestedACVTotal = 0; // Initialize total ACV
 
     // Iterate over each item in the spreadsheet data
