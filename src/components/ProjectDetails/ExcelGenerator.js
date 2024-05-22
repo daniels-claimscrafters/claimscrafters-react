@@ -26,10 +26,13 @@ const generateSummary = async (projectDetails) => {
         const RCVHigh = parseFloat(item['RCV High']);
         const RCVLow = parseFloat(item['RCV Low']);
         const quantity = parseFloat(item['Quantity']);
-
+    
         const RCVExt = ((RCVHigh + RCVLow) / 2) * quantity;
-        suggestedRCVTotal += parseFloat(RCVExt.toFixed(2));
+        suggestedRCVTotal += RCVExt;
     });
+    
+    suggestedRCVTotal = parseFloat(suggestedRCVTotal.toFixed(2)); // Round the total after summing all RCVExt
+    
 
     let totalRCVTax = 0;
 
@@ -37,17 +40,16 @@ const generateSummary = async (projectDetails) => {
         const RCVHigh = parseFloat(item['RCV High']);
         const RCVLow = parseFloat(item['RCV Low']);
         const quantity = parseFloat(item['Quantity']);
-
+    
         const RCVExt = ((RCVHigh + RCVLow) / 2) * quantity;
-        const roundedRCVExt = parseFloat(RCVExt.toFixed(2));
-
+        const roundedRCVExt = parseFloat(RCVExt.toFixed(2)); // Round each RCVExt
+    
         const RCVTax = roundedRCVExt * (projectDetails.project.salesTax / 100);
-        const roundedRCVTax = parseFloat(RCVTax.toFixed(2));
-
-        totalRCVTax += roundedRCVTax;
+        totalRCVTax += RCVTax;
     });
-
-    totalRCVTax = Math.round(totalRCVTax * 100) / 100;
+    
+    totalRCVTax = parseFloat(totalRCVTax.toFixed(2)); // Round the total RCV tax
+    
 
 
     // Calculate total RCV tax
