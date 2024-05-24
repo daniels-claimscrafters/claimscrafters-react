@@ -275,23 +275,17 @@ return { modifiedExcelData };
             const RCVLow = parseFloat(item['RCV Low']);
             const RCVAvg = (RCVHigh + RCVLow) / 2;
             const RCVExt = (RCVAvg * item.Quantity).toFixed(2);
-            console.log("RCVExt (Excel):", RCVExt);
             
             const salesTaxAmount = parseFloat(((projectDetails.project.salesTax / 100) * parseFloat(RCVExt)).toFixed(2));
-            console.log("salesTaxAmount (Excel):", salesTaxAmount);
             
             const RCVTotal = parseFloat((parseFloat(RCVExt) + parseFloat(salesTaxAmount)).toFixed(2));
-            console.log("RCVTotal (Excel):", RCVTotal);
             
             let depreciationFactor = (item.Depreciation * 100) * projectDetails.project.depreciationRange;
             depreciationFactor = Math.min(depreciationFactor, 100);
-            console.log("depreciationFactor (Excel):", depreciationFactor);
             
             const depreciationAmount = parseFloat((parseFloat(RCVExt) * (depreciationFactor / 100)).toFixed(2));
-            console.log("depreciationAmount (Excel):", depreciationAmount);
             
             const ACVTotal = parseFloat((parseFloat(RCVExt) - parseFloat(depreciationAmount)).toFixed(2));
-            console.log("ACVTotal (Excel):", ACVTotal);
             
     
             worksheet.getCell(`F${rowNumber}`).value = RCVHigh.toFixed(2); // RCV High
