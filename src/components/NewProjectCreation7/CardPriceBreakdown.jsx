@@ -61,10 +61,10 @@ const CardPriceBreakdown = () => {
           </tr>
           <tr>
             <td style={styles.TableCell}>501-700 Lines</td>
-            <td style={styles.TableCell}>1.75 / line</td>
+            <td style={styles.TableCell}>$1.75 / line</td>
           </tr>
           <tr>
-            <td style={styles.TableCell}>701-900 Lines</td>
+            <td style={styles.TableCell}>701-999 Lines</td>
             <td style={styles.TableCell}>$1.50 / line</td>
           </tr>
           <tr>
