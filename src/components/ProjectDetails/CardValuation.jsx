@@ -63,16 +63,24 @@ const styles = {
   },
 };
 
-const CardValuation = ({ projectDetails }) => {
+const CardValuation = ({ projectDetails, filteredData }) => {
+
+  console.log('yup', filteredData);
+
   // Initialize total
   let suggestedRCVTotal = 0;
 
   // Iterate through each item in spreadsheetData
-  projectDetails.project.spreadsheetData.forEach((item) => {
+  filteredData.forEach((item) => {
     // Parse RCV High, RCV Low, and Quantity from the current item
-    const RCVHigh = parseFloat(item["RCV High"]).toFixed(2);
-    const RCVLow = parseFloat(item["RCV Low"]).toFixed(2);
-    const quantity = parseFloat(item["Quantity"]);
+    const RCVHigh = parseFloat(item["RCV High"]) || 0;  // Convert empty string to 0
+    const RCVLow = parseFloat(item["RCV Low"]) || 0;    // Convert empty string to 0
+    const quantity = parseFloat(item["Quantity"]) || 0; 
+
+    // Check if RCVHigh, RCVLow, or quantity is NaN
+    if (isNaN(RCVHigh) || isNaN(RCVLow) || isNaN(quantity)) {
+      console.log('NaN found in RCVHigh, RCVLow, or quantity:', item);
+    }
 
     // Calculate RCV (ext) for the current item using the provided formula
     let RCVExt = (((parseFloat(RCVHigh) + parseFloat(RCVLow)) / 2) * quantity).toFixed(2);
@@ -87,11 +95,11 @@ const CardValuation = ({ projectDetails }) => {
   let totalRCVTax = 0;
 
   // Iterate through each item in spreadsheetData
-  projectDetails.project.spreadsheetData.forEach((item) => {
+  filteredData.forEach((item) => {
     // Parse RCV High, RCV Low, and Quantity from the current item
-    const RCVHigh = parseFloat(item["RCV High"]);
-    const RCVLow = parseFloat(item["RCV Low"]);
-    const quantity = parseFloat(item["Quantity"]);
+    const RCVHigh = parseFloat(item["RCV High"]) || 0;  // Convert empty string to 0
+    const RCVLow = parseFloat(item["RCV Low"]) || 0;    // Convert empty string to 0
+    const quantity = parseFloat(item["Quantity"]) || 0; 
 
     // Calculate RCV (ext) for the current item using the provided formula
     const RCVExt = ((RCVHigh + RCVLow) / 2) * quantity;
@@ -126,11 +134,11 @@ const CardValuation = ({ projectDetails }) => {
   let suggestedACVTotal = 0; // Initialize total ACV
 
   // Iterate over each item in the spreadsheet data
-  projectDetails.project.spreadsheetData.forEach((item) => {
+  filteredData.forEach((item) => {
     // Parse RCV High, RCV Low, Quantity, and Depreciation from the current item
-    const RCVHigh = parseFloat(item["RCV High"]);
-    const RCVLow = parseFloat(item["RCV Low"]);
-    const quantity = parseFloat(item["Quantity"]);
+    const RCVHigh = parseFloat(item["RCV High"]) || 0;  // Convert empty string to 0
+    const RCVLow = parseFloat(item["RCV Low"]) || 0;    // Convert empty string to 0
+    const quantity = parseFloat(item["Quantity"]) || 0; 
     const depreciation = parseFloat(item["Depreciation"]);
 
    // Calculate depreciation amount for the current item using the provided formula
@@ -162,11 +170,11 @@ const CardValuation = ({ projectDetails }) => {
   let totalDepreciation = 0 + totalRCVTax; // Initialize total depreciation
 
   // Iterate over each item in the spreadsheet data
-projectDetails.project.spreadsheetData.forEach((item) => {
+filteredData.forEach((item) => {
   // Parse RCV High, Quantity, and Depreciation from the current item
-  const RCVHigh = parseFloat(item["RCV High"]);
-  const RCVLow = parseFloat(item["RCV Low"]);
-  const quantity = parseFloat(item["Quantity"]);
+  const RCVHigh = parseFloat(item["RCV High"]) || 0;  // Convert empty string to 0
+    const RCVLow = parseFloat(item["RCV Low"]) || 0;    // Convert empty string to 0
+    const quantity = parseFloat(item["Quantity"]) || 0; 
   const depreciation = parseFloat(item["Depreciation"]);
 
   // Calculate depreciation amount for the current item using the provided formula
