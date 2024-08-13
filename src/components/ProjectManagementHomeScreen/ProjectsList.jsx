@@ -33,11 +33,15 @@ const ProjectsList = (projects, inProcess, completed, total) => {
         </button>
         <button onClick={() => handleFilterChange("In Process")}>
           {" "}
-          Projects Process
+          Projects In Process
         </button>
         <button onClick={() => handleFilterChange("Completed")}>
           {" "}
-          Projects Finished
+          Projects Completed
+        </button>
+        <button onClick={() => handleFilterChange("Closed")}>
+          {" "}
+          Projects Closed
         </button>
       </div>
       {/* </CardButtonBackground> */}
