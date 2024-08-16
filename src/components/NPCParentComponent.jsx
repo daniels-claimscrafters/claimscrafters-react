@@ -180,7 +180,8 @@ const NPCParentComponent = () => {
   };
 
   const handlePrevious = () => {
-    setStep((prevStep) => prevStep - 1);
+    setStep((prevStep) => prevStep - 1)
+    
   };
 
   const handleFileUpload = (file, fileContent) => {
