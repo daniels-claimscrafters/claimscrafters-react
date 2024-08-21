@@ -49,7 +49,7 @@ const NPC7 = ({
   const [totalPrice, setTotalPrice] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [validationErrors, setValidationErrors] = useState(false);
-  const [useTestMode, setUseTestMode] = useState(false);
+  const [useTestMode, setUseTestMode] = useState(true);
   const [creditCardInfo, setCreditCardInfo] = useState({
     cardholderName: "",
     cardNumber: "",
