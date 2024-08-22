@@ -746,8 +746,8 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
 
       <div style={{ ...styles.spreadsheetContainer }}>
         <div style={styles.spreadsheet}>
-          <div style={styles.row}>
-            <div style={styles.cell}>Line</div>
+        <div style={{ ...styles.row, position: 'sticky', top: 0, backgroundColor: 'white', zIndex: 1 }}>
+        <div style={styles.cell}>Line</div>
             <div style={styles.cell}>Room</div>
             <div style={styles.cell}>Item</div>
             <div style={styles.bigCell}>Description</div>
