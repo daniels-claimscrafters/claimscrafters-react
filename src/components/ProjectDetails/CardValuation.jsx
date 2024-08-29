@@ -64,7 +64,6 @@ const styles = {
 };
 
 const CardValuation = ({ projectDetails, filteredData }) => {
-
   console.log('yup', filteredData);
 
   // Initialize total
