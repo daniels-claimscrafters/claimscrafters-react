@@ -9,17 +9,22 @@ import {
   generateRawData,
   generateAll,
 } from "./ExcelGenerator";
+import { useNavigate } from "react-router-dom";
+import { Grid, Card, CardContent, Typography, Button, TextField, Select, MenuItem } from '@mui/material';
+
+
 
 const styles = {
   Card: {
     width: "100%",
-    height: "40vh",
-    maxHeight: "40vh",
-    backgroundColor: "#04101E",
+    height: "70vh",
+    maxHeight: "70vh",
+    backgroundColor: "#000",
     color: "white",
     borderRadius: "26px",
     border: "1px solid white",
     boxSizing: "border-box",
+    marginTop: "10px"
   },
   headerRow: {
     display: "flex",
@@ -30,6 +35,7 @@ const styles = {
     color: "white",
     // width: "100%",
     overflow: "hidden",
+    backgroundColor: "#000",
   },
   titleText: {
     color: "white",
@@ -58,7 +64,7 @@ const styles = {
     width: "100%",
     height: "100%",
     overflow: "auto", // Add overflow to allow scrolling if content exceeds height
-    backgroundColor: "#04101E",
+    backgroundColor: "#000",
   },
   row: {
     display: "flex",
@@ -67,7 +73,7 @@ const styles = {
     boxSizing: "border-box",
     width: "fit-content",
     color: "white",
-    backgroundColor: "#04101E",
+    backgroundColor: "#000",
     // backgroundColor: "red",
   },
   bigCell: {
@@ -83,7 +89,7 @@ const styles = {
     fontSize: "12px",
     padding: "10px",
     fontWeight: 600,
-    backgroundColor: "#04101E",
+    backgroundColor: "#000",
   },
   cell: {
     display: "flex",
@@ -99,7 +105,7 @@ const styles = {
     padding: "10px",
     fontWeight: 600,
     alignItems: "center",
-    backgroundColor: "#04101E",
+    backgroundColor: "#000",
   },
   bigInput: {
     display: "flex",
@@ -109,7 +115,7 @@ const styles = {
     fontSize: "12px",
     fontWeight: 600,
     color: "white",
-    backgroundColor: "#04101E",
+    backgroundColor: "#000",
   },
   input: {
     display: "flex",
@@ -119,7 +125,7 @@ const styles = {
     fontSize: "12px",
     fontWeight: 600,
     color: "white",
-    backgroundColor: "#04101E",
+    backgroundColor: "#000",
   },
   Button: {
     cursor: "pointer",
@@ -150,7 +156,7 @@ const styles = {
   },
   dropdown: {
     marginRight: "10px",
-    backgroundColor: "#04101E",
+    backgroundColor: "#000",
     maxWidth: '150px',
   },
 };
@@ -167,11 +173,16 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const API_URL = process.env.REACT_APP_API_URL;
 
+
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedRoom, setSelectedRoom] = useState("");
   const [selectedItem, setSelectedItem] = useState("");
   const [selectedClass, setSelectedClass] = useState("");
   const [selectedSubclass, setSelectedSubclass] = useState("");
+
+  const navigate = useNavigate();
+
+
 
   useEffect(() => {
     // Call the filtering function when searchQuery or dropdown selections change
@@ -185,6 +196,12 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
     selectedClass,
     selectedSubclass,
   ]);
+
+  const handleReconcileGoClick = (projectId) => {
+    // Handle button click to navigate to new page with projectId
+
+    navigate(`/ReconcileGoPayment?projectId=${projectDetails.project.id}`); // Navigate to "/ReconcileGoPayment" route with projectId in URL params
+  };
 
   const populateDropdowns = () => {
     const roomSet = new Set();
@@ -239,6 +256,53 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
     });
   };
 
+  const updateQuestionableStatus = async (index) => {
+    console.log("Button pressed");
+
+    try {
+      // Get the current project data
+      const updatedProject = { ...projectDetails.project };
+
+      // Check if the index is valid
+      if (index < 0 || index >= updatedProject.spreadsheetData.length) {
+        console.error("Invalid index");
+        return;
+      }
+
+      // Update the Questionable status for the specific row
+      updatedProject.spreadsheetData[index].Questionable = false;
+
+      // Prepare the data to send
+      const dataToSend = {
+        projectId: updatedProject.id,
+        spreadsheetData: updatedProject.spreadsheetData
+      };
+
+      // Construct the API URL with the '/npc/verify' path
+      const url = `${API_URL}/npc/verify`;
+
+      // Send a POST request to update the project in the database
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(dataToSend),
+      });
+
+      if (response.ok) {
+        console.log(`Item at index ${index} updated successfully`);
+        window.location.reload();
+      } else {
+        console.error(`Failed to update item at index ${index}`);
+      }
+    } catch (error) {
+      console.error("An error occurred while updating the item:", error);
+    }
+  };
+
+
+
   // Call the function to populate dropdowns on page load
   useEffect(() => {
     populateDropdowns();
@@ -271,7 +335,7 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
-    console.log("T", searchQuery);
+
   };
 
   const handleRoomChange = (e) => {
@@ -296,7 +360,7 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
       JSON.stringify(projectDetails)
     );
     setOriginalProjectDetails(originalProjectDetailsCopy);
-    console.log("Original Project Details set:", originalProjectDetailsCopy);
+
   }, []);
 
   useEffect(() => {
@@ -355,8 +419,7 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
       const updatedProjectDetails = { ...projectDetails };
       updatedProjectDetails.project.spreadsheetData[index]["Quantity"] = value;
       setProjectDetails(updatedProjectDetails);
-      console.log(originalProjectDetails);
-      console.log(projectDetails);
+
       setDataChanged(true);
     }
   };
@@ -367,12 +430,7 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
     updatedProjectDetails.project.spreadsheetData[index][
       "DepreciationDisplay"
     ] = value;
-    console.log(
-      "1: ",
-      updatedProjectDetails.project.spreadsheetData[index][
-        "DepreciationDisplay"
-      ]
-    );
+
 
     // Update the actual depreciation value based on the user's input
     const newDepreciation = parseFloat(value) / 100; // Convert the input value to a decimal fraction
@@ -502,7 +560,7 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
       // Assuming you have the necessary attributes available:
       const originalSpreadsheetData =
         originalProjectDetails.project.spreadsheetData;
-      console.log("Original Project Details:", originalSpreadsheetData);
+
 
       const userFirstName = userData.firstName;
 
@@ -604,6 +662,35 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
     document.body.removeChild(a);
   };
 
+  const calculateRCVAvg = (high, low) => {
+    const avg = (Number(high) + Number(low)) / 2;
+    //console.log(avg.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,"));
+    return avg.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
+  };
+
+  const calculateRCVExt = (high, low, quantity) => {
+    const avg = (Number(high) + Number(low)) / 2;
+    const ext = avg * quantity;
+    //console.log(ext.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,"));
+    return ext.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
+  };
+
+  const calculateSalesTaxAmount = (salesTax, high, low, quantity) => {
+    const avg = (Number(high) + Number(low)) / 2;
+    const ext = avg * quantity;
+    const taxAmount = (salesTax / 100) * ext;
+    return taxAmount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
+  };
+
+  const calculateRCVTotal = (salesTax, high, low, quantity) => {
+    const avg = (Number(high) + Number(low)) / 2;
+    const ext = avg * quantity;
+    const taxAmount = (salesTax / 100) * ext;
+    const total = ext + taxAmount;
+    return total.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
+  };
+
+
   // Define a function to calculate total depreciation
   const calculateDepreciationAmount = (item, projectDetails) => {
     const rcvTotal =
@@ -620,7 +707,7 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
       (projectDetails.project.salesTax / 100) *
       (((Number(item["RCV High"]) + Number(item["RCV Low"])) / 2) *
         item.Quantity);
-    return (rcvTotal * (depreciationFactor / 100)).toFixed(2);
+    return ((rcvTotal + salesTaxAmount) * (depreciationFactor / 100)).toFixed(2);
   };
 
   // Define a function to calculate ACV Total
@@ -633,21 +720,24 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
       item.Depreciation * 100 * projectDetails.project.depreciationRange;
     // Ensure that the depreciation factor does not exceed 100
     depreciationFactor = Math.min(depreciationFactor, 100);
-    const depreciationAmount = rcvTotal * (depreciationFactor / 100);
     const salesTaxAmount =
       (projectDetails.project.salesTax / 100) *
       (((Number(item["RCV High"]) + Number(item["RCV Low"])) / 2) *
         item.Quantity);
-    return ((rcvTotal - depreciationAmount) + salesTaxAmount).toFixed(2);
+    const depreciationAmount = (rcvTotal + salesTaxAmount) * (depreciationFactor / 100);
+
+    return ((rcvTotal + salesTaxAmount) - depreciationAmount).toFixed(2);
   };
+
+  const sortedData = filterData().sort((a, b) => {
+    return b.Questionable - a.Questionable;
+  });
 
   return (
     <div style={styles.Card}>
-      <div style={{ width: "100%", overflow: "auto" }}>
+      <div style={{ width: "100%", overflow: "auto", borderRadius: "26px" }}>
         <div style={styles.headerRow} className="headerRow">
-          <div style={styles.titleText} className="titleText">
-            Contents Inventory
-          </div>
+          
           {error && (
             <div style={{ color: "red", marginLeft: "10px" }}>
               {errorMessage}
@@ -662,7 +752,7 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
               placeholder="Search contents..."
               value={searchQuery}
               onChange={handleSearchChange}
-              style={{ flex: 1, marginRight: "10px" }}
+              style={{ flex: 1, marginRight: "10px", background: "#000", }}
             />
             <select
               id="roomFilter"
@@ -695,6 +785,20 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
           </div>
 
           <div className="buttons">
+            {/* 
+<div style={{ display: "inline-block" }}>
+  <button
+    style={{
+      ...styles.Button,
+    }}
+    onClick={handleReconcileGoClick}
+    className="saveBtn"
+  >
+    ReconcileGo
+  </button>
+</div>
+*/}
+
             <div style={{ display: "inline-block" }}>
               <motion.div
                 animate={
@@ -746,8 +850,9 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
 
       <div style={{ ...styles.spreadsheetContainer }}>
         <div style={styles.spreadsheet}>
-        <div style={{ ...styles.row, position: 'sticky', top: 0, backgroundColor: 'white', zIndex: 1 }}>
-        <div style={styles.cell}>Line</div>
+          <div style={{ ...styles.row, position: 'sticky', top: 0, backgroundColor: 'white', zIndex: 1 }}>
+            <div style={styles.cell}>Line</div>
+            <div style={styles.cell}>Confidence</div>
             <div style={styles.cell}>Room</div>
             <div style={styles.cell}>Item</div>
             <div style={styles.bigCell}>Description</div>
@@ -767,7 +872,7 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
             <div style={styles.cell}>Class</div>
           </div>
           {/* Render data rows */}
-          {filterData().map((item, index) => (
+          {sortedData.map((item, index) => (
             <div
               key={index}
               style={{
@@ -776,7 +881,37 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
               }}
             >
               <div style={styles.cell}>{index + 1}</div>
-              <div style={{ ...styles.cell }}>
+              <div style={styles.cell}>
+                {item.Questionable ? (
+                  <div style={{ display: 'flex', alignItems: 'center', color: 'orange' }}>
+                    <span>Pending</span>
+                    <button
+                      style={{
+                        marginLeft: '10px',
+                        padding: '4px 10px',
+                        backgroundColor: '#4CAF50',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '4px',
+                        cursor: 'pointer',
+                        boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.2)',
+                        fontSize: '14px',
+                        transition: 'background-color 0.3s ease',
+                      }}
+                      onClick={() => updateQuestionableStatus(item.originalIndex)}
+                      onMouseOver={(e) => (e.target.style.backgroundColor = '#45a049')}
+                      onMouseOut={(e) => (e.target.style.backgroundColor = '#4CAF50')}
+                    >
+                      VERIFY
+                    </button>
+
+                  </div>
+                ) : (
+                  <span style={{ color: '#66BB6A' }}>Meets Criteria</span>
+
+                )}
+              </div>
+              <div style={styles.cell}>
                 <input
                   style={styles.input}
                   value={item.Room}
@@ -853,20 +988,12 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
                 />
               </div>
               <div style={styles.cell}>
-                $
-                {((Number(item["RCV High"]) + Number(item["RCV Low"])) / 2)
-                  .toFixed(2)
-                  .replace(/\d(?=(\d{3})+\.)/g, "$&,")}
+                ${calculateRCVAvg(item["RCV High"], item["RCV Low"])}
               </div>
               <div style={styles.cell}>
-                $
-                {(
-                  ((Number(item["RCV High"]) + Number(item["RCV Low"])) / 2) *
-                  item.Quantity
-                )
-                  .toFixed(2)
-                  .replace(/\d(?=(\d{3})+\.)/g, "$&,")}
+                ${calculateRCVExt(item["RCV High"], item["RCV Low"], item.Quantity)}
               </div>
+
               <div style={styles.cell}>
                 {typeof projectDetails.project.salesTax === "number"
                   ? projectDetails.project.salesTax
@@ -874,28 +1001,18 @@ const CardContents = ({ projectDetails, setProjectDetails, onFilter }) => {
                 %
               </div>
               <div style={styles.cell}>
-                $
-                {(
-                  (projectDetails.project.salesTax / 100) *
-                  (((Number(item["RCV High"]) + Number(item["RCV Low"])) / 2) *
-                    item.Quantity)
-                )
-                  .toFixed(2)
-                  .replace(/\d(?=(\d{3})+\.)/g, "$&,")}
+                ${calculateSalesTaxAmount(projectDetails.project.salesTax, item["RCV High"], item["RCV Low"], item.Quantity)}
               </div>
+
               <div style={styles.cell}>
-                $
-                {(
-                  ((Number(item["RCV High"]) + Number(item["RCV Low"])) / 2) *
-                    item.Quantity +
-                  (projectDetails.project.salesTax / 100) *
-                    (((Number(item["RCV High"]) + Number(item["RCV Low"])) /
-                      2) *
-                      item.Quantity)
-                )
-                  .toFixed(2)
-                  .replace(/\d(?=(\d{3})+\.)/g, "$&,")}
+                ${calculateRCVTotal(
+                  projectDetails.project.salesTax,
+                  item["RCV High"],
+                  item["RCV Low"],
+                  item.Quantity
+                )}
               </div>
+
               <div style={styles.cell}>
                 <input
                   style={styles.input}

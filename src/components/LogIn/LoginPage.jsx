@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { motion } from "framer-motion";
 import "./Login.css";
-import { AiFillHome } from "react-icons/ai";
+import { AiFillHome, AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 const LogInPage = () => {
   const [email, setEmail] = useState("");
@@ -14,6 +14,7 @@ const LogInPage = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState(""); // State for error message
   const [authenticated, setAuthenticated] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const API_URL = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
   const isSmallScreen = useMediaQuery({ maxWidth: 1250 });
@@ -45,6 +46,11 @@ const LogInPage = () => {
       const response = await axios.post(`${API_URL}/auth/login`, {
         email,
         password,
+      }, {
+        headers: {
+          "ngrok-skip-browser-warning": "69420",
+          "Content-Type": "application/json", // Add other headers as needed
+        }
       });
       console.log("Login response:", response); // Log the entire response object
       if (response.status === 200) {
@@ -96,6 +102,10 @@ const LogInPage = () => {
     navigate("/");
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <div className="loginPage">
       <div
@@ -115,23 +125,18 @@ const LogInPage = () => {
         <form action="" className="loginForm" onSubmit={handleLogin}>
           {/* <div className="loginForm"> */}
           <div className="Logo">
-            <motion.div
-              style={{ height: "100%" }}
-              initial={{ scale: 0 }} // Initial scale is 0
-              animate={{ scale: 1 }} // Animate to scale 1
-              transition={{ duration: 1.0 }} // Transition duration
-            >
+            
               <img
                 // src="https://assets.api.uizard.io/api/cdn/stream/d661662c-a6d2-4ac0-bb25-6af76fb995bd.png"
                 src="ContentsIQ.png"
                 className="form-logo"
               />
-            </motion.div>
+            
           </div>
           <div className="formContent">
             <div className="form-header">
               <h1>Welcome Back</h1>
-              <p>Enter your details to start valuing your content</p>
+              <p>Enter your details to start valuing your contents</p>
             </div>
 
             {/* Error message */}
@@ -150,14 +155,22 @@ const LogInPage = () => {
               />
             </div>
             <div className="input-column">
-              <label>Password:</label>
-              <input
-                type="password"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
+  <label>Password:</label>
+  <div className="password-input-container">
+    <input
+      type={showPassword ? "text" : "password"}
+      required
+      value={password}
+      onChange={(e) => setPassword(e.target.value)}
+    />
+    <span
+      className="password-toggle-icon"
+      onClick={togglePasswordVisibility}
+    >
+      {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
+    </span>
+  </div>
+</div>
             <div className="remember-me">
               <div className="remember-box">
                 <label>Remember me</label>
@@ -169,16 +182,11 @@ const LogInPage = () => {
               </div>
               <Link to="/forgotpassword">Forgot your password?</Link>
             </div>
-            <motion.div
-              initial={{ scale: 0 }} // Initial scale is 0
-              animate={{ scale: 1 }} // Animate to scale 1
-              transition={{ duration: 1.0 }} // Transition duration
-              whileHover={{ scale: 1.1 }} // Scale up to 1.1 when hovered
-            >
+            
               <button className="formBtn" type="submit">
                 Log in
               </button>
-            </motion.div>
+            
             <p className="signupLink">
               I don't have an account yet. <Link to="/signup">Sign up</Link>
             </p>
