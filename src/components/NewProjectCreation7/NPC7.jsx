@@ -34,7 +34,7 @@ import CheckoutForm from "./CheckoutForm";
 import { RiArrowGoBackFill } from "react-icons/ri";
 
 const stripePromise = loadStripe(
-  "pk_test_51NiiAZCjhYpSpOvRGjQmKbqADIMOaR1nvbnfy4UNdQ7d39Y9hkuMth2JT7WicwuuxcYDHLfCjBmJ7X5HYDLNMw2B00OpdnRxnO"
+  'pk_live_51NiiAZCjhYpSpOvRYHdj3qEdhntOpSOBOJNDfpWPCtkt0LaQeFFTrOLiST84qs0I4lB4x0KoXXiYYj86G41Jsrpb00rO4mbdbE'
 );
 
 const NPC7 = ({
@@ -49,7 +49,7 @@ const NPC7 = ({
   const [totalPrice, setTotalPrice] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [validationErrors, setValidationErrors] = useState(false);
-  const [useTestMode, setUseTestMode] = useState(true);
+  const [useTestMode, setUseTestMode] = useState(false);
   const [creditCardInfo, setCreditCardInfo] = useState({
     cardholderName: "",
     cardNumber: "",
