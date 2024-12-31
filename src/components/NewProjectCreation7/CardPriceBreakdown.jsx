@@ -27,7 +27,7 @@ const styles = {
   },
   TableCell: {
     borderBottom: "1px solid #dddddd",
-    padding: "7px",
+    padding: "5px",
   },
   TableCellLast: {
     padding: "10px",
