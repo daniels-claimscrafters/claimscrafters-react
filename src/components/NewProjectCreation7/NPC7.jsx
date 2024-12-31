@@ -33,9 +33,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "./CheckoutForm";
 import { RiArrowGoBackFill } from "react-icons/ri";
 
-const stripePromise = loadStripe(
-  'pk_live_51NiiAZCjhYpSpOvRYHdj3qEdhntOpSOBOJNDfpWPCtkt0LaQeFFTrOLiST84qs0I4lB4x0KoXXiYYj86G41Jsrpb00rO4mbdbE'
-);
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY);
 
 const NPC7 = ({
   updateLoadingState,
