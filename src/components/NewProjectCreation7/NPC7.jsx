@@ -146,14 +146,8 @@ const NPC7 = ({
 
   // Update the total price whenever the number of lines changes
   useEffect(() => {
-    // Hard-code the total price to "1.00" for testing
-    setTotalPrice("1.00"); // Use a string formatted with two decimal places
-  
-    // Original logic (commented out for testing purposes)
-    /*
     const newTotalPrice = calculateTotalPrice(numberOfLines);
     setTotalPrice(newTotalPrice.toFixed(2)); // Ensure consistent formatting
-    */
   }, [numberOfLines]);
   
 
